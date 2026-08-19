@@ -49,7 +49,9 @@ Pour affichage sur la carte :
 
 Une ligne par `(spot, modèle, échéance)`, séparateur `;`.
 
-`run_id`, `fetched_at`, `spot_key`, `model_key`, `grid_latitude`, `grid_longitude`, `grid_elevation_m`, `valid_at`, `wind_speed_10m_kmh`, `wind_gusts_10m_kmh`, `wind_direction_10m_deg`, `temperature_2m_c`, `precipitation_mm`, `cloud_cover_max_pct`
+`run_id`, `fetched_at`, `spot_key`, `model_key`, `grid_latitude`, `grid_longitude`, `grid_elevation_m`, `valid_at`, `wind_speed_10m_kn`, `wind_gusts_10m_kn`, `wind_direction_10m_deg`, `temperature_2m_c`, `precipitation_mm`, `cloud_cover_max_pct`
+
+Vent moyen et rafales sont demandés à Open-Meteo en **nœuds** (`wind_speed_unit=kn`), pour tous les modèles.
 
 `cloud_cover_max_pct` est le maximum des couches de nébulosité renvoyées (dont le total s’il existe). Une valeur API `null` devient `0` ; l’extraction continue. Les échéances entièrement vides (fin d’horizon du modèle) sont omises.
 

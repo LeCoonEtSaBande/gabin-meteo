@@ -8,8 +8,8 @@ from config import HOURLY_ALL, HOURLY_CLOUD, ModelSpec
 from spots import Spot
 
 CORE_OUTPUT = {
-    "wind_speed_10m": "wind_speed_10m_kmh",
-    "wind_gusts_10m": "wind_gusts_10m_kmh",
+    "wind_speed_10m": "wind_speed_10m_kn",
+    "wind_gusts_10m": "wind_gusts_10m_kn",
     "wind_direction_10m": "wind_direction_10m_deg",
     "temperature_2m": "temperature_2m_c",
     "precipitation": "precipitation_mm",

@@ -84,7 +84,7 @@ def fetch_locations(
         "forecast_days": model.forecast_days,
         "cell_selection": "nearest",
         "elevation": ",".join(["nan"] * len(locations)),
-        "wind_speed_unit": "kmh",
+        "wind_speed_unit": "kn",
         "timezone": "Europe/Paris",
     }
     payload = _get_json(model.endpoint, params)
