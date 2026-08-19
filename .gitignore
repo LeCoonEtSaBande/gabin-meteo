@@ -7,7 +7,16 @@ Thumbs.db
 .venv/
 venv/
 __pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
 node_modules/
 dist/
 .idea/
 .vscode/
+
+# Scripts locaux de mise en place (jamais sur GitHub)
+scripts-setup/
+
+# Dossier temporaire de rotation des runs
+data/raw/_staging/
