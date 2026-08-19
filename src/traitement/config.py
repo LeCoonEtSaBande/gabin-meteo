@@ -1,4 +1,4 @@
-"""Chaînes de modèles, conversions et chemins du traitement."""
+"""Chaînes de modèles et chemins du traitement."""
 
 from __future__ import annotations
 
@@ -14,7 +14,6 @@ QUOTIDIEN_JSON = PROCESSED_DIR / "quotidien.json"
 LAST_UPDATE_JSON = PROCESSED_DIR / "last_update.json"
 COLLECTE_BRANCH = "collecte-api-meteo"
 
-KMH_PER_KT = 1.852
 WIND_SLOT_KT = 10.0
 TEMP_HOUR = 15
 
@@ -31,10 +30,8 @@ CURVE_COLUMNS = (
     "curve_set",
     "valid_at",
     "source_model",
-    "wind_speed_10m_kmh",
-    "wind_speed_10m_kt",
-    "wind_gusts_10m_kmh",
-    "wind_gusts_10m_kt",
+    "wind_speed_10m_kn",
+    "wind_gusts_10m_kn",
     "wind_direction_10m_deg",
     "temperature_2m_c",
     "precipitation_mm",
@@ -47,7 +44,3 @@ def curve_set_for_short_term(short_term_model: str) -> str:
     if key in {"AROMEHD", "AROMEIFS", "ARPEGE"}:
         return "AROMEIFS"
     return "ICONIFS"
-
-
-def kmh_to_kt(kmh: float) -> float:
-    return kmh / KMH_PER_KT

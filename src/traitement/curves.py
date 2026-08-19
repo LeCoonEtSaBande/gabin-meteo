@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from io import StringIO
 
-from config import CURVE_SETS, kmh_to_kt
+from config import CURVE_SETS
 from io_raw import load_forecasts_csv
 
 
@@ -15,20 +15,12 @@ from io_raw import load_forecasts_csv
 class HourPoint:
     valid_at: datetime
     source_model: str
-    wind_speed_kmh: float
-    wind_gusts_kmh: float
+    wind_speed_kt: float
+    wind_gusts_kt: float
     wind_dir_deg: float
     temperature_c: float
     precipitation_mm: float
     cloud_cover_pct: float
-
-    @property
-    def wind_speed_kt(self) -> float:
-        return kmh_to_kt(self.wind_speed_kmh)
-
-    @property
-    def wind_gusts_kt(self) -> float:
-        return kmh_to_kt(self.wind_gusts_kmh)
 
     @property
     def hour_of_day(self) -> float:
@@ -55,6 +47,12 @@ def _as_float(raw: str | None) -> float:
     return float(text)
 
 
+def _wind_knots(row: dict[str, str], mean: bool) -> float:
+    """Lit le vent déjà en nœuds (colonnes _kn)."""
+    key = "wind_speed_10m_kn" if mean else "wind_gusts_10m_kn"
+    return _as_float(row.get(key))
+
+
 def load_raw_points() -> dict[tuple[str, str], list[HourPoint]]:
     """Index (spot_key, model_key) → points horaires triés."""
     text = load_forecasts_csv()
@@ -72,8 +70,8 @@ def load_raw_points() -> dict[tuple[str, str], list[HourPoint]]:
         point = HourPoint(
             valid_at=valid_at,
             source_model=model,
-            wind_speed_kmh=_as_float(row.get("wind_speed_10m_kmh")),
-            wind_gusts_kmh=_as_float(row.get("wind_gusts_10m_kmh")),
+            wind_speed_kt=_wind_knots(row, mean=True),
+            wind_gusts_kt=_wind_knots(row, mean=False),
             wind_dir_deg=_as_float(row.get("wind_direction_10m_deg")),
             temperature_c=_as_float(row.get("temperature_2m_c")),
             precipitation_mm=_as_float(row.get("precipitation_mm")),
@@ -100,8 +98,8 @@ def splice_curve(model_points: dict[str, list[HourPoint]], models: tuple[str, ..
             HourPoint(
                 valid_at=point.valid_at,
                 source_model=model,
-                wind_speed_kmh=point.wind_speed_kmh,
-                wind_gusts_kmh=point.wind_gusts_kmh,
+                wind_speed_kt=point.wind_speed_kt,
+                wind_gusts_kt=point.wind_gusts_kt,
                 wind_dir_deg=point.wind_dir_deg,
                 temperature_c=point.temperature_c,
                 precipitation_mm=point.precipitation_mm,
