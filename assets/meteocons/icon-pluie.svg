@@ -9,9 +9,12 @@
 </g>
 <g id="Precipitation">
 <g id="Raindrops">
-<path id="Raindrop 1" d="M52 83V95" stroke="#0A5AD4" stroke-width="4" stroke-linecap="round" transform="translate(0, 8)"/>
-<path id="Raindrop 2" d="M64 83V95" stroke="#0A5AD4" stroke-width="4" stroke-linecap="round" transform="translate(0, 0)"/>
-<path id="Raindrop 3" d="M76 83V95" stroke="#0A5AD4" stroke-width="4" stroke-linecap="round" transform="translate(0, 8)"/>
+<path d="M50 88V118" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+<path d="M64 80V110" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+<path d="M78 88V118" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+<path id="Raindrop 1" d="M50 88V118" stroke="#0A5AD4" stroke-width="7" stroke-linecap="round"/>
+<path id="Raindrop 2" d="M64 80V110" stroke="#0A5AD4" stroke-width="7" stroke-linecap="round"/>
+<path id="Raindrop 3" d="M78 88V118" stroke="#0A5AD4" stroke-width="7" stroke-linecap="round"/>
 </g>
 </g>
 </g>

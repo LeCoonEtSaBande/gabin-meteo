@@ -7,8 +7,9 @@
 </g>
 </g>
 </g>
-<g id="Lightning">
-<path id="Lightning Bolt" d="M71.1729 68.5L63.5566 83.041L63.1729 83.7725H75.002L56.9521 107.892L60.4893 91.0117L60.6162 90.4092H52.7041L60.3555 68.5H71.1729Z" fill="url(#paint1_linear_1858_9911)" stroke="#F6A823" stroke-miterlimit="10"/>
+<g id="Lightning" transform="translate(63.8 88.2) scale(1.28) translate(-63.8 -88.2)">
+<path d="M71.1729 68.5L63.5566 83.041L63.1729 83.7725H75.002L56.9521 107.892L60.4893 91.0117L60.6162 90.4092H52.7041L60.3555 68.5H71.1729Z" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<path id="Lightning Bolt" d="M71.1729 68.5L63.5566 83.041L63.1729 83.7725H75.002L56.9521 107.892L60.4893 91.0117L60.6162 90.4092H52.7041L60.3555 68.5H71.1729Z" fill="url(#paint1_linear_1858_9911)" stroke="#E65100" stroke-width="2.5" stroke-linejoin="round" stroke-miterlimit="10"/>
 </g>
 </g>
 <defs>
@@ -17,8 +18,8 @@
 <stop offset="1" stop-color="#E6EFFC"/>
 </linearGradient>
 <linearGradient id="paint1_linear_1858_9911" x1="64.528" y1="66.0377" x2="84.4144" y2="77.4572" gradientUnits="userSpaceOnUse">
-<stop stop-color="#F7B23B"/>
-<stop offset="1" stop-color="#F6A823"/>
+<stop stop-color="#FFE082"/>
+<stop offset="1" stop-color="#FF8F00"/>
 </linearGradient>
 <clipPath id="clip0_1858_9911">
 <rect width="128" height="128" fill="white"/>
