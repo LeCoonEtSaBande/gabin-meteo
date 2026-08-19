@@ -7,7 +7,12 @@ Thumbs.db
 .venv/
 venv/
 __pycache__/
+*.py[cod]
 node_modules/
 dist/
 .idea/
 .vscode/
+scripts-setup/
+data/raw/
+_collecte/
+_web/
