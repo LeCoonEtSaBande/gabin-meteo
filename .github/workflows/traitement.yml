@@ -1,0 +1,79 @@
+# Traitement puis publication de la carte quotidienne.
+# Déclenché après un run de collecte réussi, ou à la main.
+name: Traitement et affichage
+
+on:
+  workflow_run:
+    workflows: ["Collecte Open-Meteo"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout traitement-donnees
+        uses: actions/checkout@v5
+        with:
+          ref: traitement-donnees
+
+      - name: Checkout des bruts de collecte
+        uses: actions/checkout@v5
+        with:
+          ref: collecte-api-meteo
+          path: _collecte
+
+      - name: Recopier bruts et spécifications
+        run: |
+          mkdir -p data assets
+          rm -rf data/raw
+          cp -a _collecte/data/raw data/raw
+          rm -rf assets/spots_specs
+          cp -a _collecte/assets/spots_specs assets/spots_specs
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Assembler courbes et JSON quotidien
+        run: python src/traitement/run.py
+
+      - name: Publier le traitement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/processed
+          if git diff --cached --quiet; then
+            echo "Aucune courbe nouvelle."
+          else
+            git commit -m "Traitement Open-Meteo $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push origin HEAD:traitement-donnees
+          fi
+
+      - name: Checkout affichage-web
+        uses: actions/checkout@v5
+        with:
+          ref: affichage-web
+          path: _web
+
+      - name: Publier le JSON sur la carte
+        run: |
+          mkdir -p _web/data/processed
+          cp data/processed/quotidien.json _web/data/processed/quotidien.json
+          cp data/processed/last_update.json _web/data/processed/last_update.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C _web add data/processed/quotidien.json data/processed/last_update.json
+          if git -C _web diff --cached --quiet; then
+            echo "Carte déjà à jour."
+            exit 0
+          fi
+          git -C _web commit -m "Mise à jour carte $(date -u +%Y-%m-%dT%H:%MZ)"
+          git -C _web push origin HEAD:affichage-web
