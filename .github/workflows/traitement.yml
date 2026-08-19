@@ -68,8 +68,8 @@ jobs:
           mkdir -p _web/data/processed
           cp data/processed/quotidien.json _web/data/processed/quotidien.json
           cp data/processed/last_update.json _web/data/processed/last_update.json
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C _web config user.name "github-actions[bot]"
+          git -C _web config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git -C _web add data/processed/quotidien.json data/processed/last_update.json
           if git -C _web diff --cached --quiet; then
             echo "Carte déjà à jour."
