@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gabin-météo — vue quotidienne</title>
+  <style>
+    html, body {
+      margin: 0;
+      background: #1e1e1e;
+      color: #e6e6e6;
+      font-family: ui-monospace, "SF Mono", Menlo, "Cascadia Mono", Consolas, monospace;
+      min-height: 100%;
+    }
+    #app {
+      width: 100%;
+      max-width: 804px;
+      margin: 0 auto;
+    }
+    #app svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #status {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #b29f84;
+    }
+    .day-nav { cursor: pointer; }
+    .day-nav.is-disabled {
+      cursor: default;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <p id="status">Chargement de la carte…</p>
+  <div id="app"></div>
+  <script src="js/quotidien.js"></script>
+</body>
+</html>
