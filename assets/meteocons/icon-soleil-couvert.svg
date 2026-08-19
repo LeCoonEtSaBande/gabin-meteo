@@ -1,7 +1,7 @@
 <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="partly-cloudy-day" clip-path="url(#clip0_1858_8241)">
 <g id="Sky">
-<g id="Sun">
+<g id="Sun" transform="translate(39 51) scale(1.45) translate(-39 -51)">
 <circle id="Core" cx="39" cy="51" r="8.5" fill="url(#paint0_linear_1858_8241)" stroke="#F8AF18"/>
 <g id="Rays">
 <path d="M37.6875 31.3125C37.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/>
