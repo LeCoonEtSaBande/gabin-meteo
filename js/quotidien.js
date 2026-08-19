@@ -47,8 +47,21 @@ const PLACEHOLDER = {
   gust: "00",
   temp: "00°C",
   slot: "(00h -00h)",
+  model: "XXXXX",
   color: "#e6e6e6",
 };
+
+const MODEL_SHORT = {
+  AROMEHD: "AROHD",
+  ARPEGE: "ARPEG",
+  ICONCH1: "ICO1",
+  ICONCH2: "ICO2",
+  ICON13KM: "ICO13",
+  IFS: "IFS",
+  GFS: "GFS",
+};
+
+const ICON_SIZE = 40;
 
 let svgRoot = null;
 let dataset = null;
@@ -143,6 +156,17 @@ function spotGroups(root) {
   );
 }
 
+function modelLabel(key) {
+  if (!key) return PLACEHOLDER.model;
+  return MODEL_SHORT[key] || String(key).slice(0, 5);
+}
+
+function styleModele(el) {
+  if (!el) return;
+  el.setAttribute("font-style", "italic");
+  el.setAttribute("font-weight", "300");
+}
+
 function iconHref(key) {
   const file = ICON_FILES[key] || ICON_FILES.couvert;
   return `${ICON_DIR}/${file}`;
@@ -150,17 +174,20 @@ function iconHref(key) {
 
 function ensureWeatherIcon(tendance) {
   let image = tendance.querySelector("image.weather-icon");
-  if (image) return image;
   const neb = findLayer(tendance, "Nebulosite");
   const box = neb ? neb.getBBox() : { x: 0, y: 0, width: 28.75, height: 28.75 };
-  image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-  image.classList.add("weather-icon");
-  image.setAttribute("x", String(box.x));
-  image.setAttribute("y", String(box.y));
-  image.setAttribute("width", String(box.width));
-  image.setAttribute("height", String(box.height));
-  image.setAttribute("preserveAspectRatio", "xMidYMid meet");
-  tendance.appendChild(image);
+  const cx = box.x + box.width / 2;
+  const cy = box.y + box.height / 2;
+  if (!image) {
+    image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    image.classList.add("weather-icon");
+    image.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    tendance.appendChild(image);
+  }
+  image.setAttribute("x", String(cx - ICON_SIZE / 2));
+  image.setAttribute("y", String(cy - ICON_SIZE / 2));
+  image.setAttribute("width", String(ICON_SIZE));
+  image.setAttribute("height", String(ICON_SIZE));
   return image;
 }
 
@@ -169,11 +196,14 @@ function resetSpot(tendance) {
   setTspanText(findLayer(tendance, "Rafales Max"), PLACEHOLDER.gust);
   setTspanText(findLayer(tendance, "Temperature 15h"), PLACEHOLDER.temp);
   setTspanText(findLayer(tendance, "(00h -00h)"), PLACEHOLDER.slot);
+  setTspanText(findLayer(tendance, "Modele"), PLACEHOLDER.model);
   setFill(findLayer(tendance, "Moyenne Max"), PLACEHOLDER.color);
   setFill(findLayer(tendance, "Rafales Max"), PLACEHOLDER.color);
   setFill(findLayer(tendance, "Temperature 15h"), PLACEHOLDER.color);
   setFill(findLayer(tendance, "Nds"), PLACEHOLDER.color);
   setFill(findLayer(tendance, "(00h -00h)"), PLACEHOLDER.color);
+  setFill(findLayer(tendance, "Modele"), PLACEHOLDER.color);
+  styleModele(findLayer(tendance, "Modele"));
   setFill(findLayer(tendance, "Direction Vent Moy Max"), PLACEHOLDER.color);
   const arrow = findLayer(tendance, "Direction Vent Moy Max");
   if (arrow) arrow.removeAttribute("transform");
@@ -194,12 +224,16 @@ function applySpot(tendance, day) {
     day.temp_15h_c == null ? PLACEHOLDER.temp : `${day.temp_15h_c}°C`
   );
   setTspanText(findLayer(tendance, "(00h -00h)"), day.slot_label || "");
+  const modeleEl = findLayer(tendance, "Modele");
+  setTspanText(modeleEl, modelLabel(day.source_model_at_max));
+  styleModele(modeleEl);
 
   setFill(findLayer(tendance, "Moyenne Max"), meanColor);
   setFill(findLayer(tendance, "Rafales Max"), gustColor);
   setFill(findLayer(tendance, "Temperature 15h"), tempColor);
   setFill(findLayer(tendance, "Nds"), meanColor);
   setFill(findLayer(tendance, "(00h -00h)"), meanColor);
+  setFill(modeleEl, meanColor);
 
   const arrow = findLayer(tendance, "Direction Vent Moy Max");
   if (arrow) {
