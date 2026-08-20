@@ -135,9 +135,6 @@ text, tspan {
 <text fill="#c8c8c8" font-family="ui-monospace, 'SF Mono', Menlo, 'Cascadia Mono', Consolas, monospace" font-size="18" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 101.924 408.334)" vectornator:layerName="Villes_txt_Villefranche-sur-Saône" vectornator:width="200" x="0" y="0">
 <tspan lengthAdjust="spacingAndGlyphs" textLength="182.016" x="0" y="17.136">Villefranche-sur-Saône</tspan>
 </text>
-<text fill="#c8c8c8" font-family="ui-monospace, 'SF Mono', Menlo, 'Cascadia Mono', Consolas, monospace" font-size="18" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 135.44 245.029)" vectornator:layerName="Villes_txt_Macon" vectornator:width="200" x="0" y="0">
-<tspan lengthAdjust="spacingAndGlyphs" textLength="55.35" x="0" y="17.136">Mâcon</tspan>
-</text>
 </g>
 <g opacity="1" vectornator:layerName="Zones_dinteret">
 <g opacity="1" vectornator:layerName="Z_bourget">

@@ -59,7 +59,7 @@ const PRIMARY_SPOT = {
   grand_large: "wwmeyzieu",
 };
 
-/* Centre de puce en coordonnées SVG, calé au cas par cas. */
+/* Centre de puce en coordonnées SVG, calé au cas par cas (PC). */
 const CHIP_POS = {
   leman_grand_lac: { x: 748, y: 188 },
   leman_petit_lac: { x: 575, y: 268 },
@@ -72,6 +72,16 @@ const CHIP_POS = {
   valence: { x: 58, y: 1038 },
   laffrey: { x: 588, y: 958 },
   monteynard: { x: 368, y: 1048 },
+};
+
+/* Recalages iPhone uniquement : ne pas réutiliser sur PC. */
+const CHIP_POS_MOBILE = {
+  leman_grand_lac: { x: 640, y: 200 },
+  leman_petit_lac: { x: 520, y: 300 },
+  annecy: { x: 690, y: 500 },
+  valence: { x: 155, y: 990 },
+  chasse_sur_rhone: { x: 110, y: 640 },
+  saone: { x: 220, y: 250 },
 };
 
 let svgRoot = null;
@@ -148,19 +158,51 @@ function svgToPane(x, y) {
 }
 
 function arrowSvg(deg, color) {
-  return `<svg class="chip-dir" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${deg}deg)">
-    <path d="M5 0 L10 14 L5 10 L0 14 Z" fill="${color}"></path>
+  return `<svg class="chip-dir" viewBox="0 0 12 18" aria-hidden="true" style="transform:rotate(${deg}deg)">
+    <path d="M6 0 L12 18 L6 13 L0 18 Z" fill="${color}"></path>
   </svg>`;
+}
+
+function isDesktop() {
+  return window.matchMedia("(min-width: 960px)").matches;
+}
+
+function chipPos(zoneKey) {
+  if (!isDesktop() && CHIP_POS_MOBILE[zoneKey]) return CHIP_POS_MOBILE[zoneKey];
+  return CHIP_POS[zoneKey];
+}
+
+function clampChips() {
+  const pane = document.getElementById("map-pane");
+  const host = document.getElementById("chips");
+  if (!pane || !host) return;
+  const box = pane.getBoundingClientRect();
+  const pad = 6;
+  for (const btn of host.querySelectorAll(".chip")) {
+    const r = btn.getBoundingClientRect();
+    let dx = 0;
+    let dy = 0;
+    if (r.left < box.left + pad) dx = box.left + pad - r.left;
+    if (r.right > box.right - pad) dx += box.right - pad - r.right;
+    if (r.top < box.top + pad) dy = box.top + pad - r.top;
+    if (r.bottom > box.bottom - pad) dy += box.bottom - pad - r.bottom;
+    if (!dx && !dy) continue;
+    btn.style.left = `${parseFloat(btn.style.left) + dx}px`;
+    btn.style.top = `${parseFloat(btn.style.top) + dy}px`;
+  }
 }
 
 function renderChips() {
   const host = document.getElementById("chips");
+  const legend = document.getElementById("map-legend");
   if (!host || !svgRoot || !dataset) return;
   const iso = dayKeys[dayIndex];
   host.innerHTML = "";
+  if (legend) legend.hidden = viewMode !== "daily";
   if (viewMode !== "daily") return;
 
-  for (const [zoneKey, pos] of Object.entries(CHIP_POS)) {
+  for (const zoneKey of Object.keys(CHIP_POS)) {
+    const pos = chipPos(zoneKey);
     const spotKey = PRIMARY_SPOT[zoneKey];
     const day = dataset.spots[spotKey]?.days?.[iso];
     const usable = isUsableSession(day);
@@ -172,33 +214,33 @@ function renderChips() {
     btn.style.left = `${pt.x}px`;
     btn.style.top = `${pt.y}px`;
 
-    const mean = usable ? String(day.mean_max_kt) : "—";
+    const mutedCol = "var(--muted)";
+    const hasWind = day && day.mean_max_kt != null;
+    const mean = hasWind ? String(day.mean_max_kt) : "—";
+    const meanCol = usable ? windColor(day.mean_max_kt) : mutedCol;
     const gust = usable ? String(day.gust_at_mean_max_kt) : "";
-    const meanCol = usable ? windColor(day.mean_max_kt) : "var(--muted)";
-    const gustCol = usable ? gustColor(day.gust_at_mean_max_kt) : "var(--muted)";
-    const temp = day?.temp_15h_c == null ? "" : `${day.temp_15h_c}°`;
-    const tCol = day?.temp_15h_c == null ? "var(--muted)" : tempColor(day.temp_15h_c);
+    const gustCol = usable ? gustColor(day.gust_at_mean_max_kt) : mutedCol;
+    const temp = usable && day?.temp_15h_c != null ? `${day.temp_15h_c}°` : "";
+    const tCol = day?.temp_15h_c == null ? mutedCol : tempColor(day.temp_15h_c);
     const slot = usable ? day.slot_label || "" : "";
     const model = usable ? modelLabel(day.source_model_at_max) : "";
-    const dir = usable ? arrowSvg(day.wind_dir_deg, meanCol) : "";
-    const wx = day?.weather_icon
-      ? `<img class="chip-wx" alt="" src="${iconHref(day.weather_icon)}">`
-      : "";
+    const dir =
+      day && day.wind_dir_deg != null ? arrowSvg(day.wind_dir_deg, meanCol) : "";
+    const wx =
+      usable && day?.weather_icon
+        ? `<img class="chip-wx" alt="" src="${iconHref(day.weather_icon)}">`
+        : "";
 
     btn.innerHTML = `
       <div class="chip-name">${ZONE_LABELS[zoneKey] || zoneKey}</div>
       <div class="chip-row">
         <span class="chip-mean" style="color:${meanCol}">${mean}</span>
         ${gust ? `<span class="chip-gust" style="color:${gustCol}">${gust}</span>` : ""}
-        <span class="chip-unit">nds</span>
         ${dir}
         ${wx}
-        <span class="chip-temp" style="color:${tCol}">${temp}</span>
+        ${temp ? `<span class="chip-temp" style="color:${tCol}">${temp}</span>` : ""}
       </div>
-      <div class="chip-meta">
-        <span>${slot}</span>
-        <span>${model}</span>
-      </div>`;
+      ${usable ? `<div class="chip-meta"><span>${slot}</span><span>${model}</span></div>` : ""}`;
     btn.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -206,6 +248,7 @@ function renderChips() {
     });
     host.appendChild(btn);
   }
+  requestAnimationFrame(clampChips);
 }
 
 function renderDayChrome() {
@@ -244,14 +287,18 @@ function renderDetail() {
     .map((spot) => {
       const day = spot.days?.[iso];
       const usable = isUsableSession(day);
-      const mean = usable ? `${day.mean_max_kt} nds` : "—";
-      const gust = usable ? `${day.gust_at_mean_max_kt} nds` : "—";
+      const mean = day?.mean_max_kt != null ? String(day.mean_max_kt) : "—";
+      const gust = usable ? String(day.gust_at_mean_max_kt) : "—";
       const slot = usable ? day.slot_label : "pas de créneau exploitable";
       const temp = day?.temp_15h_c == null ? "—" : `${day.temp_15h_c} °C`;
+      const meanCol = usable ? windColor(day.mean_max_kt) : "var(--muted)";
+      const dir =
+        day && day.wind_dir_deg != null ? arrowSvg(day.wind_dir_deg, meanCol) : "—";
       return `<article class="spot-card">
         <h3>${spot.display_name}</h3>
         <div class="spot-grid">
-          <span>Vent moyen</span><span style="color:${usable ? windColor(day.mean_max_kt) : "var(--muted)"}">${mean}</span>
+          <span>Vent moyen</span><span style="color:${meanCol}">${mean}</span>
+          <span>Direction</span><span>${dir}</span>
           <span>Rafales</span><span style="color:${usable ? gustColor(day.gust_at_mean_max_kt) : "var(--muted)"}">${gust}</span>
           <span>Créneau</span><span>${slot}</span>
           <span>Temp. 15 h</span><span style="color:${day?.temp_15h_c == null ? "var(--muted)" : tempColor(day.temp_15h_c)}">${temp}</span>
@@ -282,6 +329,8 @@ function setMode(mode) {
   document.getElementById("mode-buoys").classList.toggle("is-active", mode === "buoys");
   document.getElementById("soon").hidden = mode !== "buoys";
   document.getElementById("chips").hidden = mode !== "daily";
+  const legend = document.getElementById("map-legend");
+  if (legend) legend.hidden = mode !== "daily";
   if (mode === "buoys") closeZone();
   else renderChips();
 }

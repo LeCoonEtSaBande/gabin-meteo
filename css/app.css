@@ -126,7 +126,20 @@ html, body {
 }
 
 #soon[hidden],
-#chips[hidden] { display: none; }
+#chips[hidden],
+#map-legend[hidden] { display: none; }
+
+#map-legend {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  margin: 0;
+  z-index: 4;
+  pointer-events: none;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
 
 #chips {
   position: absolute;
@@ -152,7 +165,7 @@ html, body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-.chip.is-muted { opacity: 0.72; }
+.chip.is-muted { opacity: 0.92; }
 .chip.is-selected { border-color: var(--beige); }
 
 .chip-name {
@@ -181,14 +194,9 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
-.chip-unit {
-  font-size: 9px;
-  color: var(--muted);
-}
-
 .chip-dir {
-  width: 9px;
-  height: 12px;
+  width: 14px;
+  height: 20px;
   flex: none;
   align-self: center;
 }
@@ -345,10 +353,10 @@ html, body {
 
 @media (min-width: 960px) {
   .shell {
-    grid-template-columns: 1fr 124px minmax(300px, 34%);
+    grid-template-columns: 124px 1fr minmax(300px, 34%);
     grid-template-rows: 1fr auto;
     grid-template-areas:
-      "map modes detail"
+      "modes map detail"
       "day day day";
   }
 
@@ -366,11 +374,13 @@ html, body {
     font-size: 12px;
     line-height: 1.35;
     border-bottom: 0;
-    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-left: 0;
   }
 
   .mode.is-active {
-    border-left-color: var(--beige);
+    border-right-color: var(--beige);
+    border-left-color: transparent;
     border-bottom-color: transparent;
   }
 
@@ -399,4 +409,15 @@ html, body {
 
 @media (max-width: 959px) {
   .back { display: inline-flex; align-items: center; }
+
+  .chip {
+    min-width: 92px;
+    max-width: 124px;
+    padding: 5px 6px 4px;
+  }
+
+  .chip-name { font-size: 8px; }
+  .chip-mean { font-size: 18px; }
+  .chip-gust { font-size: 12px; }
+  .chip-dir { width: 13px; height: 18px; }
 }
