@@ -73,6 +73,14 @@ function slotDurationHours(day) {
   return day.slot_end_h - day.slot_start_h;
 }
 
+function windArrowDeg(fromDeg) {
+  // Open-Meteo : 0° = vent qui vient du nord. Le glyphe pointe vers le haut à 0°.
+  // La pointe doit aller où le vent souffle (vers = d'où + 180°).
+  const from = Number(fromDeg);
+  if (Number.isNaN(from)) return 0;
+  return (from + 180) % 360;
+}
+
 function isUsableSession(day) {
   if (!day) return false;
   const windOk = day.mean_max_kt > 8 || day.gust_at_mean_max_kt > 15;
@@ -95,6 +103,7 @@ if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     slotDurationHours,
     isUsableSession,
+    windArrowDeg,
     windColor,
     gustColor,
     tempColor,
