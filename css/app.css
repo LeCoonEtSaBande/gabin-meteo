@@ -354,7 +354,7 @@ html, body {
 
 @media (min-width: 960px) {
   .shell {
-    grid-template-columns: 124px 1fr minmax(360px, 41%);
+    grid-template-columns: 160px 1fr minmax(360px, 41%);
     grid-template-rows: 1fr auto;
     grid-template-areas:
       "modes map detail"
