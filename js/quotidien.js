@@ -164,7 +164,8 @@ function svgToPane(x, y) {
 }
 
 function arrowSvg(deg, color) {
-  return `<svg class="chip-dir" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${deg}deg)">
+  const toDeg = windArrowDeg(deg);
+  return `<svg class="chip-dir" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${toDeg}deg)">
     <path d="M5 0 L10 14 L5 10 L0 14 Z" fill="${color}"></path>
   </svg>`;
 }

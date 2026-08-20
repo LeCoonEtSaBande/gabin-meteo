@@ -1,9 +1,16 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { slotDurationHours, isUsableSession, windColor } = require("./session.js");
+const { slotDurationHours, isUsableSession, windArrowDeg, windColor } = require("./session.js");
 
 test("10h-13h compte 3 heures", () => {
   assert.equal(slotDurationHours({ slot_start_h: 10, slot_end_h: 13 }), 3);
+});
+
+test("flèche : pointe vers où ça souffle, pas d'où ça vient", () => {
+  assert.equal(windArrowDeg(0), 180);
+  assert.equal(windArrowDeg(180), 0);
+  assert.equal(windArrowDeg(207), 27);
+  assert.equal(windArrowDeg(14), 194);
 });
 
 test("créneau d'une heure ignoré même avec du vent", () => {
