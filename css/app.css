@@ -6,7 +6,7 @@
   --muted: #7a7a7a;
   --beige: #b29f84;
   --beige-dim: rgba(178, 159, 132, 0.35);
-  --water: #1a3344;
+  --water: #356379;
   --relief-b: #121212;
   --relief-m: #181818;
   --relief-h: #222222;
@@ -354,7 +354,7 @@ html, body {
 
 @media (min-width: 960px) {
   .shell {
-    grid-template-columns: 124px 1fr minmax(300px, 34%);
+    grid-template-columns: 124px 1fr minmax(360px, 41%);
     grid-template-rows: 1fr auto;
     grid-template-areas:
       "modes map detail"
@@ -405,7 +405,13 @@ html, body {
 
   .back { display: none; }
 
-  .daybar { padding: 8px 16px; }
+  .daybar {
+    justify-content: center;
+    gap: 14px;
+    padding: 8px 16px;
+  }
+
+  .day-meta { flex: none; }
 }
 
 @media (max-width: 959px) {
