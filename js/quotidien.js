@@ -205,6 +205,50 @@ function clampChips() {
   }
 }
 
+const MOBILE_PAIRS = [
+  ["leman_grand_lac", "leman_petit_lac"],
+  ["annecy", "bourget"],
+  ["valence", "monteynard"],
+];
+
+function separateMobilePairs() {
+  if (isDesktop()) return;
+  const host = document.getElementById("chips");
+  const pane = document.getElementById("map-pane");
+  if (!host || !pane) return;
+  const box = pane.getBoundingClientRect();
+  const gap = 12;
+  for (const [ka, kb] of MOBILE_PAIRS) {
+    const a = host.querySelector(`[data-zone="${ka}"]`);
+    const b = host.querySelector(`[data-zone="${kb}"]`);
+    if (!a || !b) continue;
+    const ra = a.getBoundingClientRect();
+    const rb = b.getBoundingClientRect();
+    const upper = ra.top <= rb.top ? a : b;
+    const lower = ra.top <= rb.top ? b : a;
+    const ru = upper.getBoundingClientRect();
+    const rl = lower.getBoundingClientRect();
+    const overlap = ru.bottom + gap - rl.top;
+    if (overlap <= 0) continue;
+    const roomDown = box.bottom - 6 - rl.bottom;
+    const roomUp = ru.top - (box.top + 6);
+    let down = Math.min(overlap, Math.max(0, roomDown));
+    let up = overlap - down;
+    if (up > roomUp) {
+      down += up - roomUp;
+      up = roomUp;
+    }
+    if (down) lower.style.top = `${parseFloat(lower.style.top) + down}px`;
+    if (up) upper.style.top = `${parseFloat(upper.style.top) - up}px`;
+  }
+}
+
+function layoutChips() {
+  clampChips();
+  separateMobilePairs();
+  clampChips();
+}
+
 function renderChips() {
   const host = document.getElementById("chips");
   const legend = document.getElementById("map-legend");
@@ -262,8 +306,8 @@ function renderChips() {
     host.appendChild(btn);
   }
   requestAnimationFrame(() => {
-    clampChips();
-    requestAnimationFrame(clampChips);
+    layoutChips();
+    requestAnimationFrame(layoutChips);
   });
 }
 
