@@ -195,8 +195,8 @@ html, body {
 }
 
 .chip-dir {
-  width: 16px;
-  height: 24px;
+  width: 11px;
+  height: 15px;
   flex: none;
   align-self: center;
 }
@@ -419,7 +419,7 @@ html, body {
   .chip-name { font-size: 8px; line-height: 1.2; }
   .chip-mean { font-size: 17px; }
   .chip-gust { font-size: 11px; }
-  .chip-dir { width: 16px; height: 24px; }
+  .chip-dir { width: 11px; height: 15px; }
   .chip-wx { width: 18px; height: 18px; }
   .chip-meta { font-size: 8px; }
 }

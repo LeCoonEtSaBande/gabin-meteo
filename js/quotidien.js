@@ -81,10 +81,12 @@ const CHIP_POS = {
 
 /* Recalages iPhone uniquement : ne pas réutiliser sur PC. */
 const CHIP_POS_MOBILE = {
-  leman_grand_lac: { x: 605, y: 218 },
-  leman_petit_lac: { x: 490, y: 318 },
-  annecy: { x: 680, y: 505 },
-  valence: { x: 195, y: 1018 },
+  leman_grand_lac: { x: 630, y: 188 },
+  leman_petit_lac: { x: 495, y: 400 },
+  annecy: { x: 700, y: 430 },
+  bourget: { x: 460, y: 655 },
+  valence: { x: 200, y: 890 },
+  monteynard: { x: 375, y: 1105 },
   chasse_sur_rhone: { x: 125, y: 635 },
   saone: { x: 225, y: 248 },
   st_alban_du_rhone: { x: 200, y: 790 },
@@ -164,8 +166,8 @@ function svgToPane(x, y) {
 }
 
 function arrowSvg(deg, color) {
-  return `<svg class="chip-dir" viewBox="0 0 12 18" aria-hidden="true" style="transform:rotate(${deg}deg)">
-    <path d="M6 0 L12 18 L6 13 L0 18 Z" fill="${color}"></path>
+  return `<svg class="chip-dir" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${deg}deg)">
+    <path d="M5 0 L10 14 L5 10 L0 14 Z" fill="${color}"></path>
   </svg>`;
 }
 
