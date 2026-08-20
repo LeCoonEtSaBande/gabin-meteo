@@ -72,7 +72,7 @@ const CHIP_POS = {
   bourget: { x: 590, y: 668 },
   grand_large: { x: 198, y: 498 },
   saone: { x: 198, y: 280 },
-  chasse_sur_rhone: { x: 40, y: 658 },
+  chasse_sur_rhone: { x: 36, y: 658 },
   st_alban_du_rhone: { x: 178, y: 798 },
   valence: { x: 62, y: 1038 },
   laffrey: { x: 580, y: 958 },
@@ -84,9 +84,9 @@ const CHIP_POS = {
    pour écarter les paires Léman / Annecy–Bourget / Valence–Monteynard. */
 const CHIP_POS_MOBILE = {
   leman_grand_lac: { x: 0.83, y: 0.09 },
-  leman_petit_lac: { x: 0.60, y: 0.18 },
+  leman_petit_lac: { x: 0.59, y: 0.18 },
   annecy: { x: 0.84, y: 0.35 },
-  bourget: { x: 0.79, y: 0.60 },
+  bourget: { x: 0.78, y: 0.56 },
   grand_large: { x: 0.31, y: 0.37 },
   saone: { x: 0.22, y: 0.14 },
   chasse_sur_rhone: { x: 0.14, y: 0.50 },
