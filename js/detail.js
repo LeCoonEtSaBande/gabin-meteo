@@ -63,6 +63,7 @@ function chartOptions(spot) {
     primarySet,
     hideSecondary: Boolean(hideSecondaryBySpot.get(spot.spot_key)),
     secondarySet: secondaryCurveSet(primarySet),
+    compactSetLabels: window.matchMedia("(min-width: 960px)").matches,
   };
 }
 

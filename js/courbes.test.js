@@ -14,6 +14,7 @@ const {
   legendHtml,
   parseValidAt,
   MEAN_STROKE,
+  arrowRotation,
 } = require("./courbes.js");
 
 test("CSV conserve un point-virgule dans un champ quoté", () => {
@@ -152,6 +153,27 @@ const SAMPLE = {
   ],
 };
 
+test("la flèche graphique pointe à dir + 180°", () => {
+  assert.equal(arrowRotation(0), 180);
+  assert.equal(arrowRotation(40), 220);
+  assert.equal(arrowRotation(220), 40);
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
+  assert.match(svg, /rotate\(220\)/);
+  assert.match(svg, /rotate\(20\)/);
+});
+
+test("journée : heures entre vent et nébulosité, un point par heure, échelles 0-100 et mm", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
+  assert.match(svg, /class="hour-dot"/);
+  assert.equal((svg.match(/class="hour-dot"/g) || []).length, 24);
+  assert.match(svg, /néb\. %/);
+  assert.match(svg, />100</);
+  assert.match(svg, />mm</);
+  const hourIndex = svg.indexOf("00h");
+  const nebIndex = svg.indexOf("néb. %");
+  assert.ok(hourIndex > 0 && nebIndex > hourIndex);
+});
+
 test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
   const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
   assert.match(svg, /AROMEIFS/);
@@ -162,8 +184,7 @@ test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
   assert.match(svg, /fill-opacity="0.18"/);
   assert.match(svg, new RegExp(`stroke-width="${MEAN_STROKE}"`));
   const legend = legendHtml([SAMPLE.AROMEIFS, SAMPLE.ICONGFS]);
-  assert.match(legend, /nébulosité \(max\)/);
-  assert.match(legend, /pluie \(max\)/);
+  assert.match(legend, /vent moyen/);
   assert.doesNotMatch(legend, /&gt; 8 nds/);
 });
 

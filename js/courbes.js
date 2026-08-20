@@ -214,6 +214,20 @@ function arrowStep(nDays) {
   return 6;
 }
 
+function arrowRotation(dirDeg) {
+  const deg = Number(dirDeg);
+  if (!Number.isFinite(deg)) return 180;
+  return (deg + 180) % 360;
+}
+
+function nicePrecipMax(values) {
+  const peak = Math.max(0, ...values);
+  if (peak <= 1) return 1;
+  if (peak <= 2) return 2;
+  if (peak <= 5) return 5;
+  return Math.ceil(peak / 5) * 5;
+}
+
 function weekdayShort(dayKey) {
   const p = parseValidAt(`${dayKey}T00:00`);
   const utc = new Date(Date.UTC(p.year, p.month - 1, p.day));
@@ -265,16 +279,20 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     </svg>`;
   }
 
+  const compactSetLabels = Boolean(options.compactSetLabels);
+  const setLabelSize = compactSetLabels ? 6.2 : 8;
   const padL = 64;
-  const padR = 8;
-  const dirRowH = 22;
+  const padR = 30;
+  const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
-  const wxH = 36;
-  const padB = 32;
+  const axisH = 18;
+  const wxH = 52;
+  const padB = 16;
   const dirY0 = 4;
   const windTop = dirY0 + dirRowH * series.length + 6;
   const yWind0 = windTop + windH;
-  const wxY0 = yWind0 + 8;
+  const axisY = yWind0 + 3;
+  const wxY0 = axisY + axisH;
   const height = wxY0 + wxH + padB;
   const innerW = Math.max(40, width - padL - padR);
   const x0 = padL;
@@ -295,7 +313,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
       const col = is25 ? "#9a9a9a" : "#2a2a2a";
       const widthLine = is25 ? "1.15" : "1";
       return `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${col}" stroke-dasharray="${dash}" stroke-width="${widthLine}"></line>
-        <text x="${x0 - 4}" y="${y + 3}" text-anchor="end" fill="#7a7a7a" font-size="9">${kt}</text>`;
+        <text x="${x0 - 4}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#7a7a7a" font-size="9">${kt}</text>`;
     })
     .join("");
 
@@ -321,7 +339,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
       .map((point) => {
         const x = xOf(point, startDay, nDays, x0, innerW);
         const col = modelColor(point.source_model);
-        return `<g transform="translate(${x.toFixed(1)},${y}) rotate(${point.dir})">
+        return `<g transform="translate(${x.toFixed(1)},${y}) rotate(${arrowRotation(point.dir)})">
           <path d="M0 -5.5 L3.2 5.5 L0 3.2 L-3.2 5.5 Z" fill="${col}"></path>
         </g>`;
       })
@@ -331,7 +349,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const dirLabels = series
     .map((item, row) => {
       const y = dirY0 + row * dirRowH + 15;
-      return `<text x="${x0 - 4}" y="${y}" text-anchor="end" fill="${SET_COLORS[item.name]}" font-size="8">${SET_LABELS[item.name]}</text>
+      return `<text x="${x0 - 4}" y="${y}" text-anchor="end" fill="${SET_COLORS[item.name]}" font-size="${setLabelSize}">${SET_LABELS[item.name]}</text>
         ${paintArrows(item.points, row)}`;
     })
     .join("");
@@ -343,36 +361,59 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const winds = series.map((item) => paintWind(item.points, true) + paintWind(item.points, false)).join("");
 
   const wx = mergeWxMax(series.map((item) => item.points));
-  const maxPrecip = Math.max(2, ...wx.map((p) => p.precip));
-  let wxDraw = "";
+  const precipMax = nicePrecipMax(wx.map((p) => p.precip));
+  const yCloud = (pct) => wxY0 + wxH - 6 - (Math.max(0, Math.min(100, pct)) / 100) * (wxH - 16);
+  const yPrecip = (mm) => wxY0 + wxH - 6 - (Math.max(0, mm) / precipMax) * (wxH - 16);
+  let wxDraw = `<text x="${x0 - 4}" y="${wxY0 + 8}" text-anchor="end" fill="${WX_CLOUD}" font-size="7">néb. %</text>
+    <text x="${x1 + 4}" y="${wxY0 + 8}" fill="${WX_PRECIP}" font-size="7">mm</text>
+    <text x="${x0 - 4}" y="${yCloud(100) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8">100</text>
+    <text x="${x0 - 4}" y="${yCloud(50) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8">50</text>
+    <text x="${x0 - 4}" y="${yCloud(0) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8">0</text>
+    <text x="${x1 + 4}" y="${yPrecip(precipMax) + 3}" fill="${WX_PRECIP}" font-size="8">${precipMax}</text>
+    <text x="${x1 + 4}" y="${yPrecip(0) + 3}" fill="${WX_PRECIP}" font-size="8">0</text>`;
   for (let i = 0; i < wx.length; i += 1) {
     const point = wx[i];
     const x = xOf(point, startDay, nDays, x0, innerW);
     const next = wx[i + 1];
     const w = next ? Math.max(1, xOf(next, startDay, nDays, x0, innerW) - x) : hourW;
-    const ch = (point.cloud / 100) * (wxH - 6);
-    wxDraw += `<rect x="${x.toFixed(1)}" y="${(wxY0 + wxH - 4 - ch).toFixed(1)}" width="${w.toFixed(1)}" height="${ch.toFixed(1)}" fill="${WX_CLOUD}" opacity="0.35">
-      <title>Nébulosité max ${Math.round(point.cloud)}%</title>
+    const yTop = yCloud(point.cloud);
+    const ch = wxY0 + wxH - 6 - yTop;
+    wxDraw += `<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(0, ch).toFixed(1)}" fill="${WX_CLOUD}" opacity="0.32">
+      <title>Nébulosité ${Math.round(point.cloud)} %</title>
     </rect>`;
     if (point.precip > 0) {
-      const barW = Math.max(1.4, w * 0.45);
-      const ph = (point.precip / maxPrecip) * (wxH - 8);
-      wxDraw += `<rect x="${(x + w * 0.28).toFixed(1)}" y="${(wxY0 + wxH - 4 - ph).toFixed(1)}" width="${barW.toFixed(1)}" height="${ph.toFixed(1)}" fill="${WX_PRECIP}" opacity="0.9">
+      const barW = Math.max(1.4, w * 0.38);
+      const yBar = yPrecip(point.precip);
+      const ph = wxY0 + wxH - 6 - yBar;
+      wxDraw += `<rect x="${(x + w * 0.31).toFixed(1)}" y="${yBar.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0.8, ph).toFixed(1)}" fill="${WX_PRECIP}" opacity="0.92">
         <title>Pluie ${point.precip.toFixed(1)} mm</title>
       </rect>`;
     }
   }
 
-  const dayLabels = ticks.days
-    .map(
-      (tick) =>
-        `<text x="${tick.x.toFixed(1)}" y="${height - 16}" text-anchor="middle" fill="#b29f84" font-size="9">${escapeHtml(tick.label)}</text>`
-    )
-    .join("");
+  let hourAxis = `<line x1="${x0}" y1="${axisY}" x2="${x1}" y2="${axisY}" stroke="#2a2a2a"></line>`;
+  if (nDays <= 1) {
+    for (let hour = 0; hour < 24; hour += 1) {
+      const x = xOf(
+        { valid_at: `${startDay}T${String(hour).padStart(2, "0")}:00` },
+        startDay,
+        nDays,
+        x0,
+        innerW
+      );
+      hourAxis += `<circle class="hour-dot" cx="${x.toFixed(1)}" cy="${axisY}" r="1.35" fill="#9a9a9a"></circle>`;
+    }
+  }
   const hourLabels = ticks.hours
     .map(
       (tick) =>
-        `<text x="${tick.x.toFixed(1)}" y="${height - 5}" text-anchor="middle" fill="#7a7a7a" font-size="8">${escapeHtml(tick.label)}</text>`
+        `<text x="${tick.x.toFixed(1)}" y="${axisY + 12}" text-anchor="middle" fill="#7a7a7a" font-size="8">${escapeHtml(tick.label)}</text>`
+    )
+    .join("");
+  const dayLabels = ticks.days
+    .map(
+      (tick) =>
+        `<text x="${tick.x.toFixed(1)}" y="${height - 4}" text-anchor="middle" fill="#b29f84" font-size="9">${escapeHtml(tick.label)}</text>`
     )
     .join("");
 
@@ -383,10 +424,11 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     <text x="${x0 - 4}" y="${windTop + 8}" text-anchor="end" fill="#7a7a7a" font-size="8">nds</text>
     ${fills}
     ${winds}
+    ${hourAxis}
+    ${hourLabels}
     <line x1="${x0}" y1="${wxY0}" x2="${x1}" y2="${wxY0}" stroke="#2a2a2a"></line>
     ${wxDraw}
     ${dayLabels}
-    ${hourLabels}
   </svg>`;
 }
 
@@ -402,8 +444,6 @@ function legendHtml(seriesList, options = {}) {
   return `<div class="chart-legend">
     ${keys}
     <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · plage = moyen→rafales</span>
-    <span class="chart-key"><i class="wx-cloud"></i>nébulosité (max)</span>
-    <span class="chart-key"><i class="wx-precip"></i>pluie (max)</span>
     ${options.note || ""}
   </div>`;
 }
@@ -423,6 +463,8 @@ if (typeof module !== "undefined" && module.exports) {
     primaryCurveSet,
     secondaryCurveSet,
     mergeWxMax,
+    arrowRotation,
+    nicePrecipMax,
     xTicks,
     buildChartSvg,
     legendHtml,
