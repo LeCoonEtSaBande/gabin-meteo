@@ -401,7 +401,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
         x0,
         innerW
       );
-      hourAxis += `<circle class="hour-dot" cx="${x.toFixed(1)}" cy="${axisY}" r="1.35" fill="#9a9a9a"></circle>`;
+      hourAxis += `<line x1="${x.toFixed(1)}" y1="${axisY - 3}" x2="${x.toFixed(1)}" y2="${axisY + 3}" stroke="#8a8a8a" stroke-width="1"></line>
+        <circle class="hour-dot" cx="${x.toFixed(1)}" cy="${axisY}" r="2.1" fill="#c4c4c4"></circle>`;
     }
   }
   const hourLabels = ticks.hours
