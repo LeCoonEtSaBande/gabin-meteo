@@ -1,0 +1,426 @@
+:root {
+  --bg: #0e0e0e;
+  --elev: #161616;
+  --line: #2a2a2a;
+  --text: #e6e6e6;
+  --muted: #7a7a7a;
+  --beige: #b29f84;
+  --beige-dim: rgba(178, 159, 132, 0.35);
+  --water: #1a3344;
+  --relief-b: #121212;
+  --relief-m: #181818;
+  --relief-h: #222222;
+  --relief-s: #2c2c2c;
+  --city: #6a6a6a;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-monospace, "SF Mono", Menlo, "Cascadia Mono", Consolas, monospace;
+  height: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shell {
+  display: grid;
+  height: 100dvh;
+  height: 100svh;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "modes"
+    "map"
+    "day";
+}
+
+.modes { grid-area: modes; }
+.map-pane { grid-area: map; }
+.detail { grid-area: map; }
+.daybar { grid-area: day; }
+
+.modes {
+  display: flex;
+  gap: 0;
+  padding: calc(10px + var(--safe-top)) 8px 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  z-index: 3;
+}
+
+.mode {
+  flex: 1;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  padding: 8px 6px;
+  border-bottom: 2px solid transparent;
+}
+
+.mode.is-active {
+  color: var(--beige);
+  border-bottom-color: var(--beige);
+}
+
+.mode-slot {
+  flex: 0.45;
+  min-width: 28px;
+  min-height: 44px;
+}
+
+.map-pane {
+  position: relative;
+  min-height: 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+#map svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#status {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--beige);
+  z-index: 2;
+}
+
+#soon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--beige);
+  background: rgba(14, 14, 14, 0.35);
+  pointer-events: none;
+  z-index: 4;
+}
+
+#soon[hidden],
+#chips[hidden],
+#map-legend[hidden] { display: none; }
+
+#map-legend {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  margin: 0;
+  z-index: 4;
+  pointer-events: none;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+#chips {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.chip {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  min-width: 108px;
+  max-width: 148px;
+  padding: 6px 8px 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(14, 14, 14, 0.88);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.chip.is-muted { opacity: 0.92; }
+.chip.is-selected { border-color: var(--beige); }
+
+.chip-name {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--beige);
+  margin-bottom: 2px;
+}
+
+.chip-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  line-height: 1;
+}
+
+.chip-mean {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chip-gust {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chip-dir {
+  /* Flèche d'origine 9×12, +25 %. */
+  width: 11px;
+  height: 15px;
+  flex: none;
+  align-self: center;
+}
+
+.chip-wx {
+  width: 22px;
+  height: 22px;
+  align-self: center;
+  margin-left: auto;
+}
+
+.chip-temp {
+  font-size: 11px;
+  align-self: center;
+}
+
+.chip-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 9px;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.detail {
+  display: none;
+  flex-direction: column;
+  background: var(--elev);
+  z-index: 5;
+  min-height: 0;
+}
+
+.detail.is-open { display: flex; }
+
+.detail-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-bar h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--beige);
+}
+
+.back {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--beige-dim);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--beige);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.detail-empty,
+.detail-body {
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.spot-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--bg);
+}
+
+.spot-card h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.spot-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+}
+
+.chart-slot {
+  margin-top: 10px;
+  min-height: 88px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.daybar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px calc(8px + var(--safe-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  z-index: 3;
+}
+
+.day-nav {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--beige-dim);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--beige);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.day-nav.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.day-meta {
+  flex: 1;
+  text-align: center;
+}
+
+.day-meta p { margin: 0; }
+#day-label { font-size: 14px; }
+.muted { color: var(--muted); font-size: 11px; }
+
+[data-layer="Reliefs_bas"] path { fill: var(--relief-b) !important; stroke: none !important; }
+[data-layer="Reliefs_moyens"] path { fill: var(--relief-m) !important; stroke: none !important; }
+[data-layer="Reliefs_hauts"] path { fill: var(--relief-h) !important; stroke: none !important; }
+[data-layer="Reliefs_sommets"] path { fill: var(--relief-s) !important; stroke: none !important; }
+[data-layer="Lacs"] path { fill: var(--water) !important; }
+[data-layer="Cours_deau"] path,
+[data-layer="Faux_lacs"] path { stroke: var(--water) !important; }
+[data-layer="Villes"] text,
+[data-layer="Villes"] tspan { fill: var(--city) !important; }
+[data-layer="Zone_clic_zoom"] { cursor: pointer; }
+[data-layer="Marqueur"] circle { fill: var(--beige); stroke: var(--bg); }
+
+@media (min-width: 960px) {
+  .shell {
+    grid-template-columns: 124px 1fr minmax(300px, 34%);
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      "modes map detail"
+      "day day day";
+  }
+
+  .modes {
+    flex-direction: column;
+    padding: 16px 8px;
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+
+  .mode {
+    flex: 0 0 auto;
+    min-height: 72px;
+    font-size: 12px;
+    line-height: 1.35;
+    border-bottom: 0;
+    border-right: 2px solid transparent;
+    border-left: 0;
+  }
+
+  .mode.is-active {
+    border-right-color: var(--beige);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+
+  .mode-slot {
+    flex: 1;
+    min-height: 48px;
+  }
+
+  .map-pane { grid-area: map; }
+  .modes { grid-area: modes; }
+  .daybar { grid-area: day; }
+
+  .detail {
+    grid-area: detail;
+    display: flex;
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+    background: var(--elev);
+  }
+
+  .back { display: none; }
+
+  .daybar { padding: 8px 16px; }
+}
+
+@media (max-width: 959px) {
+  .back { display: inline-flex; align-items: center; }
+
+  .chip {
+    min-width: 84px;
+    max-width: 118px;
+    padding: 4px 5px 4px;
+  }
+
+  .chip-name { font-size: 8px; line-height: 1.2; }
+  .chip-mean { font-size: 22px; }
+  .chip-gust { font-size: 13px; }
+  .chip-dir { width: 11px; height: 15px; }
+  .chip-wx { width: 18px; height: 18px; }
+  .chip-meta { font-size: 8px; }
+}

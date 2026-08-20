@@ -3,44 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Gabin-météo — vue quotidienne</title>
-  <style>
-    html, body {
-      margin: 0;
-      background: #1e1e1e;
-      color: #e6e6e6;
-      font-family: ui-monospace, "SF Mono", Menlo, "Cascadia Mono", Consolas, monospace;
-      min-height: 100%;
-    }
-    #app {
-      width: 100%;
-      max-width: 804px;
-      margin: 0 auto;
-    }
-    #app svg {
-      display: block;
-      width: 100%;
-      height: auto;
-      touch-action: manipulation;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    #status {
-      padding: 12px 16px;
-      font-size: 14px;
-      color: #b29f84;
-    }
-    .day-nav { cursor: pointer; }
-    .day-nav.is-disabled {
-      cursor: default;
-      opacity: 0.35;
-      pointer-events: none;
-    }
-  </style>
+  <meta name="theme-color" content="#0e0e0e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Gabin-météo</title>
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <p id="status">Chargement de la carte…</p>
-  <div id="app"></div>
+  <div class="shell" id="shell">
+    <nav class="modes" aria-label="Vues">
+      <button type="button" class="mode is-active" data-mode="daily" id="mode-daily">Tendances journalières</button>
+      <button type="button" class="mode" data-mode="buoys" id="mode-buoys">Balises temps réel</button>
+      <span class="mode-slot" aria-hidden="true" title="Changement de région — bientôt"></span>
+    </nav>
+
+    <div class="map-pane" id="map-pane">
+      <p id="status">Chargement de la carte…</p>
+      <div id="map"></div>
+      <div id="chips" hidden></div>
+      <p id="map-legend" hidden>Vent en Nds</p>
+      <p id="soon" hidden>Bientôt disponible</p>
+    </div>
+
+    <aside class="detail" id="detail" aria-label="Détail de zone">
+      <div class="detail-bar">
+        <button type="button" class="back" id="detail-back">Carte</button>
+        <h2 id="detail-title">Zone</h2>
+      </div>
+      <p class="detail-empty" id="detail-empty">Choisissez une zone sur la carte.</p>
+      <div class="detail-body" id="detail-body" hidden></div>
+    </aside>
+
+    <footer class="daybar">
+      <button type="button" class="day-nav" id="prev-day" aria-label="Jour précédent">‹</button>
+      <div class="day-meta">
+        <p id="day-label">—</p>
+        <p id="maj-label" class="muted"></p>
+      </div>
+      <button type="button" class="day-nav" id="next-day" aria-label="Jour suivant">›</button>
+    </footer>
+  </div>
+  <script src="js/session.js"></script>
   <script src="js/quotidien.js"></script>
 </body>
 </html>
