@@ -23,7 +23,6 @@ let spotSpecs = [];
 let curveIndex = { AROMEIFS: {}, ICONGFS: {} };
 let detailReady = false;
 let detailError = "";
-let chartObserver = null;
 
 function zoneSpecName(zoneKey) {
   const row = zoneSpecs.find((z) => z.zone_key === zoneKey);
@@ -50,14 +49,18 @@ function mapsButton(spot) {
   return `<a class="link-btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Carte</a>`;
 }
 
-function spotChartHtml(spot, startDay) {
-  const series = {
-    AROMEIFS: sliceHorizon(curveIndex.AROMEIFS[spot.spot_key] || [], startDay, horizonDays),
-    ICONGFS: sliceHorizon(curveIndex.ICONGFS[spot.spot_key] || [], startDay, horizonDays),
+function seriesForSpot(spotKey, startDay) {
+  return {
+    AROMEIFS: sliceHorizon(curveIndex.AROMEIFS[spotKey] || [], startDay, horizonDays),
+    ICONGFS: sliceHorizon(curveIndex.ICONGFS[spotKey] || [], startDay, horizonDays),
   };
+}
+
+function spotChartHtml(spot, startDay) {
+  const series = seriesForSpot(spot.spot_key, startDay);
   return `<section class="spot-block" data-spot="${escapeHtml(spot.spot_key)}">
     <h3 class="spot-chart-title">${escapeHtml(spot.display_name)}</h3>
-    <div class="spot-chart" data-spot="${escapeHtml(spot.spot_key)}">${buildChartSvg(series, startDay, horizonDays, 420)}</div>
+    <div class="spot-chart">${buildChartSvg(series, startDay, horizonDays, 400)}</div>
   </section>`;
 }
 
@@ -73,28 +76,12 @@ function spotInfoHtml(spot) {
   </section>`;
 }
 
-function paintCharts(startDay) {
-  const host = document.getElementById("detail-body");
-  if (!host) return;
-  for (const el of host.querySelectorAll(".spot-chart")) {
-    const key = el.dataset.spot;
-    const width = Math.max(280, Math.floor(el.getBoundingClientRect().width) || 420);
-    const series = {
-      AROMEIFS: sliceHorizon(curveIndex.AROMEIFS[key] || [], startDay, horizonDays),
-      ICONGFS: sliceHorizon(curveIndex.ICONGFS[key] || [], startDay, horizonDays),
-    };
-    el.innerHTML = buildChartSvg(series, startDay, horizonDays, width);
-  }
-}
-
-function observeCharts(startDay) {
-  if (chartObserver) chartObserver.disconnect();
-  const host = document.getElementById("detail-body");
-  if (!host || typeof ResizeObserver === "undefined") return;
-  chartObserver = new ResizeObserver(() => paintCharts(startDay));
-  for (const el of host.querySelectorAll(".spot-chart")) {
-    chartObserver.observe(el);
-  }
+function zoneLegendHtml(spots, startDay) {
+  const lists = spots.flatMap((spot) => {
+    const series = seriesForSpot(spot.spot_key, startDay);
+    return [series.AROMEIFS, series.ICONGFS];
+  });
+  return legendHtml(lists);
 }
 
 async function loadDetailAssets() {
@@ -135,7 +122,6 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
     empty.hidden = false;
     body.hidden = true;
     pane.classList.toggle("is-open", false);
-    if (chartObserver) chartObserver.disconnect();
     return;
   }
 
@@ -160,6 +146,7 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   body.innerHTML = `
     <p class="zone-spots">${escapeHtml(names)}</p>
     <div class="horizon-bar" role="tablist" aria-label="Horizon de prévision">${horizon}</div>
+    ${zoneLegendHtml(spots, dayKey)}
     <div class="charts">${spots.map((spot) => spotChartHtml(spot, dayKey)).join("")}</div>
     <div class="spot-infos">${spots.map((spot) => spotInfoHtml(spot)).join("")}</div>`;
 
@@ -170,10 +157,6 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
     });
   });
 
-  requestAnimationFrame(() => {
-    paintCharts(dayKey);
-    observeCharts(dayKey);
-  });
   if (!desktop) pane.classList.add("is-open");
 }
 

@@ -314,15 +314,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 420) {
     )
     .join("");
 
-  const usedModels = [...new Set(all.map((p) => p.source_model))];
-  const legend = usedModels
-    .map((model) => {
-      const col = modelColor(model);
-      return `<span class="chart-key"><i style="background:${col}"></i>${escapeHtml(model)}</span>`;
-    })
-    .join("");
-
-  const svg = `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Prévision vent, rafales, direction, nébulosité et pluie">
+  return `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Prévision vent, rafales, direction, nébulosité et pluie">
     <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
     ${bands}
     ${grid}
@@ -335,15 +327,24 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 420) {
     <line x1="${x0}" y1="${wxY0}" x2="${x1}" y2="${wxY0}" stroke="#2a2a2a"></line>
     ${paintWx(arome, "AROMEIFS", 0)}${paintWx(icon, "ICONGFS", 1)}
     ${ticks}
-  </svg>
-  <div class="chart-legend">
-    ${legend}
-    <span class="chart-key chart-key-note">trait plein = moyen · pointillé = rafales · A/I = direction AROMEIFS / ICONGFS · barres = pluie · voile = nébulosité</span>
+  </svg>`;
+}
+
+function legendHtml(seriesList) {
+  const all = seriesList.flat();
+  const usedModels = [...new Set(all.map((p) => p.source_model))];
+  const keys = usedModels
+    .map((model) => {
+      const col = modelColor(model);
+      return `<span class="chart-key"><i style="background:${col}"></i>${escapeHtml(model)}</span>`;
+    })
+    .join("");
+  return `<div class="chart-legend">
+    ${keys}
+    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · A = AROMEIFS · I = ICONGFS</span>
     <span class="chart-key"><i class="band-8"></i>&gt; 8 nds</span>
     <span class="chart-key"><i class="band-15"></i>&gt; 15 nds</span>
   </div>`;
-
-  return svg;
 }
 
 if (typeof module !== "undefined" && module.exports) {
@@ -360,6 +361,7 @@ if (typeof module !== "undefined" && module.exports) {
     envelopeMean,
     hourlyWindLevels,
     buildChartSvg,
+    legendHtml,
     niceMaxKt,
   };
 }

@@ -9,6 +9,7 @@ const {
   envelopeMean,
   hourlyWindLevels,
   buildChartSvg,
+  legendHtml,
   parseValidAt,
 } = require("./courbes.js");
 
@@ -141,8 +142,16 @@ test("le SVG nomme les modèles et les seuils 8 / 15 nds", () => {
   assert.match(svg, /AROMEHD/);
   assert.match(svg, /IFS/);
   assert.match(svg, /GFS/);
-  assert.match(svg, /&gt; 8 nds/);
-  assert.match(svg, /&gt; 15 nds/);
+  assert.match(svg, /<path/);
+  const legend = legendHtml([
+    [
+      { source_model: "AROMEHD" },
+      { source_model: "IFS" },
+      { source_model: "GFS" },
+    ],
+  ]);
+  assert.match(legend, /&gt; 8 nds/);
+  assert.match(legend, /&gt; 15 nds/);
   assert.match(svg, /#b29f84/);
 });
 
