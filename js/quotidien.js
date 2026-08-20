@@ -81,15 +81,15 @@ const CHIP_POS = {
 
 /* Recalages iPhone uniquement : ne pas réutiliser sur PC. */
 const CHIP_POS_MOBILE = {
-  leman_grand_lac: { x: 630, y: 188 },
-  leman_petit_lac: { x: 495, y: 400 },
-  annecy: { x: 700, y: 430 },
-  bourget: { x: 460, y: 655 },
-  valence: { x: 200, y: 890 },
-  monteynard: { x: 375, y: 1105 },
-  chasse_sur_rhone: { x: 125, y: 635 },
+  leman_grand_lac: { x: 640, y: 175 },
+  leman_petit_lac: { x: 505, y: 345 },
+  annecy: { x: 720, y: 545 },
+  bourget: { x: 440, y: 740 },
+  valence: { x: 210, y: 880 },
+  monteynard: { x: 390, y: 1112 },
+  chasse_sur_rhone: { x: 125, y: 600 },
   saone: { x: 225, y: 248 },
-  st_alban_du_rhone: { x: 200, y: 790 },
+  st_alban_du_rhone: { x: 195, y: 720 },
 };
 
 let svgRoot = null;
@@ -217,7 +217,7 @@ function separateMobilePairs() {
   const pane = document.getElementById("map-pane");
   if (!host || !pane) return;
   const box = pane.getBoundingClientRect();
-  const gap = 12;
+  const gap = 28;
   for (const [ka, kb] of MOBILE_PAIRS) {
     const a = host.querySelector(`[data-zone="${ka}"]`);
     const b = host.querySelector(`[data-zone="${kb}"]`);

@@ -417,8 +417,8 @@ html, body {
   }
 
   .chip-name { font-size: 8px; line-height: 1.2; }
-  .chip-mean { font-size: 17px; }
-  .chip-gust { font-size: 11px; }
+  .chip-mean { font-size: 22px; }
+  .chip-gust { font-size: 13px; }
   .chip-dir { width: 11px; height: 15px; }
   .chip-wx { width: 18px; height: 18px; }
   .chip-meta { font-size: 8px; }
