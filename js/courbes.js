@@ -261,16 +261,16 @@ function xTicks(startDay, nDays, x0, innerW) {
   return { hours, days };
 }
 
-function visibleSets(primarySet, hideSecondary) {
+function visibleSets(primarySet, showSecondary) {
   const secondary = secondaryCurveSet(primarySet);
-  if (hideSecondary) return [primarySet];
-  return [primarySet, secondary];
+  if (showSecondary) return [primarySet, secondary];
+  return [primarySet];
 }
 
 function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) {
   const primarySet = options.primarySet || "AROMEIFS";
-  const hideSecondary = Boolean(options.hideSecondary);
-  const sets = visibleSets(primarySet, hideSecondary);
+  const showSecondary = Boolean(options.showSecondary);
+  const sets = visibleSets(primarySet, showSecondary);
   const series = sets.map((name) => ({ name, points: seriesBySet[name] || [] }));
   const all = series.flatMap((item) => item.points);
   if (!all.length) {

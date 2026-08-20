@@ -157,7 +157,10 @@ test("la flèche graphique pointe à dir + 180°", () => {
   assert.equal(arrowRotation(0), 180);
   assert.equal(arrowRotation(40), 220);
   assert.equal(arrowRotation(220), 40);
-  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
+    primarySet: "ICONGFS",
+    showSecondary: true,
+  });
   assert.match(svg, /rotate\(220\)/);
   assert.match(svg, /rotate\(20\)/);
 });
@@ -205,7 +208,7 @@ test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () =>
     "2026-08-20",
     1,
     400,
-    { primarySet: "AROMEIFS", hideSecondary: true, compactSetLabels: true }
+    { primarySet: "AROMEIFS", compactSetLabels: true }
   );
   const label = svg.match(/class="set-label" x="([0-9.]+)"[^>]*>AROMEIFS</);
   assert.ok(label);
@@ -216,7 +219,10 @@ test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () =>
 });
 
 test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
-  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
+    primarySet: "ICONGFS",
+    showSecondary: true,
+  });
   assert.match(svg, /AROMEIFS/);
   assert.match(svg, /ICONGFS/);
   assert.match(svg, />25</);
@@ -229,13 +235,19 @@ test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
   assert.doesNotMatch(legend, /&gt; 8 nds/);
 });
 
-test("masquer la courbe secondaire retire ICONGFS si le principal est AROMEIFS", () => {
-  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
-    primarySet: "AROMEIFS",
-    hideSecondary: true,
-  });
+test("par défaut seule la courbe principale est dessinée", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "AROMEIFS" });
   assert.match(svg, /AROMEIFS/);
   assert.doesNotMatch(svg, />ICONGFS</);
+});
+
+test("afficher la courbe secondaire ajoute ICONGFS si le principal est AROMEIFS", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
+    primarySet: "AROMEIFS",
+    showSecondary: true,
+  });
+  assert.match(svg, /AROMEIFS/);
+  assert.match(svg, />ICONGFS</);
 });
 
 test("parseValidAt lit l'heure civile sans Date locale", () => {

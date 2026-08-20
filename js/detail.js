@@ -23,7 +23,7 @@ let spotSpecs = [];
 let curveIndex = { AROMEIFS: {}, ICONGFS: {} };
 let detailReady = false;
 let detailError = "";
-const hideSecondaryBySpot = new Map();
+const showSecondaryBySpot = new Map();
 
 function zoneSpecName(zoneKey) {
   const row = zoneSpecs.find((z) => z.zone_key === zoneKey);
@@ -61,7 +61,7 @@ function chartOptions(spot) {
   const primarySet = primaryCurveSet(spot);
   return {
     primarySet,
-    hideSecondary: Boolean(hideSecondaryBySpot.get(spot.spot_key)),
+    showSecondary: Boolean(showSecondaryBySpot.get(spot.spot_key)),
     secondarySet: secondaryCurveSet(primarySet),
     compactSetLabels: window.matchMedia("(min-width: 960px)").matches,
   };
@@ -71,13 +71,13 @@ function spotChartHtml(spot, startDay) {
   const series = seriesForSpot(spot.spot_key, startDay);
   const opts = chartOptions(spot);
   const secondary = opts.secondarySet;
-  const hidden = opts.hideSecondary;
-  const btnLabel = hidden ? `Afficher ${secondary}` : `Masquer ${secondary}`;
-  const visible = hidden ? [series[opts.primarySet]] : [series.AROMEIFS, series.ICONGFS];
+  const shown = opts.showSecondary;
+  const btnLabel = shown ? `Masquer ${secondary}` : `Afficher ${secondary}`;
+  const visible = shown ? [series.AROMEIFS, series.ICONGFS] : [series[opts.primarySet]];
   return `<section class="spot-block" data-spot="${escapeHtml(spot.spot_key)}">
     <div class="spot-chart-head">
       <h3 class="spot-chart-title">${escapeHtml(spot.display_name)}</h3>
-      <button type="button" class="secondary-btn${hidden ? " is-active" : ""}" data-toggle-secondary="${escapeHtml(spot.spot_key)}">${btnLabel}</button>
+      <button type="button" class="secondary-btn${shown ? " is-active" : ""}" data-toggle-secondary="${escapeHtml(spot.spot_key)}">${btnLabel}</button>
     </div>
     <div class="spot-chart">${buildChartSvg(series, startDay, horizonDays, 400, opts)}</div>
     ${legendHtml(visible)}
@@ -171,7 +171,7 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   body.querySelectorAll("[data-toggle-secondary]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const key = btn.dataset.toggleSecondary;
-      hideSecondaryBySpot.set(key, !hideSecondaryBySpot.get(key));
+      showSecondaryBySpot.set(key, !showSecondaryBySpot.get(key));
       renderZoneDetail({ selectedZone, dayKey, fallbackLabel });
     });
   });
