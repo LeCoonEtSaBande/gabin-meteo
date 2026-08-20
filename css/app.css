@@ -326,7 +326,15 @@ html, body {
   color: var(--text);
 }
 
-.spot-chart-title { flex: 1; }
+.spot-chart-title { flex: 1; min-width: 0; }
+
+.spot-chart-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+  flex: none;
+}
 
 .spot-info h3 { margin: 0 0 6px; }
 

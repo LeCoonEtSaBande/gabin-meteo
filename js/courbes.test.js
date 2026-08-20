@@ -8,6 +8,7 @@ const {
   indexCurves,
   primaryCurveSet,
   secondaryCurveSet,
+  visibleSets,
   mergeWxMax,
   xTicks,
   buildChartSvg,
@@ -248,6 +249,29 @@ test("afficher la courbe secondaire ajoute ICONGFS si le principal est AROMEIFS"
   });
   assert.match(svg, /AROMEIFS/);
   assert.match(svg, />ICONGFS</);
+});
+
+test("masquer le principal ne laisse que le secondaire, nébulosité et pluie incluses", () => {
+  assert.deepEqual(visibleSets("AROMEIFS", { showPrimary: false, showSecondary: true }), ["ICONGFS"]);
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
+    primarySet: "AROMEIFS",
+    showPrimary: false,
+    showSecondary: true,
+  });
+  assert.doesNotMatch(svg, />AROMEIFS</);
+  assert.match(svg, />ICONGFS</);
+  assert.match(svg, /Nébulosité 90 %/);
+  assert.match(svg, /Pluie 1\.0 mm/);
+  assert.doesNotMatch(svg, /Nébulosité 50 %/);
+  assert.doesNotMatch(svg, /Pluie 0\.4 mm/);
+});
+
+test("principal seul : nébulosité et pluie du jeu AROMEIFS", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "AROMEIFS" });
+  assert.match(svg, /Nébulosité 50 %/);
+  assert.match(svg, /Pluie 0\.4 mm/);
+  assert.doesNotMatch(svg, /Nébulosité 90 %/);
+  assert.doesNotMatch(svg, /Pluie 1\.0 mm/);
 });
 
 test("parseValidAt lit l'heure civile sans Date locale", () => {

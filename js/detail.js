@@ -23,6 +23,7 @@ let spotSpecs = [];
 let curveIndex = { AROMEIFS: {}, ICONGFS: {} };
 let detailReady = false;
 let detailError = "";
+const showPrimaryBySpot = new Map();
 const showSecondaryBySpot = new Map();
 
 function zoneSpecName(zoneKey) {
@@ -59,25 +60,36 @@ function seriesForSpot(spotKey, startDay) {
 
 function chartOptions(spot) {
   const primarySet = primaryCurveSet(spot);
+  const key = spot.spot_key;
   return {
     primarySet,
-    showSecondary: Boolean(showSecondaryBySpot.get(spot.spot_key)),
+    showPrimary: showPrimaryBySpot.get(key) !== false,
+    showSecondary: Boolean(showSecondaryBySpot.get(key)),
     secondarySet: secondaryCurveSet(primarySet),
     compactSetLabels: window.matchMedia("(min-width: 960px)").matches,
   };
 }
 
+function setToggleButton(spotKey, setName, shown) {
+  const label = shown ? `Masquer ${setName}` : `Afficher ${setName}`;
+  return `<button type="button" class="secondary-btn${shown ? " is-active" : ""}" data-toggle-set="${escapeHtml(spotKey)}" data-set="${escapeHtml(setName)}" aria-pressed="${shown ? "true" : "false"}">${label}</button>`;
+}
+
 function spotChartHtml(spot, startDay) {
   const series = seriesForSpot(spot.spot_key, startDay);
   const opts = chartOptions(spot);
-  const secondary = opts.secondarySet;
-  const shown = opts.showSecondary;
-  const btnLabel = shown ? `Masquer ${secondary}` : `Afficher ${secondary}`;
-  const visible = shown ? [series.AROMEIFS, series.ICONGFS] : [series[opts.primarySet]];
+  const sets = visibleSets(opts.primarySet, {
+    showPrimary: opts.showPrimary,
+    showSecondary: opts.showSecondary,
+  });
+  const visible = sets.map((name) => series[name]);
   return `<section class="spot-block" data-spot="${escapeHtml(spot.spot_key)}">
     <div class="spot-chart-head">
       <h3 class="spot-chart-title">${escapeHtml(spot.display_name)}</h3>
-      <button type="button" class="secondary-btn${shown ? " is-active" : ""}" data-toggle-secondary="${escapeHtml(spot.spot_key)}">${btnLabel}</button>
+      <div class="spot-chart-toggles">
+        ${setToggleButton(spot.spot_key, opts.primarySet, opts.showPrimary)}
+        ${setToggleButton(spot.spot_key, opts.secondarySet, opts.showSecondary)}
+      </div>
     </div>
     <div class="spot-chart">${buildChartSvg(series, startDay, horizonDays, 400, opts)}</div>
     ${legendHtml(visible)}
@@ -168,10 +180,17 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
       renderZoneDetail({ selectedZone, dayKey, fallbackLabel });
     });
   });
-  body.querySelectorAll("[data-toggle-secondary]").forEach((btn) => {
+  body.querySelectorAll("[data-toggle-set]").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const key = btn.dataset.toggleSecondary;
-      showSecondaryBySpot.set(key, !showSecondaryBySpot.get(key));
+      const key = btn.dataset.toggleSet;
+      const setName = btn.dataset.set;
+      const primary = primaryCurveSet(spotSpecs.find((spot) => spot.spot_key === key) || {});
+      if (setName === primary) {
+        const shown = showPrimaryBySpot.get(key) !== false;
+        showPrimaryBySpot.set(key, !shown);
+      } else {
+        showSecondaryBySpot.set(key, !showSecondaryBySpot.get(key));
+      }
       renderZoneDetail({ selectedZone, dayKey, fallbackLabel });
     });
   });

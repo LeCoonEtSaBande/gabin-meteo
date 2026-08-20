@@ -261,16 +261,21 @@ function xTicks(startDay, nDays, x0, innerW) {
   return { hours, days };
 }
 
-function visibleSets(primarySet, showSecondary) {
+function visibleSets(primarySet, options = {}) {
+  const showPrimary = options.showPrimary !== false;
+  const showSecondary = Boolean(options.showSecondary);
   const secondary = secondaryCurveSet(primarySet);
-  if (showSecondary) return [primarySet, secondary];
-  return [primarySet];
+  const sets = [];
+  if (showPrimary) sets.push(primarySet);
+  if (showSecondary) sets.push(secondary);
+  return sets;
 }
 
 function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) {
   const primarySet = options.primarySet || "AROMEIFS";
+  const showPrimary = options.showPrimary !== false;
   const showSecondary = Boolean(options.showSecondary);
-  const sets = visibleSets(primarySet, showSecondary);
+  const sets = visibleSets(primarySet, { showPrimary, showSecondary });
   const series = sets.map((name) => ({ name, points: seriesBySet[name] || [] }));
   const all = series.flatMap((item) => item.points);
   if (!all.length) {
@@ -466,6 +471,7 @@ if (typeof module !== "undefined" && module.exports) {
     indexCurves,
     primaryCurveSet,
     secondaryCurveSet,
+    visibleSets,
     mergeWxMax,
     arrowRotation,
     nicePrecipMax,
