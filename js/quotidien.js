@@ -83,16 +83,16 @@ const CHIP_POS = {
    On utilise la hauteur d'écran (y compris les bandes vides du letterbox)
    pour écarter les paires Léman / Annecy–Bourget / Valence–Monteynard. */
 const CHIP_POS_MOBILE = {
-  leman_grand_lac: { x: 0.80, y: 0.09 },
-  leman_petit_lac: { x: 0.61, y: 0.19 },
+  leman_grand_lac: { x: 0.81, y: 0.09 },
+  leman_petit_lac: { x: 0.58, y: 0.18 },
   annecy: { x: 0.84, y: 0.35 },
   bourget: { x: 0.50, y: 0.50 },
-  grand_large: { x: 0.25, y: 0.40 },
+  grand_large: { x: 0.25, y: 0.37 },
   saone: { x: 0.22, y: 0.14 },
   chasse_sur_rhone: { x: 0.14, y: 0.50 },
-  st_alban_du_rhone: { x: 0.25, y: 0.63 },
-  valence: { x: 0.22, y: 0.76 },
-  laffrey: { x: 0.80, y: 0.73 },
+  st_alban_du_rhone: { x: 0.31, y: 0.64 },
+  valence: { x: 0.20, y: 0.76 },
+  laffrey: { x: 0.79, y: 0.80 },
   monteynard: { x: 0.40, y: 0.89 },
 };
 
