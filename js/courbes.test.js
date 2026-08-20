@@ -172,10 +172,18 @@ test("journée : heures entre vent et nébulosité, un point par heure, échelle
   const hourIndex = svg.indexOf("00h");
   const nebIndex = svg.indexOf("néb. %");
   assert.ok(hourIndex > 0 && nebIndex > hourIndex);
-  const nebX = Number((svg.match(/x="([0-9.]+)"[^>]*>néb\. %</) || [])[1]);
-  const mmX = Number((svg.match(/x="([0-9.]+)"[^>]*>mm</) || [])[1]);
-  assert.ok(nebX <= 8, `néb. % trop à droite: ${nebX}`);
-  assert.ok(mmX >= 390, `mm trop à gauche: ${mmX}`);
+  const neb = svg.match(/translate\(([0-9.]+) [0-9.]+\) rotate\(-90\)"[^>]*>néb\. %</);
+  const mm = svg.match(/translate\(([0-9.]+) [0-9.]+\) rotate\(-90\)"[^>]*>mm</);
+  assert.ok(neb, "néb. % doit être une légende verticale à gauche");
+  assert.ok(mm, "mm doit être une légende verticale à droite");
+  assert.ok(Number(neb[1]) <= 12, `néb. % trop à droite: ${neb[1]}`);
+  assert.ok(Number(mm[1]) >= 388, `mm trop à gauche: ${mm[1]}`);
+  const plotLeft = Number((svg.match(/<line x1="([0-9.]+)" y1="[^"]+" x2="[^"]+" y2="[^"]+" stroke="#2a2a2a"/) || [])[1]);
+  const cloudTick = svg.match(/class="wx-tick" x="([0-9.]+)"[^>]*>100</);
+  const precipTick = svg.match(/class="wx-tick" x="([0-9.]+)"[^>]*text-anchor="start"[^>]*>[0-9]+</);
+  assert.ok(plotLeft > 70);
+  assert.ok(cloudTick && Number(cloudTick[1]) < plotLeft);
+  assert.ok(precipTick && Number(precipTick[1]) > plotLeft);
 });
 
 test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () => {
@@ -199,12 +207,12 @@ test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () =>
     400,
     { primarySet: "AROMEIFS", hideSecondary: true, compactSetLabels: true }
   );
-  const label = svg.match(/<text x="([0-9.]+)"[^>]*>AROMEIFS</);
+  const label = svg.match(/class="set-label" x="([0-9.]+)"[^>]*>AROMEIFS</);
   assert.ok(label);
-  assert.ok(Number(label[1]) <= 6);
+  assert.ok(Number(label[1]) <= 3);
   const arrow = svg.match(/translate\(([0-9.]+),/);
   assert.ok(arrow);
-  assert.ok(Number(arrow[1]) - Number(label[1]) >= 88);
+  assert.ok(Number(arrow[1]) - Number(label[1]) >= 100);
 });
 
 test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {

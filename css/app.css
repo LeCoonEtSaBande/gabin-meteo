@@ -357,6 +357,17 @@ html, body {
   display: block;
   width: 100%;
   height: auto;
+  overflow: visible;
+  font-size: 8px;
+}
+
+.spot-svg .set-label {
+  font-size: 8px;
+}
+
+.spot-svg .wx-unit,
+.spot-svg .wx-tick {
+  font-size: 8px;
 }
 
 .chart-legend {
@@ -493,6 +504,8 @@ html, body {
   .zone-spots { font-size: 15px; }
   .spot-chart-title,
   .spot-info h3 { font-size: 16px; }
+
+  .spot-svg .set-label { font-size: 7px; }
 
   .modes {
     flex-direction: column;

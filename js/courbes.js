@@ -275,14 +275,14 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const all = series.flatMap((item) => item.points);
   if (!all.length) {
     return `<svg class="spot-svg" viewBox="0 0 ${width} 80" role="img">
-      <text x="12" y="44" fill="#7a7a7a" font-size="12">Pas de courbe sur cet horizon</text>
+      <text x="12" y="44" fill="#7a7a7a" font-size="12px">Pas de courbe sur cet horizon</text>
     </svg>`;
   }
 
   const compactSetLabels = Boolean(options.compactSetLabels);
-  const setLabelSize = compactSetLabels ? 6.2 : 8;
-  const padL = compactSetLabels ? 96 : 76;
-  const padR = compactSetLabels ? 56 : 50;
+  const setLabelSize = compactSetLabels ? 7 : 8;
+  const padL = compactSetLabels ? 108 : 88;
+  const padR = compactSetLabels ? 64 : 58;
   const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
   const axisH = 18;
@@ -297,9 +297,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const innerW = Math.max(40, width - padL - padR);
   const x0 = padL;
   const x1 = padL + innerW;
-  const leftGutterX = 6;
-  const rightGutterX = width - 6;
-  const setLabelX = compactSetLabels ? 4 : 6;
+  const setLabelX = compactSetLabels ? 2 : 4;
+  const wxUnitPad = 11;
   const maxKt = niceMaxKt(all.flatMap((p) => [p.mean, p.gust]));
   const yKt = (kt) => yWind0 - (kt / maxKt) * windH;
   const hourW = innerW / (nDays * 24);
@@ -316,7 +315,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
       const col = is25 ? "#9a9a9a" : "#2a2a2a";
       const widthLine = is25 ? "1.15" : "1";
       return `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${col}" stroke-dasharray="${dash}" stroke-width="${widthLine}"></line>
-        <text x="${x0 - 4}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#7a7a7a" font-size="9">${kt}</text>`;
+        <text x="${x0 - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#7a7a7a" font-size="9px">${kt}</text>`;
     })
     .join("");
 
@@ -352,7 +351,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const dirLabels = series
     .map((item, row) => {
       const y = dirY0 + row * dirRowH + 15;
-      return `<text x="${setLabelX}" y="${y}" text-anchor="start" fill="${SET_COLORS[item.name]}" font-size="${setLabelSize}">${SET_LABELS[item.name]}</text>
+      return `<text class="set-label" x="${setLabelX}" y="${y}" text-anchor="start" fill="${SET_COLORS[item.name]}" font-size="${setLabelSize}px">${SET_LABELS[item.name]}</text>
         ${paintArrows(item.points, row)}`;
     })
     .join("");
@@ -367,13 +366,14 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const precipMax = nicePrecipMax(wx.map((p) => p.precip));
   const yCloud = (pct) => wxY0 + wxH - 6 - (Math.max(0, Math.min(100, pct)) / 100) * (wxH - 16);
   const yPrecip = (mm) => wxY0 + wxH - 6 - (Math.max(0, mm) / precipMax) * (wxH - 16);
-  let wxDraw = `<text x="${leftGutterX}" y="${wxY0 + 8}" fill="${WX_CLOUD}" font-size="7">néb. %</text>
-    <text x="${rightGutterX}" y="${wxY0 + 8}" text-anchor="end" fill="${WX_PRECIP}" font-size="7">mm</text>
-    <text x="${leftGutterX}" y="${yCloud(100) + 3}" fill="${WX_CLOUD}" font-size="8">100</text>
-    <text x="${leftGutterX}" y="${yCloud(50) + 3}" fill="${WX_CLOUD}" font-size="8">50</text>
-    <text x="${leftGutterX}" y="${yCloud(0) + 3}" fill="${WX_CLOUD}" font-size="8">0</text>
-    <text x="${rightGutterX}" y="${yPrecip(precipMax) + 3}" text-anchor="end" fill="${WX_PRECIP}" font-size="8">${precipMax}</text>
-    <text x="${rightGutterX}" y="${yPrecip(0) + 3}" text-anchor="end" fill="${WX_PRECIP}" font-size="8">0</text>`;
+  const wxMidY = wxY0 + wxH / 2;
+  let wxDraw = `<text class="wx-unit" transform="translate(${wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_CLOUD}" font-size="7px">néb. %</text>
+    <text class="wx-unit" transform="translate(${width - wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_PRECIP}" font-size="7px">mm</text>
+    <text class="wx-tick" x="${x0 - 6}" y="${yCloud(100) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">100</text>
+    <text class="wx-tick" x="${x0 - 6}" y="${yCloud(50) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">50</text>
+    <text class="wx-tick" x="${x0 - 6}" y="${yCloud(0) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">0</text>
+    <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(precipMax) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">${precipMax}</text>
+    <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(0) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">0</text>`;
   for (let i = 0; i < wx.length; i += 1) {
     const point = wx[i];
     const x = xOf(point, startDay, nDays, x0, innerW);
@@ -411,13 +411,13 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const hourLabels = ticks.hours
     .map(
       (tick) =>
-        `<text x="${tick.x.toFixed(1)}" y="${axisY + 12}" text-anchor="middle" fill="#7a7a7a" font-size="8">${escapeHtml(tick.label)}</text>`
+        `<text x="${tick.x.toFixed(1)}" y="${axisY + 12}" text-anchor="middle" fill="#7a7a7a" font-size="8px">${escapeHtml(tick.label)}</text>`
     )
     .join("");
   const dayLabels = ticks.days
     .map(
       (tick) =>
-        `<text x="${tick.x.toFixed(1)}" y="${height - 4}" text-anchor="middle" fill="#b29f84" font-size="9">${escapeHtml(tick.label)}</text>`
+        `<text x="${tick.x.toFixed(1)}" y="${height - 4}" text-anchor="middle" fill="#b29f84" font-size="9px">${escapeHtml(tick.label)}</text>`
     )
     .join("");
 
@@ -425,7 +425,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
     ${dirLabels}
     ${grid}
-    <text x="${x0 - 4}" y="${windTop + 8}" text-anchor="end" fill="#7a7a7a" font-size="8">nds</text>
+    <text x="${x0 - 6}" y="${windTop + 8}" text-anchor="end" fill="#7a7a7a" font-size="8px">nds</text>
     ${fills}
     ${winds}
     ${hourAxis}
