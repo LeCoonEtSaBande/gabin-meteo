@@ -14,7 +14,7 @@ QUOTIDIEN_JSON = PROCESSED_DIR / "quotidien.json"
 LAST_UPDATE_JSON = PROCESSED_DIR / "last_update.json"
 COLLECTE_BRANCH = "collecte-api-meteo"
 
-WIND_SLOT_KT = 10.0
+WIND_SLOT_KT = 8.0
 TEMP_HOUR = 15
 
 # Court terme → long terme. À un instant t on ne garde que le modèle

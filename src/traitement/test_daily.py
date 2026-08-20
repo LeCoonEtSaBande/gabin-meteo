@@ -21,8 +21,23 @@ def test_slot_nearest_hour() -> None:
     assert slot_label(slot) == "(08h-12h)"
 
 
+def test_slot_default_threshold_8kt() -> None:
+    # 9 nds : au-dessus de 8, en dessous de l'ancien seuil 10 → un créneau existe
+    hours = [8.0, 10.0, 12.0]
+    values = [4.0, 9.0, 4.0]
+    slot = wind_slot_around_max(hours, values)
+    assert slot == (10, 10), slot
+    assert wind_slot_around_max(hours, values, 10.0) is None
+
+    # Même profil qu'à 10 nds : le créneau s'élargit vers 07h
+    hours = [6.0, 9.0, 10.5, 13.0]
+    values = [5.0, 15.0, 15.0, 5.0]
+    assert wind_slot_around_max(hours, values) == (7, 12)
+
+
 def test_slot_below_threshold() -> None:
-    assert wind_slot_around_max([8.0, 12.0], [4.0, 9.0]) is None
+    assert wind_slot_around_max([8.0, 12.0], [4.0, 7.0]) is None
+    assert wind_slot_around_max([8.0, 12.0], [4.0, 8.0]) is None
 
 
 def test_weather_icon() -> None:
@@ -36,6 +51,7 @@ def test_weather_icon() -> None:
 if __name__ == "__main__":
     test_round_to_hour()
     test_slot_nearest_hour()
+    test_slot_default_threshold_8kt()
     test_slot_below_threshold()
     test_weather_icon()
     print("ok")
