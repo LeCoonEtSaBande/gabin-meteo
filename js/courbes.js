@@ -281,8 +281,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
 
   const compactSetLabels = Boolean(options.compactSetLabels);
   const setLabelSize = compactSetLabels ? 6.2 : 8;
-  const padL = 64;
-  const padR = 38;
+  const padL = compactSetLabels ? 84 : 72;
+  const padR = compactSetLabels ? 52 : 48;
   const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
   const axisH = 18;
@@ -297,6 +297,9 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const innerW = Math.max(40, width - padL - padR);
   const x0 = padL;
   const x1 = padL + innerW;
+  const leftGutterX = 6;
+  const rightGutterX = width - 6;
+  const setLabelX = compactSetLabels ? 4 : 6;
   const maxKt = niceMaxKt(all.flatMap((p) => [p.mean, p.gust]));
   const yKt = (kt) => yWind0 - (kt / maxKt) * windH;
   const hourW = innerW / (nDays * 24);
@@ -349,7 +352,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const dirLabels = series
     .map((item, row) => {
       const y = dirY0 + row * dirRowH + 15;
-      return `<text x="${x0 - 4}" y="${y}" text-anchor="end" fill="${SET_COLORS[item.name]}" font-size="${setLabelSize}">${SET_LABELS[item.name]}</text>
+      return `<text x="${setLabelX}" y="${y}" text-anchor="start" fill="${SET_COLORS[item.name]}" font-size="${setLabelSize}">${SET_LABELS[item.name]}</text>
         ${paintArrows(item.points, row)}`;
     })
     .join("");
@@ -364,13 +367,13 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const precipMax = nicePrecipMax(wx.map((p) => p.precip));
   const yCloud = (pct) => wxY0 + wxH - 6 - (Math.max(0, Math.min(100, pct)) / 100) * (wxH - 16);
   const yPrecip = (mm) => wxY0 + wxH - 6 - (Math.max(0, mm) / precipMax) * (wxH - 16);
-  let wxDraw = `<text x="${x0 - 4}" y="${wxY0 + 8}" text-anchor="end" fill="${WX_CLOUD}" font-size="7">néb. %</text>
-    <text x="${x1 + 4}" y="${wxY0 + 8}" fill="${WX_PRECIP}" font-size="7">mm</text>
-    <text x="${x0 - 4}" y="${yCloud(100) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8">100</text>
-    <text x="${x0 - 4}" y="${yCloud(50) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8">50</text>
-    <text x="${x0 - 4}" y="${yCloud(0) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8">0</text>
-    <text x="${x1 + 4}" y="${yPrecip(precipMax) + 3}" fill="${WX_PRECIP}" font-size="8">${precipMax}</text>
-    <text x="${x1 + 4}" y="${yPrecip(0) + 3}" fill="${WX_PRECIP}" font-size="8">0</text>`;
+  let wxDraw = `<text x="${leftGutterX}" y="${wxY0 + 8}" fill="${WX_CLOUD}" font-size="7">néb. %</text>
+    <text x="${rightGutterX}" y="${wxY0 + 8}" text-anchor="end" fill="${WX_PRECIP}" font-size="7">mm</text>
+    <text x="${leftGutterX}" y="${yCloud(100) + 3}" fill="${WX_CLOUD}" font-size="8">100</text>
+    <text x="${leftGutterX}" y="${yCloud(50) + 3}" fill="${WX_CLOUD}" font-size="8">50</text>
+    <text x="${leftGutterX}" y="${yCloud(0) + 3}" fill="${WX_CLOUD}" font-size="8">0</text>
+    <text x="${rightGutterX}" y="${yPrecip(precipMax) + 3}" text-anchor="end" fill="${WX_PRECIP}" font-size="8">${precipMax}</text>
+    <text x="${rightGutterX}" y="${yPrecip(0) + 3}" text-anchor="end" fill="${WX_PRECIP}" font-size="8">0</text>`;
   for (let i = 0; i < wx.length; i += 1) {
     const point = wx[i];
     const x = xOf(point, startDay, nDays, x0, innerW);

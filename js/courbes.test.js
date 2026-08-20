@@ -172,6 +172,23 @@ test("journée : heures entre vent et nébulosité, un point par heure, échelle
   const hourIndex = svg.indexOf("00h");
   const nebIndex = svg.indexOf("néb. %");
   assert.ok(hourIndex > 0 && nebIndex > hourIndex);
+  const nebX = Number((svg.match(/x="([0-9.]+)"[^>]*>néb\. %</) || [])[1]);
+  const mmX = Number((svg.match(/x="([0-9.]+)"[^>]*>mm</) || [])[1]);
+  assert.ok(nebX <= 8, `néb. % trop à droite: ${nebX}`);
+  assert.ok(mmX >= 390, `mm trop à gauche: ${mmX}`);
+});
+
+test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
+    primarySet: "ICONGFS",
+    compactSetLabels: true,
+  });
+  const label = svg.match(/<text x="([0-9.]+)"[^>]*>AROMEIFS</);
+  assert.ok(label);
+  assert.ok(Number(label[1]) <= 6);
+  const arrow = svg.match(/translate\(([0-9.]+),/);
+  assert.ok(arrow);
+  assert.ok(Number(arrow[1]) - Number(label[1]) >= 70);
 });
 
 test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
