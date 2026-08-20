@@ -129,10 +129,7 @@ text, tspan {
 <text fill="#c8c8c8" font-family="ui-monospace, 'SF Mono', Menlo, 'Cascadia Mono', Consolas, monospace" font-size="18" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 149.858 685.7)" vectornator:layerName="Villes_txt_Vienne" vectornator:width="200" x="0" y="0">
 <tspan lengthAdjust="spacingAndGlyphs" textLength="54.018" x="0" y="17.136">Vienne</tspan>
 </text>
-<text fill="#c8c8c8" font-family="ui-monospace, 'SF Mono', Menlo, 'Cascadia Mono', Consolas, monospace" font-size="18" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 12.8926 861.157)" vectornator:layerName="Villes_txt_Annonay" vectornator:width="200" x="0" y="0">
-<tspan lengthAdjust="spacingAndGlyphs" textLength="70.686" x="0" y="17.136">Annonay</tspan>
-</text>
-<text fill="#c8c8c8" font-family="ui-monospace, 'SF Mono', Menlo, 'Cascadia Mono', Consolas, monospace" font-size="18" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 101.924 408.334)" vectornator:layerName="Villes_txt_Villefranche-sur-Saône" vectornator:width="200" x="0" y="0">
+<text fill="#c8c8c8" font-family="ui-monospace, 'SF Mono', Menlo, 'Cascadia Mono', Consolas, monospace" font-size="18" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 101.924 388.334)" vectornator:layerName="Villes_txt_Villefranche-sur-Saône" vectornator:width="200" x="0" y="0">
 <tspan lengthAdjust="spacingAndGlyphs" textLength="182.016" x="0" y="17.136">Villefranche-sur-Saône</tspan>
 </text>
 </g>

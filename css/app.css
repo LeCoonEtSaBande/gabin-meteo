@@ -372,12 +372,28 @@ html, body {
   .mode {
     flex: 0 0 auto;
     min-height: 72px;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 1.35;
     border-bottom: 0;
     border-right: 2px solid transparent;
     border-left: 0;
   }
+
+  .chip {
+    min-width: 130px;
+    max-width: 178px;
+    padding: 7px 10px 6px;
+    border-radius: 10px;
+  }
+
+  .chip-name { font-size: 11px; }
+  .chip-mean { font-size: 26px; }
+  .chip-gust { font-size: 16px; }
+  .chip-dir { width: 13px; height: 18px; }
+  .chip-wx { width: 26px; height: 26px; }
+  .chip-temp { font-size: 13px; }
+  .chip-meta { font-size: 11px; }
+  .chip-row { gap: 6px; }
 
   .mode.is-active {
     border-right-color: var(--beige);
