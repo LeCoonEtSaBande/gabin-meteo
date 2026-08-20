@@ -195,6 +195,7 @@ html, body {
 }
 
 .chip-dir {
+  /* Flèche d'origine 9×12, +25 %. */
   width: 11px;
   height: 15px;
   flex: none;

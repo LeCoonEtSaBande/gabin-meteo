@@ -79,17 +79,21 @@ const CHIP_POS = {
   monteynard: { x: 368, y: 1048 },
 };
 
-/* Recalages iPhone uniquement : ne pas réutiliser sur PC. */
+/* Recalages iPhone : fractions de #map-pane (0–1), pas des coords SVG.
+   On utilise la hauteur d'écran (y compris les bandes vides du letterbox)
+   pour écarter les paires Léman / Annecy–Bourget / Valence–Monteynard. */
 const CHIP_POS_MOBILE = {
-  leman_grand_lac: { x: 640, y: 175 },
-  leman_petit_lac: { x: 505, y: 345 },
-  annecy: { x: 720, y: 545 },
-  bourget: { x: 440, y: 740 },
-  valence: { x: 210, y: 880 },
-  monteynard: { x: 390, y: 1112 },
-  chasse_sur_rhone: { x: 125, y: 600 },
-  saone: { x: 225, y: 248 },
-  st_alban_du_rhone: { x: 195, y: 720 },
+  leman_grand_lac: { x: 0.78, y: 0.06 },
+  leman_petit_lac: { x: 0.56, y: 0.22 },
+  annecy: { x: 0.84, y: 0.39 },
+  bourget: { x: 0.46, y: 0.55 },
+  grand_large: { x: 0.22, y: 0.36 },
+  saone: { x: 0.28, y: 0.13 },
+  chasse_sur_rhone: { x: 0.16, y: 0.47 },
+  st_alban_du_rhone: { x: 0.22, y: 0.63 },
+  valence: { x: 0.18, y: 0.74 },
+  laffrey: { x: 0.72, y: 0.68 },
+  monteynard: { x: 0.48, y: 0.89 },
 };
 
 let svgRoot = null;
@@ -180,6 +184,16 @@ function chipPos(zoneKey) {
   return CHIP_POS[zoneKey];
 }
 
+function chipScreenPoint(zoneKey) {
+  const pos = chipPos(zoneKey);
+  if (!pos) return { x: 0, y: 0 };
+  if (!isDesktop() && pos.x >= 0 && pos.x <= 1 && pos.y >= 0 && pos.y <= 1) {
+    const pane = document.getElementById("map-pane").getBoundingClientRect();
+    return { x: pos.x * pane.width, y: pos.y * pane.height };
+  }
+  return svgToPane(pos.x, pos.y);
+}
+
 function zoneLabel(zoneKey) {
   if (!isDesktop() && ZONE_LABELS_MOBILE[zoneKey]) return ZONE_LABELS_MOBILE[zoneKey];
   return ZONE_LABELS[zoneKey] || zoneKey;
@@ -217,7 +231,7 @@ function separateMobilePairs() {
   const pane = document.getElementById("map-pane");
   if (!host || !pane) return;
   const box = pane.getBoundingClientRect();
-  const gap = 28;
+  const gap = 10;
   for (const [ka, kb] of MOBILE_PAIRS) {
     const a = host.querySelector(`[data-zone="${ka}"]`);
     const b = host.querySelector(`[data-zone="${kb}"]`);
@@ -243,9 +257,56 @@ function separateMobilePairs() {
   }
 }
 
+function resolveChipCollisions() {
+  if (isDesktop()) return;
+  const host = document.getElementById("chips");
+  const pane = document.getElementById("map-pane");
+  if (!host || !pane) return;
+  const box = pane.getBoundingClientRect();
+  const gap = 6;
+  const chips = [...host.querySelectorAll(".chip")];
+  for (let pass = 0; pass < 6; pass++) {
+    let moved = false;
+    for (let i = 0; i < chips.length; i += 1) {
+      for (let j = i + 1; j < chips.length; j += 1) {
+        const a = chips[i];
+        const b = chips[j];
+        const ra = a.getBoundingClientRect();
+        const rb = b.getBoundingClientRect();
+        const overlapX = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);
+        const overlapY = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
+        if (overlapX <= 0 || overlapY <= -gap) continue;
+        const need = overlapY + gap;
+        const upper = ra.top <= rb.top ? a : b;
+        const lower = ra.top <= rb.top ? b : a;
+        const ru = upper.getBoundingClientRect();
+        const rl = lower.getBoundingClientRect();
+        const roomDown = box.bottom - 6 - rl.bottom;
+        const roomUp = ru.top - (box.top + 6);
+        let down = Math.min(need, Math.max(0, roomDown));
+        let up = need - down;
+        if (up > roomUp) {
+          down += up - roomUp;
+          up = roomUp;
+        }
+        if (down) {
+          lower.style.top = `${parseFloat(lower.style.top) + down}px`;
+          moved = true;
+        }
+        if (up) {
+          upper.style.top = `${parseFloat(upper.style.top) - up}px`;
+          moved = true;
+        }
+      }
+    }
+    if (!moved) break;
+  }
+}
+
 function layoutChips() {
   clampChips();
   separateMobilePairs();
+  resolveChipCollisions();
   clampChips();
 }
 
@@ -259,11 +320,10 @@ function renderChips() {
   if (viewMode !== "daily") return;
 
   for (const zoneKey of Object.keys(CHIP_POS)) {
-    const pos = chipPos(zoneKey);
     const spotKey = PRIMARY_SPOT[zoneKey];
     const day = dataset.spots[spotKey]?.days?.[iso];
     const usable = isUsableSession(day);
-    const pt = svgToPane(pos.x, pos.y);
+    const pt = chipScreenPoint(zoneKey);
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = `chip${usable ? "" : " is-muted"}${selectedZone === zoneKey ? " is-selected" : ""}`;
