@@ -379,11 +379,17 @@ html, body {
     min-height: 48px;
   }
 
+  .map-pane { grid-area: map; }
+  .modes { grid-area: modes; }
+  .daybar { grid-area: day; }
+
   .detail {
+    grid-area: detail;
     display: flex;
     position: relative;
     z-index: 1;
-    border-left: 0;
+    min-height: 0;
+    background: var(--elev);
   }
 
   .back { display: none; }
