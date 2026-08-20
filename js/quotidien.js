@@ -21,36 +21,6 @@ const ICON_FILES = {
   orage: "icon-orage.svg",
 };
 
-const TEMP_STOPS = [
-  [-5, [255, 255, 255]],
-  [0, [76, 155, 232]],
-  [10, [29, 111, 191]],
-  [15, [245, 208, 0]],
-  [25, [240, 136, 0]],
-  [35, [224, 32, 32]],
-  [40, [200, 74, 212]],
-];
-
-const WIND_STOPS = [
-  [0, [255, 255, 255]],
-  [10, [255, 255, 255]],
-  [12, [60, 176, 67]],
-  [15, [245, 208, 0]],
-  [20, [240, 136, 0]],
-  [25, [196, 90, 0]],
-  [30, [224, 32, 32]],
-  [40, [224, 80, 144]],
-];
-
-const PLACEHOLDER = {
-  mean: "00",
-  gust: "00",
-  temp: "00°C",
-  slot: "(00h -00h)",
-  model: "XXXXX",
-  color: "#e6e6e6",
-};
-
 const MODEL_SHORT = {
   AROMEHD: "AROHD",
   ARPEGE: "ARPEG",
@@ -61,43 +31,55 @@ const MODEL_SHORT = {
   GFS: "GFS",
 };
 
-const ICON_SIZE = 40;
+const ZONE_LABELS = {
+  leman_grand_lac: "Léman Grand Lac",
+  leman_petit_lac: "Léman Petit Lac",
+  annecy: "Annecy",
+  bourget: "Bourget",
+  laffrey: "Laffrey",
+  monteynard: "Monteynard",
+  valence: "Valence",
+  st_alban_du_rhone: "St-Alban",
+  chasse_sur_rhone: "Chasse",
+  saone: "Saône",
+  grand_large: "Grand Large",
+};
+
+const PRIMARY_SPOT = {
+  leman_grand_lac: "messery",
+  leman_petit_lac: "vengeron",
+  annecy: "plage_de_sevrier",
+  bourget: "cap_des_seselets",
+  laffrey: "parking_pre_rencontre",
+  monteynard: "treffort",
+  valence: "portes_les_valence",
+  st_alban_du_rhone: "st_alban_du_rhone",
+  chasse_sur_rhone: "loire_sur_rhone",
+  saone: "pont_darciat",
+  grand_large: "wwmeyzieu",
+};
+
+/* Centre de puce en coordonnées SVG, calé au cas par cas. */
+const CHIP_POS = {
+  leman_grand_lac: { x: 748, y: 188 },
+  leman_petit_lac: { x: 575, y: 268 },
+  annecy: { x: 748, y: 498 },
+  bourget: { x: 478, y: 598 },
+  grand_large: { x: 188, y: 498 },
+  saone: { x: 198, y: 268 },
+  chasse_sur_rhone: { x: 52, y: 658 },
+  st_alban_du_rhone: { x: 188, y: 798 },
+  valence: { x: 58, y: 1038 },
+  laffrey: { x: 588, y: 958 },
+  monteynard: { x: 368, y: 1048 },
+};
 
 let svgRoot = null;
 let dataset = null;
 let dayKeys = [];
 let dayIndex = 0;
-
-function lerp(a, b, t) {
-  return a + (b - a) * t;
-}
-
-function lerpRgb(a, b, t) {
-  return [
-    Math.round(lerp(a[0], b[0], t)),
-    Math.round(lerp(a[1], b[1], t)),
-    Math.round(lerp(a[2], b[2], t)),
-  ];
-}
-
-function rgbCss(rgb) {
-  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-}
-
-function colorFromStops(value, stops) {
-  const minV = stops[0][0];
-  const maxV = stops[stops.length - 1][0];
-  const v = Math.min(maxV, Math.max(minV, value));
-  for (let i = 1; i < stops.length; i += 1) {
-    const [x1, c1] = stops[i - 1];
-    const [x2, c2] = stops[i];
-    if (v <= x2) {
-      const t = x2 === x1 ? 0 : (v - x1) / (x2 - x1);
-      return rgbCss(lerpRgb(c1, c2, t));
-    }
-  }
-  return rgbCss(stops[stops.length - 1][1]);
-}
+let viewMode = "daily";
+let selectedZone = null;
 
 function todayKey(timeZone = PARIS_TZ) {
   const parts = new Intl.DateTimeFormat("en-CA", {
@@ -128,43 +110,14 @@ function tagLayers(root) {
   }
 }
 
-function findLayer(root, name) {
-  return root.querySelector(`[data-layer="${name}"]`);
-}
-
-function setTspanText(textEl, value) {
-  if (!textEl) return;
-  const tspan = textEl.querySelector("tspan") || textEl;
-  tspan.textContent = value;
-  tspan.removeAttribute("textLength");
-  tspan.removeAttribute("lengthAdjust");
-}
-
-function setFill(el, color) {
-  if (!el) return;
-  el.setAttribute("fill", color);
-}
-
-function status(message) {
-  const el = document.getElementById("status");
-  if (el) el.textContent = message;
-}
-
-function spotGroups(root) {
-  return [...root.querySelectorAll("[data-layer]")].filter((el) =>
-    layerName(el).startsWith("S_")
-  );
+function zoneKeyFromLayer(name) {
+  if (!name.startsWith("Z_")) return "";
+  return name.slice(2).toLowerCase();
 }
 
 function modelLabel(key) {
-  if (!key) return PLACEHOLDER.model;
+  if (!key) return "";
   return MODEL_SHORT[key] || String(key).slice(0, 5);
-}
-
-function styleModele(el) {
-  if (!el) return;
-  el.setAttribute("font-style", "italic");
-  el.setAttribute("font-weight", "300");
 }
 
 function iconHref(key) {
@@ -172,135 +125,200 @@ function iconHref(key) {
   return `${ICON_DIR}/${file}`;
 }
 
-function ensureWeatherIcon(tendance) {
-  let image = tendance.querySelector("image.weather-icon");
-  const neb = findLayer(tendance, "Nebulosite");
-  const box = neb ? neb.getBBox() : { x: 0, y: 0, width: 28.75, height: 28.75 };
-  const cx = box.x + box.width / 2;
-  const cy = box.y + box.height / 2;
-  if (!image) {
-    image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-    image.classList.add("weather-icon");
-    image.setAttribute("preserveAspectRatio", "xMidYMid meet");
-    tendance.appendChild(image);
-  }
-  image.setAttribute("x", String(cx - ICON_SIZE / 2));
-  image.setAttribute("y", String(cy - ICON_SIZE / 2));
-  image.setAttribute("width", String(ICON_SIZE));
-  image.setAttribute("height", String(ICON_SIZE));
-  return image;
+function status(message) {
+  const el = document.getElementById("status");
+  if (el) el.textContent = message;
 }
 
-function resetSpot(tendance) {
-  setTspanText(findLayer(tendance, "Moyenne Max"), PLACEHOLDER.mean);
-  setTspanText(findLayer(tendance, "Rafales Max"), PLACEHOLDER.gust);
-  setTspanText(findLayer(tendance, "Temperature 15h"), PLACEHOLDER.temp);
-  setTspanText(findLayer(tendance, "(00h -00h)"), PLACEHOLDER.slot);
-  setTspanText(findLayer(tendance, "Modele"), PLACEHOLDER.model);
-  setFill(findLayer(tendance, "Moyenne Max"), PLACEHOLDER.color);
-  setFill(findLayer(tendance, "Rafales Max"), PLACEHOLDER.color);
-  setFill(findLayer(tendance, "Temperature 15h"), PLACEHOLDER.color);
-  setFill(findLayer(tendance, "Nds"), PLACEHOLDER.color);
-  setFill(findLayer(tendance, "(00h -00h)"), PLACEHOLDER.color);
-  setFill(findLayer(tendance, "Modele"), PLACEHOLDER.color);
-  styleModele(findLayer(tendance, "Modele"));
-  setFill(findLayer(tendance, "Direction Vent Moy Max"), PLACEHOLDER.color);
-  const arrow = findLayer(tendance, "Direction Vent Moy Max");
-  if (arrow) arrow.removeAttribute("transform");
-  const icon = tendance.querySelector("image.weather-icon");
-  if (icon) icon.setAttribute("opacity", "0");
+function spotsOfZone(zoneKey) {
+  return Object.entries(dataset.spots)
+    .filter(([, spot]) => spot.zone_key === zoneKey)
+    .map(([key, spot]) => ({ key, ...spot }));
 }
 
-function applySpot(tendance, day) {
-  const meanColor = colorFromStops(day.mean_max_kt, WIND_STOPS);
-  const gustColor = colorFromStops(day.gust_at_mean_max_kt, WIND_STOPS);
-  const tempColor =
-    day.temp_15h_c == null ? PLACEHOLDER.color : colorFromStops(day.temp_15h_c, TEMP_STOPS);
-
-  setTspanText(findLayer(tendance, "Moyenne Max"), String(day.mean_max_kt));
-  setTspanText(findLayer(tendance, "Rafales Max"), String(day.gust_at_mean_max_kt));
-  setTspanText(
-    findLayer(tendance, "Temperature 15h"),
-    day.temp_15h_c == null ? PLACEHOLDER.temp : `${day.temp_15h_c}°C`
-  );
-  setTspanText(findLayer(tendance, "(00h -00h)"), day.slot_label || "");
-  const modeleEl = findLayer(tendance, "Modele");
-  setTspanText(modeleEl, modelLabel(day.source_model_at_max));
-  styleModele(modeleEl);
-
-  setFill(findLayer(tendance, "Moyenne Max"), meanColor);
-  setFill(findLayer(tendance, "Rafales Max"), gustColor);
-  setFill(findLayer(tendance, "Temperature 15h"), tempColor);
-  setFill(findLayer(tendance, "Nds"), meanColor);
-  setFill(findLayer(tendance, "(00h -00h)"), meanColor);
-  setFill(modeleEl, meanColor);
-
-  const arrow = findLayer(tendance, "Direction Vent Moy Max");
-  if (arrow) {
-    setFill(arrow, meanColor);
-    const box = arrow.getBBox();
-    const cx = box.x + box.width / 2;
-    const cy = box.y + box.height / 2;
-    arrow.setAttribute("transform", `rotate(${day.wind_dir_deg} ${cx} ${cy})`);
-  }
-
-  const icon = ensureWeatherIcon(tendance);
-  icon.setAttributeNS("http://www.w3.org/1999/xlink", "href", iconHref(day.weather_icon));
-  icon.setAttribute("href", iconHref(day.weather_icon));
-  icon.setAttribute("opacity", "1");
+function svgToPane(x, y) {
+  const pane = document.getElementById("map-pane").getBoundingClientRect();
+  const pt = svgRoot.createSVGPoint();
+  pt.x = x;
+  pt.y = y;
+  const ctm = svgRoot.getScreenCTM();
+  if (!ctm) return { x: 0, y: 0 };
+  const sp = pt.matrixTransform(ctm);
+  return { x: sp.x - pane.left, y: sp.y - pane.top };
 }
 
-function dailyPanel() {
-  return svgRoot.querySelector("#PANNEAU_QUOTIDIEN") || svgRoot;
+function arrowSvg(deg, color) {
+  return `<svg class="chip-dir" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${deg}deg)">
+    <path d="M5 0 L10 14 L5 10 L0 14 Z" fill="${color}"></path>
+  </svg>`;
 }
 
-function renderDay() {
-  if (!svgRoot || !dataset) return;
-  const panel = dailyPanel();
+function renderChips() {
+  const host = document.getElementById("chips");
+  if (!host || !svgRoot || !dataset) return;
   const iso = dayKeys[dayIndex];
-  const dateText = findLayer(panel, "Jour_de_prevision");
-  if (dateText) setTspanText(findLayer(dateText, "Txt") || dateText, formatDayLabel(iso));
+  host.innerHTML = "";
+  if (viewMode !== "daily") return;
 
-  const maj = findLayer(panel, "Heure_MAJ");
-  if (maj && dataset.last_update_label) {
-    setTspanText(maj, dataset.last_update_label.replace(" ", " - "));
-  }
-
-  for (const group of spotGroups(panel)) {
-    const tendance = findLayer(group, "Tendance_journaliere");
-    if (!tendance) continue;
-    const spotKey = layerName(group).slice(2);
+  for (const [zoneKey, pos] of Object.entries(CHIP_POS)) {
+    const spotKey = PRIMARY_SPOT[zoneKey];
     const day = dataset.spots[spotKey]?.days?.[iso];
-    if (day) applySpot(tendance, day);
-    else resetSpot(tendance);
-  }
+    const usable = isUsableSession(day);
+    const pt = svgToPane(pos.x, pos.y);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `chip${usable ? "" : " is-muted"}${selectedZone === zoneKey ? " is-selected" : ""}`;
+    btn.dataset.zone = zoneKey;
+    btn.style.left = `${pt.x}px`;
+    btn.style.top = `${pt.y}px`;
 
-  const prev = findLayer(panel, "Bouton_J-1");
-  const next = findLayer(panel, "Bouton_J+1");
-  if (prev) prev.classList.toggle("is-disabled", dayIndex <= 0);
-  if (next) next.classList.toggle("is-disabled", dayIndex >= dayKeys.length - 1);
-}
+    const mean = usable ? String(day.mean_max_kt) : "—";
+    const gust = usable ? String(day.gust_at_mean_max_kt) : "";
+    const meanCol = usable ? windColor(day.mean_max_kt) : "var(--muted)";
+    const gustCol = usable ? gustColor(day.gust_at_mean_max_kt) : "var(--muted)";
+    const temp = day?.temp_15h_c == null ? "" : `${day.temp_15h_c}°`;
+    const tCol = day?.temp_15h_c == null ? "var(--muted)" : tempColor(day.temp_15h_c);
+    const slot = usable ? day.slot_label || "" : "";
+    const model = usable ? modelLabel(day.source_model_at_max) : "";
+    const dir = usable ? arrowSvg(day.wind_dir_deg, meanCol) : "";
+    const wx = day?.weather_icon
+      ? `<img class="chip-wx" alt="" src="${iconHref(day.weather_icon)}">`
+      : "";
 
-function bindNav() {
-  const panel = dailyPanel();
-  const prev = findLayer(panel, "Bouton_J-1");
-  const next = findLayer(panel, "Bouton_J+1");
-  for (const [el, delta] of [
-    [prev, -1],
-    [next, 1],
-  ]) {
-    if (!el) continue;
-    el.classList.add("day-nav");
-    el.style.cursor = "pointer";
-    el.addEventListener("click", (event) => {
+    btn.innerHTML = `
+      <div class="chip-name">${ZONE_LABELS[zoneKey] || zoneKey}</div>
+      <div class="chip-row">
+        <span class="chip-mean" style="color:${meanCol}">${mean}</span>
+        ${gust ? `<span class="chip-gust" style="color:${gustCol}">${gust}</span>` : ""}
+        <span class="chip-unit">nds</span>
+        ${dir}
+        ${wx}
+        <span class="chip-temp" style="color:${tCol}">${temp}</span>
+      </div>
+      <div class="chip-meta">
+        <span>${slot}</span>
+        <span>${model}</span>
+      </div>`;
+    btn.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      const target = dayIndex + delta;
-      if (target < 0 || target >= dayKeys.length) return;
-      dayIndex = target;
-      renderDay();
+      openZone(zoneKey);
+    });
+    host.appendChild(btn);
+  }
+}
+
+function renderDayChrome() {
+  const iso = dayKeys[dayIndex];
+  document.getElementById("day-label").textContent = formatDayLabel(iso);
+  const maj = document.getElementById("maj-label");
+  maj.textContent = dataset.last_update_label
+    ? `MAJ ${dataset.last_update_label.replace(" ", " · ")}`
+    : "";
+  document.getElementById("prev-day").classList.toggle("is-disabled", dayIndex <= 0);
+  document.getElementById("next-day").classList.toggle("is-disabled", dayIndex >= dayKeys.length - 1);
+}
+
+function renderDetail() {
+  const empty = document.getElementById("detail-empty");
+  const body = document.getElementById("detail-body");
+  const title = document.getElementById("detail-title");
+  const pane = document.getElementById("detail");
+  const desktop = window.matchMedia("(min-width: 960px)").matches;
+
+  if (!selectedZone) {
+    title.textContent = "Zone";
+    empty.hidden = false;
+    body.hidden = true;
+    pane.classList.toggle("is-open", false);
+    return;
+  }
+
+  const spots = spotsOfZone(selectedZone);
+  const iso = dayKeys[dayIndex];
+  title.textContent = ZONE_LABELS[selectedZone] || selectedZone;
+  empty.hidden = true;
+  body.hidden = false;
+  pane.classList.add("is-open");
+  body.innerHTML = spots
+    .map((spot) => {
+      const day = spot.days?.[iso];
+      const usable = isUsableSession(day);
+      const mean = usable ? `${day.mean_max_kt} nds` : "—";
+      const gust = usable ? `${day.gust_at_mean_max_kt} nds` : "—";
+      const slot = usable ? day.slot_label : "pas de créneau exploitable";
+      const temp = day?.temp_15h_c == null ? "—" : `${day.temp_15h_c} °C`;
+      return `<article class="spot-card">
+        <h3>${spot.display_name}</h3>
+        <div class="spot-grid">
+          <span>Vent moyen</span><span style="color:${usable ? windColor(day.mean_max_kt) : "var(--muted)"}">${mean}</span>
+          <span>Rafales</span><span style="color:${usable ? gustColor(day.gust_at_mean_max_kt) : "var(--muted)"}">${gust}</span>
+          <span>Créneau</span><span>${slot}</span>
+          <span>Temp. 15 h</span><span style="color:${day?.temp_15h_c == null ? "var(--muted)" : tempColor(day.temp_15h_c)}">${temp}</span>
+          <span>Modèle</span><span>${usable ? modelLabel(day.source_model_at_max) : "—"}</span>
+        </div>
+        <div class="chart-slot">Graphique des courbes — à brancher</div>
+      </article>`;
+    })
+    .join("");
+  if (!desktop) pane.classList.add("is-open");
+}
+
+function openZone(zoneKey) {
+  selectedZone = zoneKey;
+  renderChips();
+  renderDetail();
+}
+
+function closeZone() {
+  selectedZone = null;
+  renderChips();
+  renderDetail();
+}
+
+function setMode(mode) {
+  viewMode = mode;
+  document.getElementById("mode-daily").classList.toggle("is-active", mode === "daily");
+  document.getElementById("mode-buoys").classList.toggle("is-active", mode === "buoys");
+  document.getElementById("soon").hidden = mode !== "buoys";
+  document.getElementById("chips").hidden = mode !== "daily";
+  if (mode === "buoys") closeZone();
+  else renderChips();
+}
+
+function renderAll() {
+  renderDayChrome();
+  renderChips();
+  renderDetail();
+}
+
+function bindUi() {
+  document.getElementById("prev-day").addEventListener("click", () => {
+    if (dayIndex <= 0) return;
+    dayIndex -= 1;
+    renderAll();
+  });
+  document.getElementById("next-day").addEventListener("click", () => {
+    if (dayIndex >= dayKeys.length - 1) return;
+    dayIndex += 1;
+    renderAll();
+  });
+  document.getElementById("mode-daily").addEventListener("click", () => setMode("daily"));
+  document.getElementById("mode-buoys").addEventListener("click", () => setMode("buoys"));
+  document.getElementById("detail-back").addEventListener("click", () => closeZone());
+
+  for (const zone of svgRoot.querySelectorAll('[data-layer^="Z_"]')) {
+    const key = zoneKeyFromLayer(layerName(zone));
+    const hit = zone.querySelector('[data-layer="Zone_clic_zoom"]') || zone;
+    hit.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (viewMode !== "daily") return;
+      openZone(key);
     });
   }
+
+  window.addEventListener("resize", () => renderChips());
 }
 
 function usableDays(data) {
@@ -346,7 +364,6 @@ async function loadDataset() {
 }
 
 async function boot() {
-  const app = document.getElementById("app");
   try {
     const [mapRes, data] = await Promise.all([fetch(MAP_URL), loadDataset()]);
     if (!mapRes.ok) throw new Error(`Carte SVG introuvable (${mapRes.status})`);
@@ -356,18 +373,21 @@ async function boot() {
     if (parsed.querySelector("parsererror")) throw new Error("SVG illisible");
     svgRoot = document.importNode(parsed.documentElement, true);
     svgRoot.setAttribute("width", "100%");
-    svgRoot.setAttribute("preserveAspectRatio", "xMidYMin meet");
+    svgRoot.setAttribute("height", "100%");
+    svgRoot.setAttribute("preserveAspectRatio", "xMidYMid meet");
     tagLayers(svgRoot);
-    app.innerHTML = "";
-    app.appendChild(svgRoot);
+    const map = document.getElementById("map");
+    map.innerHTML = "";
+    map.appendChild(svgRoot);
+    const statusEl = document.getElementById("status");
+    if (statusEl) statusEl.remove();
     dayKeys = usableDays(dataset);
     if (!dayKeys.length) throw new Error("Aucun jour disponible à partir d'aujourd'hui");
     const today = todayKey();
     dayIndex = Math.max(0, dayKeys.indexOf(today));
-    bindNav();
-    renderDay();
-    const statusEl = document.getElementById("status");
-    if (statusEl) statusEl.remove();
+    bindUi();
+    setMode("daily");
+    renderAll();
   } catch (error) {
     status(error.message || String(error));
   }
