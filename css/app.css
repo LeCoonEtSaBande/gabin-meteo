@@ -266,42 +266,141 @@ html, body {
 .detail-empty,
 .detail-body {
   margin: 0;
-  padding: 16px;
+  padding: 12px 14px 18px;
   overflow: auto;
   color: var(--muted);
   font-size: 13px;
 }
 
-.spot-card {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-  background: var(--bg);
-}
+.detail-status { margin: 8px 0; }
 
-.spot-card h3 {
-  margin: 0 0 8px;
-  font-size: 13px;
+.zone-spots {
+  margin: 0 0 10px;
   color: var(--text);
-  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
-.spot-grid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 12px;
+.horizon-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
-.chart-slot {
-  margin-top: 10px;
-  min-height: 88px;
-  border: 1px dashed var(--line);
+.horizon-btn {
+  flex: 1;
+  min-height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--beige-dim);
   border-radius: 8px;
-  display: grid;
-  place-items: center;
+  background: transparent;
   color: var(--muted);
+  font: inherit;
   font-size: 11px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.horizon-btn.is-active {
+  color: var(--beige);
+  border-color: var(--beige);
+}
+
+.spot-block {
+  margin-bottom: 14px;
+}
+
+.spot-chart-title,
+.spot-info h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.spot-chart {
+  width: 100%;
+  min-height: 220px;
+}
+
+.spot-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 6px 0 4px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.chart-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chart-key i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--beige);
+}
+
+.chart-key i.band-8 { background: rgba(60, 176, 67, 0.65); border-radius: 2px; }
+.chart-key i.band-15 { background: rgba(212, 176, 64, 0.85); border-radius: 2px; }
+
+.chart-key-note {
+  flex: 1 0 100%;
+  font-size: 9px;
+  letter-spacing: 0.02em;
+}
+
+.spot-info {
+  border-top: 1px solid var(--line);
+  padding: 12px 0 8px;
+}
+
+.spot-line {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.spot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--beige-dim);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--beige);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link-btn.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .daybar {

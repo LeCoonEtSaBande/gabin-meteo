@@ -152,12 +152,6 @@ function status(message) {
   if (el) el.textContent = message;
 }
 
-function spotsOfZone(zoneKey) {
-  return Object.entries(dataset.spots)
-    .filter(([, spot]) => spot.zone_key === zoneKey)
-    .map(([key, spot]) => ({ key, ...spot }));
-}
-
 function svgToPane(x, y) {
   const pane = document.getElementById("map-pane").getBoundingClientRect();
   const pt = svgRoot.createSVGPoint();
@@ -383,52 +377,11 @@ function renderDayChrome() {
 }
 
 function renderDetail() {
-  const empty = document.getElementById("detail-empty");
-  const body = document.getElementById("detail-body");
-  const title = document.getElementById("detail-title");
-  const pane = document.getElementById("detail");
-  const desktop = window.matchMedia("(min-width: 960px)").matches;
-
-  if (!selectedZone) {
-    title.textContent = "Zone";
-    empty.hidden = false;
-    body.hidden = true;
-    pane.classList.toggle("is-open", false);
-    return;
-  }
-
-  const spots = spotsOfZone(selectedZone);
-  const iso = dayKeys[dayIndex];
-  title.textContent = ZONE_LABELS[selectedZone] || selectedZone;
-  empty.hidden = true;
-  body.hidden = false;
-  pane.classList.add("is-open");
-  body.innerHTML = spots
-    .map((spot) => {
-      const day = spot.days?.[iso];
-      const usable = isUsableSession(day);
-      const mean = day?.mean_max_kt != null ? String(day.mean_max_kt) : "—";
-      const gust = usable ? String(day.gust_at_mean_max_kt) : "—";
-      const slot = usable ? day.slot_label : "pas de créneau exploitable";
-      const temp = day?.temp_15h_c == null ? "—" : `${day.temp_15h_c} °C`;
-      const meanCol = usable ? windColor(day.mean_max_kt) : "var(--muted)";
-      const dir =
-        day && day.wind_dir_deg != null ? arrowSvg(day.wind_dir_deg, meanCol) : "—";
-      return `<article class="spot-card">
-        <h3>${spot.display_name}</h3>
-        <div class="spot-grid">
-          <span>Vent moyen</span><span style="color:${meanCol}">${mean}</span>
-          <span>Direction</span><span>${dir}</span>
-          <span>Rafales</span><span style="color:${usable ? gustColor(day.gust_at_mean_max_kt) : "var(--muted)"}">${gust}</span>
-          <span>Créneau</span><span>${slot}</span>
-          <span>Temp. 15 h</span><span style="color:${day?.temp_15h_c == null ? "var(--muted)" : tempColor(day.temp_15h_c)}">${temp}</span>
-          <span>Modèle</span><span>${usable ? modelLabel(day.source_model_at_max) : "—"}</span>
-        </div>
-        <div class="chart-slot">Graphique des courbes — à brancher</div>
-      </article>`;
-    })
-    .join("");
-  if (!desktop) pane.classList.add("is-open");
+  renderZoneDetail({
+    selectedZone,
+    dayKey: dayKeys[dayIndex],
+    fallbackLabel: ZONE_LABELS[selectedZone] || selectedZone,
+  });
 }
 
 function openZone(zoneKey) {
@@ -534,7 +487,11 @@ async function loadDataset() {
 
 async function boot() {
   try {
-    const [mapRes, data] = await Promise.all([fetch(MAP_URL), loadDataset()]);
+    const [mapRes, data] = await Promise.all([
+      fetch(MAP_URL),
+      loadDataset(),
+      loadDetailAssets(),
+    ]);
     if (!mapRes.ok) throw new Error(`Carte SVG introuvable (${mapRes.status})`);
     const svgText = await mapRes.text();
     dataset = data;
