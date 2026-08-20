@@ -45,6 +45,11 @@ const ZONE_LABELS = {
   grand_large: "Grand Large",
 };
 
+const ZONE_LABELS_MOBILE = {
+  leman_grand_lac: "Léman Gd Lac",
+  leman_petit_lac: "Léman Pt Lac",
+};
+
 const PRIMARY_SPOT = {
   leman_grand_lac: "messery",
   leman_petit_lac: "vengeron",
@@ -76,12 +81,13 @@ const CHIP_POS = {
 
 /* Recalages iPhone uniquement : ne pas réutiliser sur PC. */
 const CHIP_POS_MOBILE = {
-  leman_grand_lac: { x: 640, y: 200 },
-  leman_petit_lac: { x: 520, y: 300 },
-  annecy: { x: 690, y: 500 },
-  valence: { x: 155, y: 990 },
-  chasse_sur_rhone: { x: 110, y: 640 },
-  saone: { x: 220, y: 250 },
+  leman_grand_lac: { x: 605, y: 218 },
+  leman_petit_lac: { x: 490, y: 318 },
+  annecy: { x: 680, y: 505 },
+  valence: { x: 195, y: 1018 },
+  chasse_sur_rhone: { x: 125, y: 635 },
+  saone: { x: 225, y: 248 },
+  st_alban_du_rhone: { x: 200, y: 790 },
 };
 
 let svgRoot = null;
@@ -172,6 +178,11 @@ function chipPos(zoneKey) {
   return CHIP_POS[zoneKey];
 }
 
+function zoneLabel(zoneKey) {
+  if (!isDesktop() && ZONE_LABELS_MOBILE[zoneKey]) return ZONE_LABELS_MOBILE[zoneKey];
+  return ZONE_LABELS[zoneKey] || zoneKey;
+}
+
 function clampChips() {
   const pane = document.getElementById("map-pane");
   const host = document.getElementById("chips");
@@ -232,7 +243,7 @@ function renderChips() {
         : "";
 
     btn.innerHTML = `
-      <div class="chip-name">${ZONE_LABELS[zoneKey] || zoneKey}</div>
+      <div class="chip-name">${zoneLabel(zoneKey)}</div>
       <div class="chip-row">
         <span class="chip-mean" style="color:${meanCol}">${mean}</span>
         ${gust ? `<span class="chip-gust" style="color:${gustCol}">${gust}</span>` : ""}
@@ -248,7 +259,10 @@ function renderChips() {
     });
     host.appendChild(btn);
   }
-  requestAnimationFrame(clampChips);
+  requestAnimationFrame(() => {
+    clampChips();
+    requestAnimationFrame(clampChips);
+  });
 }
 
 function renderDayChrome() {

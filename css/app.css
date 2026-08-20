@@ -195,8 +195,8 @@ html, body {
 }
 
 .chip-dir {
-  width: 14px;
-  height: 20px;
+  width: 16px;
+  height: 24px;
   flex: none;
   align-self: center;
 }
@@ -411,13 +411,15 @@ html, body {
   .back { display: inline-flex; align-items: center; }
 
   .chip {
-    min-width: 92px;
-    max-width: 124px;
-    padding: 5px 6px 4px;
+    min-width: 84px;
+    max-width: 118px;
+    padding: 4px 5px 4px;
   }
 
-  .chip-name { font-size: 8px; }
-  .chip-mean { font-size: 18px; }
-  .chip-gust { font-size: 12px; }
-  .chip-dir { width: 13px; height: 18px; }
+  .chip-name { font-size: 8px; line-height: 1.2; }
+  .chip-mean { font-size: 17px; }
+  .chip-gust { font-size: 11px; }
+  .chip-dir { width: 16px; height: 24px; }
+  .chip-wx { width: 18px; height: 18px; }
+  .chip-meta { font-size: 8px; }
 }
