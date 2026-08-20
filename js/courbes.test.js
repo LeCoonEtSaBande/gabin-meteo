@@ -179,16 +179,32 @@ test("journée : heures entre vent et nébulosité, un point par heure, échelle
 });
 
 test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () => {
-  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
-    primarySet: "ICONGFS",
-    compactSetLabels: true,
-  });
+  const svg = buildChartSvg(
+    {
+      AROMEIFS: [
+        {
+          valid_at: "2026-08-20T00:00",
+          source_model: "AROMEHD",
+          mean: 10,
+          gust: 14,
+          dir: 0,
+          precip: 0,
+          cloud: 10,
+        },
+      ],
+      ICONGFS: [],
+    },
+    "2026-08-20",
+    1,
+    400,
+    { primarySet: "AROMEIFS", hideSecondary: true, compactSetLabels: true }
+  );
   const label = svg.match(/<text x="([0-9.]+)"[^>]*>AROMEIFS</);
   assert.ok(label);
   assert.ok(Number(label[1]) <= 6);
   const arrow = svg.match(/translate\(([0-9.]+),/);
   assert.ok(arrow);
-  assert.ok(Number(arrow[1]) - Number(label[1]) >= 70);
+  assert.ok(Number(arrow[1]) - Number(label[1]) >= 88);
 });
 
 test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
