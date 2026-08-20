@@ -282,7 +282,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const compactSetLabels = Boolean(options.compactSetLabels);
   const setLabelSize = compactSetLabels ? 6.2 : 8;
   const padL = 64;
-  const padR = 30;
+  const padR = 38;
   const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
   const axisH = 18;
