@@ -67,33 +67,33 @@ const PRIMARY_SPOT = {
 /* Centre de puce en coordonnées SVG, calé au cas par cas (PC). */
 const CHIP_POS = {
   leman_grand_lac: { x: 748, y: 188 },
-  leman_petit_lac: { x: 575, y: 268 },
+  leman_petit_lac: { x: 580, y: 256 },
   annecy: { x: 748, y: 498 },
-  bourget: { x: 478, y: 598 },
+  bourget: { x: 480, y: 590 },
   grand_large: { x: 188, y: 498 },
-  saone: { x: 198, y: 268 },
-  chasse_sur_rhone: { x: 52, y: 658 },
-  st_alban_du_rhone: { x: 188, y: 798 },
-  valence: { x: 58, y: 1038 },
-  laffrey: { x: 588, y: 958 },
-  monteynard: { x: 368, y: 1048 },
+  saone: { x: 198, y: 280 },
+  chasse_sur_rhone: { x: 46, y: 658 },
+  st_alban_du_rhone: { x: 178, y: 798 },
+  valence: { x: 62, y: 1038 },
+  laffrey: { x: 580, y: 958 },
+  monteynard: { x: 374, y: 1048 },
 };
 
 /* Recalages iPhone : fractions de #map-pane (0–1), pas des coords SVG.
    On utilise la hauteur d'écran (y compris les bandes vides du letterbox)
    pour écarter les paires Léman / Annecy–Bourget / Valence–Monteynard. */
 const CHIP_POS_MOBILE = {
-  leman_grand_lac: { x: 0.78, y: 0.06 },
-  leman_petit_lac: { x: 0.56, y: 0.22 },
-  annecy: { x: 0.84, y: 0.39 },
-  bourget: { x: 0.46, y: 0.55 },
-  grand_large: { x: 0.22, y: 0.36 },
-  saone: { x: 0.28, y: 0.13 },
-  chasse_sur_rhone: { x: 0.16, y: 0.47 },
-  st_alban_du_rhone: { x: 0.22, y: 0.63 },
-  valence: { x: 0.18, y: 0.74 },
-  laffrey: { x: 0.72, y: 0.68 },
-  monteynard: { x: 0.48, y: 0.89 },
+  leman_grand_lac: { x: 0.80, y: 0.09 },
+  leman_petit_lac: { x: 0.61, y: 0.19 },
+  annecy: { x: 0.84, y: 0.35 },
+  bourget: { x: 0.50, y: 0.50 },
+  grand_large: { x: 0.25, y: 0.40 },
+  saone: { x: 0.22, y: 0.14 },
+  chasse_sur_rhone: { x: 0.14, y: 0.50 },
+  st_alban_du_rhone: { x: 0.25, y: 0.63 },
+  valence: { x: 0.22, y: 0.76 },
+  laffrey: { x: 0.80, y: 0.73 },
+  monteynard: { x: 0.40, y: 0.89 },
 };
 
 let svgRoot = null;
