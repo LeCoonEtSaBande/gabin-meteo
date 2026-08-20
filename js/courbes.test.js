@@ -6,11 +6,14 @@ const {
   addDays,
   sliceHorizon,
   indexCurves,
-  envelopeMean,
-  hourlyWindLevels,
+  primaryCurveSet,
+  secondaryCurveSet,
+  mergeWxMax,
+  xTicks,
   buildChartSvg,
   legendHtml,
   parseValidAt,
+  MEAN_STROKE,
 } = require("./courbes.js");
 
 test("CSV conserve un point-virgule dans un champ quoté", () => {
@@ -85,74 +88,92 @@ test("indexCurves sépare AROMEIFS et ICONGFS par spot", () => {
   assert.equal(indexed.ICONGFS.excenevex[0].source_model, "ICONCH1");
 });
 
-test("créneaux > 8 et > 15 nds sur l'enveloppe des deux modèles", () => {
-  const env = envelopeMean([
-    [
-      { valid_at: "2026-08-20T10:00", mean: 6 },
-      { valid_at: "2026-08-20T11:00", mean: 9 },
-      { valid_at: "2026-08-20T12:00", mean: 16 },
-    ],
-    [{ valid_at: "2026-08-20T10:00", mean: 7 }],
-  ]);
-  const levels = hourlyWindLevels(env);
-  assert.equal(levels[0].level, 0);
-  assert.equal(levels[1].level, 8);
-  assert.equal(levels[2].level, 15);
+test("courbe principale selon le modèle court terme", () => {
+  assert.equal(primaryCurveSet({ short_term_model: "AROMEHD" }), "AROMEIFS");
+  assert.equal(primaryCurveSet({ short_term_model: "ICONCH1" }), "ICONGFS");
+  assert.equal(secondaryCurveSet("AROMEIFS"), "ICONGFS");
+  assert.equal(secondaryCurveSet("ICONGFS"), "AROMEIFS");
 });
 
-test("le SVG nomme les modèles et les seuils 8 / 15 nds", () => {
-  const svg = buildChartSvg(
-    {
-      AROMEIFS: [
-        {
-          valid_at: "2026-08-20T10:00",
-          source_model: "AROMEHD",
-          mean: 12,
-          gust: 18,
-          dir: 40,
-          precip: 0.4,
-          cloud: 50,
-        },
-        {
-          valid_at: "2026-08-20T11:00",
-          source_model: "IFS",
-          mean: 16,
-          gust: 22,
-          dir: 50,
-          precip: 0,
-          cloud: 20,
-        },
-      ],
-      ICONGFS: [
-        {
-          valid_at: "2026-08-20T10:00",
-          source_model: "GFS",
-          mean: 9,
-          gust: 12,
-          dir: 200,
-          precip: 1,
-          cloud: 90,
-        },
-      ],
-    },
-    "2026-08-20",
-    1,
-    400
-  );
-  assert.match(svg, /AROMEHD/);
-  assert.match(svg, /IFS/);
-  assert.match(svg, /GFS/);
-  assert.match(svg, /<path/);
-  const legend = legendHtml([
+test("nébulosité : max des modèles puis max sur 3 heures", () => {
+  const wx = mergeWxMax([
     [
-      { source_model: "AROMEHD" },
-      { source_model: "IFS" },
-      { source_model: "GFS" },
+      { valid_at: "2026-08-20T10:00", cloud: 20, precip: 0 },
+      { valid_at: "2026-08-20T11:00", cloud: 40, precip: 0.2 },
+      { valid_at: "2026-08-20T12:00", cloud: 10, precip: 0 },
     ],
+    [{ valid_at: "2026-08-20T11:00", cloud: 90, precip: 1 }],
   ]);
-  assert.match(legend, /&gt; 8 nds/);
-  assert.match(legend, /&gt; 15 nds/);
-  assert.match(svg, /#b29f84/);
+  assert.equal(wx[1].cloud, 90);
+  assert.equal(wx[0].cloud, 90);
+  assert.equal(wx[2].cloud, 90);
+  assert.equal(wx[1].precip, 1);
+});
+
+test("l'axe X porte les jours et les heures", () => {
+  const ticks = xTicks("2026-08-20", 3, 64, 300);
+  assert.ok(ticks.days.some((t) => t.label.startsWith("jeu.")));
+  assert.ok(ticks.days.some((t) => t.label.startsWith("ven.")));
+  assert.ok(ticks.hours.some((t) => t.label === "00h"));
+  assert.ok(ticks.hours.some((t) => t.label === "12h"));
+});
+
+const SAMPLE = {
+  AROMEIFS: [
+    {
+      valid_at: "2026-08-20T10:00",
+      source_model: "AROMEHD",
+      mean: 12,
+      gust: 18,
+      dir: 40,
+      precip: 0.4,
+      cloud: 50,
+    },
+    {
+      valid_at: "2026-08-20T11:00",
+      source_model: "IFS",
+      mean: 16,
+      gust: 22,
+      dir: 50,
+      precip: 0,
+      cloud: 20,
+    },
+  ],
+  ICONGFS: [
+    {
+      valid_at: "2026-08-20T10:00",
+      source_model: "GFS",
+      mean: 9,
+      gust: 12,
+      dir: 200,
+      precip: 1,
+      cloud: 90,
+    },
+  ],
+};
+
+test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
+  assert.match(svg, /AROMEIFS/);
+  assert.match(svg, /ICONGFS/);
+  assert.match(svg, />25</);
+  assert.doesNotMatch(svg, /rgba\(60,176,67/);
+  assert.doesNotMatch(svg, /rgba\(212,176,64/);
+  assert.match(svg, /fill-opacity="0.18"/);
+  assert.match(svg, new RegExp(`stroke-width="${MEAN_STROKE}"`));
+  const legend = legendHtml([SAMPLE.AROMEIFS, SAMPLE.ICONGFS]);
+  assert.match(legend, /nébulosité \(max\)/);
+  assert.match(legend, /pluie \(max\)/);
+  assert.doesNotMatch(legend, /&gt; 8 nds/);
+});
+
+test("masquer la courbe secondaire retire ICONGFS si le principal est AROMEIFS", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
+    primarySet: "AROMEIFS",
+    hideSecondary: true,
+  });
+  assert.match(svg, /AROMEIFS/);
+  assert.doesNotMatch(svg, />ICONGFS</);
 });
 
 test("parseValidAt lit l'heure civile sans Date locale", () => {

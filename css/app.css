@@ -311,12 +311,42 @@ html, body {
   margin-bottom: 14px;
 }
 
+.spot-chart-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
 .spot-chart-title,
 .spot-info h3 {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 13px;
   font-weight: 500;
   color: var(--text);
+}
+
+.spot-chart-title { flex: 1; }
+
+.spot-info h3 { margin: 0 0 6px; }
+
+.secondary-btn {
+  flex: none;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--beige-dim);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.secondary-btn.is-active {
+  color: var(--beige);
+  border-color: var(--beige);
 }
 
 .spot-chart {
@@ -352,8 +382,8 @@ html, body {
   background: var(--beige);
 }
 
-.chart-key i.band-8 { background: rgba(60, 176, 67, 0.65); border-radius: 2px; }
-.chart-key i.band-15 { background: rgba(212, 176, 64, 0.85); border-radius: 2px; }
+.chart-key i.wx-cloud { background: #8a8a8a; border-radius: 2px; }
+.chart-key i.wx-precip { background: #5a8aa3; border-radius: 2px; }
 
 .chart-key-note {
   flex: 1 0 100%;

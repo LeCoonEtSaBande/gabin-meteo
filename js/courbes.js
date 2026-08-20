@@ -24,6 +24,11 @@ const SET_LABELS = {
 
 const KT8 = 8;
 const KT15 = 15;
+const KT25 = 25;
+const MEAN_STROKE = 1.94;
+const GUST_STROKE = 1.13;
+const WX_CLOUD = "#8a8a8a";
+const WX_PRECIP = "#5a8aa3";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -111,24 +116,43 @@ function indexCurves(rows) {
   return out;
 }
 
-function envelopeMean(seriesList) {
-  const map = new Map();
-  for (const series of seriesList) {
-    for (const point of series) {
-      const prev = map.get(point.valid_at);
-      if (prev == null || point.mean > prev) map.set(point.valid_at, point.mean);
-    }
-  }
-  return [...map.entries()]
-    .sort((a, b) => parseValidAt(a[0]).ms - parseValidAt(b[0]).ms)
-    .map(([valid_at, mean]) => ({ valid_at, mean }));
+function primaryCurveSet(spot) {
+  const model = String(spot?.short_term_model || "").trim();
+  if (model === "AROMEHD") return "AROMEIFS";
+  return "ICONGFS";
 }
 
-function hourlyWindLevels(envelope) {
-  return envelope.map((point) => ({
-    valid_at: point.valid_at,
-    level: point.mean > KT15 ? KT15 : point.mean > KT8 ? KT8 : 0,
-  }));
+function secondaryCurveSet(primary) {
+  return primary === "AROMEIFS" ? "ICONGFS" : "AROMEIFS";
+}
+
+function mergeWxMax(seriesList) {
+  const map = new Map();
+  for (const series of seriesList) {
+    for (const point of series || []) {
+      const cur = map.get(point.valid_at);
+      if (!cur) {
+        map.set(point.valid_at, {
+          valid_at: point.valid_at,
+          cloud: point.cloud || 0,
+          precip: point.precip || 0,
+        });
+      } else {
+        cur.cloud = Math.max(cur.cloud, point.cloud || 0);
+        cur.precip = Math.max(cur.precip, point.precip || 0);
+      }
+    }
+  }
+  const rows = [...map.values()].sort(
+    (a, b) => parseValidAt(a.valid_at).ms - parseValidAt(b.valid_at).ms
+  );
+  return rows.map((row, i) => {
+    let cloud = row.cloud;
+    for (let j = i - 1; j <= i + 1; j += 1) {
+      if (rows[j]) cloud = Math.max(cloud, rows[j].cloud);
+    }
+    return { ...row, cloud };
+  });
 }
 
 function xOf(point, startDay, nDays, x0, innerW) {
@@ -161,8 +185,21 @@ function lineSegments(points, startDay, nDays, x0, innerW, yOf) {
   return segs;
 }
 
+function rangeFill(points, startDay, nDays, x0, innerW, yKt, color) {
+  if (!points || points.length < 2) return "";
+  const top = [];
+  const bottom = [];
+  for (const point of points) {
+    const x = xOf(point, startDay, nDays, x0, innerW).toFixed(1);
+    top.push(`${x},${yKt(point.gust).toFixed(1)}`);
+    bottom.push(`${x},${yKt(point.mean).toFixed(1)}`);
+  }
+  bottom.reverse();
+  return `<polygon points="${top.concat(bottom).join(" ")}" fill="${color}" fill-opacity="0.18"></polygon>`;
+}
+
 function niceMaxKt(values) {
-  const peak = Math.max(KT15 + 2, ...values, 0);
+  const peak = Math.max(KT25 + 2, ...values, 0);
   return Math.ceil(peak / 5) * 5;
 }
 
@@ -185,83 +222,92 @@ function weekdayShort(dayKey) {
 }
 
 function xTicks(startDay, nDays, x0, innerW) {
-  const ticks = [];
-  if (nDays <= 1) {
-    for (let hour = 0; hour < 24; hour += 3) {
-      const valid_at = `${startDay}T${String(hour).padStart(2, "0")}:00`;
-      ticks.push({
-        x: xOf({ valid_at }, startDay, nDays, x0, innerW),
+  const hours = [];
+  const days = [];
+  const hourStep = nDays <= 1 ? 3 : 6;
+  for (let d = 0; d < nDays; d += 1) {
+    const day = addDays(startDay, d);
+    days.push({
+      x: xOf({ valid_at: `${day}T12:00` }, startDay, nDays, x0, innerW),
+      label: weekdayShort(day),
+    });
+    for (let hour = 0; hour < 24; hour += hourStep) {
+      hours.push({
+        x: xOf(
+          { valid_at: `${day}T${String(hour).padStart(2, "0")}:00` },
+          startDay,
+          nDays,
+          x0,
+          innerW
+        ),
         label: `${String(hour).padStart(2, "0")}h`,
       });
     }
-    return ticks;
   }
-  for (let d = 0; d < nDays; d += 1) {
-    const day = addDays(startDay, d);
-    ticks.push({
-      x: xOf({ valid_at: `${day}T00:00` }, startDay, nDays, x0, innerW),
-      label: weekdayShort(day),
-    });
-  }
-  return ticks;
+  return { hours, days };
 }
 
-function buildChartSvg(seriesBySet, startDay, nDays, width = 420) {
-  const arome = seriesBySet.AROMEIFS || [];
-  const icon = seriesBySet.ICONGFS || [];
-  const all = [...arome, ...icon];
+function visibleSets(primarySet, hideSecondary) {
+  const secondary = secondaryCurveSet(primarySet);
+  if (hideSecondary) return [primarySet];
+  return [primarySet, secondary];
+}
+
+function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) {
+  const primarySet = options.primarySet || "AROMEIFS";
+  const hideSecondary = Boolean(options.hideSecondary);
+  const sets = visibleSets(primarySet, hideSecondary);
+  const series = sets.map((name) => ({ name, points: seriesBySet[name] || [] }));
+  const all = series.flatMap((item) => item.points);
   if (!all.length) {
     return `<svg class="spot-svg" viewBox="0 0 ${width} 80" role="img">
       <text x="12" y="44" fill="#7a7a7a" font-size="12">Pas de courbe sur cet horizon</text>
     </svg>`;
   }
 
-  const padL = 30;
+  const padL = 64;
   const padR = 8;
-  const padT = 8;
+  const dirRowH = 22;
   const windH = 148;
-  const dirRowH = 26;
-  const wxH = 34;
-  const padB = 20;
-  const dirY0 = padT + windH + 8;
-  const wxY0 = dirY0 + dirRowH * 2 + 4;
+  const wxH = 36;
+  const padB = 32;
+  const dirY0 = 4;
+  const windTop = dirY0 + dirRowH * series.length + 6;
+  const yWind0 = windTop + windH;
+  const wxY0 = yWind0 + 8;
   const height = wxY0 + wxH + padB;
   const innerW = Math.max(40, width - padL - padR);
   const x0 = padL;
   const x1 = padL + innerW;
-  const yWind0 = padT + windH;
   const maxKt = niceMaxKt(all.flatMap((p) => [p.mean, p.gust]));
   const yKt = (kt) => yWind0 - (kt / maxKt) * windH;
-  const envelope = envelopeMean([arome, icon]);
-  const levels = hourlyWindLevels(envelope);
   const hourW = innerW / (nDays * 24);
+  const ticks = xTicks(startDay, nDays, x0, innerW);
 
-  let bands = "";
-  for (const hour of levels) {
-    if (!hour.level) continue;
-    const x = xOf(hour, startDay, nDays, x0, innerW);
-    const fill = hour.level === KT15 ? "rgba(212,176,64,0.22)" : "rgba(60,176,67,0.14)";
-    bands += `<rect x="${x.toFixed(1)}" y="${padT}" width="${Math.max(1, hourW).toFixed(1)}" height="${windH}" fill="${fill}"></rect>`;
-  }
-
-  const grid = [0, KT8, KT15, maxKt]
-    .filter((v, i, arr) => arr.indexOf(v) === i && v <= maxKt)
+  const gridValues = [0, KT8, KT15, KT25, maxKt].filter(
+    (v, i, arr) => arr.indexOf(v) === i && v <= maxKt
+  );
+  const grid = gridValues
     .map((kt) => {
       const y = yKt(kt);
-      const dash = kt === KT8 || kt === KT15 ? "4 3" : "2 4";
-      const col = kt === KT15 ? "rgba(212,176,64,0.65)" : kt === KT8 ? "rgba(60,176,67,0.55)" : "#2a2a2a";
-      return `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${col}" stroke-dasharray="${dash}" stroke-width="1"></line>
+      const is25 = kt === KT25;
+      const dash = is25 ? "3 3" : "2 4";
+      const col = is25 ? "#9a9a9a" : "#2a2a2a";
+      const widthLine = is25 ? "1.15" : "1";
+      return `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${col}" stroke-dasharray="${dash}" stroke-width="${widthLine}"></line>
         <text x="${x0 - 4}" y="${y + 3}" text-anchor="end" fill="#7a7a7a" font-size="9">${kt}</text>`;
     })
     .join("");
 
   function paintWind(points, dashed) {
     const segs = lineSegments(points, startDay, nDays, x0, innerW, (p) => yKt(dashed ? p.gust : p.mean));
-    const dash = dashed ? ' stroke-dasharray="3 3" stroke-width="1.25" opacity="0.9"' : ' stroke-width="2.15"';
+    const attrs = dashed
+      ? ` stroke-dasharray="3 3" stroke-width="${GUST_STROKE}" opacity="0.92"`
+      : ` stroke-width="${MEAN_STROKE}"`;
     return segs
       .map(
         (seg) =>
-          `<path d="${seg.d}" fill="none" stroke="${modelColor(seg.model)}"${dash} stroke-linejoin="round" stroke-linecap="round">
+          `<path d="${seg.d}" fill="none" stroke="${modelColor(seg.model)}"${attrs} stroke-linejoin="round" stroke-linecap="round">
             <title>${escapeHtml(seg.model)} · ${dashed ? "rafales" : "vent moyen"}</title>
           </path>`
       )
@@ -270,67 +316,81 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 420) {
 
   const step = arrowStep(nDays);
   function paintArrows(points, row) {
-    const y = dirY0 + row * dirRowH + 14;
+    const y = dirY0 + row * dirRowH + 12;
     return subsample(points, step)
       .map((point) => {
         const x = xOf(point, startDay, nDays, x0, innerW);
         const col = modelColor(point.source_model);
         return `<g transform="translate(${x.toFixed(1)},${y}) rotate(${point.dir})">
-          <path d="M0 -6 L3.5 6 L0 3.5 L-3.5 6 Z" fill="${col}"></path>
+          <path d="M0 -5.5 L3.2 5.5 L0 3.2 L-3.2 5.5 Z" fill="${col}"></path>
         </g>`;
       })
       .join("");
   }
 
-  const maxPrecip = Math.max(2, ...all.map((p) => p.precip));
-  function paintWx(points, setName, offset) {
-    const col = SET_COLORS[setName];
-    let cloud = "";
-    let precip = "";
-    for (let i = 0; i < points.length; i += 1) {
-      const point = points[i];
-      const x = xOf(point, startDay, nDays, x0, innerW);
-      const next = points[i + 1];
-      const w = next
-        ? Math.max(1, xOf(next, startDay, nDays, x0, innerW) - x)
-        : hourW;
-      const ch = (point.cloud / 100) * (wxH - 4);
-      cloud += `<rect x="${x.toFixed(1)}" y="${(wxY0 + wxH - 2 - ch).toFixed(1)}" width="${w.toFixed(1)}" height="${ch.toFixed(1)}" fill="${col}" opacity="0.18"></rect>`;
-      if (point.precip > 0) {
-        const barW = Math.max(1.2, w * 0.32);
-        const ph = (point.precip / maxPrecip) * (wxH - 6);
-        precip += `<rect x="${(x + offset * barW + w * 0.15).toFixed(1)}" y="${(wxY0 + wxH - 2 - ph).toFixed(1)}" width="${barW.toFixed(1)}" height="${ph.toFixed(1)}" fill="${col}" opacity="0.85">
-          <title>${SET_LABELS[setName]} · ${point.precip.toFixed(1)} mm · nébulosité ${Math.round(point.cloud)}%</title>
-        </rect>`;
-      }
+  const dirLabels = series
+    .map((item, row) => {
+      const y = dirY0 + row * dirRowH + 15;
+      return `<text x="${x0 - 4}" y="${y}" text-anchor="end" fill="${SET_COLORS[item.name]}" font-size="8">${SET_LABELS[item.name]}</text>
+        ${paintArrows(item.points, row)}`;
+    })
+    .join("");
+
+  const fills = series
+    .map((item) => rangeFill(item.points, startDay, nDays, x0, innerW, yKt, SET_COLORS[item.name]))
+    .join("");
+
+  const winds = series.map((item) => paintWind(item.points, true) + paintWind(item.points, false)).join("");
+
+  const wx = mergeWxMax(series.map((item) => item.points));
+  const maxPrecip = Math.max(2, ...wx.map((p) => p.precip));
+  let wxDraw = "";
+  for (let i = 0; i < wx.length; i += 1) {
+    const point = wx[i];
+    const x = xOf(point, startDay, nDays, x0, innerW);
+    const next = wx[i + 1];
+    const w = next ? Math.max(1, xOf(next, startDay, nDays, x0, innerW) - x) : hourW;
+    const ch = (point.cloud / 100) * (wxH - 6);
+    wxDraw += `<rect x="${x.toFixed(1)}" y="${(wxY0 + wxH - 4 - ch).toFixed(1)}" width="${w.toFixed(1)}" height="${ch.toFixed(1)}" fill="${WX_CLOUD}" opacity="0.35">
+      <title>Nébulosité max ${Math.round(point.cloud)}%</title>
+    </rect>`;
+    if (point.precip > 0) {
+      const barW = Math.max(1.4, w * 0.45);
+      const ph = (point.precip / maxPrecip) * (wxH - 8);
+      wxDraw += `<rect x="${(x + w * 0.28).toFixed(1)}" y="${(wxY0 + wxH - 4 - ph).toFixed(1)}" width="${barW.toFixed(1)}" height="${ph.toFixed(1)}" fill="${WX_PRECIP}" opacity="0.9">
+        <title>Pluie ${point.precip.toFixed(1)} mm</title>
+      </rect>`;
     }
-    return cloud + precip;
   }
 
-  const ticks = xTicks(startDay, nDays, x0, innerW)
+  const dayLabels = ticks.days
     .map(
       (tick) =>
-        `<text x="${tick.x.toFixed(1)}" y="${height - 6}" text-anchor="middle" fill="#7a7a7a" font-size="9">${escapeHtml(tick.label)}</text>`
+        `<text x="${tick.x.toFixed(1)}" y="${height - 16}" text-anchor="middle" fill="#b29f84" font-size="9">${escapeHtml(tick.label)}</text>`
+    )
+    .join("");
+  const hourLabels = ticks.hours
+    .map(
+      (tick) =>
+        `<text x="${tick.x.toFixed(1)}" y="${height - 5}" text-anchor="middle" fill="#7a7a7a" font-size="8">${escapeHtml(tick.label)}</text>`
     )
     .join("");
 
   return `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Prévision vent, rafales, direction, nébulosité et pluie">
     <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
-    ${bands}
+    ${dirLabels}
     ${grid}
-    <text x="${x0 - 4}" y="${padT + 8}" text-anchor="end" fill="#7a7a7a" font-size="8">nds</text>
-    ${paintWind(arome, true)}${paintWind(icon, true)}
-    ${paintWind(arome, false)}${paintWind(icon, false)}
-    <text x="${x0 - 2}" y="${dirY0 + 16}" text-anchor="end" fill="#7a7a7a" font-size="8">A</text>
-    <text x="${x0 - 2}" y="${dirY0 + dirRowH + 16}" text-anchor="end" fill="#7a7a7a" font-size="8">I</text>
-    ${paintArrows(arome, 0)}${paintArrows(icon, 1)}
+    <text x="${x0 - 4}" y="${windTop + 8}" text-anchor="end" fill="#7a7a7a" font-size="8">nds</text>
+    ${fills}
+    ${winds}
     <line x1="${x0}" y1="${wxY0}" x2="${x1}" y2="${wxY0}" stroke="#2a2a2a"></line>
-    ${paintWx(arome, "AROMEIFS", 0)}${paintWx(icon, "ICONGFS", 1)}
-    ${ticks}
+    ${wxDraw}
+    ${dayLabels}
+    ${hourLabels}
   </svg>`;
 }
 
-function legendHtml(seriesList) {
+function legendHtml(seriesList, options = {}) {
   const all = seriesList.flat();
   const usedModels = [...new Set(all.map((p) => p.source_model))];
   const keys = usedModels
@@ -341,9 +401,10 @@ function legendHtml(seriesList) {
     .join("");
   return `<div class="chart-legend">
     ${keys}
-    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · A = AROMEIFS · I = ICONGFS</span>
-    <span class="chart-key"><i class="band-8"></i>&gt; 8 nds</span>
-    <span class="chart-key"><i class="band-15"></i>&gt; 15 nds</span>
+    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · plage = moyen→rafales</span>
+    <span class="chart-key"><i class="wx-cloud"></i>nébulosité (max)</span>
+    <span class="chart-key"><i class="wx-precip"></i>pluie (max)</span>
+    ${options.note || ""}
   </div>`;
 }
 
@@ -351,6 +412,7 @@ if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     CURVE_SETS,
     MODEL_COLORS,
+    SET_COLORS,
     escapeHtml,
     modelColor,
     mapsUrl,
@@ -358,10 +420,15 @@ if (typeof module !== "undefined" && module.exports) {
     addDays,
     sliceHorizon,
     indexCurves,
-    envelopeMean,
-    hourlyWindLevels,
+    primaryCurveSet,
+    secondaryCurveSet,
+    mergeWxMax,
+    xTicks,
     buildChartSvg,
     legendHtml,
     niceMaxKt,
+    KT25,
+    MEAN_STROKE,
+    GUST_STROKE,
   };
 }

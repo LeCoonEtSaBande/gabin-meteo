@@ -23,6 +23,7 @@ let spotSpecs = [];
 let curveIndex = { AROMEIFS: {}, ICONGFS: {} };
 let detailReady = false;
 let detailError = "";
+const hideSecondaryBySpot = new Map();
 
 function zoneSpecName(zoneKey) {
   const row = zoneSpecs.find((z) => z.zone_key === zoneKey);
@@ -56,11 +57,29 @@ function seriesForSpot(spotKey, startDay) {
   };
 }
 
+function chartOptions(spot) {
+  const primarySet = primaryCurveSet(spot);
+  return {
+    primarySet,
+    hideSecondary: Boolean(hideSecondaryBySpot.get(spot.spot_key)),
+    secondarySet: secondaryCurveSet(primarySet),
+  };
+}
+
 function spotChartHtml(spot, startDay) {
   const series = seriesForSpot(spot.spot_key, startDay);
+  const opts = chartOptions(spot);
+  const secondary = opts.secondarySet;
+  const hidden = opts.hideSecondary;
+  const btnLabel = hidden ? `Afficher ${secondary}` : `Masquer ${secondary}`;
+  const visible = hidden ? [series[opts.primarySet]] : [series.AROMEIFS, series.ICONGFS];
   return `<section class="spot-block" data-spot="${escapeHtml(spot.spot_key)}">
-    <h3 class="spot-chart-title">${escapeHtml(spot.display_name)}</h3>
-    <div class="spot-chart">${buildChartSvg(series, startDay, horizonDays, 400)}</div>
+    <div class="spot-chart-head">
+      <h3 class="spot-chart-title">${escapeHtml(spot.display_name)}</h3>
+      <button type="button" class="secondary-btn${hidden ? " is-active" : ""}" data-toggle-secondary="${escapeHtml(spot.spot_key)}">${btnLabel}</button>
+    </div>
+    <div class="spot-chart">${buildChartSvg(series, startDay, horizonDays, 400, opts)}</div>
+    ${legendHtml(visible)}
   </section>`;
 }
 
@@ -74,14 +93,6 @@ function spotInfoHtml(spot) {
     <p class="spot-line">${escapeHtml(info) || "—"}</p>
     <div class="spot-links">${links}${mapsButton(spot)}</div>
   </section>`;
-}
-
-function zoneLegendHtml(spots, startDay) {
-  const lists = spots.flatMap((spot) => {
-    const series = seriesForSpot(spot.spot_key, startDay);
-    return [series.AROMEIFS, series.ICONGFS];
-  });
-  return legendHtml(lists);
 }
 
 async function loadDetailAssets() {
@@ -116,6 +127,7 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   const title = document.getElementById("detail-title");
   const pane = document.getElementById("detail");
   const desktop = window.matchMedia("(min-width: 960px)").matches;
+  const scrollTop = body ? body.scrollTop : 0;
 
   if (!selectedZone) {
     title.textContent = "Zone";
@@ -146,7 +158,6 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   body.innerHTML = `
     <p class="zone-spots">${escapeHtml(names)}</p>
     <div class="horizon-bar" role="tablist" aria-label="Horizon de prévision">${horizon}</div>
-    ${zoneLegendHtml(spots, dayKey)}
     <div class="charts">${spots.map((spot) => spotChartHtml(spot, dayKey)).join("")}</div>
     <div class="spot-infos">${spots.map((spot) => spotInfoHtml(spot)).join("")}</div>`;
 
@@ -156,7 +167,15 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
       renderZoneDetail({ selectedZone, dayKey, fallbackLabel });
     });
   });
+  body.querySelectorAll("[data-toggle-secondary]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.toggleSecondary;
+      hideSecondaryBySpot.set(key, !hideSecondaryBySpot.get(key));
+      renderZoneDetail({ selectedZone, dayKey, fallbackLabel });
+    });
+  });
 
+  body.scrollTop = scrollTop;
   if (!desktop) pane.classList.add("is-open");
 }
 
