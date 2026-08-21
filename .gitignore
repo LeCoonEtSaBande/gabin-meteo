@@ -14,5 +14,6 @@ dist/
 .vscode/
 scripts-setup/
 data/raw/
+assets/spots_specs/
 _collecte/
 _web/
