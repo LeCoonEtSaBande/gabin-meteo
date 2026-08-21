@@ -13,51 +13,39 @@ test("flèche : pointe vers où ça souffle, pas d'où ça vient", () => {
   assert.equal(windArrowDeg(14), 194);
 });
 
-test("créneau d'une heure ignoré même avec du vent", () => {
+test("sans slot_label la puce reste muette même avec du vent", () => {
   assert.equal(
     isUsableSession({
       mean_max_kt: 18,
       gust_at_mean_max_kt: 22,
-      slot_start_h: 16,
-      slot_end_h: 18,
+      slot_start_h: null,
+      slot_end_h: null,
+      slot_label: "",
     }),
     false
   );
 });
 
-test("session affichée si moyen > 8 et durée >= 3 h", () => {
+test("puce visible dès que le traitement a écrit un créneau", () => {
   assert.equal(
     isUsableSession({
       mean_max_kt: 9,
       gust_at_mean_max_kt: 11,
       slot_start_h: 11,
       slot_end_h: 14,
+      slot_label: "(11h-14h)",
     }),
     true
   );
-});
-
-test("session affichée si rafales > 15 même avec un moyen faible", () => {
   assert.equal(
     isUsableSession({
       mean_max_kt: 7,
       gust_at_mean_max_kt: 16,
       slot_start_h: 10,
       slot_end_h: 13,
+      slot_label: "(10h-13h)",
     }),
     true
-  );
-});
-
-test("pic 8 nds / 15 rafales sur 3 h ignoré (seuils stricts)", () => {
-  assert.equal(
-    isUsableSession({
-      mean_max_kt: 8,
-      gust_at_mean_max_kt: 15,
-      slot_start_h: 10,
-      slot_end_h: 13,
-    }),
-    false
   );
 });
 

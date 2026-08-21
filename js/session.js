@@ -1,4 +1,4 @@
-/** Règles d'affichage quotidien. Créneaux : JSON tel quel (seuil 8 nds côté traitement). */
+/** Règles d'affichage quotidien. Créneau exploitable = slot_label non vide (règles côté traitement). */
 
 const MUTED = [90, 90, 90];
 
@@ -83,8 +83,7 @@ function windArrowDeg(fromDeg) {
 
 function isUsableSession(day) {
   if (!day) return false;
-  const windOk = day.mean_max_kt > 8 || day.gust_at_mean_max_kt > 15;
-  return windOk && slotDurationHours(day) >= 3;
+  return Boolean(day.slot_label);
 }
 
 function windColor(kt) {
