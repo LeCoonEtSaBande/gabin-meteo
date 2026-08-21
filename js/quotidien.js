@@ -317,7 +317,8 @@ function renderChips() {
   for (const zoneKey of Object.keys(CHIP_POS)) {
     const spotKey = PRIMARY_SPOT[zoneKey];
     const day = dataset.spots[spotKey]?.days?.[iso];
-    const usable = isUsableSession(day);
+    const slotInfo = clipSlot(day);
+    const usable = slotInfo != null;
     const pt = chipScreenPoint(zoneKey);
     const btn = document.createElement("button");
     btn.type = "button";
@@ -334,7 +335,7 @@ function renderChips() {
     const gustCol = usable ? gustColor(day.gust_at_mean_max_kt) : mutedCol;
     const temp = usable && day?.temp_15h_c != null ? `${day.temp_15h_c}°` : "";
     const tCol = day?.temp_15h_c == null ? mutedCol : tempColor(day.temp_15h_c);
-    const slot = usable ? day.slot_label || "" : "";
+    const slot = slotInfo ? slotInfo.label : "";
     const model = usable ? modelLabel(day.source_model_at_max) : "";
     const dir =
       day && day.wind_dir_deg != null ? arrowSvg(day.wind_dir_deg, meanCol) : "";
