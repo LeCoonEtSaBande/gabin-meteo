@@ -1,13 +1,9 @@
-# Gabin-meteo
+# Gabin-meteo — traitement
 
-Surveillance météo de sites : collecte de données brutes via des API, traitement, puis affichage web.
+Branche `traitement-donnees` : assemble les bruts Open-Meteo en courbes splicées et en JSON quotidien.
 
-## Branches
+Les **spécifications de spots** et les **bruts** ne sont pas versionnés ici. Parent : `collecte-api-meteo`.
 
-| Branche | Rôle |
-| --- | --- |
-| `collecte-api-meteo` | Recherche et récupération de données brutes via des API météo pour les sites à surveiller |
-| `traitement-donnees` | Traitement et transformation des données collectées |
-| `affichage-web` | Page web publique pour consulter les résultats |
+En local : `git show collecte-api-meteo:assets/spots_specs/spots_specifications.csv` (déjà géré par `src/traitement/io_raw.py`). En CI : checkout de `collecte-api-meteo`.
 
-La branche `main` sert de base commune. Le travail métier se fait sur les trois branches ci-dessus.
+Détail : `src/traitement/README.md`.

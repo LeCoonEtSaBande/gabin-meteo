@@ -19,7 +19,7 @@ Les spots `short_term_model = AROMEHD` utilisent `AROMEIFS` pour l'affichage. Le
 
 ## Lancer
 
-Les bruts sont lus dans `data/raw/` s'ils sont présents, sinon via `git show collecte-api-meteo:…`.
+Les bruts et les specs sont lus dans l’arbre local s’ils sont présents (copie CI), sinon via `git show collecte-api-meteo:…`. Ne pas committer `data/raw/` ni `assets/spots_specs/` sur cette branche.
 
 ```bash
 python src/traitement/run.py
