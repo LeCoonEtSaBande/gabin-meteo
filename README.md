@@ -8,7 +8,7 @@ Vue d’ensemble du dépôt (pipeline, branches, modèles) : [README de `main`](
 
 ## Rôle
 
-Cette branche ne contient **que** le front : HTML, CSS, JS, carte SVG, icônes, copies des specs et des JSON/CSV consommés par la page. Pas de collecte ni de traitement Python.
+Cette branche ne contient **que** le front : HTML, CSS, JS, carte SVG, icônes, et les copies publiées des specs / JSON / CSV. Pas de collecte ni de traitement Python.
 
 GitHub Pages est configuré sur la **racine** de `affichage-web`.
 
@@ -23,17 +23,21 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 
 Contrat des calques SVG : [`assets/svg_map/README.md`](assets/svg_map/README.md).
 
-## Données lues par la page
+## Données : copies publiées, ne pas éditer
 
-| Fichier | Source | Usage |
+GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Traitement et affichage** recopie ici les fichiers parents :
+
+| Fichier | Parent | Usage |
 | --- | --- | --- |
-| `data/processed/quotidien.json` | recopié par le workflow *Traitement et affichage* | puces / tendances |
-| `data/processed/last_update.json` | idem | horodatage « MAJ » |
-| `data/processed/curves/AROMEIFS.csv` | produit par `traitement-donnees` | graphique détail |
-| `data/processed/curves/ICONGFS.csv` | idem | graphique détail |
-| `assets/spots_specs/*.csv` | copie de `collecte-api-meteo` | noms, textes, liens, GPS |
+| `assets/spots_specs/*.csv` | `collecte-api-meteo` | Infos spots, liens, noms de zone |
+| `data/processed/quotidien.json` | `traitement-donnees` | Puces / tendances |
+| `data/processed/last_update.json` | `traitement-donnees` | Horodatage « MAJ » |
+| `data/processed/curves/AROMEIFS.csv` | `traitement-donnees` | Graphiques |
+| `data/processed/curves/ICONGFS.csv` | `traitement-donnees` | Graphiques |
 
-Le workflow sur `main` republie aujourd’hui `quotidien.json` et `last_update.json` après chaque collecte. Les CSV de courbes et les specs sont versionnés sur cette branche (ils ne sont pas recopiés à chaque run).
+Modifier les spots uniquement sur `collecte-api-meteo`. `ICONIFS.csv` n’est pas recopié : le détail n’affiche que AROMEIFS et ICONGFS.
+
+Les libellés courts des puces (`ZONE_LABELS` dans `js/quotidien.js`) restent du code d’affichage, pas une seconde table de specs.
 
 ## Fichiers JS
 

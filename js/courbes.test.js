@@ -252,6 +252,8 @@ test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
   assert.match(svg, new RegExp(`stroke-width="${MEAN_STROKE}"`));
   const legend = legendHtml([SAMPLE.AROMEIFS, SAMPLE.ICONGFS]);
   assert.match(legend, /vent moyen/);
+  assert.match(legend, /pointillé = rafales/);
+  assert.doesNotMatch(legend, /plage/);
   assert.doesNotMatch(legend, /&gt; 8 nds/);
 });
 

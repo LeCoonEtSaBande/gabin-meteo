@@ -510,7 +510,7 @@ function legendHtml(seriesList, options = {}) {
     .join("");
   return `<div class="chart-legend">
     ${keys}
-    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · plage = moyen→rafales</span>
+    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales</span>
     ${options.note || ""}
   </div>`;
 }
