@@ -118,7 +118,7 @@ function formatDayLabel(isoDate) {
   const [year, month, day] = isoDate.split("-").map(Number);
   const utc = new Date(Date.UTC(year, month - 1, day));
   const weekday = JOURS[(utc.getUTCDay() + 6) % 7];
-  return `${weekday} ${day} ${MOIS[month - 1]} ${year}`;
+  return `${weekday} ${day} ${MOIS[month - 1]}`;
 }
 
 function layerName(el) {

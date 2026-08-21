@@ -11,6 +11,8 @@ const {
   visibleSets,
   mergeWxMax,
   xTicks,
+  slotCaption,
+  pickNearestWind,
   buildChartSvg,
   legendHtml,
   parseValidAt,
@@ -112,12 +114,24 @@ test("nébulosité : max des modèles puis max sur 3 heures", () => {
   assert.equal(wx[1].precip, 1);
 });
 
-test("l'axe X porte les jours et les heures", () => {
-  const ticks = xTicks("2026-08-20", 3, 64, 300);
-  assert.ok(ticks.days.some((t) => t.label.startsWith("jeu.")));
-  assert.ok(ticks.days.some((t) => t.label.startsWith("ven.")));
-  assert.ok(ticks.hours.some((t) => t.label === "00h"));
-  assert.ok(ticks.hours.some((t) => t.label === "12h"));
+test("l'axe X : heures en journée, midi à 3 jours, coupures de jour à 5 jours", () => {
+  const day = xTicks("2026-08-20", 1, 64, 300);
+  assert.ok(day.hours.some((t) => t.label === "00h"));
+  assert.ok(day.hours.some((t) => t.label === "12h"));
+  assert.equal(day.noonDots.length, 0);
+  assert.equal(day.dayBreaks.length, 0);
+
+  const three = xTicks("2026-08-20", 3, 64, 300);
+  assert.equal(three.hours.length, 0);
+  assert.equal(three.noonDots.length, 3);
+  assert.equal(three.dayBreaks.length, 2);
+  assert.ok(three.days.some((t) => t.label.startsWith("jeu.")));
+  assert.ok(three.days.some((t) => t.label.startsWith("ven.")));
+
+  const five = xTicks("2026-08-20", 5, 64, 300);
+  assert.equal(five.hours.length, 0);
+  assert.equal(five.noonDots.length, 0);
+  assert.equal(five.dayBreaks.length, 4);
 });
 
 const SAMPLE = {
@@ -166,28 +180,33 @@ test("la flèche graphique pointe à dir + 180°", () => {
   assert.match(svg, /rotate\(20\)/);
 });
 
-test("journée : heures entre vent et nébulosité, un point par heure, échelles 0-100 et mm", () => {
+test("journée : heures entre vent et nuages, un point par heure, échelles 0-100 et mm", () => {
   const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
   assert.match(svg, /class="hour-dot"/);
   assert.equal((svg.match(/class="hour-dot"/g) || []).length, 24);
-  assert.match(svg, /néb\. %/);
+  assert.match(svg, /Nuages \(%\)/);
   assert.match(svg, />100</);
-  assert.match(svg, />mm</);
+  assert.match(svg, /Pluie \(mm\)/);
   const hourIndex = svg.indexOf("00h");
-  const nebIndex = svg.indexOf("néb. %");
+  const nebIndex = svg.indexOf("Nuages (%)");
   assert.ok(hourIndex > 0 && nebIndex > hourIndex);
-  const neb = svg.match(/translate\(([0-9.]+) [0-9.]+\) rotate\(-90\)"[^>]*>néb\. %</);
-  const mm = svg.match(/translate\(([0-9.]+) [0-9.]+\) rotate\(-90\)"[^>]*>mm</);
-  assert.ok(neb, "néb. % doit être une légende verticale à gauche");
-  assert.ok(mm, "mm doit être une légende verticale à droite");
-  assert.ok(Number(neb[1]) <= 12, `néb. % trop à droite: ${neb[1]}`);
-  assert.ok(Number(mm[1]) >= 388, `mm trop à gauche: ${mm[1]}`);
+  const neb = svg.match(/translate\(([0-9.]+) [0-9.]+\) rotate\(-90\)"[^>]*>Nuages \(%\)</);
+  const mm = svg.match(/translate\(([0-9.]+) [0-9.]+\) rotate\(-90\)"[^>]*>Pluie \(mm\)</);
+  assert.ok(neb, "Nuages (%) doit être une légende verticale à gauche");
+  assert.ok(mm, "Pluie (mm) doit être une légende verticale à droite");
+  assert.ok(Number(neb[1]) <= 12, `Nuages (%) trop à droite: ${neb[1]}`);
+  assert.ok(Number(mm[1]) >= 388, `Pluie (mm) trop à gauche: ${mm[1]}`);
   const plotLeft = Number((svg.match(/<line x1="([0-9.]+)" y1="[^"]+" x2="[^"]+" y2="[^"]+" stroke="#2a2a2a"/) || [])[1]);
   const cloudTick = svg.match(/class="wx-tick" x="([0-9.]+)"[^>]*>100</);
   const precipTick = svg.match(/class="wx-tick" x="([0-9.]+)"[^>]*text-anchor="start"[^>]*>[0-9]+</);
   assert.ok(plotLeft > 70);
   assert.ok(cloudTick && Number(cloudTick[1]) < plotLeft);
   assert.ok(precipTick && Number(precipTick[1]) > plotLeft);
+  assert.match(svg, /class="kt-8"/);
+  assert.match(svg, /class="kt-grid"/);
+  assert.match(svg, />5</);
+  assert.match(svg, />10</);
+  assert.match(svg, /class="wx-mid"/);
 });
 
 test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () => {
@@ -260,18 +279,47 @@ test("masquer le principal ne laisse que le secondaire, nébulosité et pluie in
   });
   assert.doesNotMatch(svg, />AROMEIFS</);
   assert.match(svg, />ICONGFS</);
-  assert.match(svg, /Nébulosité 90 %/);
+  assert.match(svg, /Nuages 90 %/);
   assert.match(svg, /Pluie 1\.0 mm/);
-  assert.doesNotMatch(svg, /Nébulosité 50 %/);
+  assert.doesNotMatch(svg, /Nuages 50 %/);
   assert.doesNotMatch(svg, /Pluie 0\.4 mm/);
 });
 
-test("principal seul : nébulosité et pluie du jeu AROMEIFS", () => {
+test("principal seul : nuages et pluie du jeu AROMEIFS", () => {
   const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "AROMEIFS" });
-  assert.match(svg, /Nébulosité 50 %/);
+  assert.match(svg, /Nuages 50 %/);
   assert.match(svg, /Pluie 0\.4 mm/);
-  assert.doesNotMatch(svg, /Nébulosité 90 %/);
+  assert.doesNotMatch(svg, /Nuages 90 %/);
   assert.doesNotMatch(svg, /Pluie 1\.0 mm/);
+});
+
+test("3 jours : midi marqué, pas d'heures ; 5 jours : seulement les jours", () => {
+  const three = buildChartSvg(SAMPLE, "2026-08-20", 3, 400, { primarySet: "AROMEIFS" });
+  assert.match(three, /class="noon-dot"/);
+  assert.equal((three.match(/class="noon-dot"/g) || []).length, 3);
+  assert.match(three, /class="day-break"/);
+  assert.doesNotMatch(three, /class="hour-dot"/);
+  assert.doesNotMatch(three, />00h</);
+  const five = buildChartSvg(SAMPLE, "2026-08-20", 5, 400, { primarySet: "AROMEIFS" });
+  assert.doesNotMatch(five, /class="noon-dot"/);
+  assert.equal((five.match(/class="day-break"/g) || []).length, 4);
+});
+
+test("le survol choisit le créneau le plus proche, flèche dir+180°", () => {
+  assert.equal(slotCaption("2026-08-20T14:00", 1), "14h");
+  assert.equal(slotCaption("2026-08-21T09:00", 3), "ven. 21 09h");
+  const geom = { x0: 80, innerW: 240, windTop: 20, windH: 100, yWind0: 120, maxKt: 30 };
+  const hit = pickNearestWind(
+    [{ name: "AROMEIFS", points: SAMPLE.AROMEIFS }],
+    "2026-08-20",
+    1,
+    geom,
+    80 + (10 / 24) * 240,
+    120 - (12 / 30) * 100
+  );
+  assert.equal(hit.point.valid_at, "2026-08-20T10:00");
+  assert.equal(hit.point.mean, 12);
+  assert.equal(arrowRotation(hit.point.dir), 220);
 });
 
 test("parseValidAt lit l'heure civile sans Date locale", () => {

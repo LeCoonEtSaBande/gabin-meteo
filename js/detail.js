@@ -91,7 +91,7 @@ function spotChartHtml(spot, startDay) {
         ${setToggleButton(spot.spot_key, opts.secondarySet, opts.showSecondary)}
       </div>
     </div>
-    <div class="spot-chart">${buildChartSvg(series, startDay, horizonDays, 400, opts)}</div>
+    <div class="spot-chart" data-spot="${escapeHtml(spot.spot_key)}">${buildChartSvg(series, startDay, horizonDays, 400, opts)}</div>
     ${legendHtml(visible)}
   </section>`;
 }
@@ -134,6 +134,126 @@ async function loadDetailAssets() {
   }
 }
 
+function svgCursorPoint(svg, event) {
+  const src = event.touches && event.touches[0] ? event.touches[0] : event;
+  const pt = svg.createSVGPoint();
+  pt.x = src.clientX;
+  pt.y = src.clientY;
+  const ctm = svg.getScreenCTM();
+  if (!ctm) return null;
+  return pt.matrixTransform(ctm.inverse());
+}
+
+function visibleSeriesPayload(payload) {
+  const sets = visibleSets(payload.opts.primarySet, {
+    showPrimary: payload.opts.showPrimary,
+    showSecondary: payload.opts.showSecondary,
+  });
+  return sets.map((name) => ({ name, points: payload.series[name] || [] }));
+}
+
+function chartTipHtml(hit, nDays) {
+  const point = hit.point;
+  const rot = arrowRotation(point.dir);
+  const hour = slotCaption(point.valid_at, nDays);
+  return `<div class="chart-tip-hour">${escapeHtml(hour)}</div>
+    <div class="chart-tip-wind">
+      <svg class="chart-tip-arrow" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${rot}deg)">
+        <path d="M5 0 L10 14 L5 10 L0 14 Z" fill="currentColor"></path>
+      </svg>
+      <span>${Math.round(point.mean)} nds</span>
+      <span class="chart-tip-gust">raf. ${Math.round(point.gust)}</span>
+    </div>
+    <div class="chart-tip-model">${escapeHtml(SET_LABELS[hit.setName] || hit.setName)} · ${escapeHtml(point.source_model)}</div>`;
+}
+
+function placeChartTip(tip, event) {
+  const src = event.touches && event.touches[0] ? event.touches[0] : event;
+  const pad = 12;
+  const w = tip.offsetWidth || 140;
+  const h = tip.offsetHeight || 56;
+  let x = src.clientX + pad;
+  let y = src.clientY - h - 8;
+  if (x + w > window.innerWidth - 8) x = src.clientX - w - pad;
+  if (y < 8) y = src.clientY + pad;
+  tip.style.left = `${Math.max(8, x)}px`;
+  tip.style.top = `${Math.max(8, y)}px`;
+}
+
+function bindChartPointer(container, payload, options = {}) {
+  const svg = container.querySelector(".spot-svg");
+  if (!svg) return;
+  let tip = container.querySelector(".chart-tip");
+  if (!tip) {
+    tip = document.createElement("div");
+    tip.className = "chart-tip";
+    tip.hidden = true;
+    container.appendChild(tip);
+  }
+  const geom = JSON.parse(svg.getAttribute("data-geom") || "{}");
+  const showTip = (event) => {
+    const pt = svgCursorPoint(svg, event);
+    if (!pt) return;
+    const hit = pickNearestWind(visibleSeriesPayload(payload), payload.startDay, payload.nDays, geom, pt.x, pt.y);
+    if (!hit) {
+      tip.hidden = true;
+      return;
+    }
+    tip.innerHTML = chartTipHtml(hit, payload.nDays);
+    tip.hidden = false;
+    placeChartTip(tip, event);
+  };
+  const hideTip = () => {
+    tip.hidden = true;
+  };
+  svg.addEventListener("mousemove", showTip);
+  svg.addEventListener("mouseleave", hideTip);
+  svg.addEventListener("touchstart", showTip, { passive: true });
+  svg.addEventListener("touchmove", showTip, { passive: true });
+  svg.addEventListener("touchend", hideTip);
+  if (options.fullscreen) {
+    svg.style.cursor = "zoom-in";
+    svg.addEventListener("click", (event) => {
+      event.preventDefault();
+      openChartLightbox(payload);
+    });
+  }
+}
+
+function closeChartLightbox() {
+  const box = document.getElementById("chart-lightbox");
+  if (!box) return;
+  box.hidden = true;
+  document.body.classList.remove("has-lightbox");
+  const stage = document.getElementById("chart-lightbox-stage");
+  if (stage) stage.innerHTML = "";
+}
+
+function openChartLightbox(payload) {
+  const box = document.getElementById("chart-lightbox");
+  const stage = document.getElementById("chart-lightbox-stage");
+  if (!box || !stage) return;
+  const svg = buildChartSvg(payload.series, payload.startDay, payload.nDays, 400, payload.opts);
+  stage.innerHTML = `<h3 class="chart-lightbox-title">${escapeHtml(payload.title || "")}</h3>
+    <div class="chart-lightbox-chart">${svg}</div>`;
+  box.hidden = false;
+  document.body.classList.add("has-lightbox");
+  bindChartPointer(stage.querySelector(".chart-lightbox-chart"), payload, { fullscreen: false });
+}
+
+function bindLightboxOnce() {
+  const box = document.getElementById("chart-lightbox");
+  if (!box || box.dataset.bound) return;
+  box.dataset.bound = "1";
+  box.querySelector(".chart-lightbox-close").addEventListener("click", closeChartLightbox);
+  box.addEventListener("click", (event) => {
+    if (event.target === box) closeChartLightbox();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeChartLightbox();
+  });
+}
+
 function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   const empty = document.getElementById("detail-empty");
   const body = document.getElementById("detail-body");
@@ -162,14 +282,12 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
     return;
   }
 
-  const names = spots.map((s) => s.display_name).join(" · ") || "Aucun spot";
   const horizon = HORIZONS.map(
     (h) =>
       `<button type="button" class="horizon-btn${h.days === horizonDays ? " is-active" : ""}" data-horizon="${h.days}">${h.label}</button>`
   ).join("");
 
   body.innerHTML = `
-    <p class="zone-spots">${escapeHtml(names)}</p>
     <div class="horizon-bar" role="tablist" aria-label="Horizon de prévision">${horizon}</div>
     <div class="charts">${spots.map((spot) => spotChartHtml(spot, dayKey)).join("")}</div>
     <div class="spot-infos">${spots.map((spot) => spotInfoHtml(spot)).join("")}</div>`;
@@ -195,8 +313,23 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
     });
   });
 
+  body.querySelectorAll(".spot-chart").forEach((el) => {
+    const key = el.dataset.spot;
+    const spot = spots.find((item) => item.spot_key === key);
+    if (!spot) return;
+    const payload = {
+      series: seriesForSpot(key, dayKey),
+      startDay: dayKey,
+      nDays: horizonDays,
+      opts: chartOptions(spot),
+      title: spot.display_name,
+    };
+    bindChartPointer(el, payload, { fullscreen: true });
+  });
+
   body.scrollTop = scrollTop;
   if (!desktop) pane.classList.add("is-open");
+  bindLightboxOnce();
 }
 
 if (typeof module !== "undefined" && module.exports) {

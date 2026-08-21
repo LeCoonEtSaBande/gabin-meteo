@@ -238,27 +238,78 @@ function weekdayShort(dayKey) {
 function xTicks(startDay, nDays, x0, innerW) {
   const hours = [];
   const days = [];
-  const hourStep = nDays <= 1 ? 3 : 6;
+  const noonDots = [];
+  const dayBreaks = [];
   for (let d = 0; d < nDays; d += 1) {
     const day = addDays(startDay, d);
     days.push({
       x: xOf({ valid_at: `${day}T12:00` }, startDay, nDays, x0, innerW),
       label: weekdayShort(day),
     });
-    for (let hour = 0; hour < 24; hour += hourStep) {
-      hours.push({
-        x: xOf(
-          { valid_at: `${day}T${String(hour).padStart(2, "0")}:00` },
-          startDay,
-          nDays,
-          x0,
-          innerW
-        ),
-        label: `${String(hour).padStart(2, "0")}h`,
+    if (nDays <= 1) {
+      for (let hour = 0; hour < 24; hour += 3) {
+        hours.push({
+          x: xOf(
+            { valid_at: `${day}T${String(hour).padStart(2, "0")}:00` },
+            startDay,
+            nDays,
+            x0,
+            innerW
+          ),
+          label: `${String(hour).padStart(2, "0")}h`,
+        });
+      }
+    }
+    if (nDays === 3) {
+      noonDots.push({
+        x: xOf({ valid_at: `${day}T12:00` }, startDay, nDays, x0, innerW),
+      });
+    }
+    if (nDays >= 3 && d > 0) {
+      dayBreaks.push({
+        x: xOf({ valid_at: `${day}T00:00` }, startDay, nDays, x0, innerW),
       });
     }
   }
-  return { hours, days };
+  return { hours, days, noonDots, dayBreaks };
+}
+
+function slotCaption(validAt, nDays) {
+  const p = parseValidAt(validAt);
+  const hour = `${String(p.hour).padStart(2, "0")}h`;
+  if (nDays <= 1) return hour;
+  return `${weekdayShort(p.dayKey)} ${hour}`;
+}
+
+function pickNearestWind(series, startDay, nDays, geom, svgX, svgY) {
+  const { x0, innerW, yWind0, windH, maxKt, windTop } = geom || {};
+  if (!innerW || svgY < windTop - 10 || svgY > yWind0 + 10) return null;
+  const start = parseValidAt(`${startDay}T00:00`).ms;
+  const span = nDays * 24 * 3600 * 1000;
+  const tMs = start + ((svgX - x0) / innerW) * span;
+  let best = null;
+  let bestY = Infinity;
+  for (const item of series || []) {
+    const points = item.points || [];
+    if (!points.length) continue;
+    let nearest = points[0];
+    let nearestD = Infinity;
+    for (const point of points) {
+      const d = Math.abs(parseValidAt(point.valid_at).ms - tMs);
+      if (d < nearestD) {
+        nearestD = d;
+        nearest = point;
+      }
+    }
+    const yMean = yWind0 - (nearest.mean / maxKt) * windH;
+    const yGust = yWind0 - (nearest.gust / maxKt) * windH;
+    const dy = Math.min(Math.abs(svgY - yMean), Math.abs(svgY - yGust));
+    if (dy < bestY) {
+      bestY = dy;
+      best = { setName: item.name, point: nearest };
+    }
+  }
+  return best;
 }
 
 function visibleSets(primarySet, options = {}) {
@@ -291,7 +342,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
   const axisH = 18;
-  const wxH = 52;
+  const wxH = 58;
   const padB = 16;
   const dirY0 = 4;
   const windTop = dirY0 + dirRowH * series.length + 6;
@@ -309,20 +360,18 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const hourW = innerW / (nDays * 24);
   const ticks = xTicks(startDay, nDays, x0, innerW);
 
-  const gridValues = [0, KT8, KT15, KT25, maxKt].filter(
-    (v, i, arr) => arr.indexOf(v) === i && v <= maxKt
-  );
+  const gridValues = [];
+  for (let kt = 0; kt <= maxKt; kt += 5) gridValues.push(kt);
   const grid = gridValues
     .map((kt) => {
       const y = yKt(kt);
-      const is25 = kt === KT25;
-      const dash = is25 ? "3 3" : "2 4";
-      const col = is25 ? "#9a9a9a" : "#2a2a2a";
-      const widthLine = is25 ? "1.15" : "1";
-      return `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${col}" stroke-dasharray="${dash}" stroke-width="${widthLine}"></line>
-        <text x="${x0 - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#7a7a7a" font-size="9px">${kt}</text>`;
+      return `<line class="kt-grid" x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="#2a2a2a" stroke-width="0.45"></line>
+        <text x="${x0 - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#7a7a7a" font-size="8px">${kt}</text>`;
     })
     .join("");
+  const y8 = yKt(KT8);
+  const kt8Line = `<line class="kt-8" x1="${x0}" y1="${y8.toFixed(1)}" x2="${x1}" y2="${y8.toFixed(1)}" stroke="#6a6a6a" stroke-dasharray="2 3" stroke-width="0.7"></line>
+    <text x="${x0 - 6}" y="${(y8 + 3).toFixed(1)}" text-anchor="end" fill="#8a8a8a" font-size="8px">8</text>`;
 
   function paintWind(points, dashed) {
     const segs = lineSegments(points, startDay, nDays, x0, innerW, (p) => yKt(dashed ? p.gust : p.mean));
@@ -332,9 +381,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     return segs
       .map(
         (seg) =>
-          `<path d="${seg.d}" fill="none" stroke="${modelColor(seg.model)}"${attrs} stroke-linejoin="round" stroke-linecap="round">
-            <title>${escapeHtml(seg.model)} · ${dashed ? "rafales" : "vent moyen"}</title>
-          </path>`
+          `<path d="${seg.d}" fill="none" stroke="${modelColor(seg.model)}"${attrs} stroke-linejoin="round" stroke-linecap="round"></path>`
       )
       .join("");
   }
@@ -372,8 +419,9 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const yCloud = (pct) => wxY0 + wxH - 6 - (Math.max(0, Math.min(100, pct)) / 100) * (wxH - 16);
   const yPrecip = (mm) => wxY0 + wxH - 6 - (Math.max(0, mm) / precipMax) * (wxH - 16);
   const wxMidY = wxY0 + wxH / 2;
-  let wxDraw = `<text class="wx-unit" transform="translate(${wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_CLOUD}" font-size="7px">néb. %</text>
-    <text class="wx-unit" transform="translate(${width - wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_PRECIP}" font-size="7px">mm</text>
+  let wxDraw = `<line class="wx-mid" x1="${x0}" y1="${yCloud(50).toFixed(1)}" x2="${x1}" y2="${yCloud(50).toFixed(1)}" stroke="#4a4a4a" stroke-dasharray="2 3" stroke-width="0.55"></line>
+    <text class="wx-unit" transform="translate(${wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_CLOUD}" font-size="6.5px">Nuages (%)</text>
+    <text class="wx-unit" transform="translate(${width - wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_PRECIP}" font-size="6.5px">Pluie (mm)</text>
     <text class="wx-tick" x="${x0 - 6}" y="${yCloud(100) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">100</text>
     <text class="wx-tick" x="${x0 - 6}" y="${yCloud(50) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">50</text>
     <text class="wx-tick" x="${x0 - 6}" y="${yCloud(0) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">0</text>
@@ -387,7 +435,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     const yTop = yCloud(point.cloud);
     const ch = wxY0 + wxH - 6 - yTop;
     wxDraw += `<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(0, ch).toFixed(1)}" fill="${WX_CLOUD}" opacity="0.32">
-      <title>Nébulosité ${Math.round(point.cloud)} %</title>
+      <title>Nuages ${Math.round(point.cloud)} %</title>
     </rect>`;
     if (point.precip > 0) {
       const barW = Math.max(1.4, w * 0.38);
@@ -412,6 +460,14 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
       hourAxis += `<line x1="${x.toFixed(1)}" y1="${axisY - 3}" x2="${x.toFixed(1)}" y2="${axisY + 3}" stroke="#8a8a8a" stroke-width="1"></line>
         <circle class="hour-dot" cx="${x.toFixed(1)}" cy="${axisY}" r="2.1" fill="#c4c4c4"></circle>`;
     }
+  } else {
+    for (const br of ticks.dayBreaks) {
+      hourAxis += `<line class="day-break" x1="${br.x.toFixed(1)}" y1="${windTop}" x2="${br.x.toFixed(1)}" y2="${(wxY0 + wxH - 6).toFixed(1)}" stroke="#3a3a3a" stroke-width="0.7"></line>
+        <line x1="${br.x.toFixed(1)}" y1="${axisY - 5}" x2="${br.x.toFixed(1)}" y2="${axisY + 5}" stroke="#9a9a9a" stroke-width="1.1"></line>`;
+    }
+    for (const dot of ticks.noonDots) {
+      hourAxis += `<circle class="noon-dot" cx="${dot.x.toFixed(1)}" cy="${axisY}" r="2.2" fill="#c4c4c4"></circle>`;
+    }
   }
   const hourLabels = ticks.hours
     .map(
@@ -426,10 +482,12 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     )
     .join("");
 
-  return `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Prévision vent, rafales, direction, nébulosité et pluie">
+  const geom = { x0, innerW, windTop, windH, yWind0, maxKt, startDay, nDays, width, height };
+  return `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Prévision vent, rafales, direction, nuages et pluie" data-geom="${escapeHtml(JSON.stringify(geom))}">
     <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
     ${dirLabels}
     ${grid}
+    ${kt8Line}
     <text x="${x0 - 6}" y="${windTop + 8}" text-anchor="end" fill="#7a7a7a" font-size="8px">nds</text>
     ${fills}
     ${winds}
@@ -476,6 +534,8 @@ if (typeof module !== "undefined" && module.exports) {
     arrowRotation,
     nicePrecipMax,
     xTicks,
+    slotCaption,
+    pickNearestWind,
     buildChartSvg,
     legendHtml,
     niceMaxKt,

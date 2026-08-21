@@ -359,6 +359,7 @@ html, body {
 
 .spot-chart {
   width: 100%;
+  position: relative;
 }
 
 .spot-svg {
@@ -367,6 +368,7 @@ html, body {
   height: auto;
   overflow: visible;
   font-size: 8px;
+  cursor: zoom-in;
 }
 
 .spot-svg .set-label {
@@ -486,6 +488,106 @@ html, body {
 .day-meta p { margin: 0; }
 #day-label { font-size: 14px; }
 .muted { color: var(--muted); font-size: 11px; }
+
+.chart-tip {
+  position: fixed;
+  z-index: 45;
+  pointer-events: none;
+  min-width: 118px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #161616;
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.35;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.chart-tip-hour {
+  color: var(--beige);
+  letter-spacing: 0.04em;
+}
+
+.chart-tip-wind {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.chart-tip-arrow {
+  width: 8px;
+  height: 12px;
+  flex: none;
+  color: var(--beige);
+}
+
+.chart-tip-gust { color: var(--muted); }
+.chart-tip-model {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+body.has-lightbox {
+  overflow: hidden;
+}
+
+.chart-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: calc(10px + var(--safe-top)) 10px calc(10px + var(--safe-bottom));
+  background: rgba(8, 8, 8, 0.94);
+}
+
+.chart-lightbox[hidden] {
+  display: none !important;
+}
+
+.chart-lightbox-close {
+  align-self: flex-end;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--beige-dim);
+  border-radius: 8px;
+  background: var(--elev);
+  color: var(--beige);
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chart-lightbox-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-lightbox-title {
+  margin: 0 0 8px;
+  color: var(--beige);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chart-lightbox-chart {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.chart-lightbox-chart .spot-svg {
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
 
 [data-layer="Reliefs_bas"] path { fill: var(--relief-b) !important; stroke: none !important; }
 [data-layer="Reliefs_moyens"] path { fill: var(--relief-m) !important; stroke: none !important; }
