@@ -1,4 +1,5 @@
 # Spécifications des spots
 
-Copie de `collecte-api-meteo/assets/spots_specs/` pour le panneau détail :
-noms de zone, textes, liens Windguru / webcam / anémomètre, coordonnées de mise à l'eau.
+**Ne pas éditer ces CSV ici.** Parent unique : `collecte-api-meteo/assets/spots_specs/`.
+
+Copies publiées pour Pages (panneau détail : noms, textes, liens, coordonnées). Le workflow de traitement les écrase à chaque run.
