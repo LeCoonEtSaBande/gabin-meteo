@@ -15,6 +15,10 @@ LAST_UPDATE_JSON = PROCESSED_DIR / "last_update.json"
 COLLECTE_BRANCH = "collecte-api-meteo"
 
 WIND_SLOT_KT = 8.0
+GUST_SLOT_KT = 15.0
+SLOT_WINDOW_START_H = 7
+SLOT_WINDOW_END_H = 22
+MIN_SLOT_HOURS = 3
 TEMP_HOUR = 15
 
 # Court terme → long terme. À un instant t on ne garde que le modèle
