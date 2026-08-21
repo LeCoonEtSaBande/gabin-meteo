@@ -11,17 +11,24 @@ from config import COLLECTE_BRANCH, RAW_FORECASTS, RAW_LAST_UPDATE, ROOT
 
 
 def git_show(rel_path: str, branch: str = COLLECTE_BRANCH) -> str:
-    proc = subprocess.run(
-        ["git", "show", f"{branch}:{rel_path}"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
+    candidates = [branch]
+    if not branch.startswith("origin/"):
+        candidates.append(f"origin/{branch}")
+    errors: list[str] = []
+    for ref in candidates:
+        proc = subprocess.run(
+            ["git", "show", f"{ref}:{rel_path}"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+        if proc.returncode == 0:
+            return proc.stdout
+        errors.append((proc.stderr or proc.stdout or "").strip())
+    raise FileNotFoundError(
+        f"git show {branch}:{rel_path} : {errors[-1] if errors else 'ref inconnue'}"
     )
-    if proc.returncode != 0:
-        detail = (proc.stderr or proc.stdout or "").strip()
-        raise FileNotFoundError(f"git show {branch}:{rel_path} : {detail}")
-    return proc.stdout
 
 
 def read_text(path: Path, git_rel: str) -> str:
