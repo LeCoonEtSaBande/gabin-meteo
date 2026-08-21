@@ -1,11 +1,14 @@
-# Meteocons (Bas Milius) — subset used by the TestGabin map
+# Meteocons (Bas Milius) — icônes du panneau quotidien
 
-Source: https://github.com/basmilius/meteocons (`@meteocons/svg-static` fill style)
-License: MIT
+Source : https://github.com/basmilius/meteocons (`@meteocons/svg-static`, style fill)
+Licence : MIT
 
-Icons:
-- clear-day → icon-soleil.svg
-- partly-cloudy-day → icon-soleil-couvert.svg
-- overcast → icon-couvert.svg
-- rain → icon-pluie.svg
-- thunderstorms → icon-orage.svg
+Correspondance avec les clés `weather_icon` de `quotidien.json` :
+
+| Clé JSON | Fichier |
+| --- | --- |
+| `soleil` | `icon-soleil.svg` (clear-day) |
+| `soleil-couvert` | `icon-soleil-couvert.svg` (partly-cloudy-day) |
+| `couvert` | `icon-couvert.svg` (overcast) |
+| `pluie` | `icon-pluie.svg` (rain) |
+| `orage` | `icon-orage.svg` (thunderstorms) |
