@@ -15,7 +15,7 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 ## Interface
 
 - Coque HTML (onglets, puces, barre de jour, panneau détail). Le SVG `assets/svg_map/Carte RA 804x1200.svg` est **uniquement la carte**.
-- *Tendances journalières* : pour chaque zone, icône météo, vent max (nœuds), créneau exploitable (`slot_label` non vide), température 15 h, modèle court terme.
+- *Tendances journalières* : pour chaque zone, icône météo, vent max (nœuds), créneau exploitable (≥ 3 h, 7 h–22 h), température 15 h, modèle court terme.
 - Clic zone → panneau détail : textes / liens des specs, graphiques `AROMEIFS` et `ICONGFS`.
 - Horizons **1 / 3 / 5 jours**, une courbe affichée par défaut (l’autre au bouton), masquage du modèle principal, tooltip au survol, plein écran.
 - Flèches de vent : direction **vers où ça souffle**.
@@ -47,7 +47,7 @@ Les libellés courts des puces (`ZONE_LABELS` dans `js/quotidien.js`) restent du
 | `js/detail.js` | panneau zone, specs, chargement des CSV |
 | `js/courbes.js` | rendu SVG des graphiques |
 | `js/csv.js` | parseur CSV `;` |
-| `js/session.js` | couleurs, flèche, puce exploitable si `slot_label` |
+| `js/session.js` | couleurs, flèche, puce si créneau ≥ 3 h entre 7 h et 22 h |
 
 ## Servir en local
 
