@@ -207,6 +207,8 @@ test("journée : heures entre vent et nuages, un point par heure, échelles 0-10
   assert.match(svg, />5</);
   assert.match(svg, />10</);
   assert.match(svg, /class="wx-mid"/);
+  assert.match(svg, /class="wx-tick wx-tick-precip-mid"/);
+  assert.match(svg, /wx-tick-precip-mid"[^>]*>0\.5</);
 });
 
 test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () => {

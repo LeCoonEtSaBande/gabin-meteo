@@ -416,6 +416,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
 
   const wx = mergeWxMax(series.map((item) => item.points));
   const precipMax = nicePrecipMax(wx.map((p) => p.precip));
+  const precipMid = precipMax / 2;
+  const precipMidLabel = Number.isInteger(precipMid) ? String(precipMid) : precipMid.toFixed(1);
   const yCloud = (pct) => wxY0 + wxH - 6 - (Math.max(0, Math.min(100, pct)) / 100) * (wxH - 16);
   const yPrecip = (mm) => wxY0 + wxH - 6 - (Math.max(0, mm) / precipMax) * (wxH - 16);
   const wxMidY = wxY0 + wxH / 2;
@@ -426,6 +428,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     <text class="wx-tick" x="${x0 - 6}" y="${yCloud(50) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">50</text>
     <text class="wx-tick" x="${x0 - 6}" y="${yCloud(0) + 3}" text-anchor="end" fill="${WX_CLOUD}" font-size="8px">0</text>
     <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(precipMax) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">${precipMax}</text>
+    <text class="wx-tick wx-tick-precip-mid" x="${x1 + 6}" y="${yPrecip(precipMid) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">${precipMidLabel}</text>
     <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(0) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">0</text>`;
   for (let i = 0; i < wx.length; i += 1) {
     const point = wx[i];
