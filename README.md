@@ -2,6 +2,10 @@
 
 Branche `collecte-api-meteo` : récupération des prévisions brutes Open-Meteo aux points de grille déjà retenus dans `assets/spots_specs/spots_specifications.csv`. Pas de sondage de voisinage.
 
+Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/main/README.md).
+
+**17 spots** dans **11 zones**. Un run réussi déclenche ensuite le workflow *Traitement et affichage* sur `main` (courbes + republication de la carte).
+
 ## Horaires
 
 Trois extractions par jour, heure **Europe/Paris** : **7h**, **13h**, **19h**.
@@ -69,4 +73,4 @@ Garder `current` et `previous`. Si un run est mauvais, le traitement / l’affic
 
 ## Accès depuis `traitement-donnees`
 
-Les bruts restent sur cette branche. En local : `git show collecte-api-meteo:data/raw/current/forecasts.csv`. En CI : second checkout de `collecte-api-meteo`.
+Les bruts restent sur cette branche. En local : `git show collecte-api-meteo:data/raw/current/forecasts.csv`. En CI, le job de traitement fait un second checkout de `collecte-api-meteo` et recopie `data/raw` plus `assets/spots_specs`.
