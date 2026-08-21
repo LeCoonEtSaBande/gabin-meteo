@@ -6,16 +6,28 @@ Carte publique : [lecoonetsabande.github.io/gabin-meteo](https://lecoonetsabande
 
 ## Branches
 
-Ce dépôt n’est **pas** un historique unique fusionné dans `main`. Chaque branche a son rôle et ses fichiers ; elles partagent seulement le commit d’initialisation.
+Ce dépôt n’est **pas** un historique unique fusionné dans `main`. Chaque branche a son rôle ; elles partagent seulement le commit d’initialisation.
 
 | Branche | Contenu | README détaillé |
 | --- | --- | --- |
 | `main` | Workflows GitHub Actions (cron et enchaînement). Pas de données métier. | ce fichier |
-| `collecte-api-meteo` | Script Python + CSV bruts Open-Meteo + specs des spots | [README de la branche](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/collecte-api-meteo/README.md) |
-| `traitement-donnees` | Assemblage des courbes (AROMEIFS / ICONIFS / ICONGFS) et JSON du panneau quotidien | [README de la branche](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
-| `affichage-web` | Site GitHub Pages (carte SVG, puces, panneau détail) | [README de la branche](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md) |
+| `collecte-api-meteo` | Script Python, CSV bruts Open-Meteo, **specs parentes** des spots | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/collecte-api-meteo/README.md) |
+| `traitement-donnees` | Courbes splicées et JSON quotidien (**parent** de `data/processed`) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
+| `affichage-web` | Site GitHub Pages (copies publiées + front) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md) |
 
-Les PR d’interface ciblent `affichage-web`. Les changements de collecte ou de traitement ciblent leur branche. `main` ne reçoit que les workflows et la doc d’ensemble.
+Les PR d’interface ciblent `affichage-web`. Collecte et traitement ciblent leur branche. `main` ne reçoit que les workflows et la doc d’ensemble.
+
+## Source unique des données
+
+Chaque jeu a **un seul fichier parent**. Les autres branches ne l’éditent pas : elles le lisent, ou le workflow le recopie.
+
+| Donnée | Parent (à éditer) | Transit |
+| --- | --- | --- |
+| Spots et zones (`assets/spots_specs/*.csv`) | `collecte-api-meteo` | Lues par le traitement (checkout / `git show`). Recopiées vers `affichage-web` à chaque run |
+| Prévisions brutes (`data/raw/`) | `collecte-api-meteo` | Lues par le traitement, jamais versionnées ailleurs |
+| Courbes et JSON quotidien (`data/processed/`) | `traitement-donnees` | Recopiés vers `affichage-web` (`quotidien.json`, `last_update.json`, `AROMEIFS.csv`, `ICONGFS.csv`) |
+
+Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copies publiées** pour GitHub Pages. Ne pas les modifier à la main. `traitement-donnees` ne versionne pas les specs ni les bruts.
 
 ## Pipeline (3 fois par jour)
 
@@ -25,14 +37,14 @@ Heures **Europe/Paris** : **7h**, **13h**, **19h** (deux crons UTC sur `main` po
 main : Collecte Open-Meteo
         → checkout collecte-api-meteo, fetch Open-Meteo, push data/raw
 main : Traitement et affichage  (après un run de collecte réussi)
-        → checkout traitement-donnees + bruts
+        → checkout traitement-donnees + bruts/specs (sans les committer)
         → python src/traitement/run.py
         → push data/processed sur traitement-donnees
-        → copie quotidien.json + last_update.json sur affichage-web
+        → copie specs, JSON et courbes AROMEIFS/ICONGFS sur affichage-web
 GitHub Pages  (source : racine de affichage-web)
 ```
 
-Déclenchement manuel possible : Actions → *Collecte Open-Meteo* (`force` ignore le filtre horaire) ou *Traitement et affichage*.
+Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre horaire) ou *Traitement et affichage*.
 
 ## Données
 
@@ -41,20 +53,16 @@ Déclenchement manuel possible : Actions → *Collecte Open-Meteo* (`force` igno
 - Vent et rafales demandés et stockés en **nœuds**.
 - Créneaux de vent du panneau quotidien : vent moyen **> 8 nds**, bornes arrondies à l’heure entière.
 
-Jeux de courbes produits par le traitement :
-
-| Jeu | Enchaînement court → long terme |
-| --- | --- |
-| `AROMEIFS` | AROMEHD → ARPEGE → IFS |
-| `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS |
-| `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS |
-
-La carte quotidienne utilise le jeu du modèle court terme du spot (`AROMEIFS` ou `ICONIFS`). Le graphique du panneau détail compare `AROMEIFS` et `ICONGFS`.
+| Jeu | Enchaînement court → long terme | Usage |
+| --- | --- | --- |
+| `AROMEIFS` | AROMEHD → ARPEGE → IFS | puces (spots AROME) + graphique |
+| `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS | puces (spots ICON) |
+| `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | seconde courbe du graphique |
 
 ## Site
 
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
-- Vue *Tendances journalières* : icône, vent max, créneau, température 15h.
+- Vue *Tendances journalières* : icône, vent max, créneau, température 15 h.
 - Panneau détail : specs, liens, graphiques (1 / 3 / 5 jours, tooltip, plein écran).
 - Onglet *Balises temps réel* : pas encore branché.
 
@@ -71,4 +79,4 @@ git switch traitement-donnees
 python src/traitement/run.py
 ```
 
-Pour la carte : checkout `affichage-web` et servir la racine (Pages, ou un serveur HTTP local).
+Pour la carte : checkout `affichage-web` et servir la racine (`python -m http.server 8080`).
