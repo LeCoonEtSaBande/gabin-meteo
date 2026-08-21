@@ -14,7 +14,14 @@ Assemble les prévisions brutes de `collecte-api-meteo` en courbes splicées, pu
 
 Vent moyen et rafales sont déjà en **nœuds** dans les bruts (`wind_speed_10m_kn`, `wind_gusts_10m_kn`) : pas de conversion km/h.
 
-Bornes du créneau > 8 nds : heure entière la plus proche (17h53 → 18h).
+Créneau exploitable (écrit dans `quotidien.json`, même règle que les puces) :
+
+- fenêtre **7 h–22 h** uniquement (vent et rafales hors de cette plage ignorés) ;
+- plage où le **vent moyen interpolé > 8 nds** ; s’il n’y en a pas de **≥ 3 h**, plage où les **rafales interpolées > 15 nds** ;
+- si plusieurs créneaux ≥ 3 h : celui **le plus proche de l’heure du max de vent moyen** de la journée ;
+- bornes interpolées au franchissement du seuil, puis heure entière la plus proche (17h53 → 18h) ;
+- sinon `slot_start_h` / `slot_end_h` restent `null` et `slot_label` est vide.
+
 Icône météo : max de nébulosité et de pluie sur l'heure du vent max, l'heure d'avant et l'heure d'après.
 Température affichée : valeur à **15 h**.
 
