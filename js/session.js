@@ -1,4 +1,4 @@
-/** Règles d'affichage quotidien. Créneau exploitable = slot_label non vide (règles côté traitement). */
+/** Règles d'affichage quotidien. Créneau exploitable : ≥ 3 h dans la fenêtre 7 h–22 h. */
 
 const MUTED = [90, 90, 90];
 
@@ -68,9 +68,30 @@ function colorFromStops(value, stops) {
   return rgbCss(stops[stops.length - 1][1]);
 }
 
+const SLOT_WINDOW_START_H = 7;
+const SLOT_WINDOW_END_H = 22;
+const MIN_SLOT_HOURS = 3;
+
 function slotDurationHours(day) {
   if (!day || day.slot_start_h == null || day.slot_end_h == null) return 0;
   return day.slot_end_h - day.slot_start_h;
+}
+
+function padHour(hour) {
+  return String(hour).padStart(2, "0");
+}
+
+function clipSlot(day) {
+  if (!day || day.slot_start_h == null || day.slot_end_h == null) return null;
+  const start = Math.max(SLOT_WINDOW_START_H, Number(day.slot_start_h));
+  const end = Math.min(SLOT_WINDOW_END_H, Number(day.slot_end_h));
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return null;
+  if (end - start < MIN_SLOT_HOURS) return null;
+  return {
+    start_h: start,
+    end_h: end,
+    label: `(${padHour(start)}h-${padHour(end)}h)`,
+  };
 }
 
 function windArrowDeg(fromDeg) {
@@ -82,8 +103,7 @@ function windArrowDeg(fromDeg) {
 }
 
 function isUsableSession(day) {
-  if (!day) return false;
-  return Boolean(day.slot_label);
+  return clipSlot(day) != null;
 }
 
 function windColor(kt) {
@@ -101,7 +121,11 @@ function tempColor(c) {
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     slotDurationHours,
+    clipSlot,
     isUsableSession,
+    SLOT_WINDOW_START_H,
+    SLOT_WINDOW_END_H,
+    MIN_SLOT_HOURS,
     windArrowDeg,
     windColor,
     gustColor,
