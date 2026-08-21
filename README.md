@@ -8,7 +8,11 @@ Trois extractions par jour, heure **Europe/Paris** : **7h**, **13h**, **19h**.
 
 Le script ne contacte Open-Meteo que sur ces créneaux (sauf `--force`). GitHub Actions combine deux crons UTC pour couvrir l’heure d’été et l’heure d’hiver ; les déclenchements « faux fuseau » sortent sans requête.
 
-Le cron GitHub ne s’exécute que depuis la branche par défaut (`main`) : le fichier `.github/workflows/collecte.yml` doit aussi être présent sur `main`. Le job fait un checkout de `collecte-api-meteo`, écrit les fichiers, puis pousse sur cette branche.
+Le cron GitHub ne s’exécute que depuis la branche par défaut (`main`) : le workflow `.github/workflows/collecte.yml` n’existe **que** sur `main`. Le job fait un checkout de `collecte-api-meteo`, écrit les fichiers, puis pousse sur cette branche.
+
+## Source unique des specs
+
+`assets/spots_specs/spots_specifications.csv` et `zones_specifications.csv` sont les **fichiers parents**. Les éditer uniquement ici. Le traitement les lit (checkout / `git show`) ; le site en reçoit une copie publiée, jamais une version parallèle.
 
 ## Sobriété API
 
