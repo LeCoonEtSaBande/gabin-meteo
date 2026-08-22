@@ -29,6 +29,17 @@ const MEAN_STROKE = 1.94;
 const GUST_STROKE = 1.13;
 const WX_CLOUD = "#8a8a8a";
 const WX_PRECIP = "#5a8aa3";
+/** AROMEHD reste plus clair que les autres, mais plus lisible que le gris à 0,32. */
+const CLOUD_FILLS = {
+  AROMEHD: { fill: "#9a9288", opacity: 0.5 },
+  ARPEGE: { fill: "#6e6860", opacity: 0.55 },
+  IFS: { fill: "#5a6350", opacity: 0.58 },
+  ICONCH1: { fill: "#4a7388", opacity: 0.55 },
+  ICONCH2: { fill: "#345868", opacity: 0.6 },
+  ICON13KM: { fill: "#556070", opacity: 0.58 },
+  GFS: { fill: "#7a5644", opacity: 0.58 },
+};
+const CLOUD_FILL_DEFAULT = { fill: WX_CLOUD, opacity: 0.55 };
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -40,6 +51,33 @@ function escapeHtml(value) {
 
 function modelColor(model) {
   return MODEL_COLORS[model] || "#7a7a7a";
+}
+
+function cloudFill(model) {
+  return CLOUD_FILLS[model] || CLOUD_FILL_DEFAULT;
+}
+
+function hourIndexOf(point, startDay) {
+  const start = parseValidAt(`${startDay}T00:00`).ms;
+  return Math.round((parseValidAt(point.valid_at).ms - start) / 3600000);
+}
+
+function hourSlots(points, startDay, nHours) {
+  const slots = Array.from({ length: nHours }, () => null);
+  if (!points.length) return slots;
+  const sorted = [...points].sort(
+    (a, b) => parseValidAt(a.valid_at).ms - parseValidAt(b.valid_at).ms
+  );
+  for (let i = 0; i < sorted.length; i += 1) {
+    const point = sorted[i];
+    const h0 = hourIndexOf(point, startDay);
+    const h1 =
+      i + 1 < sorted.length ? hourIndexOf(sorted[i + 1], startDay) : h0 + 1;
+    const from = Math.max(0, h0);
+    const to = Math.min(nHours, Math.max(h0 + 1, h1));
+    for (let h = from; h < to; h += 1) slots[h] = point;
+  }
+  return slots;
 }
 
 function mapsUrl(lat, lon) {
@@ -130,16 +168,22 @@ function mergeWxMax(seriesList) {
   const map = new Map();
   for (const series of seriesList) {
     for (const point of series || []) {
+      const cloud = point.cloud || 0;
+      const precip = point.precip || 0;
       const cur = map.get(point.valid_at);
       if (!cur) {
         map.set(point.valid_at, {
           valid_at: point.valid_at,
-          cloud: point.cloud || 0,
-          precip: point.precip || 0,
+          cloud,
+          precip,
+          source_model: point.source_model,
         });
       } else {
-        cur.cloud = Math.max(cur.cloud, point.cloud || 0);
-        cur.precip = Math.max(cur.precip, point.precip || 0);
+        if (cloud > cur.cloud) {
+          cur.cloud = cloud;
+          cur.source_model = point.source_model;
+        }
+        cur.precip = Math.max(cur.precip, precip);
       }
     }
   }
@@ -148,10 +192,14 @@ function mergeWxMax(seriesList) {
   );
   return rows.map((row, i) => {
     let cloud = row.cloud;
+    let source_model = row.source_model;
     for (let j = i - 1; j <= i + 1; j += 1) {
-      if (rows[j]) cloud = Math.max(cloud, rows[j].cloud);
+      if (rows[j] && rows[j].cloud > cloud) {
+        cloud = rows[j].cloud;
+        source_model = rows[j].source_model;
+      }
     }
-    return { ...row, cloud };
+    return { ...row, cloud, source_model };
   });
 }
 
@@ -357,7 +405,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const wxUnitPad = 11;
   const maxKt = niceMaxKt(all.flatMap((p) => [p.mean, p.gust]));
   const yKt = (kt) => yWind0 - (kt / maxKt) * windH;
-  const hourW = innerW / (nDays * 24);
+  const nHours = nDays * 24;
+  const hourW = innerW / nHours;
   const ticks = xTicks(startDay, nDays, x0, innerW);
 
   const gridValues = [];
@@ -431,24 +480,41 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(precipMax) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">${precipMax}</text>
     <text class="wx-tick wx-tick-precip-mid" x="${x1 + 6}" y="${yPrecip(precipMid) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">${precipMidLabel}</text>
     <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(0) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">0</text>`;
-  for (let i = 0; i < wx.length; i += 1) {
-    const point = wx[i];
-    const x = xOf(point, startDay, nDays, x0, innerW);
-    const next = wx[i + 1];
-    const w = next ? Math.max(1, xOf(next, startDay, nDays, x0, innerW) - x) : hourW;
-    const yTop = yCloud(point.cloud);
-    const ch = wxY0 + wxH - 6 - yTop;
-    wxDraw += `<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(0, ch).toFixed(1)}" fill="${WX_CLOUD}" opacity="0.32">
+
+  const cloudLayers = series.map((item) => hourSlots(mergeWxMax([item.points]), startDay, nHours));
+  function paintCloudPass(aromehdOnly) {
+    let out = "";
+    for (const slots of cloudLayers) {
+      for (let h = 0; h < nHours; h += 1) {
+        const point = slots[h];
+        if (!point || !(point.cloud > 0)) continue;
+        const isAromehd = point.source_model === "AROMEHD";
+        if (isAromehd !== aromehdOnly) continue;
+        const x = x0 + h * hourW;
+        const yTop = yCloud(point.cloud);
+        const ch = wxY0 + wxH - 6 - yTop;
+        const { fill, opacity } = cloudFill(point.source_model);
+        out += `<rect class="wx-cloud" data-model="${escapeHtml(point.source_model || "")}" x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${hourW.toFixed(1)}" height="${Math.max(0, ch).toFixed(1)}" fill="${fill}" opacity="${opacity}">
       <title>Nuages ${Math.round(point.cloud)} %</title>
     </rect>`;
-    if (point.precip > 0) {
-      const barW = Math.max(1.4, w * 0.38);
-      const yBar = yPrecip(point.precip);
-      const ph = wxY0 + wxH - 6 - yBar;
-      wxDraw += `<rect x="${(x + w * 0.31).toFixed(1)}" y="${yBar.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0.8, ph).toFixed(1)}" fill="${WX_PRECIP}" opacity="0.92">
+      }
+    }
+    return out;
+  }
+  wxDraw += paintCloudPass(false);
+  wxDraw += paintCloudPass(true);
+
+  const precipSlots = hourSlots(wx, startDay, nHours);
+  for (let h = 0; h < nHours; h += 1) {
+    const point = precipSlots[h];
+    if (!point || !(point.precip > 0)) continue;
+    const x = x0 + h * hourW;
+    const barW = Math.max(1.4, hourW * 0.38);
+    const yBar = yPrecip(point.precip);
+    const ph = wxY0 + wxH - 6 - yBar;
+    wxDraw += `<rect x="${(x + hourW * 0.31).toFixed(1)}" y="${yBar.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0.8, ph).toFixed(1)}" fill="${WX_PRECIP}" opacity="0.92">
         <title>Pluie ${point.precip.toFixed(1)} mm</title>
       </rect>`;
-    }
   }
 
   let hourAxis = `<line x1="${x0}" y1="${axisY}" x2="${x1}" y2="${axisY}" stroke="#2a2a2a"></line>`;
@@ -524,8 +590,11 @@ if (typeof module !== "undefined" && module.exports) {
     CURVE_SETS,
     MODEL_COLORS,
     SET_COLORS,
+    CLOUD_FILLS,
     escapeHtml,
     modelColor,
+    cloudFill,
+    hourSlots,
     mapsUrl,
     parseValidAt,
     addDays,
