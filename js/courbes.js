@@ -420,6 +420,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const precipMidLabel = Number.isInteger(precipMid) ? String(precipMid) : precipMid.toFixed(1);
   const yCloud = (pct) => wxY0 + wxH - 6 - (Math.max(0, Math.min(100, pct)) / 100) * (wxH - 16);
   const yPrecip = (mm) => wxY0 + wxH - 6 - (Math.max(0, mm) / precipMax) * (wxH - 16);
+  const windMidY = (windTop + yWind0) / 2;
   const wxMidY = wxY0 + wxH / 2;
   let wxDraw = `<line class="wx-mid" x1="${x0}" y1="${yCloud(50).toFixed(1)}" x2="${x1}" y2="${yCloud(50).toFixed(1)}" stroke="#4a4a4a" stroke-dasharray="2 3" stroke-width="0.55"></line>
     <text class="wx-unit" transform="translate(${wxUnitPad} ${wxMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="${WX_CLOUD}" font-size="6.5px">Nuages (%)</text>
@@ -491,7 +492,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     ${dirLabels}
     ${grid}
     ${kt8Line}
-    <text x="${x0 - 6}" y="${windTop + 8}" text-anchor="end" fill="#7a7a7a" font-size="8px">nds</text>
+    <text class="kt-unit" transform="translate(${wxUnitPad} ${windMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="#7a7a7a" font-size="6.5px">nds</text>
     ${fills}
     ${winds}
     ${hourAxis}

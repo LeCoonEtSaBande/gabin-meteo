@@ -240,6 +240,19 @@ test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () =>
   assert.ok(Number(arrow[1]) - Number(label[1]) >= 100);
 });
 
+test("nds est une unité verticale à gauche, pas collée au max de l'axe", () => {
+  const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "AROMEIFS" });
+  const unit = svg.match(
+    /class="kt-unit" transform="translate\(([0-9.]+) ([0-9.]+)\) rotate\(-90\)"[^>]*>nds</
+  );
+  assert.ok(unit, "unité nds verticale à gauche");
+  assert.ok(Number(unit[1]) < 20, "nds collé au bord gauche comme Nuages (%)");
+  const topTick = svg.match(/y="([0-9.]+)" text-anchor="end"[^>]*>25</);
+  assert.ok(topTick);
+  assert.notEqual(Number(unit[2]).toFixed(1), Number(topTick[1]).toFixed(1));
+  assert.doesNotMatch(svg, /text-anchor="end"[^>]*>nds</);
+});
+
 test("le SVG nomme AROMEIFS/ICONGFS, le 25 nds, sans bandes 8/15", () => {
   const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, {
     primarySet: "ICONGFS",
