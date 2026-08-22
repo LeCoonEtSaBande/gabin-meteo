@@ -231,6 +231,7 @@ html, body {
   background: var(--elev);
   z-index: 5;
   min-height: 0;
+  overflow: hidden;
 }
 
 .detail.is-open { display: flex; }
@@ -265,9 +266,12 @@ html, body {
 
 .detail-empty,
 .detail-body {
+  flex: 1 1 auto;
+  min-height: 0;
   margin: 0;
   padding: 12px 14px 18px;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   color: var(--muted);
   font-size: 13px;
 }
@@ -282,10 +286,20 @@ html, body {
   line-height: 1.4;
 }
 
+.horizon-strip {
+  flex: 0 0 auto;
+  padding: 8px 14px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  z-index: 4;
+}
+
+.horizon-strip[hidden] { display: none; }
+
 .horizon-bar {
   display: flex;
   gap: 6px;
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .horizon-btn {
@@ -673,6 +687,7 @@ body.has-lightbox {
     position: relative;
     z-index: 1;
     min-height: 0;
+    overflow: hidden;
     background: var(--elev);
   }
 

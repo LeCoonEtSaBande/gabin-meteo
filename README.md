@@ -17,7 +17,7 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 - Coque HTML (onglets, puces, barre de jour, panneau détail). Le SVG `assets/svg_map/Carte RA 804x1200.svg` est **uniquement la carte**.
 - *Tendances journalières* : pour chaque zone, icône météo, vent max (nœuds), créneau exploitable (≥ 3 h, 7 h–22 h), température 15 h, modèle court terme.
 - Clic zone → panneau détail : textes / liens des specs, graphiques `AROMEIFS` et `ICONGFS`.
-- Horizons **1 / 3 / 5 jours**, une courbe affichée par défaut (l’autre au bouton), masquage du modèle principal, tooltip au survol, plein écran.
+- Horizons **1 / 3 / 5 jours** sur un bandeau fixe sous le titre (comme le jour en bas), une courbe affichée par défaut (l’autre au bouton), masquage du modèle principal, tooltip au survol, plein écran.
 - Flèches de vent : direction **vers où ça souffle**.
 - *Balises temps réel* : placeholder, pas encore branché.
 
