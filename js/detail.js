@@ -259,6 +259,8 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   const body = document.getElementById("detail-body");
   const title = document.getElementById("detail-title");
   const pane = document.getElementById("detail");
+  const horizonStrip = document.getElementById("horizon-strip");
+  const horizonBar = document.getElementById("horizon-bar");
   const desktop = window.matchMedia("(min-width: 960px)").matches;
   const scrollTop = body ? body.scrollTop : 0;
 
@@ -266,6 +268,7 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
     title.textContent = "Zone";
     empty.hidden = false;
     body.hidden = true;
+    if (horizonStrip) horizonStrip.hidden = true;
     pane.classList.toggle("is-open", false);
     return;
   }
@@ -278,6 +281,7 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
   pane.classList.add("is-open");
 
   if (!detailReady) {
+    if (horizonStrip) horizonStrip.hidden = true;
     body.innerHTML = `<p class="detail-status">${escapeHtml(detailError || "Chargement des courbes…")}</p>`;
     return;
   }
@@ -287,12 +291,18 @@ function renderZoneDetail({ selectedZone, dayKey, fallbackLabel }) {
       `<button type="button" class="horizon-btn${h.days === horizonDays ? " is-active" : ""}" data-horizon="${h.days}">${h.label}</button>`
   ).join("");
 
+  if (horizonBar) {
+    horizonBar.innerHTML = horizon;
+    if (horizonStrip) horizonStrip.hidden = false;
+  }
+
   body.innerHTML = `
-    <div class="horizon-bar" role="tablist" aria-label="Horizon de prévision">${horizon}</div>
+    ${horizonBar ? "" : `<div class="horizon-bar" role="tablist" aria-label="Horizon de prévision">${horizon}</div>`}
     <div class="charts">${spots.map((spot) => spotChartHtml(spot, dayKey)).join("")}</div>
     <div class="spot-infos">${spots.map((spot) => spotInfoHtml(spot)).join("")}</div>`;
 
-  body.querySelectorAll("[data-horizon]").forEach((btn) => {
+  const horizonRoot = horizonBar || body;
+  horizonRoot.querySelectorAll("[data-horizon]").forEach((btn) => {
     btn.addEventListener("click", () => {
       horizonDays = Number(btn.dataset.horizon) || 1;
       renderZoneDetail({ selectedZone, dayKey, fallbackLabel });
