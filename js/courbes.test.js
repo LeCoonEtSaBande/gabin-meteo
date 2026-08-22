@@ -10,6 +10,7 @@ const {
   secondaryCurveSet,
   visibleSets,
   mergeWxMax,
+  cloudFill,
   xTicks,
   slotCaption,
   pickNearestWind,
@@ -18,6 +19,7 @@ const {
   parseValidAt,
   MEAN_STROKE,
   arrowRotation,
+  CLOUD_FILLS,
 } = require("./courbes.js");
 
 test("CSV conserve un point-virgule dans un champ quoté", () => {
@@ -343,4 +345,56 @@ test("parseValidAt lit l'heure civile sans Date locale", () => {
   const p = parseValidAt("2026-08-20T14:00");
   assert.equal(p.hour, 14);
   assert.equal(p.dayKey, "2026-08-20");
+});
+
+test("créneaux nuages : même largeur horaire que le graphe de vent, AROMEHD plus clair mais plus dense", () => {
+  const arome = cloudFill("AROMEHD");
+  const ifs = cloudFill("IFS");
+  const gfs = cloudFill("GFS");
+  assert.equal(arome.fill, CLOUD_FILLS.AROMEHD.fill);
+  assert.ok(arome.opacity > 0.32);
+  assert.ok(arome.opacity < ifs.opacity);
+  assert.ok(arome.opacity < gfs.opacity);
+
+  const hourly = { AROMEIFS: [], ICONGFS: [] };
+  for (let hour = 0; hour < 24 * 5; hour += 1) {
+    const day = 20 + Math.floor(hour / 24);
+    const h = hour % 24;
+    const valid_at = `2026-08-${day}T${String(h).padStart(2, "0")}:00`;
+    hourly.AROMEIFS.push({
+      valid_at,
+      source_model: h < 12 ? "AROMEHD" : "IFS",
+      mean: 10,
+      gust: 14,
+      dir: 0,
+      precip: 0,
+      cloud: 80,
+    });
+  }
+
+  for (const nDays of [1, 3, 5]) {
+    for (const compact of [false, true]) {
+      const svg = buildChartSvg(hourly, "2026-08-20", nDays, 400, {
+        primarySet: "AROMEIFS",
+        compactSetLabels: compact,
+      });
+      const geom = JSON.parse(svg.match(/data-geom="([^"]+)"/)[1].replace(/&quot;/g, '"'));
+      const clouds = [...svg.matchAll(/class="wx-cloud"[^>]*x="([0-9.]+)"[^>]*width="([0-9.]+)"/g)]
+        .map((m) => ({ x: Number(m[1]), w: Number(m[2]) }))
+        .sort((a, b) => a.x - b.x);
+      assert.ok(clouds.length >= 24, `horizon ${nDays}j sans barres nuages`);
+      const widths = [...new Set(clouds.map((c) => c.w.toFixed(1)))];
+      assert.equal(widths.length, 1, `créneaux nuages inégaux (${nDays}j, compact=${compact}): ${widths}`);
+      const firstX = clouds[0].x;
+      const last = clouds[clouds.length - 1];
+      const lastRight = last.x + last.w;
+      assert.ok(Math.abs(firstX - geom.x0) < 0.2);
+      assert.ok(Math.abs(lastRight - (geom.x0 + geom.innerW)) < 0.2);
+    }
+  }
+
+  const svg = buildChartSvg(hourly, "2026-08-20", 1, 400, { primarySet: "AROMEIFS" });
+  assert.match(svg, new RegExp(`data-model="AROMEHD"[^>]*fill="${CLOUD_FILLS.AROMEHD.fill}"`));
+  assert.match(svg, new RegExp(`data-model="IFS"[^>]*fill="${CLOUD_FILLS.IFS.fill}"`));
+  assert.match(svg, new RegExp(`opacity="${CLOUD_FILLS.AROMEHD.opacity}"`));
 });
