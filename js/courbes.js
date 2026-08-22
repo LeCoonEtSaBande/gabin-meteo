@@ -28,18 +28,8 @@ const KT25 = 25;
 const MEAN_STROKE = 1.94;
 const GUST_STROKE = 1.13;
 const WX_CLOUD = "#8a8a8a";
+const WX_CLOUD_OPACITY = 0.5;
 const WX_PRECIP = "#5a8aa3";
-/** AROMEHD reste plus clair que les autres, mais plus lisible que le gris à 0,32. */
-const CLOUD_FILLS = {
-  AROMEHD: { fill: "#9a9288", opacity: 0.5 },
-  ARPEGE: { fill: "#6e6860", opacity: 0.55 },
-  IFS: { fill: "#5a6350", opacity: 0.58 },
-  ICONCH1: { fill: "#4a7388", opacity: 0.55 },
-  ICONCH2: { fill: "#345868", opacity: 0.6 },
-  ICON13KM: { fill: "#556070", opacity: 0.58 },
-  GFS: { fill: "#7a5644", opacity: 0.58 },
-};
-const CLOUD_FILL_DEFAULT = { fill: WX_CLOUD, opacity: 0.55 };
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -51,10 +41,6 @@ function escapeHtml(value) {
 
 function modelColor(model) {
   return MODEL_COLORS[model] || "#7a7a7a";
-}
-
-function cloudFill(model) {
-  return CLOUD_FILLS[model] || CLOUD_FILL_DEFAULT;
 }
 
 function hourIndexOf(point, startDay) {
@@ -481,28 +467,17 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     <text class="wx-tick wx-tick-precip-mid" x="${x1 + 6}" y="${yPrecip(precipMid) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">${precipMidLabel}</text>
     <text class="wx-tick" x="${x1 + 6}" y="${yPrecip(0) + 3}" text-anchor="start" fill="${WX_PRECIP}" font-size="8px">0</text>`;
 
-  const cloudLayers = series.map((item) => hourSlots(mergeWxMax([item.points]), startDay, nHours));
-  function paintCloudPass(aromehdOnly) {
-    let out = "";
-    for (const slots of cloudLayers) {
-      for (let h = 0; h < nHours; h += 1) {
-        const point = slots[h];
-        if (!point || !(point.cloud > 0)) continue;
-        const isAromehd = point.source_model === "AROMEHD";
-        if (isAromehd !== aromehdOnly) continue;
-        const x = x0 + h * hourW;
-        const yTop = yCloud(point.cloud);
-        const ch = wxY0 + wxH - 6 - yTop;
-        const { fill, opacity } = cloudFill(point.source_model);
-        out += `<rect class="wx-cloud" data-model="${escapeHtml(point.source_model || "")}" x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${hourW.toFixed(1)}" height="${Math.max(0, ch).toFixed(1)}" fill="${fill}" opacity="${opacity}">
+  const cloudSlots = hourSlots(wx, startDay, nHours);
+  for (let h = 0; h < nHours; h += 1) {
+    const point = cloudSlots[h];
+    if (!point || !(point.cloud > 0)) continue;
+    const x = x0 + h * hourW;
+    const yTop = yCloud(point.cloud);
+    const ch = wxY0 + wxH - 6 - yTop;
+    wxDraw += `<rect class="wx-cloud" x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${hourW.toFixed(1)}" height="${Math.max(0, ch).toFixed(1)}" fill="${WX_CLOUD}" opacity="${WX_CLOUD_OPACITY}">
       <title>Nuages ${Math.round(point.cloud)} %</title>
     </rect>`;
-      }
-    }
-    return out;
   }
-  wxDraw += paintCloudPass(false);
-  wxDraw += paintCloudPass(true);
 
   const precipSlots = hourSlots(wx, startDay, nHours);
   for (let h = 0; h < nHours; h += 1) {
@@ -590,10 +565,10 @@ if (typeof module !== "undefined" && module.exports) {
     CURVE_SETS,
     MODEL_COLORS,
     SET_COLORS,
-    CLOUD_FILLS,
+    WX_CLOUD,
+    WX_CLOUD_OPACITY,
     escapeHtml,
     modelColor,
-    cloudFill,
     hourSlots,
     mapsUrl,
     parseValidAt,

@@ -418,7 +418,7 @@ html, body {
   background: var(--beige);
 }
 
-.chart-key i.wx-cloud { background: #9a9288; border-radius: 2px; }
+.chart-key i.wx-cloud { background: #8a8a8a; border-radius: 2px; }
 .chart-key i.wx-precip { background: #5a8aa3; border-radius: 2px; }
 
 .chart-key-note {

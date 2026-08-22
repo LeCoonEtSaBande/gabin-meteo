@@ -10,7 +10,6 @@ const {
   secondaryCurveSet,
   visibleSets,
   mergeWxMax,
-  cloudFill,
   xTicks,
   slotCaption,
   pickNearestWind,
@@ -19,7 +18,8 @@ const {
   parseValidAt,
   MEAN_STROKE,
   arrowRotation,
-  CLOUD_FILLS,
+  WX_CLOUD,
+  WX_CLOUD_OPACITY,
 } = require("./courbes.js");
 
 test("CSV conserve un point-virgule dans un champ quoté", () => {
@@ -347,15 +347,7 @@ test("parseValidAt lit l'heure civile sans Date locale", () => {
   assert.equal(p.dayKey, "2026-08-20");
 });
 
-test("créneaux nuages : même largeur horaire que le graphe de vent, AROMEHD plus clair mais plus dense", () => {
-  const arome = cloudFill("AROMEHD");
-  const ifs = cloudFill("IFS");
-  const gfs = cloudFill("GFS");
-  assert.equal(arome.fill, CLOUD_FILLS.AROMEHD.fill);
-  assert.ok(arome.opacity > 0.32);
-  assert.ok(arome.opacity < ifs.opacity);
-  assert.ok(arome.opacity < gfs.opacity);
-
+test("créneaux nuages : même largeur horaire, gris quel que soit le modèle", () => {
   const hourly = { AROMEIFS: [], ICONGFS: [] };
   for (let hour = 0; hour < 24 * 5; hour += 1) {
     const day = 20 + Math.floor(hour / 24);
@@ -394,7 +386,13 @@ test("créneaux nuages : même largeur horaire que le graphe de vent, AROMEHD pl
   }
 
   const svg = buildChartSvg(hourly, "2026-08-20", 1, 400, { primarySet: "AROMEIFS" });
-  assert.match(svg, new RegExp(`data-model="AROMEHD"[^>]*fill="${CLOUD_FILLS.AROMEHD.fill}"`));
-  assert.match(svg, new RegExp(`data-model="IFS"[^>]*fill="${CLOUD_FILLS.IFS.fill}"`));
-  assert.match(svg, new RegExp(`opacity="${CLOUD_FILLS.AROMEHD.opacity}"`));
+  const fills = [...svg.matchAll(/class="wx-cloud"[^>]*fill="([^"]+)"[^>]*opacity="([^"]+)"/g)];
+  assert.ok(fills.length > 0);
+  assert.ok(fills.every((m) => m[1] === WX_CLOUD && m[2] === String(WX_CLOUD_OPACITY)));
+
+  hourly.ICONGFS = hourly.AROMEIFS.map((p) => ({ ...p, source_model: "ICONCH1" }));
+  const icon = buildChartSvg(hourly, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
+  const iconFills = [...icon.matchAll(/class="wx-cloud"[^>]*fill="([^"]+)"/g)];
+  assert.ok(iconFills.length > 0);
+  assert.ok(iconFills.every((m) => m[1] === WX_CLOUD));
 });
