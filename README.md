@@ -57,11 +57,11 @@ Pour affichage sur la carte :
 
 Une ligne par `(spot, modèle, échéance)`, séparateur `;`.
 
-`run_id`, `fetched_at`, `spot_key`, `model_key`, `grid_latitude`, `grid_longitude`, `grid_elevation_m`, `valid_at`, `wind_speed_10m_kn`, `wind_gusts_10m_kn`, `wind_direction_10m_deg`, `temperature_2m_c`, `precipitation_mm`, `cloud_cover_max_pct`
+`run_id`, `fetched_at`, `spot_key`, `model_key`, `grid_latitude`, `grid_longitude`, `grid_elevation_m`, `valid_at`, `wind_speed_10m_kn`, `wind_gusts_10m_kn`, `wind_direction_10m_deg`, `temperature_2m_c`, `precipitation_mm`, `cloud_cover_pct`, `cloud_cover_low_pct`, `cloud_cover_mid_pct`, `cloud_cover_high_pct`, `cloud_cover_max_pct`
 
 Vent moyen et rafales sont demandés à Open-Meteo en **nœuds** (`wind_speed_unit=kn`), pour tous les modèles.
 
-`cloud_cover_max_pct` est le maximum des couches de nébulosité renvoyées (dont le total s’il existe). Une valeur API `null` devient `0` ; l’extraction continue. Les échéances entièrement vides (fin d’horizon du modèle) sont omises.
+Nébulosité : les quatre couches API (`cloud_cover`, `cloud_cover_low`, `cloud_cover_mid`, `cloud_cover_high`) sont archivées séparément ; une couche absente reste **vide** (pas 0). `cloud_cover_max_pct` est le maximum des quatre valeurs non nulles (0 si les quatre sont absentes). Le traitement calcule ensuite `cloud_cover_display_pct` pour l’affichage (total prioritaire, sinon `max(basse, moyenne, haute × 0,25)` ; AROME « hauts seuls » → bas/moy à 0, sans repli ARPEGE). Les échéances entièrement vides (fin d’horizon du modèle) sont omises.
 
 ### `run_status.csv`
 

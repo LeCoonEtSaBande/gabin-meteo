@@ -40,6 +40,16 @@ HOURLY_CLOUD = (
 )
 HOURLY_ALL = HOURLY_CORE + HOURLY_CLOUD
 
+# Couches de nébulosité : null conservé (pas 0).
+KEEP_NULL_COLUMNS = frozenset(
+    {
+        "cloud_cover_pct",
+        "cloud_cover_low_pct",
+        "cloud_cover_mid_pct",
+        "cloud_cover_high_pct",
+    }
+)
+
 FORECAST_COLUMNS = (
     "run_id",
     "fetched_at",
@@ -54,6 +64,10 @@ FORECAST_COLUMNS = (
     "wind_direction_10m_deg",
     "temperature_2m_c",
     "precipitation_mm",
+    "cloud_cover_pct",
+    "cloud_cover_low_pct",
+    "cloud_cover_mid_pct",
+    "cloud_cover_high_pct",
     "cloud_cover_max_pct",
 )
 

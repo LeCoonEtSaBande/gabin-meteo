@@ -7,6 +7,13 @@ from typing import Any
 from config import HOURLY_ALL, HOURLY_CLOUD, ModelSpec
 from spots import Spot
 
+CLOUD_OUTPUT = {
+    "cloud_cover": "cloud_cover_pct",
+    "cloud_cover_low": "cloud_cover_low_pct",
+    "cloud_cover_mid": "cloud_cover_mid_pct",
+    "cloud_cover_high": "cloud_cover_high_pct",
+}
+
 CORE_OUTPUT = {
     "wind_speed_10m": "wind_speed_10m_kn",
     "wind_gusts_10m": "wind_gusts_10m_kn",
@@ -60,11 +67,14 @@ def parse_payload(
         if not _hour_has_data(hourly, index):
             continue
         hours_written += 1
-        values: dict[str, float] = {}
+        values: dict[str, float | None] = {}
         for api_name, column in CORE_OUTPUT.items():
             value, missing = _filled(_series_value(hourly, api_name, index))
             values[column] = value
             nulls += missing
+        for api_name, column in CLOUD_OUTPUT.items():
+            raw = _series_value(hourly, api_name, index)
+            values[column] = None if raw is None else raw
         cloud, cloud_missing = _cloud_cover_max(hourly, index)
         values["cloud_cover_max_pct"] = cloud
         nulls += cloud_missing
