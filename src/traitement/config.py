@@ -39,7 +39,8 @@ CURVE_COLUMNS = (
     "wind_direction_10m_deg",
     "temperature_2m_c",
     "precipitation_mm",
-    "cloud_cover_max_pct",
+    "cloud_cover_display_pct",
+    "cloud_cover_source_model",
 )
 
 

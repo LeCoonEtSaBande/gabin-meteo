@@ -61,7 +61,8 @@ def write_curve_csv(path: Path, curve_set: str, by_spot: dict[str, list[HourPoin
                         "wind_direction_10m_deg": f"{point.wind_dir_deg:.1f}",
                         "temperature_2m_c": f"{point.temperature_c:.1f}",
                         "precipitation_mm": f"{point.precipitation_mm:.2f}",
-                        "cloud_cover_max_pct": f"{point.cloud_cover_pct:.1f}",
+                        "cloud_cover_display_pct": f"{point.cloud_cover_display_pct:.1f}",
+                        "cloud_cover_source_model": point.cloud_cover_source_model,
                     }
                 )
                 rows += 1

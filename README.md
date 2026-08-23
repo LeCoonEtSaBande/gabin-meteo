@@ -27,6 +27,8 @@ Le workflow *Traitement et affichage* (sur `main`), après une collecte réussie
 
 Vent / rafales déjà en **nœuds**. Créneau quotidien : vent moyen **> 8 nds**.
 
+Nébulosité perçue : `cloud_cover_display_pct` dans les CSV de courbes (total prioritaire, sinon max basse/moy/haute×0,25 ; AROME « hauts seuls » → bas/moy à 0, sans repli ARPEGE). Courbes, icônes et panneau quotidien s’appuient sur ce champ.
+
 ## Lancer en local
 
 ```bash

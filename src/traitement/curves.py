@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from io import StringIO
 
+from cloud import cloud_cover_display, is_high_only_layers
 from config import CURVE_SETS
 from io_raw import load_forecasts_csv
 
@@ -20,7 +21,8 @@ class HourPoint:
     wind_dir_deg: float
     temperature_c: float
     precipitation_mm: float
-    cloud_cover_pct: float
+    cloud_cover_display_pct: float
+    cloud_cover_source_model: str = ""
 
     @property
     def hour_of_day(self) -> float:
@@ -47,10 +49,38 @@ def _as_float(raw: str | None) -> float:
     return float(text)
 
 
+def _as_optional_float(raw: str | None) -> float | None:
+    text = (raw or "").strip()
+    if not text:
+        return None
+    return float(text)
+
+
 def _wind_knots(row: dict[str, str], mean: bool) -> float:
     """Lit le vent déjà en nœuds (colonnes _kn)."""
     key = "wind_speed_10m_kn" if mean else "wind_gusts_10m_kn"
     return _as_float(row.get(key))
+
+
+def _cloud_layers_from_row(row: dict[str, str]) -> tuple[float | None, float | None, float | None, float | None]:
+    return (
+        _as_optional_float(row.get("cloud_cover_pct")),
+        _as_optional_float(row.get("cloud_cover_low_pct")),
+        _as_optional_float(row.get("cloud_cover_mid_pct")),
+        _as_optional_float(row.get("cloud_cover_high_pct")),
+    )
+
+
+def _has_cloud_layers(row: dict[str, str]) -> bool:
+    return any(
+        (row.get(name) or "").strip()
+        for name in (
+            "cloud_cover_pct",
+            "cloud_cover_low_pct",
+            "cloud_cover_mid_pct",
+            "cloud_cover_high_pct",
+        )
+    )
 
 
 def load_raw_points() -> dict[tuple[str, str], list[HourPoint]]:
@@ -67,6 +97,15 @@ def load_raw_points() -> dict[tuple[str, str], list[HourPoint]]:
             valid_at = parse_valid_at(row.get("valid_at") or "")
         except ValueError:
             continue
+        total, low, mid, high = _cloud_layers_from_row(row)
+        if _has_cloud_layers(row):
+            if model == "AROMEHD" and is_high_only_layers(total, low, mid, high):
+                low, mid = 0.0, 0.0
+                display = cloud_cover_display(None, low, mid, high)
+            else:
+                display = cloud_cover_display(total, low, mid, high)
+        else:
+            display = _as_float(row.get("cloud_cover_max_pct"))
         point = HourPoint(
             valid_at=valid_at,
             source_model=model,
@@ -75,7 +114,8 @@ def load_raw_points() -> dict[tuple[str, str], list[HourPoint]]:
             wind_dir_deg=_as_float(row.get("wind_direction_10m_deg")),
             temperature_c=_as_float(row.get("temperature_2m_c")),
             precipitation_mm=_as_float(row.get("precipitation_mm")),
-            cloud_cover_pct=_as_float(row.get("cloud_cover_max_pct")),
+            cloud_cover_display_pct=display,
+            cloud_cover_source_model=model,
         )
         grouped.setdefault((spot, model), []).append(point)
 
@@ -103,7 +143,8 @@ def splice_curve(model_points: dict[str, list[HourPoint]], models: tuple[str, ..
                 wind_dir_deg=point.wind_dir_deg,
                 temperature_c=point.temperature_c,
                 precipitation_mm=point.precipitation_mm,
-                cloud_cover_pct=point.cloud_cover_pct,
+                cloud_cover_display_pct=point.cloud_cover_display_pct,
+                cloud_cover_source_model=point.cloud_cover_source_model or model,
             )
             for point in points
         )

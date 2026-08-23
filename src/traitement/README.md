@@ -22,8 +22,10 @@ Créneau exploitable (écrit dans `quotidien.json`, même règle que les puces) 
 - bornes interpolées au franchissement du seuil, puis heure entière la plus proche (17h53 → 18h) ;
 - sinon `slot_start_h` / `slot_end_h` restent `null` et `slot_label` est vide.
 
-Icône météo : max de nébulosité et de pluie sur l'heure du vent max, l'heure d'avant et l'heure d'après.
+Icône météo : max de nébulosité perçue (`cloud_cover_display_pct`) et de pluie sur l'heure du vent max, l'heure d'avant et l'heure d'après.
 Température affichée : valeur à **15 h**.
+
+Nébulosité affichée (`cloud_cover_display_pct`) : total prioritaire, sinon `max(basse, moyenne, haute × 0,25)`. Cas AROME HD avec seulement des nuages hauts : bas/moy forcés à 0, pas de repli sur ARPEGE pour ce créneau.
 
 Les spots `short_term_model = AROMEHD` utilisent `AROMEIFS` pour les puces. Les spots `ICONCH1` utilisent `ICONIFS`. Le graphique du site charge `AROMEIFS` et `ICONGFS` (pas `ICONIFS`).
 

@@ -88,7 +88,7 @@ def test_summarize_day_empties_short_slot() -> None:
             wind_dir_deg=20.0,
             temperature_c=20.0,
             precipitation_mm=0.0,
-            cloud_cover_pct=10.0,
+            cloud_cover_display_pct=10.0,
         )
         for hour in range(0, 24)
     ]

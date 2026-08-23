@@ -43,7 +43,7 @@ def weather_icon_around_max(points: list[HourPoint], imax: int) -> tuple[str, fl
     """Icône à partir du créneau du max, plus l'heure d'avant et celle d'après."""
     window = points[max(0, imax - 1) : min(len(points), imax + 2)]
     precip = max(point.precipitation_mm for point in window)
-    cloud = max(point.cloud_cover_pct for point in window)
+    cloud = max(point.cloud_cover_display_pct for point in window)
     return weather_icon(cloud, precip), cloud, precip
 
 
