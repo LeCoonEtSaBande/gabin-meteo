@@ -32,8 +32,8 @@ GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Trai
 | `assets/spots_specs/*.csv` | `collecte-api-meteo` | Infos spots, liens, noms de zone |
 | `data/processed/quotidien.json` | `traitement-donnees` | Puces / tendances |
 | `data/processed/last_update.json` | `traitement-donnees` | Horodatage « MAJ » |
-| `data/processed/curves/AROMEIFS.csv` | `traitement-donnees` | Graphiques |
-| `data/processed/curves/ICONGFS.csv` | `traitement-donnees` | Graphiques |
+| `data/processed/curves/AROMEIFS.csv` | `traitement-donnees` | Graphiques (nébulosité = `cloud_cover_display_pct`) |
+| `data/processed/curves/ICONGFS.csv` | `traitement-donnees` | Graphiques (nébulosité = `cloud_cover_display_pct`) |
 
 Modifier les spots uniquement sur `collecte-api-meteo`. `ICONIFS.csv` n’est pas recopié : le détail n’affiche que AROMEIFS et ICONGFS.
 
