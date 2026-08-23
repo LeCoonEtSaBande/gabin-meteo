@@ -94,6 +94,24 @@ test("indexCurves sépare AROMEIFS et ICONGFS par spot", () => {
   assert.equal(indexed.ICONGFS.excenevex[0].source_model, "ICONCH1");
 });
 
+test("nébulosité : cloud_cover_display_pct prioritaire sur cloud_cover_max_pct", () => {
+  const indexed = indexCurves([
+    {
+      spot_key: "excenevex",
+      curve_set: "AROMEIFS",
+      valid_at: "2026-08-20T00:00",
+      source_model: "AROMEHD",
+      wind_speed_10m_kn: "9.2",
+      wind_gusts_10m_kn: "14",
+      wind_direction_10m_deg: "20",
+      precipitation_mm: "0",
+      cloud_cover_display_pct: "20",
+      cloud_cover_max_pct: "80",
+    },
+  ]);
+  assert.equal(indexed.AROMEIFS.excenevex[0].cloud, 20);
+});
+
 test("courbe principale selon le modèle court terme", () => {
   assert.equal(primaryCurveSet({ short_term_model: "AROMEHD" }), "AROMEIFS");
   assert.equal(primaryCurveSet({ short_term_model: "ICONCH1" }), "ICONGFS");

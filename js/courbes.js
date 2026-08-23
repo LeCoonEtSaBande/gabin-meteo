@@ -120,7 +120,8 @@ function indexCurves(rows) {
     const gust = Number(row.wind_gusts_10m_kn);
     const dir = Number(row.wind_direction_10m_deg);
     const precip = Number(row.precipitation_mm);
-    const cloud = Number(row.cloud_cover_max_pct);
+    const cloudRaw = row.cloud_cover_display_pct ?? row.cloud_cover_max_pct;
+    const cloud = Number(cloudRaw);
     out[set][spot] ||= [];
     out[set][spot].push({
       valid_at: row.valid_at,
