@@ -19,7 +19,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from client import OpenMeteoError, fetch_locations_with_fallback
 from config import (
-    COLLECT_HOURS,
     MODELS,
     MODEL_ORDER,
     PAUSE_BETWEEN_CALLS_S,
@@ -27,8 +26,9 @@ from config import (
     ModelSpec,
 )
 from normalize import failed_status, parse_payload
+from schedule import already_collected_for_slot, current_slot_start
 from spots import Spot, cell_key, load_spots
-from store import last_update_label, publish_failure, publish_success
+from store import last_update_label, publish_failure, publish_success, read_last_update
 
 
 def configure_stdio() -> None:
@@ -44,7 +44,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="ignore le filtre 7h / 13h / 19h (Europe/Paris)",
+        help="ignore le filtre des créneaux 7h15 / 13h15 / 19h15 (Europe/Paris)",
     )
     parser.add_argument(
         "--model",
@@ -180,17 +180,20 @@ def main() -> int:
     configure_stdio()
     args = parse_args()
     now = datetime.now(PARIS)
-    if not args.force and now.hour not in COLLECT_HOURS:
+    slot_start = current_slot_start(now)
+    last_update = read_last_update()
+    if not args.force and already_collected_for_slot(slot_start, last_update):
         print(
-            f"Hors créneau de collecte ({now.strftime('%d/%m/%Y %H:%M')} Europe/Paris). "
-            "Aucune requête Open-Meteo. Utiliser --force pour forcer."
+            f"Créneau {slot_start.strftime('%d/%m/%Y %H:%M')} déjà collecté "
+            f"({now.strftime('%H:%M')} Europe/Paris). Aucune requête Open-Meteo. "
+            "Utiliser --force pour forcer."
         )
         return 0
 
     models = selected_models(args.models)
     spots = load_spots()
     fetched_at_iso = now.isoformat(timespec="seconds")
-    run_id = now.replace(minute=0, second=0, microsecond=0).isoformat(timespec="seconds")
+    run_id = slot_start.isoformat(timespec="seconds")
 
     print(f"Collecte {run_id}")
     print(f"Spots   : {len(spots)}")

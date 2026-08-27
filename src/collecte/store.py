@@ -16,6 +16,17 @@ def last_update_label(fetched_at: datetime) -> str:
     return fetched_at.strftime("%d/%m/%Y %H:%M")
 
 
+def read_last_update() -> dict[str, Any] | None:
+    path = RAW_DIR / "last_update.json"
+    if not path.is_file():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
 def write_csv(path: Path, columns: tuple[str, ...], rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
