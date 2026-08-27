@@ -1,18 +1,18 @@
-# Collecte Open-Meteo — 3 fois par jour, heures Europe/Paris.
+# Collecte Open-Meteo — 3 fois par jour, 7h15 / 13h15 / 19h15 Europe/Paris.
 # Le cron GitHub ne part que depuis la branche par défaut (main) :
 # ce fichier doit aussi exister sur main. Le job checkout collecte-api-meteo.
 name: Collecte Open-Meteo
 
 on:
   schedule:
-    # 07h / 13h / 19h CEST (heure d'été)
-    - cron: "0 5,11,17 * * *"
-    # 07h / 13h / 19h CET (heure d'hiver)
-    - cron: "0 6,12,18 * * *"
+    # 07h15 / 13h15 / 19h15 CEST (heure d'été)
+    - cron: "15 5,11,17 * * *"
+    # 07h15 / 13h15 / 19h15 CET (heure d'hiver)
+    - cron: "15 6,12,18 * * *"
   workflow_dispatch:
     inputs:
       force:
-        description: "Ignorer le filtre horaire 7h / 13h / 19h"
+        description: "Ignorer le filtre des créneaux 7h15 / 13h15 / 19h15"
         type: boolean
         default: true
 
@@ -23,11 +23,11 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           ref: collecte-api-meteo
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 

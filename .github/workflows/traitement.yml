@@ -32,12 +32,12 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Checkout traitement-donnees
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: traitement-donnees
 
       - name: Checkout des bruts et specs de collecte
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: collecte-api-meteo
           path: _collecte
@@ -50,7 +50,7 @@ jobs:
           rm -rf assets/spots_specs
           cp -a _collecte/assets/spots_specs assets/spots_specs
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -73,7 +73,7 @@ jobs:
           fi
 
       - name: Checkout affichage-web
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: affichage-web
           path: _web

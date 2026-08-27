@@ -31,7 +31,7 @@ Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copie
 
 ## Pipeline (3 fois par jour)
 
-Heures **Europe/Paris** : **7h**, **13h**, **19h** (deux crons UTC sur `main` pour CEST et CET).
+Heures **Europe/Paris** : **7h15**, **13h15**, **19h15** (deux crons UTC sur `main` pour CEST et CET, à `:15` pour éviter le pic de charge). Un cron en retard collecte encore le créneau ouvert ; un doublon CEST/CET est ignoré si la collecte a déjà réussi.
 
 ```
 main : Collecte Open-Meteo
@@ -44,7 +44,7 @@ main : Traitement et affichage  (après un run de collecte réussi)
 GitHub Pages  (source : racine de affichage-web)
 ```
 
-Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre horaire) ou *Traitement et affichage*.
+Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau) ou *Traitement et affichage*.
 
 ## Données
 
