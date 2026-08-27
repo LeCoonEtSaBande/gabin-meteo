@@ -42,12 +42,23 @@ def load_spots() -> list[Spot]:
             key = (row.get("spot_key") or "").strip()
             if not key:
                 continue
+            extra = row.get(None)
+            if extra:
+                raise RuntimeError(
+                    f"{key}: trop de colonnes CSV (un point-virgule dans un texte "
+                    "n'est probablement pas entre guillemets)."
+                )
             gridpoints: dict[str, GridPoint] = {}
             for model_key in MODEL_ORDER:
                 lat = _parse_float(row.get(f"{model_key}_gridpoint_latitude"))
                 lon = _parse_float(row.get(f"{model_key}_gridpoint_longitude"))
                 if lat is None or lon is None:
                     continue
+                if not -90 <= lat <= 90 or not -180 <= lon <= 180:
+                    raise RuntimeError(
+                        f"{key}/{model_key}: coordonnées hors plage "
+                        f"(lat={lat}, lon={lon}). Vérifier le CSV."
+                    )
                 gridpoints[model_key] = GridPoint(
                     latitude=lat,
                     longitude=lon,
