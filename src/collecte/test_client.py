@@ -53,7 +53,7 @@ class FallbackTests(unittest.TestCase):
         locations = [(45.0, 6.0), (46.0, 7.0)]
         calls: list[int] = []
 
-        def fake_fetch(model_arg: object, cells: list) -> list[dict]:
+        def fake_fetch(model_arg: object, cells: list, **_kwargs: object) -> list[dict]:
             calls.append(len(cells))
             if len(cells) > 1:
                 raise OpenMeteoError("JSON invalide ou tronqué")
@@ -68,6 +68,26 @@ class FallbackTests(unittest.TestCase):
         self.assertIn("JSON", batch_error or "")
         self.assertEqual(calls, [2, 1, 1])
         self.assertEqual(len(payloads), 2)
+        self.assertEqual(errors, {})
+
+    def test_splits_into_chunks_of_four(self) -> None:
+        model = MODELS["AROMEHD"]
+        locations = [(45.0 + index, 6.0) for index in range(5)]
+        calls: list[int] = []
+
+        def fake_fetch(model_arg: object, cells: list, **_kwargs: object) -> list[dict]:
+            calls.append(len(cells))
+            return [{"latitude": cell[0]} for cell in cells]
+
+        with (
+            patch("client.fetch_locations", side_effect=fake_fetch),
+            patch("client.time.sleep"),
+        ):
+            payloads, errors, batch_error = fetch_locations_with_fallback(model, locations)
+
+        self.assertIsNone(batch_error)
+        self.assertEqual(calls, [4, 1])
+        self.assertEqual(len(payloads), 5)
         self.assertEqual(errors, {})
 
 

@@ -20,8 +20,10 @@ from config import (
 )
 
 RETRY_STATUS = {429, 502, 503, 504}
-MAX_ATTEMPTS = 3
-BACKOFF_S = (2.0, 8.0)
+BATCH_ATTEMPTS = 2
+CELL_ATTEMPTS = 1
+BATCH_CHUNK_SIZE = 4
+BACKOFF_S = (1.0,)
 
 
 class OpenMeteoError(RuntimeError):
@@ -46,7 +48,7 @@ def _decode_body(raw: bytes) -> Any:
         raise OpenMeteoError(f"JSON invalide ou tronqué ({exc})") from exc
 
 
-def _get_json(url: str, params: dict[str, Any]) -> Any:
+def _get_json(url: str, params: dict[str, Any], *, attempts: int = BATCH_ATTEMPTS) -> Any:
     query = urllib.parse.urlencode(params, doseq=True)
     request = urllib.request.Request(
         f"{url}?{query}",
@@ -57,7 +59,7 @@ def _get_json(url: str, params: dict[str, Any]) -> Any:
         },
     )
     last_error: OpenMeteoError | None = None
-    for attempt in range(MAX_ATTEMPTS):
+    for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=API_TIMEOUT_S) as response:
                 payload = _decode_body(response.read())
@@ -69,11 +71,11 @@ def _get_json(url: str, params: dict[str, Any]) -> Any:
             except json.JSONDecodeError:
                 reason = detail
             last_error = OpenMeteoError(f"HTTP {exc.code} : {reason}", http_status=exc.code)
-            if exc.code not in RETRY_STATUS or attempt >= MAX_ATTEMPTS - 1:
+            if exc.code not in RETRY_STATUS or attempt >= attempts - 1:
                 raise last_error from exc
         except urllib.error.URLError as exc:
             last_error = OpenMeteoError(f"Réseau : {exc.reason}")
-            if attempt >= MAX_ATTEMPTS - 1:
+            if attempt >= attempts - 1:
                 raise last_error from exc
         except (
             OpenMeteoError,
@@ -83,7 +85,7 @@ def _get_json(url: str, params: dict[str, Any]) -> Any:
             ConnectionError,
         ) as exc:
             last_error = exc if isinstance(exc, OpenMeteoError) else OpenMeteoError(f"Réseau : {exc}")
-            if attempt >= MAX_ATTEMPTS - 1:
+            if attempt >= attempts - 1:
                 raise last_error from exc
         else:
             if isinstance(payload, dict) and payload.get("error"):
@@ -96,6 +98,8 @@ def _get_json(url: str, params: dict[str, Any]) -> Any:
 def fetch_locations(
     model: ModelSpec,
     locations: list[tuple[float, float]],
+    *,
+    attempts: int = BATCH_ATTEMPTS,
 ) -> list[dict[str, Any]]:
     """Interroge Open-Meteo pour une liste de cellules d'un seul modèle."""
     if not locations:
@@ -111,7 +115,7 @@ def fetch_locations(
         "wind_speed_unit": "kn",
         "timezone": "Europe/Paris",
     }
-    payload = _get_json(model.endpoint, params)
+    payload = _get_json(model.endpoint, params, attempts=attempts)
     items = _as_payload_list(payload)
     if len(items) != len(locations):
         raise OpenMeteoError(
@@ -131,20 +135,37 @@ def fetch_locations_with_fallback(
     dict[tuple[float, float], OpenMeteoError],
     str | None,
 ]:
-    """Lot unique, puis repli cellule par cellule si le lot échoue."""
+    """Lots de quelques cellules, puis repli unitaire si un lot échoue."""
     payloads: dict[tuple[float, float], dict[str, Any]] = {}
     errors: dict[tuple[float, float], OpenMeteoError] = {}
-    try:
-        items = fetch_locations(model, locations)
-        return dict(zip(locations, items)), errors, None
-    except OpenMeteoError as batch_exc:
-        batch_error = str(batch_exc)
-
-    for index, location in enumerate(locations):
-        if index:
+    batch_error: str | None = None
+    chunks = [
+        locations[index : index + BATCH_CHUNK_SIZE]
+        for index in range(0, len(locations), BATCH_CHUNK_SIZE)
+    ]
+    request_index = 0
+    for chunk in chunks:
+        if request_index:
             time.sleep(PAUSE_BETWEEN_CALLS_S)
         try:
-            payloads[location] = fetch_locations(model, [location])[0]
+            items = fetch_locations(model, chunk, attempts=BATCH_ATTEMPTS)
+            payloads.update(zip(chunk, items))
+            request_index += 1
+            continue
         except OpenMeteoError as exc:
-            errors[location] = exc
+            batch_error = str(exc)
+            print(
+                f"  lot de {len(chunk)} cellule(s) en échec ({batch_error}) → repli unitaire",
+                flush=True,
+            )
+        for location in chunk:
+            if request_index:
+                time.sleep(PAUSE_BETWEEN_CALLS_S)
+            request_index += 1
+            try:
+                payloads[location] = fetch_locations(
+                    model, [location], attempts=CELL_ATTEMPTS
+                )[0]
+            except OpenMeteoError as exc:
+                errors[location] = exc
     return payloads, errors, batch_error

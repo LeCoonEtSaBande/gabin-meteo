@@ -33,8 +33,8 @@ from store import last_update_label, publish_failure, publish_success, read_last
 
 def configure_stdio() -> None:
     if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8")
-        sys.stderr.reconfigure(encoding="utf-8")
+        sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
+        sys.stderr.reconfigure(encoding="utf-8", line_buffering=True)
 
 
 def parse_args() -> argparse.Namespace:
@@ -97,7 +97,7 @@ def collect_model(
     locations = list(groups)
     payloads, errors, batch_error = fetch_locations_with_fallback(model, locations)
     if batch_error:
-        print(f"Lot {model.key} en échec ({batch_error}) → repli cellule par cellule")
+        print(f"Lot {model.key} : au moins un paquet en échec ({batch_error}) → repli unitaire")
 
     for location, payload in payloads.items():
         parsed_rows, parsed_status = parse_payload(
