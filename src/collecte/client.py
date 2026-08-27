@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import http.client
 import json
+import socket
 import time
 import urllib.error
 import urllib.parse
@@ -36,17 +38,29 @@ def _as_payload_list(payload: Any) -> list[dict[str, Any]]:
     raise OpenMeteoError(f"Réponse JSON inattendue : {type(payload).__name__}")
 
 
+def _decode_body(raw: bytes) -> Any:
+    text = raw.decode("utf-8")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise OpenMeteoError(f"JSON invalide ou tronqué ({exc})") from exc
+
+
 def _get_json(url: str, params: dict[str, Any]) -> Any:
     query = urllib.parse.urlencode(params, doseq=True)
     request = urllib.request.Request(
         f"{url}?{query}",
-        headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+            "Accept-Encoding": "identity",
+        },
     )
     last_error: OpenMeteoError | None = None
     for attempt in range(MAX_ATTEMPTS):
         try:
             with urllib.request.urlopen(request, timeout=API_TIMEOUT_S) as response:
-                payload = json.loads(response.read().decode("utf-8"))
+                payload = _decode_body(response.read())
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
             try:
@@ -59,6 +73,16 @@ def _get_json(url: str, params: dict[str, Any]) -> Any:
                 raise last_error from exc
         except urllib.error.URLError as exc:
             last_error = OpenMeteoError(f"Réseau : {exc.reason}")
+            if attempt >= MAX_ATTEMPTS - 1:
+                raise last_error from exc
+        except (
+            OpenMeteoError,
+            TimeoutError,
+            socket.timeout,
+            http.client.IncompleteRead,
+            ConnectionError,
+        ) as exc:
+            last_error = exc if isinstance(exc, OpenMeteoError) else OpenMeteoError(f"Réseau : {exc}")
             if attempt >= MAX_ATTEMPTS - 1:
                 raise last_error from exc
         else:
