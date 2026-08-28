@@ -1,18 +1,16 @@
-# Collecte Open-Meteo — 3 fois par jour, 7h15 / 13h15 / 19h15 Europe/Paris.
-# Le cron GitHub ne part que depuis la branche par défaut (main) :
-# ce fichier doit aussi exister sur main. Le job checkout collecte-api-meteo.
+# Collecte Open-Meteo — 3 fois par jour (cron UTC, :15 pour éviter le pic).
+# En heure d'été : 7h15 / 13h15 / 19h15 Europe/Paris.
+# En heure d'hiver : 6h15 / 12h15 / 18h15 (un décalage d'une heure est accepté).
+# Le cron GitHub ne part que depuis la branche par défaut (main).
 name: Collecte Open-Meteo
 
-on:
+"on":
   schedule:
-    # 07h15 / 13h15 / 19h15 CEST (heure d'été)
     - cron: "15 5,11,17 * * *"
-    # 07h15 / 13h15 / 19h15 CET (heure d'hiver)
-    - cron: "15 6,12,18 * * *"
   workflow_dispatch:
     inputs:
       force:
-        description: "Ignorer le filtre des créneaux 7h15 / 13h15 / 19h15"
+        description: "Ignorer le filtre des créneaux déjà collectés"
         type: boolean
         default: true
 

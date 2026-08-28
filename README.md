@@ -31,7 +31,7 @@ Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copie
 
 ## Pipeline (3 fois par jour)
 
-Heures **Europe/Paris** : **7h15**, **13h15**, **19h15** (deux crons UTC sur `main` pour CEST et CET, à `:15` pour éviter le pic de charge). Un cron en retard collecte encore le créneau ouvert ; un doublon CEST/CET est ignoré si la collecte a déjà réussi.
+Heures **Europe/Paris** : **7h15 / 13h15 / 19h15** en été (cron UTC `15 5,11,17`, à `:15` pour éviter le pic de charge). En hiver le même cron tombe à **6h15 / 12h15 / 18h15** : un décalage d’une heure est accepté. Un cron en retard collecte encore le créneau ouvert ; un doublon est ignoré si la collecte a déjà réussi.
 
 ```
 main : Collecte Open-Meteo

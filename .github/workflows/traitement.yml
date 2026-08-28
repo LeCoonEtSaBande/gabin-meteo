@@ -3,7 +3,7 @@
 # sur collecte-api-meteo, ou à la main.
 name: Traitement et affichage
 
-on:
+"on":
   workflow_run:
     workflows: ["Collecte Open-Meteo"]
     types: [completed]
