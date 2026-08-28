@@ -1,92 +1,13 @@
 {
   "run_id": "2026-08-27T19:15:00+02:00",
-  "fetched_at": "2026-08-27T19:57:32+02:00",
-  "last_update_at": "2026-08-27T19:57:32+02:00",
-  "last_update_label": "27/08/2026 19:57",
+  "fetched_at": "2026-08-27T20:48:17+02:00",
+  "last_update_at": "2026-08-27T20:48:17+02:00",
+  "last_update_label": "27/08/2026 20:48",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 17454,
-  "n_ok": 106,
+  "n_forecast_rows": 19482,
+  "n_ok": 119,
   "n_partial": 0,
-  "n_failed": 13,
+  "n_failed": 0,
   "nulls_replaced_by_zero": 0,
-  "failed": [
-    {
-      "spot_key": "loire_sur_rhone",
-      "model_key": "ARPEGE",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "portes_les_valence",
-      "model_key": "AROMEHD",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "portes_les_valence",
-      "model_key": "ICON13KM",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "AROMEHD",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "ARPEGE",
-      "error_message": "HTTP 400 : Latitude must be in range of -90 to 90°. Given: 116.0.",
-      "http_status": 400
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "ICONCH1",
-      "error_message": "HTTP 400 : Latitude must be in range of -90 to 90°. Given: 145.0.",
-      "http_status": 400
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "ICONCH2",
-      "error_message": "HTTP 400 : Latitude must be in range of -90 to 90°. Given: 118.0.",
-      "http_status": 400
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "ICON13KM",
-      "error_message": "HTTP 400 : Latitude must be in range of -90 to 90°. Given: 121.0.",
-      "http_status": 400
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "IFS",
-      "error_message": "HTTP 400 : Latitude must be in range of -90 to 90°. Given: 296.0.",
-      "http_status": 400
-    },
-    {
-      "spot_key": "roche_de_glun",
-      "model_key": "GFS",
-      "error_message": "HTTP 400 : Latitude must be in range of -90 to 90°. Given: 205.0.",
-      "http_status": 400
-    },
-    {
-      "spot_key": "st_alban_du_rhone",
-      "model_key": "ICONCH1",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "st_cyr_sur_le_rhone",
-      "model_key": "ARPEGE",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "treffort",
-      "model_key": "GFS",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    }
-  ]
+  "failed": []
 }
