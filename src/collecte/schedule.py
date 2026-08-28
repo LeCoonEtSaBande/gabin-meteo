@@ -1,9 +1,9 @@
-"""Créneaux de collecte Europe/Paris (7h15 / 13h15 / 19h15).
+"""Créneaux de collecte Europe/Paris.
 
-Le cron GitHub part à ces minutes mais peut arriver en retard, ou le
-second cron CEST/CET peut retomber une heure plus tard. On rattache
-chaque run au dernier créneau déjà ouvert, et on saute s'il a déjà
-été collecté (horodatage dans last_update.json).
+Le cron UTC unique vise 7h15 / 13h15 / 19h15 en été, et 6h15 / 12h15 /
+18h15 en hiver. GitHub peut aussi arriver en retard. On rattache chaque
+run au dernier créneau déjà ouvert (6h15 ou 7h15, etc.) et on saute s'il
+a déjà été collecté (horodatage dans last_update.json).
 """
 
 from __future__ import annotations
@@ -13,12 +13,13 @@ from typing import Any
 
 from config import PARIS
 
-COLLECT_HOURS = (7, 13, 19)
+# Heure d'été (7/13/19) et d'hiver (6/12/18), plus de quoi absorber un retard.
+COLLECT_HOURS = (6, 7, 12, 13, 18, 19)
 COLLECT_SLOT_MINUTE = 15
 
 
 def current_slot_start(now: datetime) -> datetime:
-    """Début du créneau ouvert (7h15 / 13h15 / 19h15). Avant 7h15 : veille 19h15."""
+    """Début du créneau ouvert (6h15/7h15, 12h15/13h15, 18h15/19h15)."""
     if now.tzinfo is None:
         now = now.replace(tzinfo=PARIS)
     for hour in reversed(COLLECT_HOURS):

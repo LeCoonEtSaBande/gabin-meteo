@@ -8,9 +8,9 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 
 ## Horaires
 
-Trois extractions par jour, **Europe/Paris** : **7h15**, **13h15**, **19h15** (décalage de 15 minutes pour éviter le pic de charge GitHub à l’heure pile).
+Trois extractions par jour. En **heure d'été** : **7h15 / 13h15 / 19h15**. En **heure d'hiver** le même cron UTC tombe une heure plus tôt (**6h15 / 12h15 / 18h15**).
 
-Le script rattache chaque run au dernier créneau déjà ouvert. Un cron en retard collecte encore ce créneau ; un second déclenchement (cron CEST/CET) est ignoré si `last_update.json` est déjà à jour. `--force` ignore ce filtre.
+Le script rattache chaque run au dernier créneau déjà ouvert. Un cron en retard collecte encore ce créneau ; un second déclenchement le même créneau est ignoré si `last_update.json` est déjà à jour. `--force` ignore ce filtre.
 
 Le cron GitHub ne s’exécute que depuis la branche par défaut (`main`) : le workflow `.github/workflows/collecte.yml` n’existe **que** sur `main`. Le job fait un checkout de `collecte-api-meteo`, écrit les fichiers, puis pousse sur cette branche.
 

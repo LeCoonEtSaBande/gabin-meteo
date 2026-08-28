@@ -1,4 +1,4 @@
-"""Tests des créneaux 7h15 / 13h15 / 19h15 (retards cron et double CEST/CET)."""
+"""Tests des créneaux (retards cron, été 7h15 / hiver 6h15)."""
 
 from __future__ import annotations
 
@@ -30,7 +30,11 @@ class CurrentSlotStartTests(unittest.TestCase):
         now = paris(2026, 8, 26, 20, 51)
         self.assertEqual(current_slot_start(now), paris(2026, 8, 26, 19, 15))
 
-    def test_summer_winter_cron_maps_to_morning(self) -> None:
+    def test_winter_morning_opens_at_6h15(self) -> None:
+        now = paris(2026, 1, 15, 6, 15)
+        self.assertEqual(current_slot_start(now), now.replace(second=0, microsecond=0))
+
+    def test_late_morning_stays_on_7h15_slot(self) -> None:
         now = paris(2026, 8, 26, 8, 42)
         self.assertEqual(current_slot_start(now), paris(2026, 8, 26, 7, 15))
 
