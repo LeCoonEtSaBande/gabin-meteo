@@ -1,13 +1,13 @@
 {
   "run_id": "2026-08-28T19:15:00+02:00",
-  "fetched_at": "2026-08-28T19:24:50+02:00",
-  "last_update_at": "2026-08-28T19:24:50+02:00",
-  "last_update_label": "28/08/2026 19:24",
+  "fetched_at": "2026-08-29T01:58:17+02:00",
+  "last_update_at": "2026-08-29T01:58:17+02:00",
+  "last_update_label": "29/08/2026 01:58",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 19482,
-  "n_ok": 119,
-  "n_partial": 0,
+  "n_forecast_rows": 18462,
+  "n_ok": 102,
+  "n_partial": 17,
   "n_failed": 0,
-  "nulls_replaced_by_zero": 0,
+  "nulls_replaced_by_zero": 102,
   "failed": []
 }
