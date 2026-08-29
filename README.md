@@ -46,6 +46,8 @@ GitHub Pages  (source : racine de affichage-web)
 
 Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau) ou *Traitement et affichage*.
 
+Liste des changements workflows / collecte pour un autre dépôt : [HANDOFF-COLLECTE.md](HANDOFF-COLLECTE.md).
+
 ## Données
 
 - **17 spots** dans **11 zones** (Léman, Annecy, Bourget, Rhône, Saône, Laffrey, Monteynard, Grand Large…).
