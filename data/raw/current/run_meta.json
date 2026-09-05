@@ -1,13 +1,20 @@
 {
-  "run_id": "2026-09-04T19:15:00+02:00",
-  "fetched_at": "2026-09-04T21:46:55+02:00",
-  "last_update_at": "2026-09-04T21:46:55+02:00",
-  "last_update_label": "04/09/2026 21:46",
+  "run_id": "2026-09-05T07:15:00+02:00",
+  "fetched_at": "2026-09-05T07:56:58+02:00",
+  "last_update_at": "2026-09-05T07:56:58+02:00",
+  "last_update_label": "05/09/2026 07:56",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 19533,
-  "n_ok": 119,
+  "n_forecast_rows": 18783,
+  "n_ok": 118,
   "n_partial": 0,
-  "n_failed": 0,
+  "n_failed": 1,
   "nulls_replaced_by_zero": 0,
-  "failed": []
+  "failed": [
+    {
+      "spot_key": "roche_de_glun",
+      "model_key": "IFS",
+      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
+      "http_status": ""
+    }
+  ]
 }
