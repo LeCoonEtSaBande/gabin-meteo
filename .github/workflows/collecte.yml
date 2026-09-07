@@ -54,3 +54,28 @@ jobs:
           fi
           git commit -m "Collecte Open-Meteo $(date -u +%Y-%m-%dT%H:%MZ)"
           git push origin HEAD:collecte-api-meteo
+
+      # Un créneau sauté reste vert et le traitement republie les mêmes bruts :
+      # sans cette alerte, le site paraît frais avec des jours de retard.
+      - name: Alerter si les bruts sont périmés
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          path = Path("data/raw/last_update.json")
+          if not path.exists():
+              print("::warning title=Bruts absents::data/raw/last_update.json introuvable.")
+              raise SystemExit(0)
+          stamp = json.loads(path.read_text(encoding="utf-8"))["last_update_at"]
+          age_h = (datetime.now(timezone.utc) - datetime.fromisoformat(stamp)).total_seconds() / 3600
+          if age_h > 24:
+              print(
+                  f"::warning title=Previsions perimees::Derniere collecte reussie "
+                  f"il y a {age_h:.0f} h ({stamp})."
+              )
+          else:
+              print(f"Bruts a jour : derniere collecte il y a {age_h:.1f} h ({stamp}).")
+          PY
