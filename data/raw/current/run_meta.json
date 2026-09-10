@@ -1,26 +1,13 @@
 {
-  "run_id": "2026-09-10T13:15:00+02:00",
-  "fetched_at": "2026-09-10T17:05:33+02:00",
-  "last_update_at": "2026-09-10T17:05:33+02:00",
-  "last_update_label": "10/09/2026 17:05",
+  "run_id": "2026-09-10T19:15:00+02:00",
+  "fetched_at": "2026-09-10T21:56:47+02:00",
+  "last_update_at": "2026-09-10T21:56:47+02:00",
+  "last_update_label": "10/09/2026 21:56",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 19152,
-  "n_ok": 117,
+  "n_forecast_rows": 19533,
+  "n_ok": 119,
   "n_partial": 0,
-  "n_failed": 2,
+  "n_failed": 0,
   "nulls_replaced_by_zero": 0,
-  "failed": [
-    {
-      "spot_key": "portes_les_valence",
-      "model_key": "AROMEHD",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "st_alban_du_rhone",
-      "model_key": "AROMEHD",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    }
-  ]
+  "failed": []
 }
