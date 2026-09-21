@@ -1,32 +1,13 @@
 {
-  "run_id": "2026-09-20T19:15:00+02:00",
-  "fetched_at": "2026-09-20T19:35:35+02:00",
-  "last_update_at": "2026-09-20T19:35:35+02:00",
-  "last_update_label": "20/09/2026 19:35",
+  "run_id": "2026-09-21T07:15:00+02:00",
+  "fetched_at": "2026-09-21T09:54:44+02:00",
+  "last_update_at": "2026-09-21T09:54:44+02:00",
+  "last_update_label": "21/09/2026 09:54",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 19224,
-  "n_ok": 116,
+  "n_forecast_rows": 19023,
+  "n_ok": 119,
   "n_partial": 0,
-  "n_failed": 3,
+  "n_failed": 0,
   "nulls_replaced_by_zero": 0,
-  "failed": [
-    {
-      "spot_key": "excenevex",
-      "model_key": "ARPEGE",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "messery",
-      "model_key": "ARPEGE",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    },
-    {
-      "spot_key": "st_cyr_sur_le_rhone",
-      "model_key": "AROMEHD",
-      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
-      "http_status": ""
-    }
-  ]
+  "failed": []
 }
