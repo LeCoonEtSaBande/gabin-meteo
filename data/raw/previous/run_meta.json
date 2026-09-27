@@ -1,8 +1,8 @@
 {
-  "run_id": "2026-09-27T07:15:00+02:00",
-  "fetched_at": "2026-09-27T10:09:48+02:00",
-  "last_update_at": "2026-09-27T10:09:48+02:00",
-  "last_update_label": "27/09/2026 10:09",
+  "run_id": "2026-09-27T12:15:00+02:00",
+  "fetched_at": "2026-09-27T12:40:12+02:00",
+  "last_update_at": "2026-09-27T12:40:12+02:00",
+  "last_update_label": "27/09/2026 12:40",
   "timezone": "Europe/Paris",
   "n_forecast_rows": 19074,
   "n_ok": 119,
