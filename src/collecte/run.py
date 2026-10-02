@@ -44,7 +44,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="ignore le filtre des créneaux 7h15 / 13h15 / 19h15 (Europe/Paris)",
+        help="collecte même si le créneau en cours est déjà collecté",
     )
     parser.add_argument(
         "--model",
@@ -241,7 +241,6 @@ def main() -> int:
     print("Horodatage : data/raw/last_update.json")
     if meta["n_failed"]:
         print(f"Attention : {meta['n_failed']} couple(s) spot/modèle en échec (voir run_status.csv).")
-        return 0
     return 0
 
 

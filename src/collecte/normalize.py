@@ -1,4 +1,9 @@
-"""Normalisation des réponses Open-Meteo : null → 0, nébulosité = max."""
+"""Normalisation des réponses Open-Meteo.
+
+Vent, température et pluie : null → 0 (compté dans `nulls_replaced_by_zero`).
+Couches de nuages : null conservé (case vide). `cloud_cover_max_pct` = max des
+couches présentes, 0 si aucune.
+"""
 
 from __future__ import annotations
 

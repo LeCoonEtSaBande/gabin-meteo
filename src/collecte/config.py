@@ -24,7 +24,8 @@ OPENMETEO_MAX_FORECAST_DAYS = 16
 PAUSE_BETWEEN_CALLS_S = 1.0
 USER_AGENT = "gabin-meteo-collecte/1.0"
 
-# Variables demandées à l'API. La nébulosité stockée est le max des couches.
+# Variables demandées à l'API. Les quatre nébulosités sont stockées telles
+# quelles, plus leur maximum dans `cloud_cover_max_pct`.
 HOURLY_CORE = (
     "wind_speed_10m",
     "wind_gusts_10m",
@@ -112,7 +113,7 @@ MODELS: dict[str, ModelSpec] = {
         openmeteo_name="arome_france_hd",
         horizon_h=51,
         resolution="0.01° (~1,3 km)",
-        notes="Nébulosité totale souvent absente : max des couches.",
+        notes="Nébulosité totale souvent absente : seules les couches sont renseignées.",
     ),
     "ARPEGE": ModelSpec(
         key="ARPEGE",

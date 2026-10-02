@@ -1,9 +1,10 @@
 """Créneaux de collecte Europe/Paris.
 
-Le cron UTC unique vise 7h15 / 13h15 / 19h15 en été, et 6h15 / 12h15 /
-18h15 en hiver. GitHub peut aussi arriver en retard. On rattache chaque
-run au dernier créneau déjà ouvert (6h15 ou 7h15, etc.) et on saute s'il
-a déjà été collecté (horodatage dans last_update.json).
+Créneaux : 7h15 / 13h15 / 19h15 en été, 6h15 / 12h15 / 18h15 en hiver. Le
+cron UTC unique part à :28, soit un quart d'heure après l'ouverture, et GitHub
+le retarde souvent de plusieurs heures. On rattache chaque run au dernier
+créneau déjà ouvert et on le saute s'il a déjà été collecté (horodatage dans
+last_update.json).
 """
 
 from __future__ import annotations

@@ -8,9 +8,11 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 
 ## Horaires
 
-Trois extractions par jour. En **heure d'été** : **7h15 / 13h15 / 19h15**. En **heure d'hiver** le même cron UTC tombe une heure plus tôt (**6h15 / 12h15 / 18h15**).
+Trois créneaux par jour. En **heure d'été** : **7h15 / 13h15 / 19h15**. En **heure d'hiver**, le même cron UTC tombe une heure plus tôt (**6h15 / 12h15 / 18h15**).
 
-Le script rattache chaque run au dernier créneau déjà ouvert. Un cron en retard collecte encore ce créneau ; un second déclenchement le même créneau est ignoré si `last_update.json` est déjà à jour. `--force` ignore ce filtre.
+Le cron (`28 5,11,17 * * *` UTC) part au plus tôt à :28, soit vers 7h28 / 13h28 / 19h28 en été. GitHub le retarde souvent, parfois de plusieurs heures. L'heure réelle de chaque collecte est `fetched_at` dans `run_meta.json`.
+
+Le script rattache chaque run au dernier créneau déjà ouvert. Un cron en retard collecte encore ce créneau. Un second déclenchement dans le même créneau est ignoré si `last_update.json` est déjà à jour ; `--force` lève ce filtre.
 
 Le cron GitHub ne s’exécute que depuis la branche par défaut (`main`) : le workflow `.github/workflows/collecte.yml` n’existe **que** sur `main`. Le job fait un checkout de `collecte-api-meteo`, écrit les fichiers, puis pousse sur cette branche.
 
@@ -20,7 +22,7 @@ Le cron GitHub ne s’exécute que depuis la branche par défaut (`main`) : le w
 
 ## Sobriété API
 
-Une requête HTTP par modèle, pour toutes les cellules distinctes de ce modèle (17 spots, cellules partagées dédupliquées). Sept requêtes par run, pause d’une seconde entre modèles. Si un lot échoue, repli cellule par cellule **pour ce modèle seulement**.
+Les cellules de grille partagées par plusieurs spots ne sont demandées qu’une fois. Chaque modèle est interrogé par lots de **4 cellules** (`BATCH_CHUNK_SIZE` dans `client.py`), soit une trentaine de requêtes par run, avec une seconde de pause entre deux requêtes. Si un lot échoue, ses cellules sont redemandées une par une ; les autres lots ne sont pas touchés.
 
 ## Horizons des modèles
 
@@ -55,7 +57,7 @@ data/raw/
     forecasts.csv
     run_status.csv
     run_meta.json
-  previous/            # run d'avant, repli carte si current est en erreur
+  previous/            # run d'avant (current précédent, même format)
 ```
 
 En échec total, `current/`, `previous/` et `last_update.json` ne sont pas touchés. Le détail va dans `data/raw/last_failure/`.
@@ -81,10 +83,11 @@ Nébulosité : les quatre couches API (`cloud_cover`, `cloud_cover_low`, `cloud_
 
 Une ligne par `(spot, modèle)` : `ok`, `partial` (des zéros ont remplacé des nulls) ou `failed`, avec le message d’erreur.
 
-## Repli pour la carte
+## Runs partiels
 
-Garder `current` et `previous`. Si un run est mauvais, le traitement / l’affichage peut reprendre le run d’avant. `last_update.json` suit le dernier run **réussi**.
+Un run est publié dès qu’au moins un couple (spot, modèle) a réussi : `current/` peut donc contenir des modèles en échec (voir `run_status.csv`). Le traitement ne lit que `current/`. `last_update.json` suit le dernier run publié.
 
-## Accès depuis `traitement-donnees`
+## Lecteurs de cette branche
 
-Les bruts restent sur cette branche. En local : `git show collecte-api-meteo:data/raw/current/forecasts.csv`. En CI, le job de traitement fait un second checkout de `collecte-api-meteo` et recopie `data/raw` plus `assets/spots_specs`.
+- `traitement-donnees` : en local, `git show collecte-api-meteo:data/raw/current/forecasts.csv` ; en CI, le job de traitement fait un second checkout de `collecte-api-meteo` et recopie `data/raw` plus `assets/spots_specs`.
+- `archive-previsions` : l’archive de 23 h relit l’**historique git** de cette branche (`current/` et `previous/` de chaque commit) pour retrouver la dernière collecte lancée avant 23 h, et remonter à une collecte plus ancienne pour un modèle en échec. Ne jamais réécrire l’historique de cette branche (pas de force push ni de squash).

@@ -1,4 +1,4 @@
-"""Client HTTP Open-Meteo : une requête par modèle, repli cellule par cellule."""
+"""Client HTTP Open-Meteo : lots de `BATCH_CHUNK_SIZE` cellules par modèle, repli cellule par cellule."""
 
 from __future__ import annotations
 
