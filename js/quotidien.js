@@ -1,3 +1,5 @@
+/** Carte quotidienne : SVG, puces par zone, navigation des jours, cache local du JSON. */
+
 const DATA_URL = "data/processed/quotidien.json";
 const META_URL = "data/processed/last_update.json";
 const MAP_URL = "assets/svg_map/Carte%20RA%20804x1200.svg";
@@ -482,7 +484,7 @@ async function loadDataset() {
     localStorage.setItem(UPDATE_KEY, stamp);
     localStorage.setItem(CACHE_KEY, JSON.stringify(data));
   } catch {
-    // Quota téléphone : on affiche quand même le JSON frais.
+    // Stockage local plein (fréquent sur téléphone) : on affiche quand même le JSON frais.
   }
   return data;
 }

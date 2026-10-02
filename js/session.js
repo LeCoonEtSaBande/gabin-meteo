@@ -1,4 +1,8 @@
-/** Règles d'affichage quotidien. Créneau exploitable : ≥ 3 h dans la fenêtre 7 h–22 h. */
+/**
+ * Couleurs (vent gris jusqu'à 10 nds), flèche de vent et créneau des puces.
+ * Le créneau (≥ 3 h de vent moyen > 10 nds) est calculé par le traitement ;
+ * ici on le borne à 7 h–22 h et on écarte ce qui fait moins de 3 h.
+ */
 
 const MUTED = [90, 90, 90];
 

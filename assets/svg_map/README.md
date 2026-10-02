@@ -2,7 +2,7 @@
 
 Le fichier `Carte RA 804x1200.svg` est **uniquement une carte**. Le chrome (onglets, date, boutons) est en HTML.
 
-Export Linearity Curve : garder les `vectornator:layerName` ci-dessous. Les clés doivent matcher `data/processed/quotidien.json`.
+Export Linearity Curve : garder les `vectornator:layerName` ci-dessous. Les clés doivent correspondre à celles de `data/processed/quotidien.json`.
 
 ## Racine
 

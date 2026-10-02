@@ -3,7 +3,7 @@
 Source : https://github.com/basmilius/meteocons (`@meteocons/svg-static`, style fill)
 Licence : MIT
 
-Correspondance avec les clés `weather_icon` de `quotidien.json` :
+Correspondance avec les clés `weather_icon` de `quotidien.json` (règle de choix : README de `traitement-donnees`, `src/traitement/README.md`) :
 
 | Clé JSON | Fichier |
 | --- | --- |

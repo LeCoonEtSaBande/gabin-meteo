@@ -22,7 +22,7 @@ test("spots_specifications expose les liens Excenevex et les champs texte", () =
   assert.match(maps, /46\.3488/);
 
   const messery = rows.find((row) => row.spot_key === "messery");
-  assert.equal(messery.link_windguru, "");
+  assert.match(messery.link_windguru, /^(https:\/\/.*)?$/);
   assert.equal(messery.zone_key, "leman_grand_lac");
 });
 

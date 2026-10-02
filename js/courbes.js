@@ -23,7 +23,6 @@ const SET_LABELS = {
 };
 
 const KT_SLOT = 10;
-const KT15 = 15;
 const KT25 = 25;
 const MEAN_STROKE = 1.94;
 const GUST_STROKE = 1.13;
