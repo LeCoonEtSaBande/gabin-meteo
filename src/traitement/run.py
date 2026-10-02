@@ -1,4 +1,4 @@
-"""Construit les courbes splicées et le JSON du panneau quotidien.
+"""Construit les courbes assemblées, le JSON des puces, `creneaux.json` et `llm/`.
 
 Usage :
     python src/traitement/run.py
@@ -127,7 +127,7 @@ def main() -> int:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     CURVES_DIR.mkdir(parents=True, exist_ok=True)
 
-    print("Courbes splicées :")
+    print("Courbes assemblées :")
     for set_name in CURVE_SETS:
         n = write_curve_csv(CURVES_DIR / f"{set_name}.csv", set_name, curves[set_name])
         print(f"  {set_name}: {n} points → {CURVES_DIR / f'{set_name}.csv'}")
@@ -155,7 +155,7 @@ def main() -> int:
     llm_files = write_llm_files(LLM_DIR, spots, curves, creneaux["curve_sets"], payload)
 
     print(f"\nJSON quotidien : {QUOTIDIEN_JSON}")
-    print(f"Créneaux graph : {CRENEAUX_JSON}")
+    print(f"Créneaux du graphique : {CRENEAUX_JSON}")
     print(f"Fichiers Claude : {len(llm_files)} dans {LLM_DIR}")
     print(f"Jours : {payload['days'][0] if payload['days'] else '—'} → {payload['days'][-1] if payload['days'] else '—'}")
     print(f"Spots : {len(payload['spots'])}")

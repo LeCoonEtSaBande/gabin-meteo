@@ -1,6 +1,6 @@
 # Gabin-meteo — traitement
 
-Branche `traitement-donnees` : assemble les bruts Open-Meteo en courbes splicées et en JSON quotidien.
+Branche `traitement-donnees` : assemble les bruts Open-Meteo en courbes continues (un modèle court terme relayé par des modèles plus longs), en JSON pour les puces et le graphique, et en Markdown pour Claude.
 
 Vue d’ensemble : [README de `main`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/main/README.md).
 Détail du code : [`src/traitement/README.md`](src/traitement/README.md).
@@ -25,9 +25,9 @@ Le workflow *Traitement et affichage* (sur `main`), après une collecte réussie
 | `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS | puces (spots ICON) |
 | `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | seconde courbe du graphique web |
 
-Vent / rafales déjà en **nœuds**. Créneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 7 h et 22 h (pas de repli rafales). Icône : pluie / nuages sur le créneau, sinon 7 h–22 h.
+Vent et rafales sont déjà en **nœuds**. Créneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 7 h et 22 h, sans repli sur les rafales. L'icône se calcule sur la pluie et les nuages du créneau, ou de 7 h–22 h s'il n'y a pas de créneau. Détail des règles : [`src/traitement/README.md`](src/traitement/README.md).
 
-Nébulosité perçue : `cloud_cover_display_pct` dans les CSV de courbes (total prioritaire, sinon max basse/moy/haute×0,25 ; AROME « hauts seuls » → bas/moy à 0, sans repli ARPEGE). Courbes, icônes et panneau quotidien s’appuient sur ce champ.
+Nébulosité perçue : `cloud_cover_display_pct` dans les CSV de courbes. La nébulosité totale est prioritaire, sinon `max(basse, moyenne, haute × 0,25)`. Pour AROME HD avec seulement des nuages hauts, basses et moyennes sont mises à 0, sans repli ARPEGE. Courbes, icônes et puces s’appuient sur ce champ.
 
 ## Lancer en local
 

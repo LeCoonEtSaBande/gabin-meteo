@@ -125,7 +125,7 @@ def load_raw_points() -> dict[tuple[str, str], list[HourPoint]]:
 
 
 def splice_curve(model_points: dict[str, list[HourPoint]], models: tuple[str, ...]) -> list[HourPoint]:
-    """Garde le court terme jusqu'à son horizon, puis le modèle suivant, etc."""
+    """Garde le court terme jusqu'à sa dernière échéance, puis le modèle suivant au-delà, etc."""
     curve: list[HourPoint] = []
     cutoff: datetime | None = None
     for model in models:
@@ -156,7 +156,7 @@ def build_all_curves(
     raw: dict[tuple[str, str], list[HourPoint]],
     spot_keys: list[str],
 ) -> dict[str, dict[str, list[HourPoint]]]:
-    """curve_set → spot_key → courbe splicée."""
+    """curve_set → spot_key → courbe assemblée."""
     result: dict[str, dict[str, list[HourPoint]]] = {name: {} for name in CURVE_SETS}
     for spot_key in spot_keys:
         by_model = {

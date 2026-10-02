@@ -1,10 +1,10 @@
 # Traitement des données
 
-Assemble les prévisions brutes de `collecte-api-meteo` en courbes splicées, puis calcule les indicateurs du panneau quotidien.
+Assemble les prévisions brutes de `collecte-api-meteo` en courbes continues, puis calcule les indicateurs des puces, les créneaux du graphique et les fichiers Markdown pour Claude.
 
 ## Courbes
 
-À un instant *t*, on ne garde que le modèle le plus court encore disponible.
+On garde le modèle le plus court terme jusqu’à sa dernière échéance, puis le modèle suivant prend le relais au-delà, et ainsi de suite. La colonne `source_model` indique le modèle de chaque heure.
 
 | Jeu | Enchaînement |
 | --- | --- |
@@ -38,7 +38,7 @@ Icône météo, sur le **créneau** retenu, sinon sur **7 h–22 h** (pluie = mm
 
 Température affichée : valeur à **15 h**.
 
-Nébulosité affichée (`cloud_cover_display_pct`) : total prioritaire, sinon `max(basse, moyenne, haute × 0,25)`. Cas AROME HD avec seulement des nuages hauts : bas/moy forcés à 0, pas de repli sur ARPEGE pour ce créneau.
+Nébulosité affichée (`cloud_cover_display_pct`) : total prioritaire, sinon `max(basse, moyenne, haute × 0,25)`. Cas AROME HD avec seulement des nuages hauts : basses et moyennes forcées à 0, sans repli sur ARPEGE pour cette heure.
 
 Les spots `short_term_model = AROMEHD` utilisent `AROMEIFS` pour les puces. Les spots `ICONCH1` utilisent `ICONIFS`. Le graphique du site charge `AROMEIFS` et `ICONGFS` (pas `ICONIFS`).
 
@@ -48,6 +48,14 @@ Les bruts et les specs sont lus dans l’arbre local s’ils sont présents (cop
 
 ```bash
 python src/traitement/run.py
+```
+
+Tests (sans dépendance) :
+
+```bash
+cd src/traitement
+python test_daily.py
+python test_cloud.py
 ```
 
 Fichiers produits :

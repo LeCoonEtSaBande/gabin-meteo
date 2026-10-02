@@ -11,7 +11,7 @@ def cloud_cover_display(
     mid: float | None,
     high: float | None,
 ) -> float:
-    """Score 0–100 % : total NEBUL si présent, sinon max(basse, moyenne, haute × 0,25)."""
+    """Score 0–100 % : nébulosité totale si présente, sinon max(basse, moyenne, haute × 0,25)."""
     if total is not None:
         return total
     low_v = 0.0 if low is None else low

@@ -173,7 +173,8 @@ def build_index_markdown(
         "",
         f"- Prévisions collectées le : {quotidien.get('last_update_label') or 'inconnu'} (Europe/Paris)",
         f"- Fichiers générés le : {quotidien.get('generated_at') or ''}",
-        "- Mise à jour 3 fois par jour (vers 7h15, 13h15 et 19h15, une heure plus tôt en hiver).",
+        "- Collecte prévue 3 fois par jour (vers 7h30, 13h30 et 19h30, une heure plus tôt en hiver). "
+        "GitHub la retarde parfois de plusieurs heures : se fier à la date de collecte ci-dessus.",
         f"- Carte : {SITE_URL}/",
         f"- Archive des prévisions de la veille à 23 h (AROME HD et ICON-CH1 bruts) : {ARCHIVE_INDEX_URL}",
         "",

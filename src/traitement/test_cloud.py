@@ -1,4 +1,4 @@
-"""Nébulosité display sans repli ARPEGE pour AROME hauts seuls."""
+"""Nébulosité affichée, et pas de repli ARPEGE quand AROME HD n'a que des nuages hauts."""
 
 from __future__ import annotations
 
