@@ -1,6 +1,7 @@
-# Collecte Open-Meteo — 3 fois par jour (cron UTC, :28 pour éviter le pic).
-# En heure d'été : 7h15 / 13h15 / 19h15 Europe/Paris.
-# En heure d'hiver : 6h15 / 12h15 / 18h15 (un décalage d'une heure est accepté).
+# Collecte Open-Meteo — 3 créneaux par jour : 7h15 / 13h15 / 19h15 Europe/Paris
+# en été, 6h15 / 12h15 / 18h15 en hiver (même cron UTC, décalage accepté).
+# Le cron part à :28 plutôt qu'à l'heure pile, où GitHub est le plus chargé ;
+# il peut quand même arriver avec plusieurs heures de retard.
 # Le cron GitHub ne part que depuis la branche par défaut (main).
 name: Collecte Open-Meteo
 

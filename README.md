@@ -12,11 +12,13 @@ Ce dépôt n’est **pas** un historique unique fusionné dans `main`. Chaque br
 | --- | --- | --- |
 | `main` | Workflows GitHub Actions (cron et enchaînement). Pas de données métier. | ce fichier |
 | `collecte-api-meteo` | Script Python, CSV bruts Open-Meteo, **specs parentes** des spots | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/collecte-api-meteo/README.md) |
-| `traitement-donnees` | Courbes splicées et JSON quotidien (**parent** de `data/processed`) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
+| `traitement-donnees` | Courbes assemblées, JSON des puces et du graphique, Markdown pour Claude (**parent** de `data/processed`) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
 | `affichage-web` | Site GitHub Pages (copies publiées + front) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md) |
 | `archive-previsions` | Prévision AROME HD / ICON-CH1 du lendemain figée chaque soir à 23 h | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md) |
 
-Les PR d’interface ciblent `affichage-web`. Collecte et traitement ciblent leur branche. `main` ne reçoit que les workflows et la doc d’ensemble.
+Les changements d’interface vont sur `affichage-web`, ceux de collecte, de traitement et d’archive sur leur branche. `main` ne reçoit que les workflows et la doc d’ensemble.
+
+Ne jamais réécrire l’historique de `collecte-api-meteo` (force push, squash) : l’archive de 23 h relit les collectes passées dans cet historique.
 
 ## Source unique des données
 
@@ -33,7 +35,7 @@ Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copie
 
 ## Pipeline (3 fois par jour)
 
-Heures **Europe/Paris** : **7h15 / 13h15 / 19h15** en été (cron UTC `28 5,11,17`, à `:28` pour éviter le pic de charge). En hiver le même cron tombe à **6h15 / 12h15 / 18h15** : un décalage d’une heure est accepté. Un cron en retard collecte encore le créneau ouvert ; un doublon est ignoré si la collecte a déjà réussi.
+Créneaux **Europe/Paris** : **7h15 / 13h15 / 19h15** en été, **6h15 / 12h15 / 18h15** en hiver (même cron UTC, un décalage d’une heure est accepté). Le cron `28 5,11,17 * * *` UTC part au plus tôt à :28 (7h28 / 13h28 / 19h28 en été), et GitHub le retarde souvent, parfois de plusieurs heures. Un cron en retard collecte encore le créneau ouvert ; un doublon est ignoré si la collecte a déjà réussi. L’heure réelle de collecte est affichée sur la carte (« MAJ ») et dans les fichiers pour Claude.
 
 ```
 main : Collecte Open-Meteo
@@ -45,13 +47,12 @@ main : Traitement et affichage  (après un run de collecte réussi)
         → copie specs, JSON, courbes AROMEIFS/ICONGFS et llm/ sur affichage-web
 GitHub Pages  (source : racine de affichage-web)
 main : Archive des prévisions de 23 h  (cron 23h05 Paris)
-        → lit l'historique de collecte-api-meteo (sans appel API)
-        → push data/archive sur archive-previsions
+        → checkout archive-previsions + historique de collecte-api-meteo
+        → python src/archive/run.py (sans appel API)
+        → push data/archive et index.md sur archive-previsions
 ```
 
 Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau), *Traitement et affichage*, ou *Archive des prévisions de 23 h* (`day`, `force`).
-
-Liste des changements workflows / collecte pour un autre dépôt : [HANDOFF-COLLECTE.md](HANDOFF-COLLECTE.md).
 
 ## Données
 
@@ -63,15 +64,17 @@ Liste des changements workflows / collecte pour un autre dépôt : [HANDOFF-COLL
 
 | Jeu | Enchaînement court → long terme | Usage |
 | --- | --- | --- |
-| `AROMEIFS` | AROMEHD → ARPEGE → IFS | puces (spots AROME) + graphique |
+| `AROMEIFS` | AROMEHD → ARPEGE → IFS | puces (spots AROME) + graphique (courbe par défaut des spots AROME) |
 | `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS | puces (spots ICON) |
-| `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | seconde courbe du graphique |
+| `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | graphique (courbe par défaut des spots ICON) |
+
+Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéance, puis le modèle suivant prend le relais.
 
 ## Site
 
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
-- Vue *Tendances journalières* : icône, vent max, créneau, température 15 h.
-- Panneau détail : specs, liens, graphiques (1 / 3 / 5 jours, tooltip, plein écran).
+- Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 7 h–22 h, créneau, température à 15 h.
+- Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics `moy` / `raf`, et bornes du créneau de chaque courbe sous l’axe des heures.
 - Onglet *Balises temps réel* : pas encore branché.
 
 ## Lecture par Claude (appli téléphone ou PC)
@@ -97,3 +100,5 @@ python src/traitement/run.py
 ```
 
 Pour la carte : checkout `affichage-web` et servir la racine (`python -m http.server 8080`).
+
+Pour l’archive : voir le [README de `archive-previsions`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md#lancer-en-local) (il faut un checkout de `collecte-api-meteo` avec son historique).

@@ -1,7 +1,8 @@
 # Archive à 23 h (Europe/Paris) la prévision AROME HD / ICON-CH1 du lendemain.
-# 21:05 UTC = 23h05 en été, 22:05 UTC = 23h05 en hiver ; l'autre créneau
-# ne fait rien (trop tôt ou jour déjà archivé). Aucun appel API : le script
-# lit la dernière collecte présente à 23 h dans l'historique de collecte-api-meteo.
+# 21:05 UTC = 23h05 en été, 22:05 UTC = 23h05 en hiver. L'autre déclenchement
+# retombe sur un jour déjà archivé et ne fait rien, sauf rattraper un passage
+# échoué. Aucun appel API : le script lit la dernière collecte lancée avant 23 h
+# dans l'historique de collecte-api-meteo (fetch-depth = HISTORY_DEPTH du script).
 name: Archive des prévisions de 23 h
 
 "on":
