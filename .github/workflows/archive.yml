@@ -1,0 +1,70 @@
+# Archive à 23 h (Europe/Paris) la prévision AROME HD / ICON-CH1 du lendemain.
+# 21:05 UTC = 23h05 en été, 22:05 UTC = 23h05 en hiver ; l'autre créneau
+# ne fait rien (trop tôt ou jour déjà archivé). Aucun appel API : le script
+# lit la dernière collecte présente à 23 h dans l'historique de collecte-api-meteo.
+name: Archive des prévisions de 23 h
+
+"on":
+  schedule:
+    - cron: "5 21,22 * * *"
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Jour prévu à archiver (AAAA-MM-JJ). Vide : lendemain du dernier 23 h passé"
+        type: string
+        default: ""
+      force:
+        description: "Réécrire le jour s'il est déjà archivé"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-previsions
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout archive-previsions
+        uses: actions/checkout@v7
+        with:
+          ref: archive-previsions
+
+      - name: Checkout de l'historique de collecte
+        uses: actions/checkout@v7
+        with:
+          ref: collecte-api-meteo
+          path: _collecte
+          fetch-depth: 120
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Archiver
+        env:
+          DAY: ${{ inputs.day }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          args=(--collecte _collecte)
+          if [ -n "$DAY" ]; then args+=(--day "$DAY"); fi
+          if [ "$FORCE" = "true" ]; then args+=(--force); fi
+          python -u src/archive/run.py "${args[@]}"
+
+      - name: Committer l'archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/archive index.md
+          if git diff --cached --quiet; then
+            echo "Archive déjà à jour."
+            exit 0
+          fi
+          git commit -m "Archive prévisions $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin HEAD:archive-previsions
