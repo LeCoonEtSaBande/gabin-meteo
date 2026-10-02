@@ -1,8 +1,8 @@
 """Archive la prévision AROME HD et ICON-CH1 du lendemain telle qu'elle était à 23 h.
 
 À 23 h le jour J, on fige pour chaque spot les échéances de J+1 01 h à J+2 00 h
-(« 01 h à 24 h » de J+1) de la dernière collecte réussie présente dans le dépôt
-à 23 h. Aucun appel API : lecture de l'historique git de `collecte-api-meteo`.
+(« 01 h à 24 h » de J+1) de la dernière collecte réussie lancée avant 23 h
+(`fetched_at`). Aucun appel API : lecture de l'historique git de `collecte-api-meteo`.
 
 Usage :
     python src/archive/run.py --collecte _collecte            # lendemain du dernier 23 h passé
@@ -116,7 +116,7 @@ def snapshot_at(repo: Path, commit: str, folder: str) -> Snapshot | None:
 
 
 def snapshots_before(repo: Path, cutoff: datetime) -> list[Snapshot]:
-    """Collectes terminées avant `cutoff`, la plus récente d'abord (current puis previous)."""
+    """Collectes lancées avant `cutoff` (`fetched_at`), la plus récente d'abord, dossiers current et previous."""
     commits = git(
         repo, "log", f"-n{HISTORY_DEPTH}", "--format=%H", "HEAD", "--", "data/raw/current/run_meta.json"
     ).split()
@@ -168,7 +168,7 @@ def snapshot_cutoff(target: date) -> datetime:
 
 
 def collect_rows(repo: Path, target: date, spot_keys: list[str]) -> tuple[list[dict[str, str]], dict]:
-    """Pour chaque (spot, modèle), la dernière collecte réussie avant 23 h la veille."""
+    """Pour chaque (spot, modèle), la dernière collecte réussie lancée avant 23 h la veille."""
     cutoff = snapshot_cutoff(target)
     snapshots = snapshots_before(repo, cutoff)
     if not snapshots:
@@ -312,7 +312,7 @@ def build_day_markdown(target: date, rows: list[dict[str, str]], meta: dict, spo
         "",
         f"- Jour prévu : {day_label(target)}, échéances de 01h à 24h (24h = {hours[-1].replace('T', ' ')})",
         f"- Prévision figée le : {day_label(target - timedelta(days=1))} à {SNAPSHOT_HOUR} h (Europe/Paris)",
-        f"- Collecte utilisée : créneau {meta['collecte_run_id'] or '?'}, terminée le "
+        f"- Collecte utilisée : créneau {meta['collecte_run_id'] or '?'}, lancée le "
         f"{fetched.strftime('%d/%m/%Y %H:%M')} (commit `{meta['collecte_commit']}` de `collecte-api-meteo`)",
         "- Modèles bruts : AROME HD (Météo-France, ~1,3 km) et ICON-CH1 (MétéoSuisse, ~1 km), sans assemblage.",
     ]
@@ -323,7 +323,7 @@ def build_day_markdown(target: date, rows: list[dict[str, str]], meta: dict, spo
         lines.append(f"- Certains spots/modèles en échec sur cette collecte viennent d'une collecte antérieure : {others}")
     if meta["incomplete"]:
         lines.append(
-            "- Heures absentes (hors horizon du modèle au moment de la collecte) : "
+            "- Heures absentes de la collecte utilisée : "
             + incomplete_summary(meta["incomplete"], len(spots))
         )
     if meta["missing"]:
@@ -388,13 +388,13 @@ def write_index() -> None:
         "# Gabin-meteo — archive des prévisions de la veille à 23 h",
         "",
         "Chaque jour J+1 est archivé à 23 h le jour J : prévisions **brutes AROME HD et ICON-CH1** pour les "
-        "17 spots, échéances de 01h à 24h de J+1, tirées de la dernière collecte présente dans le dépôt à 23 h.",
+        "17 spots, échéances de 01h à 24h de J+1, tirées de la dernière collecte lancée avant 23 h.",
         "",
         "- Fichier `.md` : tableau heure par heure par spot (lisible par Claude).",
         "- Fichier `.csv` : valeurs brutes Open-Meteo, séparateur `;`, une ligne par (spot, modèle, heure).",
         "- Prévisions actuelles : https://lecoonetsabande.github.io/gabin-meteo/llm/index.md",
         "",
-        "| Jour prévu | Collecte utilisée (terminée le) | Tableau | CSV |",
+        "| Jour prévu | Collecte utilisée (lancée le) | Tableau | CSV |",
         "|---|---|---|---|",
     ]
     for meta, md_path, csv_path in days:
@@ -430,7 +430,7 @@ def main(argv: list[str] | None = None) -> int:
     write_day(target, rows, meta, spots)
     write_index()
     print(f"Archivé : {target} ({len(rows)} lignes) → {csv_path.relative_to(ROOT)}")
-    print(f"Collecte : {meta['collecte_run_id']} terminée {meta['collecte_fetched_at']} ({meta['collecte_commit']})")
+    print(f"Collecte : {meta['collecte_run_id']} lancée {meta['collecte_fetched_at']} ({meta['collecte_commit']})")
     if meta["incomplete"]:
         print(f"Heures manquantes : {incomplete_summary(meta['incomplete'], len(spots))}")
     if meta["missing"]:

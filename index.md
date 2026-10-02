@@ -1,12 +1,12 @@
 # Gabin-meteo — archive des prévisions de la veille à 23 h
 
-Chaque jour J+1 est archivé à 23 h le jour J : prévisions **brutes AROME HD et ICON-CH1** pour les 17 spots, échéances de 01h à 24h de J+1, tirées de la dernière collecte présente dans le dépôt à 23 h.
+Chaque jour J+1 est archivé à 23 h le jour J : prévisions **brutes AROME HD et ICON-CH1** pour les 17 spots, échéances de 01h à 24h de J+1, tirées de la dernière collecte lancée avant 23 h.
 
 - Fichier `.md` : tableau heure par heure par spot (lisible par Claude).
 - Fichier `.csv` : valeurs brutes Open-Meteo, séparateur `;`, une ligne par (spot, modèle, heure).
 - Prévisions actuelles : https://lecoonetsabande.github.io/gabin-meteo/llm/index.md
 
-| Jour prévu | Collecte utilisée (terminée le) | Tableau | CSV |
+| Jour prévu | Collecte utilisée (lancée le) | Tableau | CSV |
 |---|---|---|---|
 | vendredi 02/10/2026 | 01/10/2026 21:39 | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/10/2026-10-02.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/10/2026-10-02.csv |
 | jeudi 01/10/2026 | 30/09/2026 18:55 | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/10/2026-10-01.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/10/2026-10-01.csv |
