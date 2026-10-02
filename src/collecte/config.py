@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -19,6 +20,7 @@ except ZoneInfoNotFoundError:
     PARIS = ZoneInfo("Europe/Paris")
 
 API_TIMEOUT_S = 30
+OPENMETEO_MAX_FORECAST_DAYS = 16
 PAUSE_BETWEEN_CALLS_S = 1.0
 USER_AGENT = "gabin-meteo-collecte/1.0"
 
@@ -91,9 +93,15 @@ class ModelSpec:
     label: str
     endpoint: str
     openmeteo_name: str
-    forecast_days: int
+    horizon_h: int
     resolution: str
     notes: str = ""
+
+    @property
+    def forecast_days(self) -> int:
+        # Open-Meteo compte les jours depuis aujourd'hui 0 h (Europe/Paris), pas
+        # depuis le run : sans le jour de marge, la fin de l'horizon est coupée.
+        return min(OPENMETEO_MAX_FORECAST_DAYS, math.ceil(self.horizon_h / 24) + 1)
 
 
 MODELS: dict[str, ModelSpec] = {
@@ -102,7 +110,7 @@ MODELS: dict[str, ModelSpec] = {
         label="AROME HD",
         endpoint="https://api.open-meteo.com/v1/meteofrance",
         openmeteo_name="arome_france_hd",
-        forecast_days=3,
+        horizon_h=51,
         resolution="0.01° (~1,3 km)",
         notes="Nébulosité totale souvent absente : max des couches.",
     ),
@@ -111,7 +119,7 @@ MODELS: dict[str, ModelSpec] = {
         label="ARPEGE Europe",
         endpoint="https://api.open-meteo.com/v1/meteofrance",
         openmeteo_name="arpege_europe",
-        forecast_days=4,
+        horizon_h=102,
         resolution="0.1° (~11 km)",
     ),
     "ICONCH1": ModelSpec(
@@ -119,7 +127,7 @@ MODELS: dict[str, ModelSpec] = {
         label="ICON-CH1",
         endpoint="https://api.open-meteo.com/v1/forecast",
         openmeteo_name="meteoswiss_icon_ch1",
-        forecast_days=2,
+        horizon_h=33,
         resolution="0.01° (~1 km)",
         notes="Domaine MétéoSuisse (Europe centrale).",
     ),
@@ -128,7 +136,7 @@ MODELS: dict[str, ModelSpec] = {
         label="ICON-CH2",
         endpoint="https://api.open-meteo.com/v1/forecast",
         openmeteo_name="meteoswiss_icon_ch2",
-        forecast_days=5,
+        horizon_h=120,
         resolution="0.02° (~2 km)",
         notes="Domaine MétéoSuisse (Europe centrale).",
     ),
@@ -137,7 +145,7 @@ MODELS: dict[str, ModelSpec] = {
         label="ICON Global",
         endpoint="https://api.open-meteo.com/v1/dwd-icon",
         openmeteo_name="icon_global",
-        forecast_days=8,
+        horizon_h=180,
         resolution="0.1° (~11-13 km)",
     ),
     "IFS": ModelSpec(
@@ -145,7 +153,7 @@ MODELS: dict[str, ModelSpec] = {
         label="IFS HRES",
         endpoint="https://api.open-meteo.com/v1/ecmwf",
         openmeteo_name="ecmwf_ifs",
-        forecast_days=10,
+        horizon_h=360,
         resolution="~9 km",
     ),
     "GFS": ModelSpec(
@@ -153,7 +161,7 @@ MODELS: dict[str, ModelSpec] = {
         label="GFS",
         endpoint="https://api.open-meteo.com/v1/gfs",
         openmeteo_name="gfs_global",
-        forecast_days=16,
+        horizon_h=384,
         resolution="0.11° (~13 km)",
     ),
 }

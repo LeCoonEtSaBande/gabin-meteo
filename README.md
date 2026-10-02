@@ -22,6 +22,20 @@ Le cron GitHub ne s’exécute que depuis la branche par défaut (`main`) : le w
 
 Une requête HTTP par modèle, pour toutes les cellules distinctes de ce modèle (17 spots, cellules partagées dédupliquées). Sept requêtes par run, pause d’une seconde entre modèles. Si un lot échoue, repli cellule par cellule **pour ce modèle seulement**.
 
+## Horizons des modèles
+
+`forecast_days` est calculé depuis l’horizon réel de chaque modèle (`horizon_h` dans `src/collecte/config.py`) : Open-Meteo compte les jours depuis aujourd’hui 0 h, pas depuis le run, d’où un jour de marge (plafond API : 16 jours).
+
+| Modèle | Horizon | `forecast_days` |
+| --- | --- | --- |
+| AROME HD | 51 h | 4 |
+| ARPEGE | 102 h | 6 |
+| ICON-CH1 | 33 h | 3 |
+| ICON-CH2 | 120 h | 6 |
+| ICON Global | 180 h | 9 |
+| IFS | 360 h | 16 |
+| GFS | 384 h | 16 |
+
 ## Lancer en local
 
 ```bash
