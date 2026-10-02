@@ -20,6 +20,7 @@ const {
   arrowRotation,
   WX_CLOUD,
   WX_CLOUD_OPACITY,
+  aboveThresholdRuns,
 } = require("./courbes.js");
 
 test("CSV conserve un point-virgule dans un champ quoté", () => {
@@ -222,7 +223,8 @@ test("journée : heures entre vent et nuages, un point par heure, échelles 0-10
   assert.ok(plotLeft > 70);
   assert.ok(cloudTick && Number(cloudTick[1]) < plotLeft);
   assert.ok(precipTick && Number(precipTick[1]) > plotLeft);
-  assert.match(svg, /class="kt-8"/);
+  assert.match(svg, /class="kt-10"/);
+  assert.doesNotMatch(svg, /class="kt-8"/);
   assert.match(svg, /class="kt-grid"/);
   assert.match(svg, />5</);
   assert.match(svg, />10</);
@@ -413,4 +415,110 @@ test("créneaux nuages : même largeur horaire, gris quel que soit le modèle", 
   const iconFills = [...icon.matchAll(/class="wx-cloud"[^>]*fill="([^"]+)"/g)];
   assert.ok(iconFills.length > 0);
   assert.ok(iconFills.every((m) => m[1] === WX_CLOUD));
+});
+
+function windDay(day, means, model = "AROMEHD") {
+  return means.map((mean, h) => ({
+    valid_at: `${day}T${String(h).padStart(2, "0")}:00`,
+    source_model: model,
+    mean,
+    gust: mean + 8,
+    dir: 0,
+    precip: 0,
+    cloud: 10,
+  }));
+}
+
+test("zone colorée seulement quand le vent moyen dépasse 10 nds", () => {
+  const means = Array.from({ length: 24 }, (_, h) => (h >= 12 && h <= 15 ? 14 : 6));
+  const points = windDay("2026-10-08", means);
+  const runs = aboveThresholdRuns(points, 10);
+  assert.equal(runs.length, 1);
+  assert.equal(runs[0][0].mean, 10);
+  assert.equal(runs[0][runs[0].length - 1].mean, 10);
+  const svg = buildChartSvg({ AROMEIFS: points, ICONGFS: [] }, "2026-10-08", 1, 400, { primarySet: "AROMEIFS" });
+  assert.equal((svg.match(/class="wind-fill"/g) || []).length, 1);
+  const calm = buildChartSvg(
+    { AROMEIFS: windDay("2026-10-08", Array(24).fill(9)), ICONGFS: [] },
+    "2026-10-08",
+    1,
+    400,
+    { primarySet: "AROMEIFS" }
+  );
+  assert.doesNotMatch(calm, /class="wind-fill"/);
+});
+
+test("bornes du créneau et pics affichés pour chaque courbe visible", () => {
+  const series = {
+    AROMEIFS: windDay("2026-10-08", Array.from({ length: 24 }, (_, h) => (h >= 10 && h <= 17 ? 12 + (h === 14) : 4))),
+    ICONGFS: windDay("2026-10-08", Array.from({ length: 24 }, (_, h) => (h >= 12 && h <= 20 ? 16 : 5)), "ICONCH1"),
+  };
+  const chartDays = {
+    AROMEIFS: {
+      "2026-10-08": {
+        slot_start_h: 10, slot_end_h: 17,
+        mean_max_kt: 13, mean_max_at: "2026-10-08T14:00",
+        gust_max_kt: 21, gust_max_at: "2026-10-08T14:00",
+      },
+    },
+    ICONGFS: {
+      "2026-10-08": {
+        slot_start_h: 12, slot_end_h: 20,
+        mean_max_kt: 16, mean_max_at: "2026-10-08T12:00",
+        gust_max_kt: 24, gust_max_at: "2026-10-08T12:00",
+      },
+    },
+  };
+  const one = buildChartSvg(series, "2026-10-08", 1, 400, { primarySet: "AROMEIFS", chartDays });
+  assert.equal((one.match(/class="slot-bracket"/g) || []).length, 1);
+  assert.match(one, /class="slot-start"[^>]*>10h</);
+  assert.match(one, /class="slot-end"[^>]*>17h</);
+  assert.match(one, />moy 13</);
+  assert.match(one, />raf 21</);
+  assert.doesNotMatch(one, />moy 16</);
+
+  const both = buildChartSvg(series, "2026-10-08", 1, 400, {
+    primarySet: "AROMEIFS",
+    showSecondary: true,
+    chartDays,
+  });
+  assert.equal((both.match(/class="slot-bracket"/g) || []).length, 2);
+  assert.match(both, /data-set="ICONGFS"[\s\S]*>12h<[\s\S]*>20h</);
+  assert.match(both, />moy 16</);
+  assert.match(both, />raf 24</);
+
+  const onlySecondary = buildChartSvg(series, "2026-10-08", 1, 400, {
+    primarySet: "AROMEIFS",
+    showPrimary: false,
+    showSecondary: true,
+    chartDays,
+  });
+  assert.equal((onlySecondary.match(/class="slot-bracket"/g) || []).length, 1);
+  assert.doesNotMatch(onlySecondary, />moy 13</);
+
+  const none = buildChartSvg(series, "2026-10-08", 1, 400, { primarySet: "AROMEIFS" });
+  assert.doesNotMatch(none, /class="slot-bracket"/);
+});
+
+test("3 et 5 jours : bornes compactes et pics seulement les jours avec créneau", () => {
+  const points = [
+    ...windDay("2026-10-08", Array.from({ length: 24 }, (_, h) => (h >= 10 && h <= 22 ? 14 : 4))),
+    ...windDay("2026-10-09", Array.from({ length: 24 }, (_, h) => (h >= 7 && h <= 18 ? 14 : 4))),
+    ...windDay("2026-10-10", Array(24).fill(5)),
+  ];
+  const chartDays = {
+    AROMEIFS: {
+      "2026-10-08": { slot_start_h: 10, slot_end_h: 22, mean_max_kt: 14, mean_max_at: "2026-10-08T12:00", gust_max_kt: 22, gust_max_at: "2026-10-08T12:00" },
+      "2026-10-09": { slot_start_h: 7, slot_end_h: 18, mean_max_kt: 14, mean_max_at: "2026-10-09T12:00", gust_max_kt: 22, gust_max_at: "2026-10-09T12:00" },
+      "2026-10-10": { slot_start_h: null, slot_end_h: null, mean_max_kt: 5, mean_max_at: "2026-10-10T12:00", gust_max_kt: 13, gust_max_at: "2026-10-10T12:00" },
+    },
+  };
+  const svg = buildChartSvg({ AROMEIFS: points, ICONGFS: [] }, "2026-10-08", 3, 400, { primarySet: "AROMEIFS", chartDays });
+  assert.match(svg, /class="slot-range"[^>]*>10-22h</);
+  assert.match(svg, /class="slot-range"[^>]*>07-18h</);
+  assert.doesNotMatch(svg, /class="slot-start"/);
+  assert.equal((svg.match(/>moy 14</g) || []).length, 2);
+  assert.doesNotMatch(svg, />moy 5</);
+  const day = buildChartSvg({ AROMEIFS: points, ICONGFS: [] }, "2026-10-10", 1, 400, { primarySet: "AROMEIFS", chartDays });
+  assert.match(day, />moy 5</);
 });

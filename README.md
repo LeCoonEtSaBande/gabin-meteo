@@ -15,8 +15,9 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 ## Interface
 
 - Coque HTML (onglets, puces, barre de jour, panneau détail). Le SVG `assets/svg_map/Carte RA 804x1200.svg` est **uniquement la carte**.
-- *Tendances journalières* : pour chaque zone, icône météo, vent max (nœuds), créneau exploitable (≥ 3 h, 7 h–22 h), température 15 h, modèle court terme.
+- *Tendances journalières* : pour chaque zone, icône météo, vent max 7 h–22 h (nœuds, gris jusqu’à 10 nds), créneau exploitable (≥ 3 h de vent moyen > 10 nds, 7 h–22 h), température 15 h, modèle court terme.
 - Clic zone → panneau détail : textes / liens des specs, graphiques `AROMEIFS` et `ICONGFS`.
+- Graphique : trait pointillé à **10 nds**, zone colorée entre moyen et rafales **seulement quand le vent moyen dépasse 10 nds**, étiquettes `moy` / `raf` sur les pics de chaque jour, et sous l’axe des heures une ligne *créneau* par courbe affichée (bornes début / fin), lues dans `creneaux.json`.
 - Horizons **1 / 3 / 5 jours** sur un bandeau fixe sous le titre (comme le jour en bas), une courbe affichée par défaut (l’autre au bouton), masquage du modèle principal, tooltip au survol, plein écran.
 - Flèches de vent : direction **vers où ça souffle**.
 - *Balises temps réel* : placeholder, pas encore branché.
@@ -32,6 +33,8 @@ GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Trai
 | `assets/spots_specs/*.csv` | `collecte-api-meteo` | Infos spots, liens, noms de zone |
 | `data/processed/quotidien.json` | `traitement-donnees` | Puces / tendances |
 | `data/processed/last_update.json` | `traitement-donnees` | Horodatage « MAJ » |
+| `data/processed/creneaux.json` | `traitement-donnees` | Créneau et pics AROMEIFS / ICONGFS du graphique |
+| `llm/index.md`, `llm/spots/*.md` | `traitement-donnees` | Prévisions en Markdown pour Claude (`https://lecoonetsabande.github.io/gabin-meteo/llm/index.md`) |
 | `data/processed/curves/AROMEIFS.csv` | `traitement-donnees` | Graphiques (nébulosité = `cloud_cover_display_pct`) |
 | `data/processed/curves/ICONGFS.csv` | `traitement-donnees` | Graphiques (nébulosité = `cloud_cover_display_pct`) |
 

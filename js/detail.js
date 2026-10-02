@@ -4,6 +4,7 @@ const ZONE_SPECS_URL = "assets/spots_specs/zones_specifications.csv";
 const SPOT_SPECS_URL = "assets/spots_specs/spots_specifications.csv";
 const AROME_URL = "data/processed/curves/AROMEIFS.csv";
 const ICON_URL = "data/processed/curves/ICONGFS.csv";
+const CRENEAUX_URL = "data/processed/creneaux.json";
 
 const HORIZONS = [
   { days: 1, label: "Journée" },
@@ -21,6 +22,7 @@ let horizonDays = 1;
 let zoneSpecs = [];
 let spotSpecs = [];
 let curveIndex = { AROMEIFS: {}, ICONGFS: {} };
+let chartDaysBySet = { AROMEIFS: {}, ICONGFS: {} };
 let detailReady = false;
 let detailError = "";
 const showPrimaryBySpot = new Map();
@@ -66,6 +68,10 @@ function chartOptions(spot) {
     showPrimary: showPrimaryBySpot.get(key) !== false,
     showSecondary: Boolean(showSecondaryBySpot.get(key)),
     secondarySet: secondaryCurveSet(primarySet),
+    chartDays: {
+      AROMEIFS: chartDaysBySet.AROMEIFS?.[key] || {},
+      ICONGFS: chartDaysBySet.ICONGFS?.[key] || {},
+    },
     compactSetLabels: window.matchMedia("(min-width: 960px)").matches,
   };
 }
@@ -110,11 +116,12 @@ function spotInfoHtml(spot) {
 
 async function loadDetailAssets() {
   try {
-    const [zonesRes, spotsRes, aromeRes, iconRes] = await Promise.all([
+    const [zonesRes, spotsRes, aromeRes, iconRes, creneauxRes] = await Promise.all([
       fetch(ZONE_SPECS_URL, { cache: "no-store" }),
       fetch(SPOT_SPECS_URL, { cache: "no-store" }),
       fetch(AROME_URL, { cache: "no-store" }),
       fetch(ICON_URL, { cache: "no-store" }),
+      fetch(CRENEAUX_URL, { cache: "no-store" }).catch(() => null),
     ]);
     if (!zonesRes.ok || !spotsRes.ok) throw new Error("Spécifications de spots introuvables");
     if (!aromeRes.ok || !iconRes.ok) throw new Error("Courbes AROMEIFS / ICONGFS introuvables");
@@ -125,6 +132,12 @@ async function loadDetailAssets() {
     curveIndex = {
       AROMEIFS: arome.AROMEIFS || {},
       ICONGFS: icon.ICONGFS || {},
+    };
+    // Sans creneaux.json le graphique reste lisible, sans bornes de créneau ni pics.
+    const creneaux = creneauxRes && creneauxRes.ok ? await creneauxRes.json() : {};
+    chartDaysBySet = {
+      AROMEIFS: creneaux.curve_sets?.AROMEIFS || {},
+      ICONGFS: creneaux.curve_sets?.ICONGFS || {},
     };
     detailReady = true;
     detailError = "";

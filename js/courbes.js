@@ -22,7 +22,7 @@ const SET_LABELS = {
   ICONGFS: "ICONGFS",
 };
 
-const KT8 = 8;
+const KT_SLOT = 10;
 const KT15 = 15;
 const KT25 = 25;
 const MEAN_STROKE = 1.94;
@@ -220,17 +220,72 @@ function lineSegments(points, startDay, nDays, x0, innerW, yOf) {
   return segs;
 }
 
+function aboveThresholdRuns(points, threshold) {
+  const runs = [];
+  let run = null;
+  const ms = (point) => parseValidAt(point.valid_at).ms;
+  for (let i = 0; i < points.length; i += 1) {
+    const point = points[i];
+    const above = point.mean > threshold;
+    if (above && !run) {
+      run = [];
+      const prev = points[i - 1];
+      if (prev && prev.mean <= threshold && point.mean !== prev.mean) {
+        const w = (threshold - prev.mean) / (point.mean - prev.mean);
+        run.push({
+          ms: ms(prev) + w * (ms(point) - ms(prev)),
+          mean: threshold,
+          gust: prev.gust + w * (point.gust - prev.gust),
+        });
+      }
+    }
+    if (above) run.push({ ms: ms(point), mean: point.mean, gust: point.gust });
+    const next = points[i + 1];
+    if (run && (!next || next.mean <= threshold)) {
+      if (next && point.mean !== next.mean) {
+        const w = (point.mean - threshold) / (point.mean - next.mean);
+        run.push({
+          ms: ms(point) + w * (ms(next) - ms(point)),
+          mean: threshold,
+          gust: point.gust + w * (next.gust - point.gust),
+        });
+      }
+      runs.push(run);
+      run = null;
+    }
+  }
+  return runs;
+}
+
 function rangeFill(points, startDay, nDays, x0, innerW, yKt, color) {
   if (!points || points.length < 2) return "";
-  const top = [];
-  const bottom = [];
-  for (const point of points) {
-    const x = xOf(point, startDay, nDays, x0, innerW).toFixed(1);
-    top.push(`${x},${yKt(point.gust).toFixed(1)}`);
-    bottom.push(`${x},${yKt(point.mean).toFixed(1)}`);
-  }
-  bottom.reverse();
-  return `<polygon points="${top.concat(bottom).join(" ")}" fill="${color}" fill-opacity="0.18"></polygon>`;
+  const start = parseValidAt(`${startDay}T00:00`).ms;
+  const span = nDays * 24 * 3600 * 1000;
+  const xMs = (ms) => (x0 + ((ms - start) / span) * innerW).toFixed(1);
+  return aboveThresholdRuns(points, KT_SLOT)
+    .filter((run) => run.length >= 2)
+    .map((run) => {
+      const top = run.map((p) => `${xMs(p.ms)},${yKt(p.gust).toFixed(1)}`);
+      const bottom = run.map((p) => `${xMs(p.ms)},${yKt(p.mean).toFixed(1)}`).reverse();
+      return `<polygon class="wind-fill" points="${top.concat(bottom).join(" ")}" fill="${color}" fill-opacity="0.18"></polygon>`;
+    })
+    .join("");
+}
+
+function horizonDays(startDay, nDays) {
+  return Array.from({ length: nDays }, (_, d) => addDays(startDay, d));
+}
+
+function slotsInHorizon(chartDays, startDay, nDays) {
+  return horizonDays(startDay, nDays)
+    .map((day) => ({ day, info: chartDays?.[day] }))
+    .filter(({ info }) => info && info.slot_start_h != null && info.slot_end_h != null);
+}
+
+function peaksInHorizon(chartDays, startDay, nDays) {
+  return horizonDays(startDay, nDays)
+    .map((day) => ({ day, info: chartDays?.[day] }))
+    .filter(({ info }) => info && info.mean_max_at && info.gust_max_at);
 }
 
 function niceMaxKt(values) {
@@ -370,6 +425,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     </svg>`;
   }
 
+  const chartDays = options.chartDays || {};
+  const slotRows = series.filter((item) => slotsInHorizon(chartDays[item.name], startDay, nDays).length);
   const compactSetLabels = Boolean(options.compactSetLabels);
   const setLabelSize = compactSetLabels ? 7 : 8;
   const padL = compactSetLabels ? 108 : 88;
@@ -377,13 +434,15 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
   const axisH = 18;
+  const slotRowH = nDays <= 1 ? 14 : 20;
   const wxH = 58;
   const padB = 16;
   const dirY0 = 4;
   const windTop = dirY0 + dirRowH * series.length + 6;
   const yWind0 = windTop + windH;
   const axisY = yWind0 + 3;
-  const wxY0 = axisY + axisH;
+  const slotY0 = axisY + axisH;
+  const wxY0 = slotY0 + slotRows.length * slotRowH;
   const height = wxY0 + wxH + padB;
   const innerW = Math.max(40, width - padL - padR);
   const x0 = padL;
@@ -405,9 +464,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
         <text x="${x0 - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="#7a7a7a" font-size="8px">${kt}</text>`;
     })
     .join("");
-  const y8 = yKt(KT8);
-  const kt8Line = `<line class="kt-8" x1="${x0}" y1="${y8.toFixed(1)}" x2="${x1}" y2="${y8.toFixed(1)}" stroke="#6a6a6a" stroke-dasharray="2 3" stroke-width="0.7"></line>
-    <text x="${x0 - 6}" y="${(y8 + 3).toFixed(1)}" text-anchor="end" fill="#8a8a8a" font-size="8px">8</text>`;
+  const ySlot = yKt(KT_SLOT);
+  const ktSlotLine = `<line class="kt-10" x1="${x0}" y1="${ySlot.toFixed(1)}" x2="${x1}" y2="${ySlot.toFixed(1)}" stroke="#8a8a8a" stroke-dasharray="3 3" stroke-width="0.8"></line>`;
 
   function paintWind(points, dashed) {
     const segs = lineSegments(points, startDay, nDays, x0, innerW, (p) => yKt(dashed ? p.gust : p.mean));
@@ -449,6 +507,64 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     .join("");
 
   const winds = series.map((item) => paintWind(item.points, true) + paintWind(item.points, false)).join("");
+
+  const xAt = (validAt) => xOf({ valid_at: validAt }, startDay, nDays, x0, innerW);
+  const nearestPoint = (points, validAt) => points.find((point) => point.valid_at === validAt);
+  function peakLabel(x, y, text, color, below) {
+    const ty = below ? y + 11 : y - 5;
+    return `<circle class="peak-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2" fill="${color}"></circle>
+      <text class="peak-label" x="${x.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="${color}" stroke="#141414" stroke-width="2.4" paint-order="stroke" font-size="8.5px" font-weight="700">${escapeHtml(text)}</text>`;
+  }
+  const peaks = series
+    .map((item, idx) => {
+      const color = SET_COLORS[item.name];
+      return peaksInHorizon(chartDays[item.name], startDay, nDays)
+        .filter(({ info }) => nDays <= 1 || info.slot_start_h != null)
+        .map(({ info }) => {
+          const meanPoint = nearestPoint(item.points, info.mean_max_at);
+          const gustPoint = nearestPoint(item.points, info.gust_max_at);
+          let out = "";
+          if (gustPoint) {
+            out += peakLabel(xAt(info.gust_max_at), yKt(gustPoint.gust), `raf ${info.gust_max_kt}`, color, idx === 1);
+          }
+          if (meanPoint) {
+            out += peakLabel(xAt(info.mean_max_at), yKt(meanPoint.mean), `moy ${info.mean_max_kt}`, color, idx === 1);
+          }
+          return out;
+        })
+        .join("");
+    })
+    .join("");
+
+  const slotBrackets = slotRows
+    .map((item, row) => {
+      const color = SET_COLORS[item.name];
+      const y = slotY0 + row * slotRowH + 4;
+      const label = `<text class="slot-row-label" x="${x0 - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" fill="${color}" font-size="7px">créneau</text>`;
+      const marks = slotsInHorizon(chartDays[item.name], startDay, nDays)
+        .map(({ day, info }) => {
+          const hour = (h) => `${day}T${String(h).padStart(2, "0")}:00`;
+          const xa = xAt(hour(info.slot_start_h));
+          const xb = xAt(hour(info.slot_end_h));
+          const startText = `${String(info.slot_start_h).padStart(2, "0")}h`;
+          const endText = `${String(info.slot_end_h).padStart(2, "0")}h`;
+          // Sur 3 et 5 jours, des bornes aux extrémités se colleraient d'un jour à l'autre.
+          const labels =
+            nDays <= 1
+              ? `<text class="slot-start" x="${(xa - 2).toFixed(1)}" y="${y + 3}" text-anchor="end" fill="${color}" font-size="8px" font-weight="700">${startText}</text>
+            <text class="slot-end" x="${(xb + 2).toFixed(1)}" y="${y + 3}" text-anchor="start" fill="${color}" font-size="8px" font-weight="700">${endText}</text>`
+              : `<text class="slot-range" x="${((xa + xb) / 2).toFixed(1)}" y="${y + 10}" text-anchor="middle" fill="${color}" font-size="7.5px" font-weight="700">${String(info.slot_start_h).padStart(2, "0")}-${endText}</text>`;
+          return `<g class="slot-bracket" data-set="${item.name}">
+            <line x1="${xa.toFixed(1)}" y1="${y}" x2="${xb.toFixed(1)}" y2="${y}" stroke="${color}" stroke-width="2.2" stroke-linecap="round"></line>
+            <line x1="${xa.toFixed(1)}" y1="${y - 3}" x2="${xa.toFixed(1)}" y2="${y + 3}" stroke="${color}" stroke-width="1.2"></line>
+            <line x1="${xb.toFixed(1)}" y1="${y - 3}" x2="${xb.toFixed(1)}" y2="${y + 3}" stroke="${color}" stroke-width="1.2"></line>
+            ${labels}
+          </g>`;
+        })
+        .join("");
+      return label + marks;
+    })
+    .join("");
 
   const wx = mergeWxMax(series.map((item) => item.points));
   const precipMax = nicePrecipMax(wx.map((p) => p.precip));
@@ -533,12 +649,14 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
     ${dirLabels}
     ${grid}
-    ${kt8Line}
+    ${ktSlotLine}
     <text class="kt-unit" transform="translate(${wxUnitPad} ${windMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="#7a7a7a" font-size="6.5px">nds</text>
     ${fills}
     ${winds}
+    ${peaks}
     ${hourAxis}
     ${hourLabels}
+    ${slotBrackets}
     <line x1="${x0}" y1="${wxY0}" x2="${x1}" y2="${wxY0}" stroke="#2a2a2a"></line>
     ${wxDraw}
     ${dayLabels}
@@ -556,7 +674,7 @@ function legendHtml(seriesList, options = {}) {
     .join("");
   return `<div class="chart-legend">
     ${keys}
-    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales</span>
+    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · zone colorée = vent moyen &gt; 10 nds</span>
     ${options.note || ""}
   </div>`;
 }
@@ -588,6 +706,9 @@ if (typeof module !== "undefined" && module.exports) {
     buildChartSvg,
     legendHtml,
     niceMaxKt,
+    aboveThresholdRuns,
+    slotsInHorizon,
+    KT_SLOT,
     KT25,
     MEAN_STROKE,
     GUST_STROKE,

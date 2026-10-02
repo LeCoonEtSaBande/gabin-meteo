@@ -63,7 +63,8 @@ test("puce visible pour un créneau ≥ 3 h dans 7 h–22 h", () => {
   );
 });
 
-test("vent <= 8 nds reste muet (gris)", () => {
-  assert.equal(windColor(8), "rgb(90, 90, 90)");
+test("vent <= 10 nds reste muet (gris)", () => {
+  assert.equal(windColor(10), "rgb(90, 90, 90)");
+  assert.notEqual(windColor(11), "rgb(90, 90, 90)");
   assert.notEqual(windColor(15), "rgb(90, 90, 90)");
 });
