@@ -16,16 +16,20 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from config import (
+    CHART_CURVE_SETS,
+    CRENEAUX_JSON,
     CURVE_COLUMNS,
     CURVE_SETS,
     CURVES_DIR,
     LAST_UPDATE_JSON,
+    LLM_DIR,
     PROCESSED_DIR,
     QUOTIDIEN_JSON,
 )
 from curves import HourPoint, build_all_curves, load_raw_points
-from daily import summarize_spot_days
+from daily import summarize_chart_days, summarize_spot_days
 from io_raw import load_last_update
+from llm import write_llm_files
 from spots import load_spots
 
 try:
@@ -97,6 +101,22 @@ def build_quotidien_payload(
     }
 
 
+def build_creneaux_payload(
+    spots,
+    curves: dict[str, dict[str, list[HourPoint]]],
+    generated_at: str,
+) -> dict:
+    """Créneau et pics par jour pour chaque courbe du graphique (AROMEIFS, ICONGFS)."""
+    return {
+        "generated_at": generated_at,
+        "timezone": "Europe/Paris",
+        "curve_sets": {
+            name: {spot.key: summarize_chart_days(curves[name].get(spot.key, [])) for spot in spots}
+            for name in CHART_CURVE_SETS
+        },
+    }
+
+
 def main() -> int:
     configure_stdio()
     spots = load_spots()
@@ -130,7 +150,13 @@ def main() -> int:
         ),
         encoding="utf-8",
     )
+    creneaux = build_creneaux_payload(spots, curves, payload["generated_at"])
+    CRENEAUX_JSON.write_text(json.dumps(creneaux, ensure_ascii=False, indent=1), encoding="utf-8")
+    llm_files = write_llm_files(LLM_DIR, spots, curves, creneaux["curve_sets"], payload)
+
     print(f"\nJSON quotidien : {QUOTIDIEN_JSON}")
+    print(f"Créneaux graph : {CRENEAUX_JSON}")
+    print(f"Fichiers Claude : {len(llm_files)} dans {LLM_DIR}")
     print(f"Jours : {payload['days'][0] if payload['days'] else '—'} → {payload['days'][-1] if payload['days'] else '—'}")
     print(f"Spots : {len(payload['spots'])}")
     print(f"MAJ   : {payload.get('last_update_label') or 'inconnue'}")

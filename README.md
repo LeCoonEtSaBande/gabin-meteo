@@ -15,7 +15,7 @@ Le workflow *Traitement et affichage* (sur `main`), après une collecte réussie
 2. copie locale de `data/raw` et `assets/spots_specs` depuis `collecte-api-meteo` (non versionnée ici) ;
 3. `python src/traitement/run.py` ;
 4. push de `data/processed` sur `traitement-donnees` ;
-5. copie vers `affichage-web` : specs, `quotidien.json`, `last_update.json`, `AROMEIFS.csv`, `ICONGFS.csv`.
+5. copie vers `affichage-web` : specs, `quotidien.json`, `creneaux.json`, `last_update.json`, `AROMEIFS.csv`, `ICONGFS.csv`, et `llm/` (Markdown pour Claude).
 
 ## Jeux de courbes
 
@@ -25,7 +25,7 @@ Le workflow *Traitement et affichage* (sur `main`), après une collecte réussie
 | `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS | puces (spots ICON) |
 | `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | seconde courbe du graphique web |
 
-Vent / rafales déjà en **nœuds**. Créneau quotidien : vent moyen **> 8 nds**.
+Vent / rafales déjà en **nœuds**. Créneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 7 h et 22 h (pas de repli rafales). Icône : pluie / nuages sur le créneau, sinon 7 h–22 h.
 
 Nébulosité perçue : `cloud_cover_display_pct` dans les CSV de courbes (total prioritaire, sinon max basse/moy/haute×0,25 ; AROME « hauts seuls » → bas/moy à 0, sans repli ARPEGE). Courbes, icônes et panneau quotidien s’appuient sur ce champ.
 
@@ -37,4 +37,4 @@ pip install -r requirements.txt
 python src/traitement/run.py
 ```
 
-Fichiers produits (seuls ceux-ci sont commités sur cette branche) : `data/processed/curves/*.csv`, `quotidien.json`, `last_update.json`.
+Fichiers produits (seuls ceux-ci sont commités sur cette branche) : `data/processed/curves/*.csv`, `quotidien.json`, `creneaux.json`, `last_update.json`, `llm/`.
