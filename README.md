@@ -21,9 +21,9 @@ Le workflow *Traitement et affichage* (sur `main`), après une collecte réussie
 
 | Jeu | Enchaînement | Où c’est lu |
 | --- | --- | --- |
-| `AROMEIFS` | AROMEHD → ARPEGE → IFS | puces (spots AROME) + graphique web |
+| `AROMEIFS` | AROMEHD → ARPEGE → IFS | puces (spots AROME) + graphique web (courbe par défaut des spots AROME) |
 | `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS | puces (spots ICON) |
-| `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | seconde courbe du graphique web |
+| `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | graphique web (courbe par défaut des spots ICON) |
 
 Vent et rafales sont déjà en **nœuds**. Créneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 7 h et 22 h, sans repli sur les rafales. L'icône se calcule sur la pluie et les nuages du créneau, ou de 7 h–22 h s'il n'y a pas de créneau. Détail des règles : [`src/traitement/README.md`](src/traitement/README.md).
 
