@@ -272,18 +272,18 @@ function rangeFill(points, startDay, nDays, x0, innerW, yKt, color) {
     .join("");
 }
 
-function horizonDays(startDay, nDays) {
+function daysOfHorizon(startDay, nDays) {
   return Array.from({ length: nDays }, (_, d) => addDays(startDay, d));
 }
 
 function slotsInHorizon(chartDays, startDay, nDays) {
-  return horizonDays(startDay, nDays)
+  return daysOfHorizon(startDay, nDays)
     .map((day) => ({ day, info: chartDays?.[day] }))
     .filter(({ info }) => info && info.slot_start_h != null && info.slot_end_h != null);
 }
 
 function peaksInHorizon(chartDays, startDay, nDays) {
-  return horizonDays(startDay, nDays)
+  return daysOfHorizon(startDay, nDays)
     .map((day) => ({ day, info: chartDays?.[day] }))
     .filter(({ info }) => info && info.mean_max_at && info.gust_max_at);
 }
