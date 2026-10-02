@@ -1,8 +1,8 @@
 # Gabin-meteo — prévisions de vent des spots (Rhône-Alpes / Léman)
 
 - Prévisions collectées le : 02/10/2026 19:42 (Europe/Paris)
-- Fichiers générés le : 2026-10-02T19:46:06+02:00
-- Mise à jour 3 fois par jour (vers 7h15, 13h15 et 19h15, une heure plus tôt en hiver).
+- Fichiers générés le : 2026-10-02T23:24:54+02:00
+- Collecte prévue 3 fois par jour (vers 7h30, 13h30 et 19h30, une heure plus tôt en hiver). GitHub la retarde parfois de plusieurs heures : se fier à la date de collecte ci-dessus.
 - Carte : https://lecoonetsabande.github.io/gabin-meteo/
 - Archive des prévisions de la veille à 23 h (AROME HD et ICON-CH1 bruts) : https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md
 
