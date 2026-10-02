@@ -1,7 +1,7 @@
 # Gabin-meteo — prévisions de vent des spots (Rhône-Alpes / Léman)
 
-- Prévisions collectées le : 02/10/2026 18:45 (Europe/Paris)
-- Fichiers générés le : 2026-10-02T18:49:21+02:00
+- Prévisions collectées le : 02/10/2026 19:42 (Europe/Paris)
+- Fichiers générés le : 2026-10-02T19:46:06+02:00
 - Mise à jour 3 fois par jour (vers 7h15, 13h15 et 19h15, une heure plus tôt en hiver).
 - Carte : https://lecoonetsabande.github.io/gabin-meteo/
 - Archive des prévisions de la veille à 23 h (AROME HD et ICON-CH1 bruts) : https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md
@@ -44,12 +44,12 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 |---|---|---|---|---|---|---|---|
 | Plage de la pointe - Messery | 13 | 18 | 48° NE | 08h-11h | couvert | 0.0 | 19°C |
 | Plage d'Excenevex | 13 | 18 | 41° NE | 07h-10h | couvert | 0.0 | 19°C |
-| Plage du Vengeron | 6 | 7 | 51° NE | aucun | soleil-couvert | 0.0 | 19°C |
-| Plage d'Hermance | 10 | 14 | 50° NE | aucun | couvert | 0.0 | 19°C |
-| Lac d'Annecy - Plage de Sévrier | 6 | 7 | 333° NNO | aucun | couvert | 0.0 | 20°C |
+| Plage du Vengeron | 6 | 8 | 29° NNE | aucun | soleil-couvert | 0.0 | 19°C |
+| Plage d'Hermance | 10 | 14 | 50° NE | aucun | soleil-couvert | 0.0 | 19°C |
+| Lac d'Annecy - Plage de Sévrier | 6 | 7 | 333° NNO | aucun | soleil-couvert | 0.0 | 20°C |
 | Lac du Bourget - Cap des Séselets | 11 | 13 | 17° NNE | aucun | soleil | 0.0 | 20°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 8 | 15 | 9° N | aucun | couvert | 0.1 | 17°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 12 | 21 | 358° N | aucun | couvert | 0.2 | 22°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 8 | 15 | 9° N | aucun | couvert | 0.0 | 17°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 12 | 20 | 356° N | 15h-18h | couvert | 0.0 | 22°C |
 | Portes-lès-Valence - Parking des Surfeurs | 11 | 20 | 13° NNE | 09h-13h | soleil | 0.0 | 24°C |
 | La Roche-de-Glun - Base Nautique | 8 | 17 | 348° NNO | aucun | soleil | 0.0 | 23°C |
 | Centrale de Saint-Alban-du-Rhône | 9 | 15 | 6° N | aucun | soleil | 0.0 | 23°C |
@@ -64,14 +64,14 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 7h-22h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 5 | 6 | 227° SO | aucun | couvert | 0.0 | 19°C |
-| Plage d'Excenevex | 5 | 7 | 83° E | aucun | couvert | 0.0 | 20°C |
-| Plage du Vengeron | 4 | 5 | 292° ONO | aucun | couvert | 0.0 | 19°C |
-| Plage d'Hermance | 4 | 6 | 214° SO | aucun | couvert | 0.0 | 19°C |
-| Lac d'Annecy - Plage de Sévrier | 7 | 9 | 336° NNO | aucun | pluie | 1.0 | 20°C |
+| Plage de la pointe - Messery | 5 | 7 | 221° SO | aucun | couvert | 0.0 | 19°C |
+| Plage d'Excenevex | 4 | 7 | 252° OSO | aucun | couvert | 0.0 | 19°C |
+| Plage du Vengeron | 4 | 5 | 229° SO | aucun | couvert | 0.1 | 19°C |
+| Plage d'Hermance | 4 | 5 | 209° SSO | aucun | couvert | 0.0 | 19°C |
+| Lac d'Annecy - Plage de Sévrier | 6 | 8 | 338° NNO | aucun | pluie | 7.4 | 20°C |
 | Lac du Bourget - Cap des Séselets | 4 | 7 | 355° N | aucun | soleil-couvert | 0.0 | 20°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 4 | 10 | 231° SO | aucun | orage | 5.4 | 17°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 4 | 8 | 355° N | aucun | pluie | 1.5 | 19°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 5 | 10 | 13° NNE | aucun | pluie | 2.7 | 16°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 4 | 9 | 360° N | aucun | orage | 8.6 | 19°C |
 | Portes-lès-Valence - Parking des Surfeurs | 4 | 8 | 214° SO | aucun | couvert | 0.0 | 23°C |
 | La Roche-de-Glun - Base Nautique | 4 | 7 | 261° O | aucun | couvert | 0.0 | 24°C |
 | Centrale de Saint-Alban-du-Rhône | 4 | 8 | 13° NNE | aucun | soleil-couvert | 0.0 | 22°C |
