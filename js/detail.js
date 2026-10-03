@@ -154,6 +154,7 @@ function svgCursorPoint(svg, event) {
 }
 
 function visibleSeriesPayload(payload) {
+  if (payload.opts.tipSeries) return payload.opts.tipSeries;
   if (payload.opts.seriesList) return payload.opts.seriesList;
   const sets = visibleSets(payload.opts.primarySet, {
     showPrimary: payload.opts.showPrimary,

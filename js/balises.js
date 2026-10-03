@@ -24,6 +24,8 @@ let buoyError = "";
 let buoyProjection = null;
 let selectedBuoy = null;
 let buoyClock = null;
+let buoyShowMeasure = true;
+let buoyShowForecast = true;
 
 function meteoSuisseNowUrl(stationId) {
   const id = String(stationId || "").toLowerCase();
@@ -415,27 +417,75 @@ function buoyChartPayload(station, item, dayKey) {
   const near = nearestSpot(station, spotSpecs);
   const set = near ? primaryCurveSet(near.spot) : null;
   const forecast = near ? sliceHorizon(curveIndex[set]?.[near.spot.spot_key] || [], dayKey, 1) : [];
-  const peaks = observedPeaks(points, dayKey, SLOT_WINDOW_START_H, SLOT_WINDOW_END_H);
-  const opts = {
-    seriesList: [{ name: "MESURE", points }],
+  const measured = { name: "MESURE", points };
+  const predicted = forecast.length ? { name: set, points: forecast } : null;
+  const showForecast = Boolean(predicted) && buoyShowForecast;
+  const showMeasure = buoyShowMeasure || !showForecast;
+  const common = {
     hideWeather: true,
-    overlay: forecast.length ? { name: set, points: forecast } : null,
-    chartDays: { MESURE: peaks ? { [dayKey]: peaks } : {} },
     nowAt: parisValidAt(Date.now()),
     compactSetLabels: window.matchMedia("(min-width: 960px)").matches,
   };
-  return { series: {}, startDay: dayKey, nDays: 1, opts, title: station.display_name, near, set };
+  let opts;
+  if (showMeasure) {
+    const peaks = observedPeaks(points, dayKey, SLOT_WINDOW_START_H, SLOT_WINDOW_END_H);
+    opts = {
+      ...common,
+      seriesList: [measured],
+      overlay: showForecast ? predicted : null,
+      halo: showForecast,
+      tipSeries: showForecast ? [measured, predicted] : [measured],
+      chartDays: { MESURE: peaks ? { [dayKey]: peaks } : {} },
+    };
+  } else {
+    opts = {
+      ...common,
+      seriesList: [predicted],
+      tipSeries: [predicted],
+      chartDays: { [set]: chartDaysBySet[set]?.[near.spot.spot_key] || {} },
+    };
+  }
+  return {
+    series: {},
+    startDay: dayKey,
+    nDays: 1,
+    opts,
+    title: station.display_name,
+    near,
+    set,
+    hasForecast: Boolean(predicted),
+    showMeasure,
+    showForecast,
+  };
+}
+
+function buoyToggleButton(kind, label, shown) {
+  return `<button type="button" class="secondary-btn${shown ? " is-active" : ""}" data-buoy-toggle="${kind}" aria-pressed="${shown ? "true" : "false"}">${shown ? "Masquer" : "Afficher"} ${escapeHtml(label)}</button>`;
+}
+
+/* Au moins une courbe reste affichée : masquer l'une quand l'autre l'est déjà la rallume. */
+function toggleBuoyCurve(kind, payload) {
+  if (kind === "measure") {
+    buoyShowMeasure = !payload.showMeasure;
+    if (!buoyShowMeasure) buoyShowForecast = true;
+  } else {
+    buoyShowForecast = !payload.showForecast;
+    if (!buoyShowForecast) buoyShowMeasure = true;
+  }
 }
 
 function buoyLegendHtml(station, payload) {
   const source = BUOY_SOURCE_LABELS[station.source] || station.source;
-  const forecast = payload.opts.overlay
+  const measure = payload.showMeasure
+    ? `<span class="chart-key"><i style="background:${SET_COLORS.MESURE}"></i>Mesuré · ${escapeHtml(source)}</span>`
+    : "";
+  const forecast = payload.showForecast
     ? `<span class="chart-key chart-key-forecast"><i style="background:${SET_COLORS[payload.set]}"></i>Prévision ${escapeHtml(payload.set)} · ${escapeHtml(payload.near.spot.display_name)}</span>`
     : "";
   return `<div class="chart-legend">
-    <span class="chart-key"><i style="background:${SET_COLORS.MESURE}"></i>Mesuré · ${escapeHtml(source)}</span>
+    ${measure}
     ${forecast}
-    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · zone colorée = vent moyen &gt; 10 nds · trait fin = prévision</span>
+    <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · zone colorée = vent moyen &gt; 10 nds</span>
   </div>`;
 }
 
@@ -446,7 +496,7 @@ function buoyInfoHtml(station, item, payload) {
     ? `Dernière mesure ${hourLabel(last.valid_at)} (${ageLabel(last.ms)}) : ${Math.round(last.mean)} nds, rafales ${Math.round(last.gust)} nds, provenance ${cardinalFr(last.dir)} (${Math.round(last.dir)}°).`
     : `Pas de mesure disponible${item?.error ? ` (${escapeHtml(item.error)})` : ""}.`;
   const near = payload.near
-    ? `Prévision superposée : ${escapeHtml(payload.near.spot.display_name)}, à ${Math.round(payload.near.km)} km.`
+    ? `Spot rattaché : ${escapeHtml(payload.near.spot.display_name)}, à ${Math.round(payload.near.km)} km.`
     : "";
   const stationLink = linkButton(station.link_station, source);
   const maps = mapsUrl(station.latitude, station.longitude);
@@ -480,12 +530,24 @@ function renderBuoyDetail() {
   title.textContent = station.display_name;
   empty.hidden = true;
   body.hidden = false;
+  const toggles = payload.hasForecast
+    ? `<div class="spot-chart-toggles">
+        ${buoyToggleButton("measure", "mesure", payload.showMeasure)}
+        ${buoyToggleButton("forecast", payload.set, payload.showForecast)}
+      </div>`
+    : "";
   body.innerHTML = `<section class="spot-block">
-      <div class="spot-chart-head"><h3 class="spot-chart-title">Aujourd'hui</h3></div>
+      <div class="spot-chart-head"><h3 class="spot-chart-title">Aujourd'hui</h3>${toggles}</div>
       <div class="spot-chart">${buildChartSvg(payload.series, dayKey, 1, 400, payload.opts)}</div>
       ${buoyLegendHtml(station, payload)}
     </section>
     ${buoyInfoHtml(station, item, payload)}`;
+  body.querySelectorAll("[data-buoy-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      toggleBuoyCurve(btn.dataset.buoyToggle, payload);
+      renderBuoyDetail();
+    });
+  });
   bindChartPointer(body.querySelector(".spot-chart"), payload, { fullscreen: true });
   bindLightboxOnce();
   pane.classList.add("is-open");

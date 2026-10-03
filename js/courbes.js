@@ -32,6 +32,7 @@ const GUST_STROKE = 1.13;
 const WX_CLOUD = "#8a8a8a";
 const WX_CLOUD_OPACITY = 0.5;
 const WX_PRECIP = "#5a8aa3";
+const HALO_COLOR = "#161616";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -485,13 +486,19 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
 
   function paintWind(points, dashed) {
     const segs = lineSegments(points, startDay, nDays, x0, innerW, (p) => yKt(dashed ? p.gust : p.mean));
+    const strokeW = dashed ? GUST_STROKE : MEAN_STROKE;
     const attrs = dashed
-      ? ` stroke-dasharray="3 3" stroke-width="${GUST_STROKE}" opacity="0.92"`
-      : ` stroke-width="${MEAN_STROKE}"`;
+      ? ` stroke-dasharray="3 3" stroke-width="${strokeW}" opacity="0.92"`
+      : ` stroke-width="${strokeW}"`;
+    // Liseré sombre : la mesure reste lisible quand elle croise la prévision.
+    const halo = (seg) =>
+      options.halo
+        ? `<path class="wind-halo" d="${seg.d}" fill="none" stroke="${HALO_COLOR}" stroke-width="${(strokeW + 2.4).toFixed(2)}" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"></path>`
+        : "";
     return segs
       .map(
         (seg) =>
-          `<path d="${seg.d}" fill="none" stroke="${modelColor(seg.model)}"${attrs} stroke-linejoin="round" stroke-linecap="round"></path>`
+          `${halo(seg)}<path d="${seg.d}" fill="none" stroke="${modelColor(seg.model)}"${attrs} stroke-linejoin="round" stroke-linecap="round"></path>`
       )
       .join("");
   }
@@ -535,8 +542,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
         })
         .join(" ");
     return `<g class="forecast-overlay">
-      <path d="${path((p) => p.gust)}" fill="none" stroke="${color}" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.4"></path>
-      <path d="${path((p) => p.mean)}" fill="none" stroke="${color}" stroke-width="1" opacity="0.55" stroke-linejoin="round"></path>
+      <path d="${path((p) => p.gust)}" fill="none" stroke="${color}" stroke-width="${GUST_STROKE}" stroke-dasharray="3 3" opacity="0.8"></path>
+      <path d="${path((p) => p.mean)}" fill="none" stroke="${color}" stroke-width="${MEAN_STROKE * 0.85}" opacity="0.9" stroke-linejoin="round" stroke-linecap="round"></path>
     </g>`;
   }
 

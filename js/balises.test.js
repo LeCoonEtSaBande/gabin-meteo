@@ -185,6 +185,41 @@ test("graphique en mode mesures : pas de rangée météo, prévision en trait fi
   assert.equal(arrows.length, 5);
 });
 
+test("mesure + prévision : liseré sous la mesure, prévision en trait plein, infobulle sur les deux courbes", () => {
+  const day = "2026-10-03";
+  const obs = [
+    { valid_at: `${day}T12:00`, source_model: "MESURE", mean: 12, gust: 18, dir: 45 },
+    { valid_at: `${day}T12:10`, source_model: "MESURE", mean: 13, gust: 19, dir: 45 },
+  ];
+  const forecast = [
+    { valid_at: `${day}T11:00`, source_model: "ICONCH1", mean: 20, gust: 28, dir: 40 },
+    { valid_at: `${day}T13:00`, source_model: "ICONCH1", mean: 22, gust: 30, dir: 40 },
+  ];
+  const opts = {
+    seriesList: [{ name: "MESURE", points: obs }],
+    hideWeather: true,
+    overlay: { name: "ICONGFS", points: forecast },
+    halo: true,
+  };
+  const svg = courbes.buildChartSvg({}, day, 1, 400, opts);
+  assert.equal((svg.match(/class="wind-halo"/g) || []).length, 2);
+  const overlay = svg.slice(svg.indexOf('class="forecast-overlay"'));
+  assert.match(overlay, /stroke="#6eb4d0" stroke-width="1\.6\d*" opacity="0\.9"/);
+  assert.ok(svg.indexOf('class="forecast-overlay"') < svg.indexOf('class="wind-halo"'));
+  assert.ok(!courbes.buildChartSvg({}, day, 1, 400, { ...opts, halo: false }).includes("wind-halo"));
+
+  const geom = JSON.parse(
+    svg.match(/data-geom="([^"]+)"/)[1].replace(/&quot;/g, '"')
+  );
+  const xNoon = geom.x0 + (12 / 24) * geom.innerW;
+  const yHigh = geom.yWind0 - (22 / geom.maxKt) * geom.windH;
+  const hit = courbes.pickNearestWind(
+    [{ name: "MESURE", points: obs }, { name: "ICONGFS", points: forecast }],
+    day, 1, geom, xNoon, yHigh
+  );
+  assert.equal(hit.setName, "ICONGFS");
+});
+
 test("infobulle : heure avec minutes pour les mesures, inchangée pour les prévisions", () => {
   assert.equal(courbes.slotCaption("2026-10-03T14:10", 1), "14h10");
   assert.equal(courbes.slotCaption("2026-10-03T14:00", 1), "14h");
