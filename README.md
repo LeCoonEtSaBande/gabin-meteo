@@ -15,12 +15,12 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 ## Interface
 
 - Coque HTML (onglets, puces, barre de jour, panneau détail). Le SVG `assets/svg_map/Carte RA 804x1200.svg` est **uniquement la carte**.
-- *Tendances journalières* : une puce par zone, avec les données du spot principal de la zone (`PRIMARY_SPOT` dans `js/quotidien.js`). Elle montre l’icône météo, le vent max 7 h–22 h (nœuds, gris jusqu’à 10 nds), le créneau exploitable (≥ 3 h de vent moyen > 10 nds, 7 h–22 h), la température à 15 h et le modèle court terme.
+- *Tendances journalières* : une puce par zone, avec les données du spot principal de la zone (`PRIMARY_SPOT` dans `js/quotidien.js`). Elle montre l’icône météo, le vent max 8 h–20 h (nœuds, gris jusqu’à 10 nds), le créneau exploitable (≥ 3 h de vent moyen > 10 nds, 8 h–20 h), la température à 15 h et le modèle court terme.
 - Clic zone → panneau détail : textes / liens des specs, graphiques `AROMEIFS` et `ICONGFS`. Courbe par défaut : `AROMEIFS` pour les spots AROME HD, `ICONGFS` pour les spots ICON-CH1.
 - Graphique :
   - trait pointillé à **10 nds** ;
   - zone colorée entre moyen et rafales, **seulement quand le vent moyen dépasse 10 nds** ;
-  - valeurs du vent moyen max et des rafales max (nombre seul, sans préfixe) sur les pics 7 h–22 h (vue 1 jour : toujours ; vues 3 et 5 jours : seulement les jours avec créneau) ;
+  - valeurs du vent moyen max et des rafales max (nombre seul, sans préfixe) sur les pics 8 h–20 h (vue 1 jour : toujours ; vues 3 et 5 jours : seulement les jours avec créneau) ;
   - sous l’axe des heures, une ligne *créneau* par courbe affichée (vue 1 jour : heure de début et heure de fin ; vues 3 et 5 jours : `10-16h` centré).
 
   Créneaux et pics viennent de `creneaux.json`. Si ce fichier manque, le graphique s’affiche sans eux.
@@ -56,7 +56,7 @@ Les libellés courts des puces (`ZONE_LABELS` dans `js/quotidien.js`) restent du
 | `js/detail.js` | panneau zone, specs, chargement des CSV |
 | `js/courbes.js` | rendu SVG des graphiques |
 | `js/csv.js` | parseur CSV `;` |
-| `js/session.js` | couleurs, flèche, puce si créneau ≥ 3 h entre 7 h et 22 h |
+| `js/session.js` | couleurs, flèche, puce si créneau ≥ 3 h entre 8 h et 20 h |
 
 Les scripts sont chargés en `<script>` classiques et partagent la même portée globale : deux noms de premier niveau identiques dans deux fichiers cassent le chargement du site. `js/scripts.test.js` le vérifie.
 

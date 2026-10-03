@@ -19,21 +19,21 @@ test("créneau 0 h ou 2 h : puce muette", () => {
   assert.equal(isUsableSession({ slot_start_h: 4, slot_end_h: 6, slot_label: "(04h-06h)" }), false);
 });
 
-test("créneau commençant avant 7 h recadré, muet s'il reste < 3 h", () => {
-  assert.equal(isUsableSession({ slot_start_h: 5, slot_end_h: 8, slot_label: "(05h-08h)" }), false);
+test("créneau commençant avant 8 h recadré, muet s'il reste < 3 h", () => {
+  assert.equal(isUsableSession({ slot_start_h: 6, slot_end_h: 10, slot_label: "(06h-10h)" }), false);
   assert.deepEqual(clipSlot({ slot_start_h: 0, slot_end_h: 14, slot_label: "(00h-14h)" }), {
-    start_h: 7,
+    start_h: 8,
     end_h: 14,
-    label: "(07h-14h)",
+    label: "(08h-14h)",
   });
 });
 
-test("créneau débordant après 22 h recadré, muet s'il reste < 3 h", () => {
-  assert.equal(isUsableSession({ slot_start_h: 20, slot_end_h: 23, slot_label: "(20h-23h)" }), false);
+test("créneau débordant après 20 h recadré, muet s'il reste < 3 h", () => {
+  assert.equal(isUsableSession({ slot_start_h: 18, slot_end_h: 22, slot_label: "(18h-22h)" }), false);
   assert.deepEqual(clipSlot({ slot_start_h: 12, slot_end_h: 23, slot_label: "(12h-23h)" }), {
     start_h: 12,
-    end_h: 22,
-    label: "(12h-22h)",
+    end_h: 20,
+    label: "(12h-20h)",
   });
 });
 
@@ -50,7 +50,7 @@ test("sans bornes la puce reste muette même avec un label", () => {
   );
 });
 
-test("puce visible pour un créneau ≥ 3 h dans 7 h–22 h", () => {
+test("puce visible pour un créneau ≥ 3 h dans 8 h–20 h", () => {
   assert.equal(
     isUsableSession({
       mean_max_kt: 9,

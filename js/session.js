@@ -1,7 +1,7 @@
 /**
  * Couleurs (vent gris jusqu'à 10 nds), flèche de vent et créneau des puces.
  * Le créneau (≥ 3 h de vent moyen > 10 nds) est calculé par le traitement ;
- * ici on le borne à 7 h–22 h et on écarte ce qui fait moins de 3 h.
+ * ici on le borne à 8 h–20 h et on écarte ce qui fait moins de 3 h.
  */
 
 const MUTED = [90, 90, 90];
@@ -72,8 +72,8 @@ function colorFromStops(value, stops) {
   return rgbCss(stops[stops.length - 1][1]);
 }
 
-const SLOT_WINDOW_START_H = 7;
-const SLOT_WINDOW_END_H = 22;
+const SLOT_WINDOW_START_H = 8;
+const SLOT_WINDOW_END_H = 20;
 const MIN_SLOT_HOURS = 3;
 
 function slotDurationHours(day) {
