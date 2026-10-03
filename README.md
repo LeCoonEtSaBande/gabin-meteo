@@ -60,7 +60,7 @@ Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le fil
 - **7 modèles** Open-Meteo : AROMEHD, ARPEGE, ICONCH1, ICONCH2, ICON13KM, IFS, GFS.
 - Vent et rafales demandés et stockés en **nœuds**.
 - Chaque modèle est demandé sur **tout son horizon** (AROME HD 51 h, ICON-CH1 33 h, IFS 15 jours…).
-- Créneaux de vent du panneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 7 h et 22 h, bornes arrondies à l’heure entière. Pas de repli sur les rafales.
+- Créneaux de vent du panneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 8 h et 20 h, bornes arrondies à l’heure entière. Pas de repli sur les rafales.
 
 | Jeu | Enchaînement court → long terme | Usage |
 | --- | --- | --- |
@@ -73,7 +73,7 @@ Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéan
 ## Site
 
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
-- Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 7 h–22 h, créneau, température à 15 h.
+- Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 8 h–20 h, créneau, température à 15 h.
 - Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics de vent moyen et de rafales (nombre seul), et bornes du créneau de chaque courbe sous l’axe des heures.
 - Onglet *Balises temps réel* : pas encore branché.
 
