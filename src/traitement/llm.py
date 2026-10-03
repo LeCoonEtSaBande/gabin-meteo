@@ -123,7 +123,7 @@ def build_spot_markdown(
         "",
         *[f"> {line}" for line in _rules_lines()],
         "",
-        "## Résumé par jour (7 h–22 h)",
+        f"## Résumé par jour ({SLOT_WINDOW_START_H} h–{SLOT_WINDOW_END_H} h)",
         "",
         "| Jour | "
         + " | ".join(f"{name} créneau | {name} moy. max | {name} raf. max" for name in CHART_CURVE_SETS)
@@ -207,7 +207,7 @@ def build_index_markdown(
             "",
             f"### {day_title(day_key)}",
             "",
-            "| Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 7h-22h (mm) | T° 15h |",
+            f"| Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon {SLOT_WINDOW_START_H}h-{SLOT_WINDOW_END_H}h (mm) | T° 15h |",
             "|---|---|---|---|---|---|---|---|",
         ]
         for spot in spots:

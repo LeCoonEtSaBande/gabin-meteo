@@ -17,12 +17,12 @@ LAST_UPDATE_JSON = PROCESSED_DIR / "last_update.json"
 COLLECTE_BRANCH = "collecte-api-meteo"
 
 WIND_SLOT_KT = 10.0
-SLOT_WINDOW_START_H = 7
-SLOT_WINDOW_END_H = 22
+SLOT_WINDOW_START_H = 8
+SLOT_WINDOW_END_H = 20
 MIN_SLOT_HOURS = 3
 TEMP_HOUR = 15
 
-# Icône météo, sur le créneau retenu (sinon 7 h–22 h). Pluie en mm sur l'heure.
+# Icône météo, sur le créneau retenu (sinon 8 h–20 h). Pluie en mm sur l'heure.
 STORM_HOURLY_MM = 3.0
 RAIN_HOURLY_MM = 0.5
 RAIN_TOTAL_MM = 1.0

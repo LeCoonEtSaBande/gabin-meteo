@@ -26,7 +26,7 @@ def test_round_to_hour() -> None:
 
 
 def test_slot_nearest_hour() -> None:
-    # Franchissements 7h30 et 11h45 → 08h et 12h (points dès 7 h, pas 6 h)
+    # Franchissements 7h30 et 11h45 → 08h et 12h
     hours = [7.0, 9.0, 10.5, 13.0]
     values = [5.0, 15.0, 15.0, 5.0]
     slots = long_enough_slots(hours, values, 10.0)
@@ -34,10 +34,10 @@ def test_slot_nearest_hour() -> None:
     assert slot_label(slots[0]) == "(08h-12h)"
 
 
-def test_slot_ignores_before_7_and_after_22() -> None:
-    hours = [3.0, 6.0, 9.0, 12.0, 15.0, 23.0]
-    means = [20.0, 20.0, 15.0, 15.0, 15.0, 25.0]
-    slot = choose_usable_slot(hours, means, peak_hour=23.0)
+def test_slot_ignores_before_8_and_after_20() -> None:
+    hours = [3.0, 7.0, 9.0, 12.0, 15.0, 21.0, 23.0]
+    means = [20.0, 20.0, 15.0, 15.0, 15.0, 25.0, 25.0]
+    slot = choose_usable_slot(hours, means, peak_hour=21.0)
     assert slot == (9, 15), slot
 
 
@@ -60,7 +60,7 @@ def test_no_gust_fallback() -> None:
 def test_slot_threshold_is_10_knots() -> None:
     hours = [float(h) for h in range(7, 23)]
     assert choose_usable_slot(hours, [9.5] * len(hours), peak_hour=12.0) is None
-    assert choose_usable_slot(hours, [10.5] * len(hours), peak_hour=12.0) == (7, 22)
+    assert choose_usable_slot(hours, [10.5] * len(hours), peak_hour=12.0) == (8, 20)
 
 
 def test_slot_none_if_shorter_than_3h() -> None:
@@ -96,7 +96,7 @@ def _point(hour: int, mean: float = 4.0, gust: float = 6.0, precip: float = 0.0,
 
 
 def test_peak_limited_to_day_window() -> None:
-    points = [_point(h, mean=20.0 if h == 23 else (12.0 if h == 14 else 4.0)) for h in range(24)]
+    points = [_point(h, mean=20.0 if h in (7, 21, 23) else (12.0 if h == 14 else 4.0)) for h in range(24)]
     summary = summarize_day(points)
     assert summary["mean_max_kt"] == 12
     assert summary["valid_at_max"].endswith("T14:00")
@@ -138,8 +138,8 @@ def test_summarize_day_empties_short_slot() -> None:
         HourPoint(
             valid_at=datetime(2026, 8, 21, hour),
             source_model="ICONCH1",
-            wind_speed_kt=4.0 if hour != 21 else 12.0,
-            wind_gusts_kt=6.0 if hour != 21 else 16.0,
+            wind_speed_kt=4.0 if hour != 19 else 12.0,
+            wind_gusts_kt=6.0 if hour != 19 else 16.0,
             wind_dir_deg=20.0,
             temperature_c=20.0,
             precipitation_mm=0.0,
@@ -168,7 +168,7 @@ def test_weather_icon() -> None:
 if __name__ == "__main__":
     test_round_to_hour()
     test_slot_nearest_hour()
-    test_slot_ignores_before_7_and_after_22()
+    test_slot_ignores_before_8_and_after_20()
     test_slot_picks_closest_to_mean_max()
     test_no_gust_fallback()
     test_slot_threshold_is_10_knots()

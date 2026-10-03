@@ -16,15 +16,15 @@ Vent moyen et rafales sont déjà en **nœuds** dans les bruts (`wind_speed_10m_
 
 Créneau exploitable (écrit dans `quotidien.json`, même règle que les puces) :
 
-- fenêtre **7 h–22 h** uniquement (vent hors de cette plage ignoré) ;
+- fenêtre **8 h–20 h** uniquement (vent hors de cette plage ignoré) ;
 - plage où le **vent moyen interpolé > 10 nds** pendant **≥ 3 h** (pas de repli sur les rafales) ;
 - si plusieurs créneaux ≥ 3 h : celui **le plus proche de l’heure du max de vent moyen** de la journée ;
 - bornes interpolées au franchissement du seuil, puis heure entière la plus proche (17h53 → 18h) ;
 - sinon `slot_start_h` / `slot_end_h` restent `null` et `slot_label` est vide.
 
-Vent max affiché (`mean_max_kt`, rafale au même moment) : pic du vent moyen entre **7 h et 22 h**.
+Vent max affiché (`mean_max_kt`, rafale au même moment) : pic du vent moyen entre **8 h et 20 h**.
 
-Icône météo, sur le **créneau** retenu, sinon sur **7 h–22 h** (pluie = mm tombés dans l’heure) :
+Icône météo, sur le **créneau** retenu, sinon sur **8 h–20 h** (pluie = mm tombés dans l’heure) :
 
 | Condition | Icône |
 | --- | --- |
@@ -72,6 +72,6 @@ data/processed/
   llm/spots/<spot_key>.md
 ```
 
-`creneaux.json` : pour `AROMEIFS` et `ICONGFS` (les courbes du graphique web), par spot et par jour, le créneau et les pics 7 h–22 h (`mean_max_kt` / `mean_max_at`, `gust_max_kt` / `gust_max_at`). Le site le lit pour tracer les bornes du créneau et les pics.
+`creneaux.json` : pour `AROMEIFS` et `ICONGFS` (les courbes du graphique web), par spot et par jour, le créneau et les pics 8 h–20 h (`mean_max_kt` / `mean_max_at`, `gust_max_kt` / `gust_max_at`). Le site le lit pour tracer les bornes du créneau et les pics.
 
 `llm/` : Markdown léger pour un assistant (Claude) — `index.md` (spots, liens, tendances des puces) et un fichier par spot avec les courbes AROMEIFS et ICONGFS heure par heure. Publié sur le site : `https://lecoonetsabande.github.io/gabin-meteo/llm/index.md`.

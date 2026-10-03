@@ -137,7 +137,7 @@ def filter_day_window(
     hours: Sequence[float],
     *series: Sequence[float],
 ) -> tuple[list[float], ...]:
-    """Garde uniquement 7 h–22 h (bornes incluses) pour le calcul de créneau."""
+    """Garde uniquement 8 h–20 h (bornes incluses) pour le calcul de créneau."""
     kept_hours: list[float] = []
     kept_series: list[list[float]] = [[] for _ in series]
     for idx, hour in enumerate(hours):
@@ -199,7 +199,7 @@ def _peak_index(values: Sequence[float], hours: Sequence[float]) -> int:
 
 
 def _day_slot(points: list[HourPoint]) -> tuple[list[HourPoint], int, tuple[int, int] | None]:
-    """Points 7 h–22 h, index du pic de vent moyen parmi eux, créneau retenu."""
+    """Points 8 h–20 h, index du pic de vent moyen parmi eux, créneau retenu."""
     day = [point for point in points if in_day_window(point.hour_of_day)]
     if not day:
         return [], -1, None
@@ -245,7 +245,7 @@ def summarize_day(points: list[HourPoint]) -> dict[str, Any] | None:
 
 
 def summarize_chart_day(points: list[HourPoint]) -> dict[str, Any] | None:
-    """Créneau et pics 7 h–22 h d'une courbe, pour le graphique du détail."""
+    """Créneau et pics 8 h–20 h d'une courbe, pour le graphique du détail."""
     if not points:
         return None
     points = sorted(points, key=lambda point: point.hour_of_day)

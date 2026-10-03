@@ -25,7 +25,7 @@ Le workflow *Traitement et affichage* (sur `main`), après une collecte réussie
 | `ICONIFS` | ICONCH1 → ICONCH2 → ICON13KM → IFS | puces (spots ICON) |
 | `ICONGFS` | ICONCH1 → ICONCH2 → ICON13KM → GFS | graphique web (courbe par défaut des spots ICON) |
 
-Vent et rafales sont déjà en **nœuds**. Créneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 7 h et 22 h, sans repli sur les rafales. L'icône se calcule sur la pluie et les nuages du créneau, ou de 7 h–22 h s'il n'y a pas de créneau. Détail des règles : [`src/traitement/README.md`](src/traitement/README.md).
+Vent et rafales sont déjà en **nœuds**. Créneau quotidien : **≥ 3 h** de vent moyen **> 10 nds** entre 8 h et 20 h, sans repli sur les rafales. L'icône se calcule sur la pluie et les nuages du créneau, ou de 8 h–20 h s'il n'y a pas de créneau. Détail des règles : [`src/traitement/README.md`](src/traitement/README.md).
 
 Nébulosité perçue : `cloud_cover_display_pct` dans les CSV de courbes. La nébulosité totale est prioritaire, sinon `max(basse, moyenne, haute × 0,25)`. Pour AROME HD avec seulement des nuages hauts, basses et moyennes sont mises à 0, sans repli ARPEGE. Courbes, icônes et puces s’appuient sur ce champ.
 
