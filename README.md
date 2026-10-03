@@ -27,7 +27,12 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
   Créneaux et pics viennent de `creneaux.json`. Si ce fichier manque, le graphique s’affiche sans eux.
 - Horizons **1 / 3 / 5 jours** sur un bandeau fixe sous le titre (comme le jour en bas). La seconde courbe s’ajoute au bouton, et la courbe par défaut peut être masquée. Tooltip au survol, plein écran.
 - Flèches de vent : direction **vers où ça souffle**.
-- *Balises temps réel* : placeholder, pas encore branché.
+- *Balises temps réel* (prototype, 3 balises MétéoSuisse : Genève-Cointrin, Changins, St-Prex) :
+  - les mesures sont lues **directement par le navigateur** à l'ouverture de l'onglet, depuis l'open data MétéoSuisse (`https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/<id>/ogd-smn_<id>_t_now.csv`, pas de 10 min, sans clé). Aucun appel tant que l'onglet n'est pas ouvert, pas de rafraîchissement automatique : bouton ↻, et relecture au retour sur l'appli si les mesures ont plus de 10 min ;
+  - vignette : vent moyen et rafale du dernier pas (nœuds), flèche vers où ça souffle, provenance en toutes lettres (`NE`), heure et âge de la mesure ; grisée au-delà de 30 min ;
+  - position calculée depuis la latitude / longitude, par une conversion calée sur les marqueurs des spots du SVG (pas de retouche du SVG). Point et trait de rappel vers la vraie position ; une balise hors carte est ramenée au bord avec une flèche ;
+  - clic : courbe du jour (même graphique que les prévisions, sans nuages ni pluie), avec la prévision du **spot le plus proche** en trait fin (`AROMEIFS` ou `ICONGFS` selon le spot).
+  - Pas d'archive à ce stade.
 
 Contrat des calques SVG : [`assets/svg_map/README.md`](assets/svg_map/README.md).
 
@@ -45,6 +50,8 @@ GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Trai
 | `data/processed/curves/AROMEIFS.csv` | `traitement-donnees` | Graphiques (nébulosité = `cloud_cover_display_pct`) |
 | `data/processed/curves/ICONGFS.csv` | `traitement-donnees` | Graphiques (nébulosité = `cloud_cover_display_pct`) |
 
+`assets/balises_specs/balises_specifications.csv` (fiche des balises) est pour l'instant éditée **ici**, le temps du prototype.
+
 Modifier les spots uniquement sur `collecte-api-meteo`. `ICONIFS.csv` n’est pas recopié : le détail n’affiche que AROMEIFS et ICONGFS.
 
 Les libellés courts des puces (`ZONE_LABELS` dans `js/quotidien.js`) restent du code d’affichage, pas une seconde table de specs.
@@ -55,6 +62,7 @@ Les libellés courts des puces (`ZONE_LABELS` dans `js/quotidien.js`) restent du
 | --- | --- |
 | `js/quotidien.js` | carte, puces, navigation des jours |
 | `js/detail.js` | panneau zone, specs, chargement des CSV |
+| `js/balises.js` | onglet balises : lecture MétéoSuisse, vignettes, courbe du jour |
 | `js/courbes.js` | rendu SVG des graphiques |
 | `js/csv.js` | parseur CSV `;` |
 | `js/session.js` | couleurs, flèche, puce si créneau ≥ 3 h entre 8 h et 20 h |
