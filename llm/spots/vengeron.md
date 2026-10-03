@@ -7,29 +7,29 @@
 - Infos pratiques : Ne pas s'approcher de Genève en naviguant !
 
 > Unités : vent moyen et rafales en nœuds (nds), direction = d'où vient le vent (degrés et rose des vents), pluie en mm tombés pendant l'heure qui précède, nuages en % (nébulosité perçue), heures en Europe/Paris.
-> Créneau navigable : au moins 3 h de vent moyen > 10 nds entre 7 h et 22 h ; s'il y en a plusieurs, le plus proche du pic de vent moyen.
+> Créneau navigable : au moins 3 h de vent moyen > 10 nds entre 8 h et 20 h ; s'il y en a plusieurs, le plus proche du pic de vent moyen.
 > Courbes : `AROMEIFS` = AROMEHD → ARPEGE → IFS ; `ICONGFS` = ICONCH1 → ICONCH2 → ICON13KM → GFS (à un instant donné, le modèle le plus court terme encore disponible ; colonne `modèle`).
 
-## Résumé par jour (7 h–22 h)
+## Résumé par jour (8 h–20 h)
 
 | Jour | AROMEIFS créneau | AROMEIFS moy. max | AROMEIFS raf. max | ICONGFS créneau | ICONGFS moy. max | ICONGFS raf. max |
 |---|---|---|---|---|---|---|
-| sam. 03/10/2026 | aucun | 8 (17h) | 9 (18h) | aucun | 3 (21h) | 5 (08h) |
+| sam. 03/10/2026 | aucun | 8 (17h) | 9 (18h) | aucun | 2 (08h) | 5 (08h) |
 | dim. 04/10/2026 | aucun | 7 (16h) | 10 (17h) | aucun | 6 (17h) | 10 (20h) |
 | lun. 05/10/2026 | aucun | 6 (15h) | 12 (15h) | aucun | 6 (16h) | 7 (16h) |
 | mar. 06/10/2026 | aucun | 5 (17h) | 9 (16h) | aucun | 5 (16h) | 6 (16h) |
-| mer. 07/10/2026 | aucun | 4 (17h) | 8 (22h) | 15h-19h | 13 (16h) | 18 (16h) |
-| jeu. 08/10/2026 | 07h-10h | 12 (08h) | 20 (22h) | aucun | 8 (07h) | 14 (07h) |
-| ven. 09/10/2026 | 07h-22h | 18 (14h) | 28 (14h) | 07h-18h | 15 (11h) | 24 (11h) |
-| sam. 10/10/2026 | aucun | 11 (07h) | 21 (07h) | aucun | 6 (17h) | 8 (11h) |
-| dim. 11/10/2026 | aucun | 6 (14h) | 16 (07h) | aucun | 6 (20h) | 8 (14h) |
-| lun. 12/10/2026 | 12h-22h | 12 (16h) | 17 (16h) | 07h-22h | 17 (22h) | 10 (07h) |
-| mar. 13/10/2026 | 07h-22h | 18 (19h) | 25 (21h) | 07h-21h | 15 (16h) | 4 (14h) |
-| mer. 14/10/2026 | aucun | 12 (07h) | 22 (07h) | aucun | 7 (22h) | 13 (22h) |
-| jeu. 15/10/2026 | aucun | 3 (22h) | 8 (07h) | aucun | 9 (22h) | 6 (07h) |
-| ven. 16/10/2026 | aucun | 9 (21h) | 13 (22h) | 09h-16h | 11 (11h) | 11 (15h) |
-| sam. 17/10/2026 | aucun | 7 (07h) | 12 (07h) | aucun | 8 (07h) | 4 (22h) |
-| dim. 18/10/2026 |  |  |  | 07h-22h | 20 (11h) | 2 (07h) |
+| mer. 07/10/2026 | aucun | 4 (17h) | 8 (17h) | 15h-19h | 13 (16h) | 18 (16h) |
+| jeu. 08/10/2026 | aucun | 12 (08h) | 18 (10h) | aucun | 8 (08h) | 14 (20h) |
+| ven. 09/10/2026 | 08h-20h | 18 (14h) | 28 (14h) | 08h-18h | 15 (11h) | 24 (11h) |
+| sam. 10/10/2026 | aucun | 10 (08h) | 21 (08h) | aucun | 6 (17h) | 8 (11h) |
+| dim. 11/10/2026 | aucun | 6 (14h) | 16 (08h) | aucun | 6 (20h) | 8 (14h) |
+| lun. 12/10/2026 | 12h-20h | 12 (16h) | 17 (16h) | 08h-20h | 16 (11h) | 9 (08h) |
+| mar. 13/10/2026 | 08h-20h | 18 (19h) | 25 (19h) | 08h-20h | 15 (16h) | 4 (14h) |
+| mer. 14/10/2026 | aucun | 11 (08h) | 22 (08h) | aucun | 5 (20h) | 13 (11h) |
+| jeu. 15/10/2026 | aucun | 3 (14h) | 7 (08h) | aucun | 8 (17h) | 5 (11h) |
+| ven. 16/10/2026 | aucun | 9 (20h) | 13 (20h) | 09h-16h | 11 (11h) | 11 (15h) |
+| sam. 17/10/2026 | aucun | 6 (08h) | 12 (08h) | aucun | 8 (08h) | 4 (17h) |
+| dim. 18/10/2026 |  |  |  | 08h-20h | 20 (11h) | 2 (15h) |
 
 ## sam. 03/10/2026 — heure par heure
 
