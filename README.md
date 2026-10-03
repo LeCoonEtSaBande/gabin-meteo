@@ -74,7 +74,7 @@ Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéan
 
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
 - Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 7 h–22 h, créneau, température à 15 h.
-- Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics `moy` / `raf`, et bornes du créneau de chaque courbe sous l’axe des heures.
+- Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics de vent moyen et de rafales (nombre seul), et bornes du créneau de chaque courbe sous l’axe des heures.
 - Onglet *Balises temps réel* : pas encore branché.
 
 ## Lecture par Claude (appli téléphone ou PC)
