@@ -16,7 +16,7 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 
 - Coque HTML (onglets, puces, barre de jour, panneau détail). Le SVG `assets/svg_map/Carte RA 804x1200.svg` est **uniquement la carte**.
 - *Tendances journalières* : une puce par zone, avec les données du spot principal de la zone (`PRIMARY_SPOT` dans `js/quotidien.js`). Elle montre l’icône météo, le vent max 8 h–20 h (nœuds, gris jusqu’à 10 nds), le créneau exploitable (≥ 3 h de vent moyen > 10 nds, 8 h–20 h), la température à 15 h et le modèle court terme.
-- Clic zone → panneau détail : textes / liens des specs, graphiques `AROMEIFS` et `ICONGFS`. Courbe par défaut : `AROMEIFS` pour les spots AROME HD, `ICONGFS` pour les spots ICON-CH1.
+- Clic zone → panneau détail : textes des specs, boutons Windguru et Carte (les liens webcam / anémomètre restent dans les specs mais ne sont pas affichés pour l'instant), graphiques `AROMEIFS` et `ICONGFS`. Courbe par défaut : `AROMEIFS` pour les spots AROME HD, `ICONGFS` pour les spots ICON-CH1.
 - Graphique :
   - trait pointillé à **10 nds** ;
   - vue 1 jour : un point par heure sur l’axe de 6 h à 21 h, aucun de 22 h à 5 h, pour distinguer la nuit ;
@@ -31,7 +31,7 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
   - les mesures sont lues **directement par le navigateur** à l'ouverture de l'onglet, depuis l'open data MétéoSuisse (`https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/<id>/ogd-smn_<id>_t_now.csv`, pas de 10 min, sans clé). Aucun appel tant que l'onglet n'est pas ouvert, pas de rafraîchissement automatique : bouton ↻, et relecture au retour sur l'appli si les mesures ont plus de 10 min ;
   - vignette : vent moyen et rafale du dernier pas (nœuds), flèche vers où ça souffle, provenance en toutes lettres (`NE`), heure et âge de la mesure ; grisée au-delà de 30 min ;
   - position calculée depuis la latitude / longitude, par une conversion calée sur les marqueurs des spots du SVG (pas de retouche du SVG). Point et trait de rappel vers la vraie position ; une balise hors carte est ramenée au bord avec une flèche ;
-  - clic : courbe du jour (même graphique que les prévisions, sans nuages ni pluie), avec la prévision du **spot le plus proche** en trait fin (`AROMEIFS` ou `ICONGFS` selon le spot).
+  - clic : courbe du jour (même graphique que les prévisions, sans nuages ni pluie), avec la prévision du **spot le plus proche** superposée (`AROMEIFS` ou `ICONGFS` selon le spot). La mesure, en blanc, passe au-dessus avec un liseré sombre ; les boutons « Masquer mesure » / « Masquer ICONGFS » isolent l'une ou l'autre courbe (au moins une reste affichée). L'infobulle donne la valeur de la courbe la plus proche.
   - Pas d'archive à ce stade.
 
 Contrat des calques SVG : [`assets/svg_map/README.md`](assets/svg_map/README.md).
