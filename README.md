@@ -75,7 +75,7 @@ Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéan
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
 - Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 8 h–20 h, créneau, température à 15 h.
 - Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics de vent moyen et de rafales (nombre seul), et bornes du créneau de chaque courbe sous l’axe des heures.
-- Onglet *Balises temps réel* : pas encore branché.
+- Onglet *Balises temps réel* : prototype avec 3 balises MétéoSuisse (Genève-Cointrin, Changins, St-Prex), lues directement par le navigateur à l'ouverture de l'onglet (open data MétéoSuisse, pas de 10 min, sans clé). Vignette vent moyen / rafale / provenance, et au clic la courbe du jour avec la prévision du spot le plus proche en trait fin. Pas d'archive à ce stade. Détail : [README de `affichage-web`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md).
 
 ## Lecture par Claude (appli téléphone ou PC)
 
