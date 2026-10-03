@@ -7,29 +7,29 @@
 - Infos pratiques : Se garer sur le parking du mini-golf. Attention aux rochers à l'Ouest du chenal de départ. Départ alternatif possible de la plage de Sciez a privilégier l'été avant 18h.
 
 > Unités : vent moyen et rafales en nœuds (nds), direction = d'où vient le vent (degrés et rose des vents), pluie en mm tombés pendant l'heure qui précède, nuages en % (nébulosité perçue), heures en Europe/Paris.
-> Créneau navigable : au moins 3 h de vent moyen > 10 nds entre 7 h et 22 h ; s'il y en a plusieurs, le plus proche du pic de vent moyen.
+> Créneau navigable : au moins 3 h de vent moyen > 10 nds entre 8 h et 20 h ; s'il y en a plusieurs, le plus proche du pic de vent moyen.
 > Courbes : `AROMEIFS` = AROMEHD → ARPEGE → IFS ; `ICONGFS` = ICONCH1 → ICONCH2 → ICON13KM → GFS (à un instant donné, le modèle le plus court terme encore disponible ; colonne `modèle`).
 
-## Résumé par jour (7 h–22 h)
+## Résumé par jour (8 h–20 h)
 
 | Jour | AROMEIFS créneau | AROMEIFS moy. max | AROMEIFS raf. max | ICONGFS créneau | ICONGFS moy. max | ICONGFS raf. max |
 |---|---|---|---|---|---|---|
-| sam. 03/10/2026 | aucun | 2 (18h) | 4 (07h) | aucun | 4 (10h) | 7 (11h) |
+| sam. 03/10/2026 | aucun | 2 (18h) | 4 (11h) | aucun | 4 (10h) | 7 (11h) |
 | dim. 04/10/2026 | aucun | 4 (08h) | 5 (10h) | aucun | 9 (19h) | 15 (19h) |
-| lun. 05/10/2026 | aucun | 3 (16h) | 3 (09h) | aucun | 4 (21h) | 6 (21h) |
-| mar. 06/10/2026 | aucun | 4 (07h) | 4 (07h) | aucun | 4 (11h) | 6 (12h) |
-| mer. 07/10/2026 | aucun | 4 (22h) | 10 (22h) | aucun | 10 (19h) | 19 (17h) |
-| jeu. 08/10/2026 | 07h-10h | 16 (08h) | 24 (09h) | aucun | 8 (07h) | 14 (07h) |
-| ven. 09/10/2026 | 07h-22h | 21 (14h) | 30 (16h) | 07h-18h | 15 (11h) | 24 (11h) |
-| sam. 10/10/2026 | aucun | 11 (07h) | 22 (07h) | aucun | 7 (15h) | 10 (17h) |
-| dim. 11/10/2026 | aucun | 4 (14h) | 20 (07h) | aucun | 9 (21h) | 11 (14h) |
-| lun. 12/10/2026 | 10h-22h | 14 (19h) | 20 (20h) | 07h-22h | 19 (22h) | 13 (07h) |
-| mar. 13/10/2026 | 07h-22h | 20 (16h) | 28 (17h) | 07h-22h | 18 (07h) | 3 (07h) |
-| mer. 14/10/2026 | aucun | 11 (07h) | 18 (07h) | aucun | 9 (22h) | 22 (22h) |
-| jeu. 15/10/2026 | aucun | 3 (22h) | 8 (07h) | 16h-22h | 11 (18h) | 8 (07h) |
-| ven. 16/10/2026 | aucun | 8 (18h) | 13 (20h) | 07h-17h | 13 (11h) | 13 (16h) |
-| sam. 17/10/2026 | aucun | 6 (07h) | 10 (07h) | 07h-13h | 12 (10h) | 4 (22h) |
-| dim. 18/10/2026 |  |  |  | 07h-22h | 23 (11h) | 4 (17h) |
+| lun. 05/10/2026 | aucun | 3 (16h) | 3 (09h) | aucun | 2 (09h) | 4 (09h) |
+| mar. 06/10/2026 | aucun | 3 (18h) | 4 (08h) | aucun | 4 (11h) | 6 (12h) |
+| mer. 07/10/2026 | aucun | 3 (17h) | 9 (20h) | aucun | 10 (19h) | 19 (17h) |
+| jeu. 08/10/2026 | aucun | 16 (08h) | 24 (09h) | aucun | 8 (08h) | 14 (20h) |
+| ven. 09/10/2026 | 08h-20h | 21 (14h) | 30 (16h) | 08h-18h | 15 (11h) | 24 (11h) |
+| sam. 10/10/2026 | aucun | 10 (08h) | 21 (08h) | aucun | 7 (15h) | 10 (17h) |
+| dim. 11/10/2026 | aucun | 4 (14h) | 19 (08h) | aucun | 9 (20h) | 11 (14h) |
+| lun. 12/10/2026 | 10h-20h | 14 (19h) | 20 (20h) | 08h-20h | 18 (11h) | 12 (08h) |
+| mar. 13/10/2026 | 08h-20h | 20 (16h) | 28 (17h) | 08h-20h | 18 (08h) | 3 (20h) |
+| mer. 14/10/2026 | aucun | 10 (08h) | 17 (08h) | aucun | 6 (08h) | 19 (20h) |
+| jeu. 15/10/2026 | aucun | 3 (08h) | 8 (08h) | 16h-20h | 11 (18h) | 8 (20h) |
+| ven. 16/10/2026 | aucun | 8 (18h) | 13 (20h) | 08h-17h | 13 (11h) | 13 (16h) |
+| sam. 17/10/2026 | aucun | 6 (08h) | 10 (08h) | 08h-13h | 12 (10h) | 3 (15h) |
+| dim. 18/10/2026 |  |  |  | 08h-20h | 23 (11h) | 4 (17h) |
 
 ## sam. 03/10/2026 — heure par heure
 

@@ -7,10 +7,10 @@
 - Infos pratiques : Accès par le parking de la centrale EDF et stationnement à 5m de la mise à l'eau. Les péniches sont prioritaires! Débris possibles en hiver après les crues!
 
 > Unités : vent moyen et rafales en nœuds (nds), direction = d'où vient le vent (degrés et rose des vents), pluie en mm tombés pendant l'heure qui précède, nuages en % (nébulosité perçue), heures en Europe/Paris.
-> Créneau navigable : au moins 3 h de vent moyen > 10 nds entre 7 h et 22 h ; s'il y en a plusieurs, le plus proche du pic de vent moyen.
+> Créneau navigable : au moins 3 h de vent moyen > 10 nds entre 8 h et 20 h ; s'il y en a plusieurs, le plus proche du pic de vent moyen.
 > Courbes : `AROMEIFS` = AROMEHD → ARPEGE → IFS ; `ICONGFS` = ICONCH1 → ICONCH2 → ICON13KM → GFS (à un instant donné, le modèle le plus court terme encore disponible ; colonne `modèle`).
 
-## Résumé par jour (7 h–22 h)
+## Résumé par jour (8 h–20 h)
 
 | Jour | AROMEIFS créneau | AROMEIFS moy. max | AROMEIFS raf. max | ICONGFS créneau | ICONGFS moy. max | ICONGFS raf. max |
 |---|---|---|---|---|---|---|
@@ -19,17 +19,17 @@
 | lun. 05/10/2026 | aucun | 6 (17h) | 13 (17h) | aucun | 4 (20h) | 8 (20h) |
 | mar. 06/10/2026 | aucun | 7 (20h) | 11 (20h) | aucun | 5 (18h) | 8 (18h) |
 | mer. 07/10/2026 | aucun | 9 (14h) | 22 (16h) | aucun | 9 (12h) | 16 (12h) |
-| jeu. 08/10/2026 | 13h-19h | 12 (22h) | 30 (22h) | 08h-22h | 16 (17h) | 29 (20h) |
-| ven. 09/10/2026 | 07h-22h | 18 (13h) | 40 (18h) | 07h-22h | 22 (12h) | 42 (13h) |
-| sam. 10/10/2026 | aucun | 9 (14h) | 23 (07h) | aucun | 10 (16h) | 10 (14h) |
-| dim. 11/10/2026 | aucun | 10 (14h) | 26 (17h) | 13h-21h | 14 (17h) | 11 (16h) |
-| lun. 12/10/2026 | 12h-18h | 12 (14h) | 29 (17h) | 09h-22h | 18 (16h) | 18 (12h) |
+| jeu. 08/10/2026 | 13h-19h | 12 (16h) | 29 (17h) | 08h-20h | 16 (17h) | 29 (20h) |
+| ven. 09/10/2026 | 08h-20h | 18 (13h) | 40 (18h) | 08h-20h | 22 (12h) | 42 (13h) |
+| sam. 10/10/2026 | aucun | 9 (14h) | 23 (17h) | aucun | 10 (16h) | 10 (14h) |
+| dim. 11/10/2026 | aucun | 10 (14h) | 26 (17h) | 13h-20h | 14 (17h) | 11 (16h) |
+| lun. 12/10/2026 | 12h-18h | 12 (14h) | 29 (17h) | 09h-20h | 18 (16h) | 18 (12h) |
 | mar. 13/10/2026 | 11h-19h | 13 (14h) | 31 (18h) | 13h-16h | 11 (14h) | 10 (14h) |
-| mer. 14/10/2026 | aucun | 4 (14h) | 13 (07h) | aucun | 8 (19h) | 9 (14h) |
+| mer. 14/10/2026 | aucun | 4 (14h) | 13 (18h) | aucun | 8 (19h) | 9 (14h) |
 | jeu. 15/10/2026 | aucun | 6 (18h) | 13 (17h) | 13h-19h | 14 (15h) | 7 (08h) |
 | ven. 16/10/2026 | aucun | 6 (14h) | 17 (17h) | 12h-18h | 12 (16h) | 7 (15h) |
-| sam. 17/10/2026 | aucun | 4 (14h) | 12 (14h) | 13h-16h | 13 (14h) | 15 (22h) |
-| dim. 18/10/2026 |  |  |  | 07h-20h | 15 (09h) | 30 (12h) |
+| sam. 17/10/2026 | aucun | 4 (14h) | 12 (14h) | 13h-16h | 13 (14h) | 14 (20h) |
+| dim. 18/10/2026 |  |  |  | 08h-20h | 15 (09h) | 30 (12h) |
 
 ## sam. 03/10/2026 — heure par heure
 
