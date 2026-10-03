@@ -509,10 +509,10 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
 
   const xAt = (validAt) => xOf({ valid_at: validAt }, startDay, nDays, x0, innerW);
   const nearestPoint = (points, validAt) => points.find((point) => point.valid_at === validAt);
-  function peakLabel(x, y, text, color, below) {
+  function peakLabel(x, y, text, color, below, kind) {
     const ty = below ? y + 11 : y - 5;
     return `<circle class="peak-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2" fill="${color}"></circle>
-      <text class="peak-label" x="${x.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="${color}" stroke="#141414" stroke-width="2.4" paint-order="stroke" font-size="8.5px" font-weight="700">${escapeHtml(text)}</text>`;
+      <text class="peak-label peak-${kind}" x="${x.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="${color}" stroke="#141414" stroke-width="2.4" paint-order="stroke" font-size="8.5px" font-weight="700">${escapeHtml(text)}</text>`;
   }
   const peaks = series
     .map((item, idx) => {
@@ -524,10 +524,10 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
           const gustPoint = nearestPoint(item.points, info.gust_max_at);
           let out = "";
           if (gustPoint) {
-            out += peakLabel(xAt(info.gust_max_at), yKt(gustPoint.gust), `raf ${info.gust_max_kt}`, color, idx === 1);
+            out += peakLabel(xAt(info.gust_max_at), yKt(gustPoint.gust), String(info.gust_max_kt), color, idx === 1, "gust");
           }
           if (meanPoint) {
-            out += peakLabel(xAt(info.mean_max_at), yKt(meanPoint.mean), `moy ${info.mean_max_kt}`, color, idx === 1);
+            out += peakLabel(xAt(info.mean_max_at), yKt(meanPoint.mean), String(info.mean_max_kt), color, idx === 1, "mean");
           }
           return out;
         })

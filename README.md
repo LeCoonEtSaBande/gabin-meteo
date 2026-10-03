@@ -20,7 +20,7 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 - Graphique :
   - trait pointillé à **10 nds** ;
   - zone colorée entre moyen et rafales, **seulement quand le vent moyen dépasse 10 nds** ;
-  - étiquettes `moy` / `raf` sur les pics 7 h–22 h (vue 1 jour : toujours ; vues 3 et 5 jours : seulement les jours avec créneau) ;
+  - valeurs du vent moyen max et des rafales max (nombre seul, sans préfixe) sur les pics 7 h–22 h (vue 1 jour : toujours ; vues 3 et 5 jours : seulement les jours avec créneau) ;
   - sous l’axe des heures, une ligne *créneau* par courbe affichée (vue 1 jour : heure de début et heure de fin ; vues 3 et 5 jours : `10-16h` centré).
 
   Créneaux et pics viennent de `creneaux.json`. Si ce fichier manque, le graphique s’affiche sans eux.

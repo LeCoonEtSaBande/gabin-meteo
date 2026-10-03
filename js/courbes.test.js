@@ -473,9 +473,9 @@ test("bornes du créneau et pics affichés pour chaque courbe visible", () => {
   assert.equal((one.match(/class="slot-bracket"/g) || []).length, 1);
   assert.match(one, /class="slot-start"[^>]*>10h</);
   assert.match(one, /class="slot-end"[^>]*>17h</);
-  assert.match(one, />moy 13</);
-  assert.match(one, />raf 21</);
-  assert.doesNotMatch(one, />moy 16</);
+  assert.match(one, /class="peak-label peak-mean"[^>]*>13</);
+  assert.match(one, /class="peak-label peak-gust"[^>]*>21</);
+  assert.doesNotMatch(one, /class="peak-label peak-mean"[^>]*>16</);
 
   const both = buildChartSvg(series, "2026-10-08", 1, 400, {
     primarySet: "AROMEIFS",
@@ -484,8 +484,8 @@ test("bornes du créneau et pics affichés pour chaque courbe visible", () => {
   });
   assert.equal((both.match(/class="slot-bracket"/g) || []).length, 2);
   assert.match(both, /data-set="ICONGFS"[\s\S]*>12h<[\s\S]*>20h</);
-  assert.match(both, />moy 16</);
-  assert.match(both, />raf 24</);
+  assert.match(both, /class="peak-label peak-mean"[^>]*>16</);
+  assert.match(both, /class="peak-label peak-gust"[^>]*>24</);
 
   const onlySecondary = buildChartSvg(series, "2026-10-08", 1, 400, {
     primarySet: "AROMEIFS",
@@ -494,7 +494,7 @@ test("bornes du créneau et pics affichés pour chaque courbe visible", () => {
     chartDays,
   });
   assert.equal((onlySecondary.match(/class="slot-bracket"/g) || []).length, 1);
-  assert.doesNotMatch(onlySecondary, />moy 13</);
+  assert.doesNotMatch(onlySecondary, /class="peak-label peak-mean"[^>]*>13</);
 
   const none = buildChartSvg(series, "2026-10-08", 1, 400, { primarySet: "AROMEIFS" });
   assert.doesNotMatch(none, /class="slot-bracket"/);
@@ -517,8 +517,8 @@ test("3 et 5 jours : bornes compactes et pics seulement les jours avec créneau"
   assert.match(svg, /class="slot-range"[^>]*>10-22h</);
   assert.match(svg, /class="slot-range"[^>]*>07-18h</);
   assert.doesNotMatch(svg, /class="slot-start"/);
-  assert.equal((svg.match(/>moy 14</g) || []).length, 2);
-  assert.doesNotMatch(svg, />moy 5</);
+  assert.equal((svg.match(/class="peak-label peak-mean"[^>]*>14</g) || []).length, 2);
+  assert.doesNotMatch(svg, /class="peak-label peak-mean"[^>]*>5</);
   const day = buildChartSvg({ AROMEIFS: points, ICONGFS: [] }, "2026-10-10", 1, 400, { primarySet: "AROMEIFS", chartDays });
-  assert.match(day, />moy 5</);
+  assert.match(day, /class="peak-label peak-mean"[^>]*>5</);
 });
