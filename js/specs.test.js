@@ -26,6 +26,24 @@ test("spots_specifications expose les liens Excenevex et les champs texte", () =
   assert.equal(messery.zone_key, "leman_grand_lac");
 });
 
+test("fiche spot : seuls les boutons Windguru et Carte sont affichés", () => {
+  global.escapeHtml = require("./courbes.js").escapeHtml;
+  global.mapsUrl = mapsUrl;
+  const { LINK_DEFS, spotInfoHtml } = require("./detail.js");
+  assert.deepEqual(LINK_DEFS.map((def) => def.label), ["Windguru"]);
+  const html = spotInfoHtml({
+    display_name: "Plage d'Excenevex",
+    link_windguru: "https://www.windguru.cz/179",
+    link_webcam: "https://example.org/webcam",
+    link_anemometer: "https://example.org/anemo",
+    Latitude_mise_a_leau: "46.3488",
+    Longitude_mise_a_leau: "6.3601",
+  });
+  assert.ok(html.includes(">Windguru<"));
+  assert.ok(html.includes(">Carte<"));
+  assert.ok(!html.includes("Webcam") && !html.includes("Anémo"));
+});
+
 test("zones_specifications nomme Léman Grand Lac", () => {
   const csv = fs.readFileSync(
     path.join(__dirname, "..", "assets", "spots_specs", "zones_specifications.csv"),

@@ -12,11 +12,7 @@ const HORIZONS = [
   { days: 5, label: "5 jours" },
 ];
 
-const LINK_DEFS = [
-  { key: "link_windguru", label: "Windguru" },
-  { key: "link_webcam", label: "Webcam" },
-  { key: "link_anemometer", label: "Anémo" },
-];
+const LINK_DEFS = [{ key: "link_windguru", label: "Windguru" }];
 
 let horizonDays = 1;
 let zoneSpecs = [];
@@ -364,6 +360,7 @@ if (typeof module !== "undefined" && module.exports) {
     LINK_DEFS,
     linkButton,
     mapsButton,
+    spotInfoHtml,
     specsForZone,
     zoneSpecName,
   };
