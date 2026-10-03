@@ -2,6 +2,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { parseCsv } = require("./csv.js");
 const {
+  isDayHour,
   mapsUrl,
   addDays,
   sliceHorizon,
@@ -204,7 +205,12 @@ test("la flèche graphique pointe à dir + 180°", () => {
 test("journée : heures entre vent et nuages, un point par heure, échelles 0-100 et mm", () => {
   const svg = buildChartSvg(SAMPLE, "2026-08-20", 1, 400, { primarySet: "ICONGFS" });
   assert.match(svg, /class="hour-dot"/);
-  assert.equal((svg.match(/class="hour-dot"/g) || []).length, 24);
+  const dots = [...svg.matchAll(/class="hour-dot" cx="([0-9.]+)"/g)].map((m) => Number(m[1]));
+  assert.equal(dots.length, 16, "un point par heure de 6 h à 21 h, aucun la nuit");
+  const geom = JSON.parse(svg.match(/data-geom="([^"]+)"/)[1].replace(/&quot;/g, '"'));
+  const hourX = (h) => geom.x0 + (h / 24) * geom.innerW;
+  assert.ok(Math.abs(dots[0] - hourX(6)) < 0.2);
+  assert.ok(Math.abs(dots[dots.length - 1] - hourX(21)) < 0.2);
   assert.match(svg, /Nuages \(%\)/);
   assert.match(svg, />100</);
   assert.match(svg, /Pluie \(mm\)/);
@@ -220,7 +226,7 @@ test("journée : heures entre vent et nuages, un point par heure, échelles 0-10
   const plotLeft = Number((svg.match(/<line x1="([0-9.]+)" y1="[^"]+" x2="[^"]+" y2="[^"]+" stroke="#2a2a2a"/) || [])[1]);
   const cloudTick = svg.match(/class="wx-tick" x="([0-9.]+)"[^>]*>100</);
   const precipTick = svg.match(/class="wx-tick" x="([0-9.]+)"[^>]*text-anchor="start"[^>]*>[0-9]+</);
-  assert.ok(plotLeft > 70);
+  assert.ok(plotLeft >= 45);
   assert.ok(cloudTick && Number(cloudTick[1]) < plotLeft);
   assert.ok(precipTick && Number(precipTick[1]) > plotLeft);
   assert.match(svg, /class="kt-10"/);
@@ -233,7 +239,7 @@ test("journée : heures entre vent et nuages, un point par heure, échelles 0-10
   assert.match(svg, /wx-tick-precip-mid"[^>]*>0\.5</);
 });
 
-test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () => {
+test("le nom de courbe ne touche pas la première flèche, zone de tracé large", () => {
   const svg = buildChartSvg(
     {
       AROMEIFS: [
@@ -259,7 +265,10 @@ test("sur PC AROMEIFS est collé à gauche, loin de la première flèche", () =>
   assert.ok(Number(label[1]) <= 3);
   const arrow = svg.match(/translate\(([0-9.]+),/);
   assert.ok(arrow);
-  assert.ok(Number(arrow[1]) - Number(label[1]) >= 100);
+  // « AROMEIFS » en monospace 8 px ≈ 39 px de large, flèche de ±3,2 px.
+  assert.ok(Number(arrow[1]) - Number(label[1]) >= 48);
+  const geom = JSON.parse(svg.match(/data-geom="([^"]+)"/)[1].replace(/&quot;/g, '"'));
+  assert.ok(geom.innerW >= 300, `zone de tracé trop étroite : ${geom.innerW}`);
 });
 
 test("nds est une unité verticale à gauche, pas collée au max de l'axe", () => {
@@ -521,4 +530,9 @@ test("3 et 5 jours : bornes compactes et pics seulement les jours avec créneau"
   assert.doesNotMatch(svg, /class="peak-label peak-mean"[^>]*>5</);
   const day = buildChartSvg({ AROMEIFS: points, ICONGFS: [] }, "2026-10-10", 1, 400, { primarySet: "AROMEIFS", chartDays });
   assert.match(day, /class="peak-label peak-mean"[^>]*>5</);
+});
+
+test("points de l'axe : jour de 6 h à 21 h inclus, nuit sans point", () => {
+  const day = Array.from({ length: 24 }, (_, h) => h).filter(isDayHour);
+  assert.deepEqual(day, [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]);
 });

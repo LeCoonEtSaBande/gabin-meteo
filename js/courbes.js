@@ -363,6 +363,14 @@ function xTicks(startDay, nDays, x0, innerW) {
   return { hours, days, noonDots, dayBreaks };
 }
 
+// Pas de point sur l'axe de 22 h à 5 h : la nuit se repère d'un coup d'œil.
+const NIGHT_DOTS_AFTER_H = 21;
+const NIGHT_DOTS_BEFORE_H = 6;
+
+function isDayHour(hour) {
+  return hour >= NIGHT_DOTS_BEFORE_H && hour <= NIGHT_DOTS_AFTER_H;
+}
+
 function slotCaption(validAt, nDays) {
   const p = parseValidAt(validAt);
   const hour = `${String(p.hour).padStart(2, "0")}h`;
@@ -428,8 +436,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const slotRows = series.filter((item) => slotsInHorizon(chartDays[item.name], startDay, nDays).length);
   const compactSetLabels = Boolean(options.compactSetLabels);
   const setLabelSize = compactSetLabels ? 7 : 8;
-  const padL = compactSetLabels ? 108 : 88;
-  const padR = compactSetLabels ? 64 : 58;
+  const padL = 58;
+  const padR = 40;
   const dirRowH = compactSetLabels ? 18 : 22;
   const windH = 148;
   const axisH = 18;
@@ -618,8 +626,10 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
         x0,
         innerW
       );
-      hourAxis += `<line x1="${x.toFixed(1)}" y1="${axisY - 3}" x2="${x.toFixed(1)}" y2="${axisY + 3}" stroke="#8a8a8a" stroke-width="1"></line>
-        <circle class="hour-dot" cx="${x.toFixed(1)}" cy="${axisY}" r="2.1" fill="#c4c4c4"></circle>`;
+      hourAxis += `<line x1="${x.toFixed(1)}" y1="${axisY - 3}" x2="${x.toFixed(1)}" y2="${axisY + 3}" stroke="#8a8a8a" stroke-width="1"></line>`;
+      if (isDayHour(hour)) {
+        hourAxis += `<circle class="hour-dot" cx="${x.toFixed(1)}" cy="${axisY}" r="2.1" fill="#c4c4c4"></circle>`;
+      }
     }
   } else {
     for (const br of ticks.dayBreaks) {
@@ -701,6 +711,7 @@ if (typeof module !== "undefined" && module.exports) {
     nicePrecipMax,
     xTicks,
     slotCaption,
+    isDayHour,
     pickNearestWind,
     buildChartSvg,
     legendHtml,

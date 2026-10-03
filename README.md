@@ -19,6 +19,7 @@ GitHub Pages est configuré sur la **racine** de `affichage-web`.
 - Clic zone → panneau détail : textes / liens des specs, graphiques `AROMEIFS` et `ICONGFS`. Courbe par défaut : `AROMEIFS` pour les spots AROME HD, `ICONGFS` pour les spots ICON-CH1.
 - Graphique :
   - trait pointillé à **10 nds** ;
+  - vue 1 jour : un point par heure sur l’axe de 6 h à 21 h, aucun de 22 h à 5 h, pour distinguer la nuit ;
   - zone colorée entre moyen et rafales, **seulement quand le vent moyen dépasse 10 nds** ;
   - valeurs du vent moyen max et des rafales max (nombre seul, sans préfixe) sur les pics 8 h–20 h (vue 1 jour : toujours ; vues 3 et 5 jours : seulement les jours avec créneau) ;
   - sous l’axe des heures, une ligne *créneau* par courbe affichée (vue 1 jour : heure de début et heure de fin ; vues 3 et 5 jours : `10-16h` centré).
