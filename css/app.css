@@ -380,6 +380,9 @@ html, body {
 
 .spot-chart-title { flex: 1; min-width: 0; }
 
+.spot-chart-head.is-buoy { flex-wrap: wrap; }
+.spot-chart-head.is-buoy .spot-chart-title { flex: 1 0 auto; }
+
 .spot-chart-toggles {
   display: flex;
   flex-wrap: wrap;

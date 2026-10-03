@@ -432,7 +432,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const showSecondary = Boolean(options.showSecondary);
   const sets = visibleSets(primarySet, { showPrimary, showSecondary });
   const series = options.seriesList || sets.map((name) => ({ name, points: seriesBySet[name] || [] }));
-  const overlay = options.overlay && options.overlay.points?.length ? options.overlay : null;
+  const overlays = (options.overlays || []).filter((item) => item?.points?.length);
   const hideWeather = Boolean(options.hideWeather);
   const all = series.flatMap((item) => item.points);
   if (!all.length) {
@@ -465,7 +465,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const x1 = padL + innerW;
   const setLabelX = compactSetLabels ? 2 : 4;
   const wxUnitPad = 11;
-  const overlayPoints = overlay ? overlay.points : [];
+  const overlayPoints = overlays.flatMap((item) => item.points);
   const maxKt = niceMaxKt(all.concat(overlayPoints).flatMap((p) => [p.mean, p.gust]));
   const yKt = (kt) => yWind0 - (kt / maxKt) * windH;
   const nHours = nDays * 24;
@@ -531,17 +531,16 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
 
   const winds = series.map((item) => paintWind(item.points, true) + paintWind(item.points, false)).join("");
 
-  function paintOverlay() {
-    if (!overlay) return "";
-    const color = SET_COLORS[overlay.name] || "#7a7a7a";
+  function paintOverlay(item) {
+    const color = SET_COLORS[item.name] || "#7a7a7a";
     const path = (pick) =>
-      overlayPoints
+      item.points
         .map((p, i) => {
           const x = xOf(p, startDay, nDays, x0, innerW).toFixed(1);
           return `${i ? "L" : "M"} ${x} ${yKt(pick(p)).toFixed(1)}`;
         })
         .join(" ");
-    return `<g class="forecast-overlay">
+    return `<g class="forecast-overlay" data-set="${escapeHtml(item.name)}">
       <path d="${path((p) => p.gust)}" fill="none" stroke="${color}" stroke-width="${GUST_STROKE}" stroke-dasharray="3 3" opacity="0.8"></path>
       <path d="${path((p) => p.mean)}" fill="none" stroke="${color}" stroke-width="${MEAN_STROKE * 0.85}" opacity="0.9" stroke-linejoin="round" stroke-linecap="round"></path>
     </g>`;
@@ -702,7 +701,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     ${grid}
     ${ktSlotLine}
     <text class="kt-unit" transform="translate(${wxUnitPad} ${windMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="#7a7a7a" font-size="6.5px">nds</text>
-    ${paintOverlay()}
+    ${overlays.map(paintOverlay).join("")}
     ${nowLine}
     ${fills}
     ${winds}

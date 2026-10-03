@@ -24,8 +24,9 @@ let buoyError = "";
 let buoyProjection = null;
 let selectedBuoy = null;
 let buoyClock = null;
-let buoyShowMeasure = true;
-let buoyShowForecast = true;
+const BUOY_CURVES = ["MESURE", "AROMEIFS", "ICONGFS"];
+const BUOY_CURVE_LABELS = { MESURE: "Mesure", AROMEIFS: "AROME", ICONGFS: "ICON" };
+const buoyCurves = new Map();
 
 function meteoSuisseNowUrl(stationId) {
   const id = String(stationId || "").toLowerCase();
@@ -412,15 +413,42 @@ function renderBuoys() {
   requestAnimationFrame(() => layoutBuoyChips(host, anchors));
 }
 
+function defaultBuoyCurves(primary) {
+  return { MESURE: true, AROMEIFS: primary === "AROMEIFS", ICONGFS: primary === "ICONGFS" };
+}
+
+/* Au moins une courbe reste affichée : masquer la dernière rallume la mesure,
+ * ou le modèle par défaut du spot si c'est la mesure qu'on vient de masquer. */
+function toggleBuoyCurveState(state, name, primary, available) {
+  const next = { ...state, [name]: !state[name] };
+  if (available.some((key) => next[key])) return next;
+  const models = available.filter((key) => key !== "MESURE");
+  const fallback = name !== "MESURE" ? "MESURE" : models.includes(primary) ? primary : models[0];
+  next[fallback || name] = true;
+  return next;
+}
+
+function buoyCurveState(stationKey, primary) {
+  if (!buoyCurves.has(stationKey)) buoyCurves.set(stationKey, defaultBuoyCurves(primary));
+  return buoyCurves.get(stationKey);
+}
+
 function buoyChartPayload(station, item, dayKey) {
   const points = (item?.points || []).filter((point) => point.valid_at.startsWith(dayKey));
   const near = nearestSpot(station, spotSpecs);
-  const set = near ? primaryCurveSet(near.spot) : null;
-  const forecast = near ? sliceHorizon(curveIndex[set]?.[near.spot.spot_key] || [], dayKey, 1) : [];
+  const primary = near ? primaryCurveSet(near.spot) : null;
+  const models = near
+    ? [primary, secondaryCurveSet(primary)]
+        .map((name) => ({ name, points: sliceHorizon(curveIndex[name]?.[near.spot.spot_key] || [], dayKey, 1) }))
+        .filter((model) => model.points.length)
+    : [];
+  const available = ["MESURE", ...models.map((model) => model.name)];
+  const state = buoyCurveState(station.station_key, primary);
+  const shownModels = models.filter((model) => state[model.name]);
+  const showMeasure = state.MESURE || !shownModels.length;
   const measured = { name: "MESURE", points };
-  const predicted = forecast.length ? { name: set, points: forecast } : null;
-  const showForecast = Boolean(predicted) && buoyShowForecast;
-  const showMeasure = buoyShowMeasure || !showForecast;
+  const shown = { MESURE: showMeasure };
+  for (const model of models) shown[model.name] = shownModels.includes(model);
   const common = {
     hideWeather: true,
     nowAt: parisValidAt(Date.now()),
@@ -432,17 +460,20 @@ function buoyChartPayload(station, item, dayKey) {
     opts = {
       ...common,
       seriesList: [measured],
-      overlay: showForecast ? predicted : null,
-      halo: showForecast,
-      tipSeries: showForecast ? [measured, predicted] : [measured],
+      // Le modèle par défaut est peint en dernier, donc au-dessus de l'autre.
+      overlays: shownModels.slice().reverse(),
+      halo: shownModels.length > 0,
+      tipSeries: [measured, ...shownModels],
       chartDays: { MESURE: peaks ? { [dayKey]: peaks } : {} },
     };
   } else {
     opts = {
       ...common,
-      seriesList: [predicted],
-      tipSeries: [predicted],
-      chartDays: { [set]: chartDaysBySet[set]?.[near.spot.spot_key] || {} },
+      seriesList: shownModels,
+      tipSeries: shownModels,
+      chartDays: Object.fromEntries(
+        shownModels.map((model) => [model.name, chartDaysBySet[model.name]?.[near.spot.spot_key] || {}])
+      ),
     };
   }
   return {
@@ -452,39 +483,34 @@ function buoyChartPayload(station, item, dayKey) {
     opts,
     title: station.display_name,
     near,
-    set,
-    hasForecast: Boolean(predicted),
-    showMeasure,
-    showForecast,
+    primary,
+    available,
+    shown,
   };
 }
 
-function buoyToggleButton(kind, label, shown) {
-  return `<button type="button" class="secondary-btn${shown ? " is-active" : ""}" data-buoy-toggle="${kind}" aria-pressed="${shown ? "true" : "false"}">${shown ? "Masquer" : "Afficher"} ${escapeHtml(label)}</button>`;
+function buoyToggleButton(name, shown) {
+  return `<button type="button" class="secondary-btn${shown ? " is-active" : ""}" data-buoy-toggle="${name}" aria-pressed="${shown ? "true" : "false"}">${shown ? "Masquer" : "Afficher"} ${BUOY_CURVE_LABELS[name]}</button>`;
 }
 
-/* Au moins une courbe reste affichée : masquer l'une quand l'autre l'est déjà la rallume. */
-function toggleBuoyCurve(kind, payload) {
-  if (kind === "measure") {
-    buoyShowMeasure = !payload.showMeasure;
-    if (!buoyShowMeasure) buoyShowForecast = true;
-  } else {
-    buoyShowForecast = !payload.showForecast;
-    if (!buoyShowForecast) buoyShowMeasure = true;
-  }
+function toggleBuoyCurve(stationKey, name, payload) {
+  buoyCurves.set(stationKey, toggleBuoyCurveState(payload.shown, name, payload.primary, payload.available));
 }
 
 function buoyLegendHtml(station, payload) {
   const source = BUOY_SOURCE_LABELS[station.source] || station.source;
-  const measure = payload.showMeasure
+  const measure = payload.shown.MESURE
     ? `<span class="chart-key"><i style="background:${SET_COLORS.MESURE}"></i>Mesuré · ${escapeHtml(source)}</span>`
     : "";
-  const forecast = payload.showForecast
-    ? `<span class="chart-key chart-key-forecast"><i style="background:${SET_COLORS[payload.set]}"></i>Prévision ${escapeHtml(payload.set)} · ${escapeHtml(payload.near.spot.display_name)}</span>`
-    : "";
+  const forecasts = BUOY_CURVES.filter((name) => name !== "MESURE" && payload.shown[name])
+    .map(
+      (name) =>
+        `<span class="chart-key chart-key-forecast"><i style="background:${SET_COLORS[name]}"></i>Prévision ${BUOY_CURVE_LABELS[name]} · ${escapeHtml(payload.near.spot.display_name)}</span>`
+    )
+    .join("");
   return `<div class="chart-legend">
     ${measure}
-    ${forecast}
+    ${forecasts}
     <span class="chart-key chart-key-note">plein = vent moyen · pointillé = rafales · zone colorée = vent moyen &gt; 10 nds</span>
   </div>`;
 }
@@ -530,21 +556,21 @@ function renderBuoyDetail() {
   title.textContent = station.display_name;
   empty.hidden = true;
   body.hidden = false;
-  const toggles = payload.hasForecast
-    ? `<div class="spot-chart-toggles">
-        ${buoyToggleButton("measure", "mesure", payload.showMeasure)}
-        ${buoyToggleButton("forecast", payload.set, payload.showForecast)}
-      </div>`
-    : "";
+  const toggles =
+    payload.available.length > 1
+      ? `<div class="spot-chart-toggles">${BUOY_CURVES.filter((name) => payload.available.includes(name))
+          .map((name) => buoyToggleButton(name, payload.shown[name]))
+          .join("")}</div>`
+      : "";
   body.innerHTML = `<section class="spot-block">
-      <div class="spot-chart-head"><h3 class="spot-chart-title">Aujourd'hui</h3>${toggles}</div>
+      <div class="spot-chart-head is-buoy"><h3 class="spot-chart-title">Aujourd'hui</h3>${toggles}</div>
       <div class="spot-chart">${buildChartSvg(payload.series, dayKey, 1, 400, payload.opts)}</div>
       ${buoyLegendHtml(station, payload)}
     </section>
     ${buoyInfoHtml(station, item, payload)}`;
   body.querySelectorAll("[data-buoy-toggle]").forEach((btn) => {
     btn.addEventListener("click", () => {
-      toggleBuoyCurve(btn.dataset.buoyToggle, payload);
+      toggleBuoyCurve(station.station_key, btn.dataset.buoyToggle, payload);
       renderBuoyDetail();
     });
   });
@@ -623,5 +649,7 @@ if (typeof module !== "undefined" && module.exports) {
     hourLabel,
     ageLabel,
     clampToBox,
+    defaultBuoyCurves,
+    toggleBuoyCurveState,
   };
 }

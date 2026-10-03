@@ -20,6 +20,8 @@ const {
   hourLabel,
   ageLabel,
   clampToBox,
+  defaultBuoyCurves,
+  toggleBuoyCurveState,
 } = require("./balises.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -172,7 +174,7 @@ test("graphique en mode mesures : pas de rangée météo, prévision en trait fi
   const svg = courbes.buildChartSvg({}, day, 1, 400, {
     seriesList: [{ name: "MESURE", points: obs }],
     hideWeather: true,
-    overlay: { name: "ICONGFS", points: forecast },
+    overlays: [{ name: "ICONGFS", points: forecast }],
     chartDays: { MESURE: { [day]: observedPeaks(obs, day, 8, 20) } },
     nowAt: `${day}T16:05`,
   });
@@ -198,7 +200,7 @@ test("mesure + prévision : liseré sous la mesure, prévision en trait plein, i
   const opts = {
     seriesList: [{ name: "MESURE", points: obs }],
     hideWeather: true,
-    overlay: { name: "ICONGFS", points: forecast },
+    overlays: [{ name: "ICONGFS", points: forecast }],
     halo: true,
   };
   const svg = courbes.buildChartSvg({}, day, 1, 400, opts);
@@ -218,6 +220,63 @@ test("mesure + prévision : liseré sous la mesure, prévision en trait plein, i
     day, 1, geom, xNoon, yHigh
   );
   assert.equal(hit.setName, "ICONGFS");
+});
+
+test("AROME et ICON superposés ensemble, chacun dans sa couleur, échelle calée sur le plus fort", () => {
+  const day = "2026-10-03";
+  const obs = [
+    { valid_at: `${day}T12:00`, source_model: "MESURE", mean: 8, gust: 12, dir: 45 },
+    { valid_at: `${day}T12:10`, source_model: "MESURE", mean: 9, gust: 13, dir: 45 },
+  ];
+  const arome = [
+    { valid_at: `${day}T11:00`, source_model: "AROMEHD", mean: 10, gust: 14, dir: 40 },
+    { valid_at: `${day}T13:00`, source_model: "AROMEHD", mean: 12, gust: 16, dir: 40 },
+  ];
+  const icon = [
+    { valid_at: `${day}T11:00`, source_model: "ICONCH1", mean: 20, gust: 33, dir: 40 },
+    { valid_at: `${day}T13:00`, source_model: "ICONCH1", mean: 22, gust: 36, dir: 40 },
+  ];
+  const svg = courbes.buildChartSvg({}, day, 1, 400, {
+    seriesList: [{ name: "MESURE", points: obs }],
+    hideWeather: true,
+    overlays: [{ name: "ICONGFS", points: icon }, { name: "AROMEIFS", points: arome }, { name: "AROMEIFS", points: [] }],
+  });
+  const groups = svg.match(/class="forecast-overlay" data-set="(\w+)"/g) || [];
+  assert.deepEqual(groups.map((g) => g.match(/data-set="(\w+)"/)[1]), ["ICONGFS", "AROMEIFS"]);
+  assert.ok(svg.includes('stroke="#6eb4d0"'));
+  assert.ok(svg.includes('stroke="#b29f84"'));
+  const geom = JSON.parse(svg.match(/data-geom="([^"]+)"/)[1].replace(/&quot;/g, '"'));
+  assert.ok(geom.maxKt >= 36);
+});
+
+test("boutons Mesure / AROME / ICON : modèle par défaut du spot, au moins une courbe affichée", () => {
+  assert.deepEqual(defaultBuoyCurves("AROMEIFS"), { MESURE: true, AROMEIFS: true, ICONGFS: false });
+  assert.deepEqual(defaultBuoyCurves("ICONGFS"), { MESURE: true, AROMEIFS: false, ICONGFS: true });
+
+  const all = ["MESURE", "AROMEIFS", "ICONGFS"];
+  let state = defaultBuoyCurves("ICONGFS");
+  state = toggleBuoyCurveState(state, "AROMEIFS", "ICONGFS", all);
+  assert.deepEqual(state, { MESURE: true, AROMEIFS: true, ICONGFS: true });
+  state = toggleBuoyCurveState(state, "MESURE", "ICONGFS", all);
+  assert.deepEqual(state, { MESURE: false, AROMEIFS: true, ICONGFS: true });
+
+  // Masquer la mesure seule : le modèle par défaut du spot revient.
+  assert.deepEqual(
+    toggleBuoyCurveState({ MESURE: true, AROMEIFS: false, ICONGFS: false }, "MESURE", "ICONGFS", all),
+    { MESURE: false, AROMEIFS: false, ICONGFS: true }
+  );
+  // Masquer le dernier modèle : la mesure revient.
+  assert.deepEqual(
+    toggleBuoyCurveState({ MESURE: false, AROMEIFS: true, ICONGFS: false }, "AROMEIFS", "ICONGFS", all),
+    { MESURE: true, AROMEIFS: false, ICONGFS: false }
+  );
+  // Modèle par défaut sans données aujourd'hui : on rallume l'autre.
+  assert.deepEqual(
+    toggleBuoyCurveState({ MESURE: true, AROMEIFS: false, ICONGFS: false }, "MESURE", "AROMEIFS", ["MESURE", "ICONGFS"]),
+    { MESURE: false, AROMEIFS: false, ICONGFS: true }
+  );
+  // Aucune prévision : la mesure ne peut pas être masquée.
+  assert.deepEqual(toggleBuoyCurveState({ MESURE: true }, "MESURE", "ICONGFS", ["MESURE"]), { MESURE: true });
 });
 
 test("infobulle : heure avec minutes pour les mesures, inchangée pour les prévisions", () => {
