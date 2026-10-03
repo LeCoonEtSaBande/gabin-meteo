@@ -158,6 +158,7 @@ function svgCursorPoint(svg, event) {
 }
 
 function visibleSeriesPayload(payload) {
+  if (payload.opts.seriesList) return payload.opts.seriesList;
   const sets = visibleSets(payload.opts.primarySet, {
     showPrimary: payload.opts.showPrimary,
     showSecondary: payload.opts.showSecondary,
@@ -169,6 +170,8 @@ function chartTipHtml(hit, nDays) {
   const point = hit.point;
   const rot = arrowRotation(point.dir);
   const hour = slotCaption(point.valid_at, nDays);
+  const setLabel = SET_LABELS[hit.setName] || hit.setName;
+  const source = point.source_model && point.source_model !== hit.setName ? ` · ${point.source_model}` : "";
   return `<div class="chart-tip-hour">${escapeHtml(hour)}</div>
     <div class="chart-tip-wind">
       <svg class="chart-tip-arrow" viewBox="0 0 10 14" aria-hidden="true" style="transform:rotate(${rot}deg)">
@@ -177,7 +180,7 @@ function chartTipHtml(hit, nDays) {
       <span>${Math.round(point.mean)} nds</span>
       <span class="chart-tip-gust">raf. ${Math.round(point.gust)}</span>
     </div>
-    <div class="chart-tip-model">${escapeHtml(SET_LABELS[hit.setName] || hit.setName)} · ${escapeHtml(point.source_model)}</div>`;
+    <div class="chart-tip-model">${escapeHtml(setLabel + source)}</div>`;
 }
 
 function placeChartTip(tip, event) {

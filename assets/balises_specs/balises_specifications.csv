@@ -1,0 +1,4 @@
+station_key;display_name;short_name;source;source_id;latitude;longitude;elevation_m;link_station
+geneve_cointrin;Genève / Cointrin;Genève;MeteoSuisse;GVE;46.247519;6.127742;411;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=GVE
+changins;Nyon / Changins;Changins;MeteoSuisse;CGI;46.401053;6.227722;458;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=CGI
+st_prex;St-Prex;St-Prex;MeteoSuisse;PRE;46.483683;6.443;425;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=PRE

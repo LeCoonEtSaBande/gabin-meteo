@@ -10,16 +10,19 @@ const MODEL_COLORS = {
   ICONCH2: "#3d7a96",
   ICON13KM: "#8b9cb3",
   GFS: "#c88762",
+  MESURE: "#e6e6e6",
 };
 
 const SET_COLORS = {
   AROMEIFS: "#b29f84",
   ICONGFS: "#6eb4d0",
+  MESURE: "#e6e6e6",
 };
 
 const SET_LABELS = {
   AROMEIFS: "AROMEIFS",
   ICONGFS: "ICONGFS",
+  MESURE: "Mesuré",
 };
 
 const KT_SLOT = 10;
@@ -293,8 +296,10 @@ function niceMaxKt(values) {
 }
 
 function subsample(points, stepHours) {
-  if (stepHours <= 1) return points;
-  return points.filter((point) => parseValidAt(point.valid_at).hour % stepHours === 0);
+  return points.filter((point) => {
+    const p = parseValidAt(point.valid_at);
+    return !p.minute && p.hour % Math.max(1, stepHours) === 0;
+  });
 }
 
 function arrowStep(nDays) {
@@ -373,7 +378,8 @@ function isDayHour(hour) {
 
 function slotCaption(validAt, nDays) {
   const p = parseValidAt(validAt);
-  const hour = `${String(p.hour).padStart(2, "0")}h`;
+  const minutes = p.minute ? String(p.minute).padStart(2, "0") : "";
+  const hour = `${String(p.hour).padStart(2, "0")}h${minutes}`;
   if (nDays <= 1) return hour;
   return `${weekdayShort(p.dayKey)} ${hour}`;
 }
@@ -424,7 +430,9 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const showPrimary = options.showPrimary !== false;
   const showSecondary = Boolean(options.showSecondary);
   const sets = visibleSets(primarySet, { showPrimary, showSecondary });
-  const series = sets.map((name) => ({ name, points: seriesBySet[name] || [] }));
+  const series = options.seriesList || sets.map((name) => ({ name, points: seriesBySet[name] || [] }));
+  const overlay = options.overlay && options.overlay.points?.length ? options.overlay : null;
+  const hideWeather = Boolean(options.hideWeather);
   const all = series.flatMap((item) => item.points);
   if (!all.length) {
     return `<svg class="spot-svg" viewBox="0 0 ${width} 80" role="img">
@@ -442,7 +450,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const windH = 148;
   const axisH = 18;
   const slotRowH = nDays <= 1 ? 14 : 20;
-  const wxH = 58;
+  const wxH = hideWeather ? 0 : 58;
   const padB = 16;
   const dirY0 = 4;
   const windTop = dirY0 + dirRowH * series.length + 6;
@@ -456,7 +464,8 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
   const x1 = padL + innerW;
   const setLabelX = compactSetLabels ? 2 : 4;
   const wxUnitPad = 11;
-  const maxKt = niceMaxKt(all.flatMap((p) => [p.mean, p.gust]));
+  const overlayPoints = overlay ? overlay.points : [];
+  const maxKt = niceMaxKt(all.concat(overlayPoints).flatMap((p) => [p.mean, p.gust]));
   const yKt = (kt) => yWind0 - (kt / maxKt) * windH;
   const nHours = nDays * 24;
   const hourW = innerW / nHours;
@@ -514,6 +523,30 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     .join("");
 
   const winds = series.map((item) => paintWind(item.points, true) + paintWind(item.points, false)).join("");
+
+  function paintOverlay() {
+    if (!overlay) return "";
+    const color = SET_COLORS[overlay.name] || "#7a7a7a";
+    const path = (pick) =>
+      overlayPoints
+        .map((p, i) => {
+          const x = xOf(p, startDay, nDays, x0, innerW).toFixed(1);
+          return `${i ? "L" : "M"} ${x} ${yKt(pick(p)).toFixed(1)}`;
+        })
+        .join(" ");
+    return `<g class="forecast-overlay">
+      <path d="${path((p) => p.gust)}" fill="none" stroke="${color}" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.4"></path>
+      <path d="${path((p) => p.mean)}" fill="none" stroke="${color}" stroke-width="1" opacity="0.55" stroke-linejoin="round"></path>
+    </g>`;
+  }
+
+  let nowLine = "";
+  if (options.nowAt) {
+    const xNow = xOf({ valid_at: options.nowAt }, startDay, nDays, x0, innerW);
+    if (xNow >= x0 && xNow <= x1) {
+      nowLine = `<line class="now-line" x1="${xNow.toFixed(1)}" y1="${windTop}" x2="${xNow.toFixed(1)}" y2="${yWind0}" stroke="#5a5a5a" stroke-dasharray="1 3" stroke-width="0.8"></line>`;
+    }
+  }
 
   const xAt = (validAt) => xOf({ valid_at: validAt }, startDay, nDays, x0, innerW);
   const nearestPoint = (points, validAt) => points.find((point) => point.valid_at === validAt);
@@ -615,6 +648,7 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
         <title>Pluie ${point.precip.toFixed(1)} mm</title>
       </rect>`;
   }
+  if (hideWeather) wxDraw = "";
 
   let hourAxis = `<line x1="${x0}" y1="${axisY}" x2="${x1}" y2="${axisY}" stroke="#2a2a2a"></line>`;
   if (nDays <= 1) {
@@ -654,19 +688,22 @@ function buildChartSvg(seriesBySet, startDay, nDays, width = 400, options = {}) 
     .join("");
 
   const geom = { x0, innerW, windTop, windH, yWind0, maxKt, startDay, nDays, width, height };
-  return `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Prévision vent, rafales, direction, nuages et pluie" data-geom="${escapeHtml(JSON.stringify(geom))}">
+  const ariaLabel = hideWeather ? "Vent mesuré, rafales et direction" : "Prévision vent, rafales, direction, nuages et pluie";
+  return `<svg class="spot-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${ariaLabel}" data-geom="${escapeHtml(JSON.stringify(geom))}">
     <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
     ${dirLabels}
     ${grid}
     ${ktSlotLine}
     <text class="kt-unit" transform="translate(${wxUnitPad} ${windMidY.toFixed(1)}) rotate(-90)" text-anchor="middle" fill="#7a7a7a" font-size="6.5px">nds</text>
+    ${paintOverlay()}
+    ${nowLine}
     ${fills}
     ${winds}
     ${peaks}
     ${hourAxis}
     ${hourLabels}
     ${slotBrackets}
-    <line x1="${x0}" y1="${wxY0}" x2="${x1}" y2="${wxY0}" stroke="#2a2a2a"></line>
+    ${hideWeather ? "" : `<line x1="${x0}" y1="${wxY0}" x2="${x1}" y2="${wxY0}" stroke="#2a2a2a"></line>`}
     ${wxDraw}
     ${dayLabels}
   </svg>`;

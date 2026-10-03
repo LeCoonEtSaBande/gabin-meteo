@@ -196,9 +196,8 @@ function zoneLabel(zoneKey) {
   return ZONE_LABELS[zoneKey] || zoneKey;
 }
 
-function clampChips() {
+function clampChips(host = document.getElementById("chips")) {
   const pane = document.getElementById("map-pane");
-  const host = document.getElementById("chips");
   if (!pane || !host) return;
   const box = pane.getBoundingClientRect();
   const pad = 6;
@@ -254,9 +253,9 @@ function separateMobilePairs() {
   }
 }
 
-function resolveChipCollisions() {
-  if (isDesktop()) return;
-  const host = document.getElementById("chips");
+/* Les balises sont serrées même sur PC (trio Genève–Changins–St-Prex) : force. */
+function resolveChipCollisions(host = document.getElementById("chips"), force = false) {
+  if (!force && isDesktop()) return;
   const pane = document.getElementById("map-pane");
   if (!host || !pane) return;
   const box = pane.getBoundingClientRect();
@@ -313,7 +312,7 @@ function renderChips() {
   if (!host || !svgRoot || !dataset) return;
   const iso = dayKeys[dayIndex];
   host.innerHTML = "";
-  if (legend) legend.hidden = viewMode !== "daily";
+  if (legend) legend.hidden = false;
   if (viewMode !== "daily") return;
 
   for (const zoneKey of Object.keys(CHIP_POS)) {
@@ -404,12 +403,22 @@ function setMode(mode) {
   viewMode = mode;
   document.getElementById("mode-daily").classList.toggle("is-active", mode === "daily");
   document.getElementById("mode-buoys").classList.toggle("is-active", mode === "buoys");
-  document.getElementById("soon").hidden = mode !== "buoys";
   document.getElementById("chips").hidden = mode !== "daily";
+  document.getElementById("prev-day").hidden = mode !== "daily";
+  document.getElementById("next-day").hidden = mode !== "daily";
+  document.getElementById("buoys-refresh").hidden = mode !== "buoys";
+  document.querySelector(".daybar").classList.toggle("is-buoys", mode === "buoys");
   const legend = document.getElementById("map-legend");
-  if (legend) legend.hidden = mode !== "daily";
-  if (mode === "buoys") closeZone();
-  else renderChips();
+  if (legend) legend.hidden = false;
+  if (mode === "buoys") {
+    closeZone();
+    showBuoys();
+  } else {
+    hideBuoys();
+    renderDayChrome();
+    renderChips();
+    renderDetail();
+  }
 }
 
 function renderAll() {
@@ -431,7 +440,11 @@ function bindUi() {
   });
   document.getElementById("mode-daily").addEventListener("click", () => setMode("daily"));
   document.getElementById("mode-buoys").addEventListener("click", () => setMode("buoys"));
-  document.getElementById("detail-back").addEventListener("click", () => closeZone());
+  document.getElementById("detail-back").addEventListener("click", () => {
+    if (viewMode === "buoys") closeBuoy();
+    else closeZone();
+  });
+  bindBuoysUi();
 
   for (const zone of svgRoot.querySelectorAll('[data-layer^="Z_"]')) {
     const key = zoneKeyFromLayer(layerName(zone));
@@ -444,7 +457,10 @@ function bindUi() {
     });
   }
 
-  window.addEventListener("resize", () => renderChips());
+  window.addEventListener("resize", () => {
+    renderChips();
+    renderBuoys();
+  });
 }
 
 function usableDays(data) {

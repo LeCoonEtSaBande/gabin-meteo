@@ -22,8 +22,8 @@
       <p id="status">Chargement de la carte…</p>
       <div id="map"></div>
       <div id="chips" hidden></div>
+      <div id="buoys" hidden></div>
       <p id="map-legend" hidden>Vent en Nds</p>
-      <p id="soon" hidden>Bientôt disponible</p>
     </div>
 
     <aside class="detail" id="detail" aria-label="Détail de zone">
@@ -45,6 +45,7 @@
         <p id="maj-label" class="muted"></p>
       </div>
       <button type="button" class="day-nav" id="next-day" aria-label="Jour suivant">›</button>
+      <button type="button" class="day-nav buoys-refresh" id="buoys-refresh" aria-label="Actualiser les balises" hidden>↻</button>
     </footer>
   </div>
   <div id="chart-lightbox" class="chart-lightbox" hidden>
@@ -55,6 +56,7 @@
   <script src="js/csv.js"></script>
   <script src="js/courbes.js"></script>
   <script src="js/detail.js"></script>
+  <script src="js/balises.js"></script>
   <script src="js/quotidien.js"></script>
 </body>
 </html>
