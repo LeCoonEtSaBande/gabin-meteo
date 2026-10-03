@@ -335,18 +335,43 @@ function drawBuoyLinks(host, anchors) {
   svg.innerHTML = out;
 }
 
+/* Écarte horizontalement une vignette qui recouvre le point d'une balise. */
+function clearBuoyDots(host, anchors, sides) {
+  const hostBox = host.getBoundingClientRect();
+  const gap = 8;
+  let moved = false;
+  for (const { key } of anchors) {
+    const chip = host.querySelector(`.chip[data-buoy="${key}"]`);
+    if (!chip) continue;
+    for (const dot of anchors) {
+      const r = chip.getBoundingClientRect();
+      const x = dot.x + hostBox.left;
+      const y = dot.y + hostBox.top;
+      if (x < r.left - gap || x > r.right + gap || y < r.top - gap || y > r.bottom + gap) continue;
+      const dx = sides[key] < 0 ? x - gap - r.right : x + gap - r.left;
+      chip.style.left = `${parseFloat(chip.style.left) + dx}px`;
+      moved = true;
+    }
+  }
+  return moved;
+}
+
 function layoutBuoyChips(host, anchors) {
   const paneW = host.getBoundingClientRect().width;
+  const sides = {};
   for (const { key, x, y } of anchors) {
     const chip = host.querySelector(`.chip[data-buoy="${key}"]`);
     if (!chip) continue;
-    const side = x > paneW / 2 ? -1 : 1;
-    chip.style.left = `${x + side * (chip.offsetWidth / 2 + 12)}px`;
+    sides[key] = x > paneW / 2 ? -1 : 1;
+    chip.style.left = `${x + sides[key] * (chip.offsetWidth / 2 + 12)}px`;
     chip.style.top = `${y}px`;
   }
-  clampChips(host);
-  resolveChipCollisions(host, true);
-  clampChips(host);
+  for (let pass = 0; pass < 3; pass += 1) {
+    clampChips(host);
+    resolveChipCollisions(host, true);
+    clampChips(host);
+    if (!clearBuoyDots(host, anchors, sides)) break;
+  }
   drawBuoyLinks(host, anchors);
 }
 

@@ -170,7 +170,7 @@ html, body {
 }
 
 .buoy-links line {
-  stroke: var(--beige-dim);
+  stroke: rgba(230, 230, 230, 0.55);
   stroke-width: 1;
 }
 
@@ -181,6 +181,7 @@ html, body {
 }
 
 .buoy-chip { min-width: 0; }
+.buoy-chip .chip-meta { white-space: nowrap; }
 .buoy-chip.is-stale { opacity: 0.6; }
 
 .chip-card {
