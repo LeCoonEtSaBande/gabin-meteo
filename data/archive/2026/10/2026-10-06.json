@@ -1,0 +1,42 @@
+{
+  "target_day": "2026-10-06",
+  "snapshot_at": "2026-10-05T23:00:00+02:00",
+  "valid_from": "2026-10-06T01:00",
+  "valid_to": "2026-10-07T00:00",
+  "models": [
+    "AROMEHD",
+    "ICONCH1"
+  ],
+  "collecte_run_id": "2026-10-05T13:15:00+02:00",
+  "collecte_fetched_at": "2026-10-05T14:30:03+02:00",
+  "collecte_commit": "cf98f49c0707",
+  "runs_used": [
+    {
+      "collecte_run_id": "2026-10-05T13:15:00+02:00",
+      "collecte_fetched_at": "2026-10-05T14:30:03+02:00",
+      "collecte_commit": "cf98f49c0707",
+      "dossier": "previous"
+    }
+  ],
+  "missing": [],
+  "incomplete": {
+    "cap_des_seselets/ICONCH1": 20,
+    "excenevex/ICONCH1": 20,
+    "hermance/ICONCH1": 20,
+    "loire_sur_rhone/ICONCH1": 20,
+    "messery/ICONCH1": 20,
+    "parking_pre_rencontre/ICONCH1": 20,
+    "plage_de_sevrier/ICONCH1": 20,
+    "pont_darciat/ICONCH1": 20,
+    "pont_de_chavanay/ICONCH1": 20,
+    "portes_les_valence/ICONCH1": 20,
+    "roche_de_glun/ICONCH1": 20,
+    "st_alban_du_rhone/ICONCH1": 20,
+    "st_cyr_sur_le_rhone/ICONCH1": 20,
+    "st_romain_des_iles/ICONCH1": 20,
+    "treffort/ICONCH1": 20,
+    "vengeron/ICONCH1": 20,
+    "wwmeyzieu/ICONCH1": 20
+  },
+  "archived_at": "2026-10-06T03:43:48+02:00"
+}
