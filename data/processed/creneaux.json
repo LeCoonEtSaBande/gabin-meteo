@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-09T00:22:10+02:00",
+ "generated_at": "2026-10-09T14:05:54+02:00",
  "timezone": "Europe/Paris",
  "curve_sets": {
   "AROMEIFS": {
@@ -7,204 +7,204 @@
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-09T12:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-09T08:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": 14,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-10T17:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-10T17:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-11T15:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-11T15:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": 15,
-     "slot_end_h": 20,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-12T18:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-13T17:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T10:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T08:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-15T11:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-16T08:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-16T08:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 16,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-17T09:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T08:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-18T08:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-19T20:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-19T20:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-20T13:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-20T19:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 13,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-21T15:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-21T19:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-22T17:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 11,
-     "slot_end_h": 14,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-23T14:00"
-    }
-   },
-   "excenevex": {
-    "2026-10-09": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 12,
+     "mean_max_kt": 10,
      "mean_max_at": "2026-10-09T08:00",
      "gust_max_kt": 17,
      "gust_max_at": "2026-10-09T08:00"
     },
     "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-10T17:00",
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-10T19:00",
      "gust_max_kt": 19,
-     "gust_max_at": "2026-10-10T17:00"
+     "gust_max_at": "2026-10-10T19:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-11T19:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-11T19:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T10:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-11T11:00"
     },
     "2026-10-12": {
-     "slot_start_h": 16,
-     "slot_end_h": 20,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-12T20:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-12T08:00"
+     "slot_start_h": 9,
+     "slot_end_h": 15,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-12T12:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-12T12:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-13T08:00",
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-13T10:00",
      "gust_max_kt": 7,
-     "gust_max_at": "2026-10-13T08:00"
+     "gust_max_at": "2026-10-13T16:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T10:00",
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-14T11:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-14T08:00"
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-15T13:00"
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-15T19:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-16T08:00"
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-16T12:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 19,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 22,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-17T09:00",
+     "gust_max_kt": 15,
      "gust_max_at": "2026-10-17T09:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T08:00",
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-18T14:00",
      "gust_max_kt": 10,
-     "gust_max_at": "2026-10-18T08:00"
+     "gust_max_at": "2026-10-18T19:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-19T19:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-21T20:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-21T13:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-22T08:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 17,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 28,
+     "gust_max_at": "2026-10-23T15:00"
+    }
+   },
+   "excenevex": {
+    "2026-10-09": {
+     "slot_start_h": 8,
+     "slot_end_h": 12,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-09T08:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-09T08:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-10T17:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-10T17:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-11T20:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-11T20:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": 8,
+     "slot_end_h": 14,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-12T11:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-12T11:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-13T09:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-13T10:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-14T19:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-14T17:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-15T08:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-15T13:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-16T20:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-17T12:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-17T13:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-18T15:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-18T20:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
@@ -217,48 +217,48 @@
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-20T13:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-20T08:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
-     "slot_start_h": 11,
-     "slot_end_h": 19,
-     "mean_max_kt": 19,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-21T19:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-21T20:00",
+     "gust_max_kt": 23,
+     "gust_max_at": "2026-10-21T11:00"
     },
     "2026-10-22": {
      "slot_start_h": 8,
-     "slot_end_h": 19,
-     "mean_max_kt": 15,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-22T16:00"
+     "slot_end_h": 20,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-22T10:00",
+     "gust_max_kt": 25,
+     "gust_max_at": "2026-10-22T08:00"
     },
     "2026-10-23": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-23T14:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 21,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 32,
+     "gust_max_at": "2026-10-23T20:00"
     }
    },
    "vengeron": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
+     "mean_max_kt": 12,
      "mean_max_at": "2026-10-09T08:00",
-     "gust_max_kt": 13,
+     "gust_max_kt": 16,
      "gust_max_at": "2026-10-09T08:00"
     },
     "2026-10-10": {
-     "slot_start_h": 15,
-     "slot_end_h": 18,
+     "slot_start_h": null,
+     "slot_end_h": null,
      "mean_max_kt": 12,
      "mean_max_at": "2026-10-10T16:00",
      "gust_max_kt": 18,
@@ -267,286 +267,286 @@
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-11T16:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-11T15:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-12T18:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-13T17:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T10:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T08:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-15T11:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-16T08:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-16T08:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 16,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-17T09:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T08:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-18T08:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-19T20:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-19T20:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": null,
-     "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-20T13:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-20T19:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 13,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-21T15:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-21T19:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-22T17:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 11,
-     "slot_end_h": 14,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-23T14:00"
-    }
-   },
-   "hermance": {
-    "2026-10-09": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-09T08:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-09T08:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": 15,
-     "slot_end_h": 18,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-10T17:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-10T17:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-11T16:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-11T15:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-12T18:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-13T17:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T10:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T08:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-15T11:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-16T08:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-16T08:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 16,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-17T09:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T08:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-18T08:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-19T20:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-19T20:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-20T13:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-20T19:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 13,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-21T15:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-21T19:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-22T17:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 11,
-     "slot_end_h": 14,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-23T14:00"
-    }
-   },
-   "plage_de_sevrier": {
-    "2026-10-09": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-09T08:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-09T08:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-10T15:00",
+     "mean_max_at": "2026-10-11T15:00",
      "gust_max_kt": 10,
-     "gust_max_at": "2026-10-10T16:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-11T17:00",
-     "gust_max_kt": 8,
      "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-12T16:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 3,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-13T15:00"
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-13T16:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-14T14:00",
-     "gust_max_kt": 12,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-14T11:00",
+     "gust_max_kt": 9,
      "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 2,
+     "mean_max_at": "2026-10-15T08:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-15T19:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-16T12:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-17T09:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-17T09:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-18T19:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-19T19:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-21T20:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-21T13:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-22T08:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 17,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 28,
+     "gust_max_at": "2026-10-23T15:00"
+    }
+   },
+   "hermance": {
+    "2026-10-09": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-09T08:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-09T08:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": 12,
+     "slot_end_h": 18,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-10T16:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-10T17:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-11T15:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-12T13:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-13T16:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-14T11:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-14T16:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-15T08:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-15T19:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-16T12:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-17T09:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-17T09:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-18T19:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-19T19:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-21T20:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-21T13:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-22T08:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 17,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 28,
+     "gust_max_at": "2026-10-23T15:00"
+    }
+   },
+   "plage_de_sevrier": {
+    "2026-10-09": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-09T09:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-09T09:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-10T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-10T14:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T11:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-11T15:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-12T17:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-12T16:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-13T15:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-14T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T15:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-15T14:00",
      "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T17:00"
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
@@ -554,63 +554,63 @@
      "mean_max_kt": 3,
      "mean_max_at": "2026-10-16T14:00",
      "gust_max_kt": 10,
-     "gust_max_at": "2026-10-16T15:00"
+     "gust_max_at": "2026-10-16T16:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-17T13:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T17:00"
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-17T16:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-18T14:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-18T18:00"
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-18T16:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-19T15:00"
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-19T17:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
+     "mean_max_kt": 7,
      "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-20T18:00"
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-20T16:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-21T15:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-21T08:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-21T20:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 5,
      "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-22T19:00"
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-22T08:00"
     },
     "2026-10-23": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-23T14:00"
+     "slot_start_h": 13,
+     "slot_end_h": 17,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-23T15:00",
+     "gust_max_kt": 36,
+     "gust_max_at": "2026-10-23T15:00"
     }
    },
    "cap_des_seselets": {
@@ -618,72 +618,72 @@
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 9,
-     "mean_max_at": "2026-10-09T10:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-09T10:00"
+     "mean_max_at": "2026-10-09T09:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-09T09:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-10T15:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-10T16:00"
+     "mean_max_at": "2026-10-10T19:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-10T20:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-11T16:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-11T17:00"
+     "mean_max_at": "2026-10-11T08:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-11T08:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-12T20:00",
-     "gust_max_kt": 4,
-     "gust_max_at": "2026-10-12T08:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-12T17:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-12T10:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-13T17:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-13T19:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T09:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-13T15:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 1,
-     "mean_max_at": "2026-10-14T08:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T19:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-14T18:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 2,
      "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T19:00"
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T13:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-16T14:00",
-     "gust_max_kt": 10,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 8,
      "gust_max_at": "2026-10-16T15:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-17T13:00",
-     "gust_max_kt": 15,
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-17T14:00"
     },
     "2026-10-18": {
@@ -692,46 +692,46 @@
      "mean_max_kt": 3,
      "mean_max_at": "2026-10-18T08:00",
      "gust_max_kt": 10,
-     "gust_max_at": "2026-10-18T13:00"
+     "gust_max_at": "2026-10-18T19:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-19T08:00",
-     "gust_max_kt": 10,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 11,
      "gust_max_at": "2026-10-19T18:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-20T18:00",
-     "gust_max_kt": 12,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 21,
      "gust_max_at": "2026-10-20T19:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-21T15:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-21T09:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-21T20:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-22T19:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-22T08:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
+     "mean_max_kt": 7,
      "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 12,
+     "gust_max_kt": 30,
      "gust_max_at": "2026-10-23T14:00"
     }
    },
@@ -741,7 +741,7 @@
      "slot_end_h": null,
      "mean_max_kt": 9,
      "mean_max_at": "2026-10-09T08:00",
-     "gust_max_kt": 22,
+     "gust_max_kt": 24,
      "gust_max_at": "2026-10-09T08:00"
     },
     "2026-10-10": {
@@ -749,112 +749,112 @@
      "slot_end_h": null,
      "mean_max_kt": 7,
      "mean_max_at": "2026-10-10T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-10T15:00"
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-10T16:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-11T13:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-11T14:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T10:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-11T10:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-12T16:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-12T17:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-12T15:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T16:00",
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-13T17:00",
      "gust_max_kt": 16,
      "gust_max_at": "2026-10-13T17:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-14T08:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-14T20:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T18:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T16:00"
+     "mean_max_kt": 1,
+     "mean_max_at": "2026-10-15T19:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-15T19:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-16T17:00"
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-16T19:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T08:00"
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-17T20:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-18T08:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-18T13:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-18T19:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-19T17:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-19T13:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-19T14:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
+     "mean_max_kt": 6,
      "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 24,
+     "gust_max_kt": 20,
      "gust_max_at": "2026-10-20T16:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-21T09:00"
+     "mean_max_kt": 1,
+     "mean_max_at": "2026-10-21T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-22T16:00"
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-22T09:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 27,
-     "gust_max_at": "2026-10-23T14:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-23T12:00",
+     "gust_max_kt": 25,
+     "gust_max_at": "2026-10-23T19:00"
     }
    },
    "treffort": {
@@ -862,121 +862,121 @@
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T15:00",
+     "mean_max_at": "2026-10-09T09:00",
      "gust_max_kt": 20,
-     "gust_max_at": "2026-10-09T08:00"
+     "gust_max_at": "2026-10-09T10:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 19,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-10T15:00",
+     "gust_max_kt": 22,
      "gust_max_at": "2026-10-10T16:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-11T19:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-11T19:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-11T08:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-12T19:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-12T17:00"
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-12T19:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-13T17:00"
+     "mean_max_at": "2026-10-13T17:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-13T18:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-14T08:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-14T20:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T19:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
+     "mean_max_kt": 1,
      "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-15T20:00"
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-15T18:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-16T19:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-16T14:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T08:00"
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-17T19:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 1,
-     "mean_max_at": "2026-10-18T12:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-18T08:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-18T19:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-19T18:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-19T13:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-19T13:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
+     "mean_max_kt": 5,
      "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-20T17:00"
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-20T18:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-21T12:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-21T17:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T16:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 24,
+     "gust_max_at": "2026-10-22T09:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 23,
-     "gust_max_at": "2026-10-23T14:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-23T13:00",
+     "gust_max_kt": 27,
+     "gust_max_at": "2026-10-23T19:00"
     }
    },
    "portes_les_valence": {
@@ -985,129 +985,129 @@
      "slot_end_h": 20,
      "mean_max_kt": 18,
      "mean_max_at": "2026-10-09T13:00",
-     "gust_max_kt": 32,
+     "gust_max_kt": 31,
      "gust_max_at": "2026-10-09T13:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-10T11:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-10T12:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-10T14:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-10T14:00"
     },
     "2026-10-11": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-11T12:00",
-     "gust_max_kt": 24,
-     "gust_max_at": "2026-10-11T12:00"
-    },
-    "2026-10-12": {
      "slot_start_h": 9,
      "slot_end_h": 20,
-     "mean_max_kt": 15,
-     "mean_max_at": "2026-10-12T13:00",
-     "gust_max_kt": 24,
+     "mean_max_kt": 17,
+     "mean_max_at": "2026-10-11T16:00",
+     "gust_max_kt": 27,
+     "gust_max_at": "2026-10-11T16:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-12T12:00",
+     "gust_max_kt": 22,
      "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-13T17:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-13T14:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-13T14:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
+     "mean_max_kt": 9,
      "mean_max_at": "2026-10-14T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-14T16:00"
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-15T13:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-15T20:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-15T20:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 12,
+     "mean_max_kt": 7,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 24,
+     "gust_max_kt": 15,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 19,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-17T08:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-17T13:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-17T16:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T20:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-18T20:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-18T18:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
+     "mean_max_kt": 8,
      "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-19T17:00"
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
-     "slot_start_h": 13,
-     "slot_end_h": 17,
-     "mean_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
      "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 26,
-     "gust_max_at": "2026-10-20T16:00"
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-20T17:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 19,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 17,
      "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-22T15:00"
     },
     "2026-10-23": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 23,
+     "slot_start_h": 8,
+     "slot_end_h": 14,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 29,
      "gust_max_at": "2026-10-23T14:00"
     }
    },
    "roche_de_glun": {
     "2026-10-09": {
-     "slot_start_h": 9,
-     "slot_end_h": 14,
-     "mean_max_kt": 11,
+     "slot_start_h": 8,
+     "slot_end_h": 13,
+     "mean_max_kt": 13,
      "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 24,
+     "gust_max_kt": 27,
      "gust_max_at": "2026-10-09T11:00"
     },
     "2026-10-10": {
@@ -1115,162 +1115,162 @@
      "slot_end_h": null,
      "mean_max_kt": 6,
      "mean_max_at": "2026-10-10T20:00",
-     "gust_max_kt": 16,
+     "gust_max_kt": 13,
      "gust_max_at": "2026-10-10T20:00"
     },
     "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-11T12:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-11T13:00"
+     "slot_start_h": 12,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-11T16:00",
+     "gust_max_kt": 23,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
      "mean_max_at": "2026-10-12T13:00",
-     "gust_max_kt": 20,
+     "gust_max_kt": 19,
      "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-13T17:00"
+     "mean_max_at": "2026-10-13T14:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-13T14:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-14T14:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-14T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-15T13:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-15T20:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-15T20:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 11,
+     "mean_max_kt": 5,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 21,
+     "gust_max_kt": 12,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 16,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-17T08:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-17T13:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-17T17:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-18T20:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-18T20:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-18T18:00"
     },
     "2026-10-19": {
-     "slot_start_h": 12,
-     "slot_end_h": 17,
-     "mean_max_kt": 12,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
      "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 26,
-     "gust_max_at": "2026-10-19T17:00"
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-19T15:00"
     },
     "2026-10-20": {
-     "slot_start_h": 11,
-     "slot_end_h": 19,
-     "mean_max_kt": 12,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
      "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 27,
-     "gust_max_at": "2026-10-20T15:00"
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-20T16:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 23,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 18,
      "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-22T18:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-22T12:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-22T14:00"
     },
     "2026-10-23": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-23T14:00"
+     "slot_start_h": 8,
+     "slot_end_h": 11,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 31,
+     "gust_max_at": "2026-10-23T11:00"
     }
    },
    "st_alban_du_rhone": {
     "2026-10-09": {
-     "slot_start_h": 13,
-     "slot_end_h": 17,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-09T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-09T14:00"
+     "slot_start_h": 9,
+     "slot_end_h": 13,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-09T11:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-09T12:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
+     "mean_max_kt": 7,
      "mean_max_at": "2026-10-10T19:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-10T19:00"
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-10T18:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-11T17:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-11T15:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T14:00",
+     "mean_max_at": "2026-10-12T13:00",
      "gust_max_kt": 17,
-     "gust_max_at": "2026-10-12T14:00"
+     "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T15:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-13T16:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-13T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-13T14:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-14T13:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-14T20:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
@@ -1278,121 +1278,121 @@
      "mean_max_kt": 2,
      "mean_max_at": "2026-10-15T14:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T15:00"
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 16,
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-17T13:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-17T17:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T20:00",
-     "gust_max_kt": 11,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 21,
      "gust_max_at": "2026-10-18T19:00"
     },
     "2026-10-19": {
-     "slot_start_h": 13,
-     "slot_end_h": 16,
-     "mean_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
      "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 26,
-     "gust_max_at": "2026-10-19T17:00"
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
-     "slot_start_h": 10,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 32,
-     "gust_max_at": "2026-10-20T16:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 27,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 15,
      "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T16:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
-     "slot_start_h": 9,
-     "slot_end_h": 14,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 29,
-     "gust_max_at": "2026-10-23T14:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 30,
+     "gust_max_at": "2026-10-23T11:00"
     }
    },
    "pont_de_chavanay": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-09T14:00"
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-09T11:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-09T12:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-10T20:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-10T19:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-10T19:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-10T18:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-11T17:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-11T15:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T14:00",
+     "mean_max_at": "2026-10-12T13:00",
      "gust_max_kt": 17,
-     "gust_max_at": "2026-10-12T14:00"
+     "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T15:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-13T16:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-13T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-13T14:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-14T13:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-14T20:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
@@ -1400,193 +1400,193 @@
      "mean_max_kt": 2,
      "mean_max_at": "2026-10-15T14:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T15:00"
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 16,
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-17T13:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-17T17:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T20:00",
-     "gust_max_kt": 11,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 21,
      "gust_max_at": "2026-10-18T19:00"
     },
     "2026-10-19": {
-     "slot_start_h": 13,
-     "slot_end_h": 16,
-     "mean_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
      "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 26,
-     "gust_max_at": "2026-10-19T17:00"
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
-     "slot_start_h": 10,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 32,
-     "gust_max_at": "2026-10-20T16:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 27,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 15,
      "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T16:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
-     "slot_start_h": 9,
-     "slot_end_h": 14,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 29,
-     "gust_max_at": "2026-10-23T14:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 30,
+     "gust_max_at": "2026-10-23T11:00"
     }
    },
    "loire_sur_rhone": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-09T12:00",
-     "gust_max_kt": 17,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-09T11:00",
+     "gust_max_kt": 19,
      "gust_max_at": "2026-10-09T12:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
+     "mean_max_kt": 6,
      "mean_max_at": "2026-10-10T18:00",
-     "gust_max_kt": 16,
+     "gust_max_kt": 18,
      "gust_max_at": "2026-10-10T18:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-11T17:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-11T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-11T16:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-12T16:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T15:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-12T15:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-13T17:00"
+     "mean_max_at": "2026-10-13T14:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-13T14:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-14T20:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-14T17:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-15T20:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-15T14:00"
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-15T17:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-16T20:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-16T08:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-16T12:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-17T08:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-17T16:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-18T14:00",
-     "gust_max_kt": 9,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-18T20:00",
+     "gust_max_kt": 18,
      "gust_max_at": "2026-10-18T20:00"
     },
     "2026-10-19": {
-     "slot_start_h": 13,
-     "slot_end_h": 18,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-19T15:00",
-     "gust_max_kt": 24,
-     "gust_max_at": "2026-10-19T17:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-19T15:00"
     },
     "2026-10-20": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 29,
-     "gust_max_at": "2026-10-20T15:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-20T08:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-21T08:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-21T19:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-22T08:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T08:00"
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 18,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 36,
-     "gust_max_at": "2026-10-23T14:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 32,
+     "gust_max_at": "2026-10-23T11:00"
     }
    },
    "st_cyr_sur_le_rhone": {
@@ -1595,120 +1595,120 @@
      "slot_end_h": null,
      "mean_max_kt": 8,
      "mean_max_at": "2026-10-09T12:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-09T13:00"
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-09T12:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 5,
-     "mean_max_at": "2026-10-10T18:00",
-     "gust_max_kt": 14,
+     "mean_max_at": "2026-10-10T19:00",
+     "gust_max_kt": 16,
      "gust_max_at": "2026-10-10T18:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-11T17:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-11T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-11T16:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-12T16:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T15:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-12T15:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-13T16:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-13T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-13T15:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
+     "mean_max_kt": 6,
      "mean_max_at": "2026-10-14T14:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-14T19:00"
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-15T20:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-15T14:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-15T19:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
+     "mean_max_kt": 2,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 17,
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-17T11:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-17T13:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-17T16:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T20:00",
-     "gust_max_kt": 11,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-18T15:00",
+     "gust_max_kt": 21,
      "gust_max_at": "2026-10-18T20:00"
     },
     "2026-10-19": {
-     "slot_start_h": 13,
-     "slot_end_h": 17,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 25,
-     "gust_max_at": "2026-10-19T17:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-19T13:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
-     "slot_start_h": 9,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 31,
-     "gust_max_at": "2026-10-20T16:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-20T15:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-20T15:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 28,
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 17,
      "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-22T16:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
+     "slot_start_h": null,
+     "slot_end_h": null,
      "mean_max_kt": 14,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 33,
-     "gust_max_at": "2026-10-23T14:00"
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 31,
+     "gust_max_at": "2026-10-23T12:00"
     }
    },
    "st_romain_des_iles": {
@@ -1716,120 +1716,120 @@
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 7,
-     "mean_max_at": "2026-10-09T12:00",
+     "mean_max_at": "2026-10-09T13:00",
      "gust_max_kt": 14,
-     "gust_max_at": "2026-10-09T12:00"
+     "gust_max_at": "2026-10-09T13:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
+     "mean_max_kt": 8,
      "mean_max_at": "2026-10-10T15:00",
      "gust_max_kt": 18,
-     "gust_max_at": "2026-10-10T15:00"
+     "gust_max_at": "2026-10-10T16:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-11T17:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T18:00",
      "gust_max_kt": 12,
      "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T18:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T17:00",
      "gust_max_kt": 13,
-     "gust_max_at": "2026-10-12T17:00"
+     "gust_max_at": "2026-10-12T14:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-13T17:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-13T18:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-13T15:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-14T14:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T18:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-15T20:00",
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-15T14:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T19:00"
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-16T16:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-16T13:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-16T15:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-17T14:00"
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-17T15:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T14:00",
-     "gust_max_kt": 11,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-18T15:00",
+     "gust_max_kt": 9,
      "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-19T16:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-19T08:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-19T14:00"
     },
     "2026-10-20": {
-     "slot_start_h": 13,
-     "slot_end_h": 18,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-20T15:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-20T16:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-20T15:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-21T08:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-21T20:00"
     },
     "2026-10-22": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-22T13:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-22T17:00"
+     "slot_start_h": 17,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 24,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 26,
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-23T16:00",
+     "gust_max_kt": 23,
      "gust_max_at": "2026-10-23T14:00"
     }
    },
@@ -1837,121 +1837,121 @@
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-09T15:00",
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-09T13:00",
      "gust_max_kt": 15,
-     "gust_max_at": "2026-10-09T15:00"
+     "gust_max_at": "2026-10-09T13:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-10T11:00",
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-10T15:00",
      "gust_max_kt": 16,
      "gust_max_at": "2026-10-10T15:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-11T17:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T18:00",
      "gust_max_kt": 12,
      "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T18:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T17:00",
      "gust_max_kt": 13,
-     "gust_max_at": "2026-10-12T17:00"
+     "gust_max_at": "2026-10-12T14:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-13T17:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-13T18:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-13T15:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-14T14:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T18:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-15T20:00",
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-15T14:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T19:00"
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-16T16:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-16T13:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-16T15:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-17T14:00"
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-17T15:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T14:00",
-     "gust_max_kt": 11,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-18T15:00",
+     "gust_max_kt": 9,
      "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-19T16:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-19T08:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-19T14:00"
     },
     "2026-10-20": {
-     "slot_start_h": 13,
-     "slot_end_h": 18,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-20T15:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-20T16:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-20T15:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-21T08:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-21T20:00"
     },
     "2026-10-22": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-22T13:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-22T17:00"
+     "slot_start_h": 17,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 24,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 26,
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-23T16:00",
+     "gust_max_kt": 23,
      "gust_max_at": "2026-10-23T14:00"
     }
    },
@@ -1959,50 +1959,50 @@
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-09T12:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-09T13:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-09T13:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-09T14:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
+     "mean_max_kt": 7,
      "mean_max_at": "2026-10-10T17:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-10T17:00"
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-10T18:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 7,
      "mean_max_at": "2026-10-11T18:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-11T17:00"
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-12T18:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-12T17:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-12T17:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-12T16:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-13T18:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-13T19:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-13T20:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-13T15:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-14T20:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-14T20:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-14T16:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-14T17:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
@@ -2010,71 +2010,71 @@
      "mean_max_kt": 2,
      "mean_max_at": "2026-10-15T20:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T08:00"
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-16T20:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-16T20:00"
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-17T08:00",
-     "gust_max_kt": 18,
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-17T13:00",
+     "gust_max_kt": 12,
      "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-18T08:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-18T14:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-18T20:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-18T20:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-19T16:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-19T14:00"
     },
     "2026-10-20": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 28,
-     "gust_max_at": "2026-10-20T16:00"
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-20T15:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-21T08:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-21T09:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-21T18:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-22T16:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-22T20:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
      "slot_start_h": 8,
-     "slot_end_h": 14,
+     "slot_end_h": 11,
      "mean_max_kt": 15,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 33,
-     "gust_max_at": "2026-10-23T14:00"
+     "mean_max_at": "2026-10-23T08:00",
+     "gust_max_kt": 34,
+     "gust_max_at": "2026-10-23T09:00"
     }
    }
   },
@@ -2083,137 +2083,137 @@
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-09T11:00"
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-09T17:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-09T18:00"
     },
     "2026-10-10": {
-     "slot_start_h": 9,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-10T15:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-10T14:00"
+     "slot_start_h": 8,
+     "slot_end_h": 15,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-10T11:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-10T15:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-11T13:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-11T13:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-11T20:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-11T20:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-12T15:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-12T15:00"
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-12T11:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-12T11:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-13T09:00",
-     "gust_max_kt": 4,
+     "gust_max_kt": 5,
      "gust_max_at": "2026-10-13T09:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-14T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-14T14:00"
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T17:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-15T11:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-15T11:00"
     },
     "2026-10-16": {
-     "slot_start_h": 15,
-     "slot_end_h": 19,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-16T17:00",
-     "gust_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 8,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
+     "slot_start_h": 9,
      "slot_end_h": 20,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-17T12:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-17T20:00"
+     "mean_max_kt": 21,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-18T09:00",
-     "gust_max_kt": 5,
-     "gust_max_at": "2026-10-18T08:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": 13,
-     "slot_end_h": 20,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-19T20:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-20T16:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-20T14:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-21T18:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-21T17:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 13,
-     "slot_end_h": 17,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-22T20:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 20,
-     "mean_max_at": "2026-10-23T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-23T08:00"
-    },
-    "2026-10-24": {
      "slot_start_h": 8,
      "slot_end_h": 14,
      "mean_max_kt": 18,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-24T14:00"
+     "mean_max_at": "2026-10-18T08:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-18T20:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": 9,
+     "slot_end_h": 18,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 3,
+     "gust_max_at": "2026-10-19T20:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-20T20:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-21T17:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-21T08:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 22,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-22T17:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-23T11:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-24T16:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-24T20:00"
     }
    },
    "excenevex": {
     "2026-10-09": {
      "slot_start_h": 8,
      "slot_end_h": 11,
-     "mean_max_kt": 12,
+     "mean_max_kt": 13,
      "mean_max_at": "2026-10-09T08:00",
      "gust_max_kt": 18,
      "gust_max_at": "2026-10-09T08:00"
@@ -2222,269 +2222,269 @@
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 10,
-     "mean_max_at": "2026-10-10T15:00",
-     "gust_max_kt": 14,
+     "mean_max_at": "2026-10-10T14:00",
+     "gust_max_kt": 15,
      "gust_max_at": "2026-10-10T14:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
+     "mean_max_kt": 8,
      "mean_max_at": "2026-10-11T20:00",
-     "gust_max_kt": 8,
+     "gust_max_kt": 13,
      "gust_max_at": "2026-10-11T20:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-12T15:00",
-     "gust_max_kt": 5,
-     "gust_max_at": "2026-10-12T14:00"
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-12T08:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-12T08:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-13T09:00",
-     "gust_max_kt": 4,
-     "gust_max_at": "2026-10-13T09:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T08:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-13T08:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-14T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-14T14:00"
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T17:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-15T11:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-15T11:00"
     },
     "2026-10-16": {
-     "slot_start_h": 15,
-     "slot_end_h": 19,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-16T17:00",
-     "gust_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 8,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
+     "slot_start_h": 9,
      "slot_end_h": 20,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-17T12:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-17T20:00"
+     "mean_max_kt": 21,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-18T09:00",
-     "gust_max_kt": 5,
-     "gust_max_at": "2026-10-18T08:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": 13,
-     "slot_end_h": 20,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-19T20:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-20T16:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-20T14:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-21T18:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-21T17:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 13,
-     "slot_end_h": 17,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-22T20:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 20,
-     "mean_max_at": "2026-10-23T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-23T08:00"
-    },
-    "2026-10-24": {
      "slot_start_h": 8,
      "slot_end_h": 14,
      "mean_max_kt": 18,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-24T14:00"
+     "mean_max_at": "2026-10-18T08:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-18T20:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": 9,
+     "slot_end_h": 18,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 3,
+     "gust_max_at": "2026-10-19T20:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-20T20:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-21T17:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-21T08:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 22,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-22T17:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-23T11:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-24T16:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-24T20:00"
     }
    },
    "vengeron": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-09T11:00"
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-09T10:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-09T10:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-10T16:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-10T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-10T18:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-11T14:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T15:00",
      "gust_max_kt": 7,
      "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-12T16:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-12T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-12T15:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 3,
-     "mean_max_at": "2026-10-13T08:00",
-     "gust_max_kt": 4,
-     "gust_max_at": "2026-10-13T09:00"
+     "mean_max_at": "2026-10-13T16:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-13T17:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-14T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-14T14:00"
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T17:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-15T11:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-15T11:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-16T17:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-16T19:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-16T11:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
+     "slot_start_h": 10,
      "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T11:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-17T19:00"
+     "mean_max_kt": 19,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-17T18:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T11:00",
+     "slot_start_h": 8,
+     "slot_end_h": 13,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-18T08:00",
      "gust_max_kt": 3,
-     "gust_max_at": "2026-10-18T11:00"
+     "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-19T17:00"
+     "slot_start_h": 11,
+     "slot_end_h": 15,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-19T13:00",
+     "gust_max_kt": 2,
+     "gust_max_at": "2026-10-19T20:00"
     },
     "2026-10-20": {
-     "slot_start_h": 17,
-     "slot_end_h": 20,
-     "mean_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-20T20:00",
-     "gust_max_kt": 14,
+     "gust_max_kt": 11,
      "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-21T18:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-21T15:00"
+     "slot_start_h": 10,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-22T12:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-22T12:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-22T17:00"
     },
     "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 19,
-     "mean_max_kt": 18,
-     "mean_max_at": "2026-10-23T08:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-23T08:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-23T11:00"
     },
     "2026-10-24": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-24T08:00"
+     "slot_start_h": 11,
+     "slot_end_h": 20,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-24T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-24T12:00"
     }
    },
    "hermance": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-09T11:00"
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-09T10:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-09T10:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-10T12:00"
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-10T09:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-10T09:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
@@ -2497,276 +2497,276 @@
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-12T15:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-12T15:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-12T11:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-12T11:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-13T08:00",
-     "gust_max_kt": 5,
-     "gust_max_at": "2026-10-13T09:00"
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-13T16:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-14T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-14T14:00"
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T17:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-15T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-15T11:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-15T11:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-16T17:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-16T19:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-16T20:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-16T11:00"
     },
     "2026-10-17": {
-     "slot_start_h": 8,
+     "slot_start_h": 10,
      "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-17T11:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-17T19:00"
+     "mean_max_kt": 19,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-17T18:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T11:00",
+     "slot_start_h": 8,
+     "slot_end_h": 13,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-18T08:00",
      "gust_max_kt": 3,
-     "gust_max_at": "2026-10-18T11:00"
+     "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-19T17:00"
+     "slot_start_h": 11,
+     "slot_end_h": 15,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-19T13:00",
+     "gust_max_kt": 2,
+     "gust_max_at": "2026-10-19T20:00"
     },
     "2026-10-20": {
-     "slot_start_h": 17,
-     "slot_end_h": 20,
-     "mean_max_kt": 11,
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-20T20:00",
-     "gust_max_kt": 14,
+     "gust_max_kt": 11,
      "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-21T18:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-21T15:00"
+     "slot_start_h": 10,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-21T08:00"
     },
     "2026-10-22": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-22T12:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-22T12:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-22T17:00"
     },
     "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 19,
-     "mean_max_kt": 18,
-     "mean_max_at": "2026-10-23T08:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-23T08:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-23T11:00"
     },
     "2026-10-24": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-24T08:00"
+     "slot_start_h": 11,
+     "slot_end_h": 20,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-24T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-24T12:00"
     }
    },
    "plage_de_sevrier": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T14:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-09T15:00"
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-09T11:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-09T14:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 3,
-     "mean_max_at": "2026-10-10T14:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-10T15:00"
+     "mean_max_at": "2026-10-10T09:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-10T09:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 5,
-     "mean_max_at": "2026-10-11T16:00",
+     "mean_max_at": "2026-10-11T18:00",
      "gust_max_kt": 9,
-     "gust_max_at": "2026-10-11T16:00"
+     "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-12T15:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-12T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-12T17:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-13T20:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-13T20:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-13T15:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T13:00",
-     "gust_max_kt": 9,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-14T12:00",
+     "gust_max_kt": 8,
      "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T16:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-15T13:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T14:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-16T16:00",
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-16T17:00",
      "gust_max_kt": 8,
-     "gust_max_at": "2026-10-16T15:00"
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-17T14:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-17T16:00"
+     "slot_start_h": 11,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-18T14:00",
-     "gust_max_kt": 5,
-     "gust_max_at": "2026-10-18T14:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-18T08:00",
+     "gust_max_kt": 3,
+     "gust_max_at": "2026-10-18T10:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-19T17:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-19T14:00",
+     "gust_max_kt": 2,
+     "gust_max_at": "2026-10-19T14:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-20T13:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-20T20:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-20T16:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-21T14:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-21T11:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
+     "mean_max_kt": 4,
      "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-22T12:00"
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-22T19:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-23T08:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-23T11:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-23T11:00"
     },
     "2026-10-24": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-24T11:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-24T08:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-24T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-24T12:00"
     }
    },
    "cap_des_seselets": {
     "2026-10-09": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T10:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-09T11:00"
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-09T18:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-09T18:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-10T10:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-10T13:00"
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-10T09:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-10T09:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-11T11:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-11T11:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-11T10:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-11T10:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-12T18:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-12T19:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-12T08:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-12T08:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-13T18:00",
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T19:00",
      "gust_max_kt": 4,
      "gust_max_at": "2026-10-13T19:00"
     },
@@ -2775,258 +2775,128 @@
      "slot_end_h": null,
      "mean_max_kt": 3,
      "mean_max_at": "2026-10-14T08:00",
-     "gust_max_kt": 9,
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-14T13:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 3,
-     "mean_max_at": "2026-10-15T20:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-15T16:00"
+     "mean_max_at": "2026-10-15T08:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T08:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 3,
-     "mean_max_at": "2026-10-16T09:00",
-     "gust_max_kt": 4,
+     "mean_max_at": "2026-10-16T14:00",
+     "gust_max_kt": 9,
      "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-17T14:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-17T13:00"
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-17T17:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-17T15:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T12:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-18T08:00",
      "gust_max_kt": 3,
-     "gust_max_at": "2026-10-18T13:00"
+     "gust_max_at": "2026-10-18T08:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 4,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-19T18:00",
+     "gust_max_kt": 3,
      "gust_max_at": "2026-10-19T14:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-20T20:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-20T18:00"
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-20T15:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-21T15:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-21T15:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-21T14:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-21T14:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
+     "mean_max_kt": 3,
      "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-22T14:00"
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-22T15:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-23T13:00"
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-23T12:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-23T17:00"
     },
     "2026-10-24": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-24T14:00",
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-24T20:00",
      "gust_max_kt": 8,
-     "gust_max_at": "2026-10-24T14:00"
+     "gust_max_at": "2026-10-24T15:00"
     }
    },
    "parking_pre_rencontre": {
     "2026-10-09": {
      "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-09T08:00",
-     "gust_max_kt": 23,
-     "gust_max_at": "2026-10-09T08:00"
+     "slot_end_h": 15,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-09T09:00",
+     "gust_max_kt": 27,
+     "gust_max_at": "2026-10-09T09:00"
     },
     "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-10T15:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-10T15:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-11T13:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-11T13:00"
-    },
-    "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 9,
-     "mean_max_at": "2026-10-12T16:00",
+     "mean_max_at": "2026-10-10T14:00",
      "gust_max_kt": 18,
-     "gust_max_at": "2026-10-12T17:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-13T16:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-14T12:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-15T08:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-16T11:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-16T20:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-17T16:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-17T16:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-18T17:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-18T17:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-19T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-19T12:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-20T14:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 12,
-     "slot_end_h": 17,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-21T16:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-22T08:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-22T08:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-23T17:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-23T19:00"
-    },
-    "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-24T11:00"
-    }
-   },
-   "treffort": {
-    "2026-10-09": {
-     "slot_start_h": 8,
-     "slot_end_h": 16,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-09T08:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-09T08:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-10T16:00"
+     "gust_max_at": "2026-10-10T12:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-11T16:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-11T14:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-11T16:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T14:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-12T14:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T17:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-12T15:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 7,
-     "mean_max_at": "2026-10-13T15:00",
+     "mean_max_at": "2026-10-13T17:00",
      "gust_max_kt": 14,
      "gust_max_at": "2026-10-13T17:00"
     },
@@ -3034,89 +2904,219 @@
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-14T11:00"
+     "mean_max_at": "2026-10-14T14:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-14T14:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-15T08:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-15T13:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-15T17:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-15T17:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-16T12:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-16T20:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-16T19:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-17T16:00",
-     "gust_max_kt": 11,
-     "gust_max_at": "2026-10-17T16:00"
+     "slot_start_h": 11,
+     "slot_end_h": 16,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-17T13:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-18T16:00",
-     "gust_max_kt": 7,
+     "mean_max_at": "2026-10-18T11:00",
+     "gust_max_kt": 4,
      "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-19T12:00"
+     "mean_max_at": "2026-10-19T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-19T15:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 10,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-20T14:00"
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-20T15:00"
     },
     "2026-10-21": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-21T16:00"
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-21T17:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-22T08:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-22T08:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-22T16:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-23T17:00",
-     "gust_max_kt": 8,
+     "mean_max_at": "2026-10-23T16:00",
+     "gust_max_kt": 12,
      "gust_max_at": "2026-10-23T19:00"
     },
     "2026-10-24": {
      "slot_start_h": null,
      "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-24T11:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-24T12:00"
+    }
+   },
+   "treffort": {
+    "2026-10-09": {
+     "slot_start_h": 11,
+     "slot_end_h": 17,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-09T13:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-09T14:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": 12,
+     "slot_end_h": 18,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-10T15:00",
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-10T14:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-11T15:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-12T14:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-12T15:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
      "mean_max_kt": 6,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-24T11:00"
+     "mean_max_at": "2026-10-13T15:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-13T16:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-14T14:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T15:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-15T19:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-15T11:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-16T17:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-16T14:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": 10,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-17T08:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-18T16:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-18T17:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-19T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-19T15:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": 13,
+     "slot_end_h": 19,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-20T16:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-20T15:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-21T17:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-22T16:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-22T20:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-23T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-23T19:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-24T11:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-24T12:00"
     }
    },
    "portes_les_valence": {
@@ -3124,1057 +3124,537 @@
      "slot_start_h": 8,
      "slot_end_h": 20,
      "mean_max_kt": 19,
-     "mean_max_at": "2026-10-09T15:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-09T15:00"
+     "mean_max_at": "2026-10-09T13:00",
+     "gust_max_kt": 32,
+     "gust_max_at": "2026-10-09T14:00"
     },
     "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-10T17:00"
+     "slot_start_h": 11,
+     "slot_end_h": 14,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-10T13:00",
+     "gust_max_kt": 17,
+     "gust_max_at": "2026-10-10T14:00"
     },
     "2026-10-11": {
-     "slot_start_h": 10,
-     "slot_end_h": 19,
-     "mean_max_kt": 15,
-     "mean_max_at": "2026-10-11T13:00",
+     "slot_start_h": 9,
+     "slot_end_h": 18,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-11T15:00",
      "gust_max_kt": 25,
      "gust_max_at": "2026-10-11T14:00"
     },
     "2026-10-12": {
-     "slot_start_h": 10,
+     "slot_start_h": 9,
      "slot_end_h": 18,
      "mean_max_kt": 15,
-     "mean_max_at": "2026-10-12T13:00",
+     "mean_max_at": "2026-10-12T12:00",
      "gust_max_kt": 24,
-     "gust_max_at": "2026-10-12T14:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-13T17:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": 9,
-     "slot_end_h": 16,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 24,
-     "gust_max_at": "2026-10-14T12:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-15T15:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-15T15:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-16T13:00",
-     "gust_max_kt": 24,
-     "gust_max_at": "2026-10-16T20:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 18,
-     "mean_max_at": "2026-10-17T13:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-17T20:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-18T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-18T16:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-19T11:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 9,
-     "slot_end_h": 19,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-20T14:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 21,
-     "mean_max_at": "2026-10-21T15:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-21T20:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 20,
-     "mean_max_at": "2026-10-22T10:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-22T08:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-23T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-23T20:00"
-    },
-    "2026-10-24": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-24T08:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-24T08:00"
-    }
-   },
-   "roche_de_glun": {
-    "2026-10-09": {
-     "slot_start_h": 8,
-     "slot_end_h": 18,
-     "mean_max_kt": 17,
-     "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 28,
-     "gust_max_at": "2026-10-09T13:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-10T15:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-10T16:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-11T13:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-11T14:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": 12,
-     "slot_end_h": 16,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-12T14:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-12T14:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-13T17:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-14T13:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-14T14:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-15T15:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-15T16:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": 8,
-     "slot_end_h": 19,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 24,
-     "gust_max_at": "2026-10-16T20:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 9,
-     "slot_end_h": 18,
-     "mean_max_kt": 16,
-     "mean_max_at": "2026-10-17T13:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-17T20:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-18T15:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-18T16:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-19T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-19T11:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-20T15:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-20T14:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 18,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-21T20:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 18,
-     "mean_max_at": "2026-10-22T13:00",
-     "gust_max_kt": 30,
-     "gust_max_at": "2026-10-22T08:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 8,
-     "slot_end_h": 20,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-23T08:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-23T20:00"
-    },
-    "2026-10-24": {
-     "slot_start_h": 8,
-     "slot_end_h": 14,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-24T09:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-24T08:00"
-    }
-   },
-   "st_alban_du_rhone": {
-    "2026-10-09": {
-     "slot_start_h": 8,
-     "slot_end_h": 18,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-09T12:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-10T17:00",
-     "gust_max_kt": 7,
-     "gust_max_at": "2026-10-10T17:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-11T12:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-11T13:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-12T16:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-12T16:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-13T16:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-14T12:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-15T16:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-15T16:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-16T16:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-16T16:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-17T14:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T12:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-18T16:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-18T14:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-19T17:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 12,
-     "slot_end_h": 16,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-20T15:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 10,
-     "slot_end_h": 20,
-     "mean_max_kt": 15,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-21T20:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 8,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-22T08:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 10,
-     "slot_end_h": 17,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T12:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-23T08:00"
-    },
-    "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-24T11:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-24T14:00"
-    }
-   },
-   "pont_de_chavanay": {
-    "2026-10-09": {
-     "slot_start_h": 8,
-     "slot_end_h": 17,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-09T09:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-09T10:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-10T16:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-11T15:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-11T14:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-12T16:00",
-     "gust_max_kt": 13,
      "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 8,
-     "mean_max_at": "2026-10-13T16:00",
+     "mean_max_at": "2026-10-13T12:00",
      "gust_max_kt": 13,
-     "gust_max_at": "2026-10-13T16:00"
+     "gust_max_at": "2026-10-13T12:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-14T12:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 20,
+     "gust_max_at": "2026-10-14T16:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
+     "mean_max_kt": 6,
      "mean_max_at": "2026-10-15T16:00",
-     "gust_max_kt": 15,
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-16T16:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-16T16:00"
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-17T14:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T12:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 26,
+     "mean_max_at": "2026-10-17T16:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-18T16:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-18T14:00"
+     "slot_start_h": 8,
+     "slot_end_h": 19,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-18T11:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 24,
      "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-19T17:00"
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
-     "slot_start_h": 12,
-     "slot_end_h": 16,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-20T15:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-20T16:00"
     },
     "2026-10-21": {
-     "slot_start_h": 10,
+     "slot_start_h": 8,
      "slot_end_h": 20,
-     "mean_max_kt": 15,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-21T20:00"
+     "mean_max_kt": 17,
+     "mean_max_at": "2026-10-21T20:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-21T18:00"
     },
     "2026-10-22": {
-     "slot_start_h": 8,
+     "slot_start_h": 10,
      "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-22T08:00"
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-22T17:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-22T10:00"
     },
     "2026-10-23": {
      "slot_start_h": 10,
-     "slot_end_h": 17,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T12:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-23T08:00"
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-23T19:00"
     },
     "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-24T11:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-24T14:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
+     "mean_max_at": "2026-10-24T14:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-24T11:00"
     }
    },
-   "loire_sur_rhone": {
+   "roche_de_glun": {
     "2026-10-09": {
-     "slot_start_h": 9,
-     "slot_end_h": 16,
-     "mean_max_kt": 13,
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 18,
      "mean_max_at": "2026-10-09T12:00",
-     "gust_max_kt": 22,
-     "gust_max_at": "2026-10-09T13:00"
+     "gust_max_kt": 30,
+     "gust_max_at": "2026-10-09T12:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-10T13:00",
-     "gust_max_kt": 8,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-10T12:00",
+     "gust_max_kt": 14,
      "gust_max_at": "2026-10-10T13:00"
     },
     "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-11T16:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-11T16:00"
+     "slot_start_h": 11,
+     "slot_end_h": 17,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-11T14:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-11T14:00"
     },
     "2026-10-12": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-12T17:00"
+     "slot_start_h": 11,
+     "slot_end_h": 17,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 22,
+     "gust_max_at": "2026-10-12T14:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 9,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-13T17:00",
+     "gust_max_kt": 12,
      "gust_max_at": "2026-10-13T17:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-14T12:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-14T17:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-15T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-15T14:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
-     "slot_start_h": 12,
-     "slot_end_h": 17,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-16T16:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-16T16:00"
+     "slot_start_h": 14,
+     "slot_end_h": 20,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-17T15:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T12:00"
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 23,
+     "mean_max_at": "2026-10-17T16:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-18T15:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-18T14:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-19T17:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 12,
-     "slot_end_h": 15,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-20T15:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 11,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-21T20:00"
-    },
-    "2026-10-22": {
      "slot_start_h": 8,
      "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-22T08:00"
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-18T12:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-18T17:00"
     },
-    "2026-10-23": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T14:00",
+    "2026-10-19": {
+     "slot_start_h": 11,
+     "slot_end_h": 20,
+     "mean_max_kt": 20,
+     "mean_max_at": "2026-10-19T17:00",
      "gust_max_kt": 16,
-     "gust_max_at": "2026-10-23T08:00"
+     "gust_max_at": "2026-10-19T16:00"
     },
-    "2026-10-24": {
+    "2026-10-20": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-20T16:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 15,
+     "mean_max_at": "2026-10-21T19:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-21T18:00"
+    },
+    "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-24T13:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-24T14:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T11:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-22T10:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": 11,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-23T14:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-23T19:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": 8,
+     "slot_end_h": 20,
+     "mean_max_kt": 16,
+     "mean_max_at": "2026-10-24T14:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-24T11:00"
     }
    },
-   "st_cyr_sur_le_rhone": {
+   "st_alban_du_rhone": {
     "2026-10-09": {
-     "slot_start_h": 12,
-     "slot_end_h": 16,
-     "mean_max_kt": 12,
+     "slot_start_h": 9,
+     "slot_end_h": 18,
+     "mean_max_kt": 13,
      "mean_max_at": "2026-10-09T14:00",
-     "gust_max_kt": 19,
+     "gust_max_kt": 22,
      "gust_max_at": "2026-10-09T14:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-10T16:00"
-    },
-    "2026-10-11": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-11T15:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-11T14:00"
-    },
-    "2026-10-12": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-12T17:00"
-    },
-    "2026-10-13": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-13T16:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-13T16:00"
-    },
-    "2026-10-14": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-14T12:00"
-    },
-    "2026-10-15": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-15T14:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-15T14:00"
-    },
-    "2026-10-16": {
-     "slot_start_h": 12,
-     "slot_end_h": 17,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-16T16:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-16T16:00"
-    },
-    "2026-10-17": {
-     "slot_start_h": 11,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-17T15:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-17T12:00"
-    },
-    "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-18T15:00",
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-10T20:00",
      "gust_max_kt": 6,
-     "gust_max_at": "2026-10-18T14:00"
-    },
-    "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-19T17:00",
-     "gust_max_kt": 8,
-     "gust_max_at": "2026-10-19T17:00"
-    },
-    "2026-10-20": {
-     "slot_start_h": 12,
-     "slot_end_h": 15,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-20T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-20T15:00"
-    },
-    "2026-10-21": {
-     "slot_start_h": 11,
-     "slot_end_h": 20,
-     "mean_max_kt": 14,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-21T20:00"
-    },
-    "2026-10-22": {
-     "slot_start_h": 8,
-     "slot_end_h": 18,
-     "mean_max_kt": 13,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-22T08:00"
-    },
-    "2026-10-23": {
-     "slot_start_h": 10,
-     "slot_end_h": 18,
-     "mean_max_kt": 12,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-23T08:00"
-    },
-    "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-24T13:00",
-     "gust_max_kt": 13,
-     "gust_max_at": "2026-10-24T14:00"
-    }
-   },
-   "st_romain_des_iles": {
-    "2026-10-09": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-09T13:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-09T13:00"
-    },
-    "2026-10-10": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-10T12:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-10T19:00"
+     "gust_max_at": "2026-10-10T20:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
+     "mean_max_kt": 10,
      "mean_max_at": "2026-10-11T15:00",
-     "gust_max_kt": 10,
+     "gust_max_kt": 17,
      "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-12T17:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-13T18:00",
-     "gust_max_kt": 6,
+     "mean_max_at": "2026-10-13T17:00",
+     "gust_max_kt": 7,
      "gust_max_at": "2026-10-13T17:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-14T11:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-14T14:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-15T13:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T11:00"
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-16T16:00"
+     "slot_start_h": 15,
+     "slot_end_h": 19,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-16T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-17T16:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-17T12:00"
+     "slot_start_h": 9,
+     "slot_end_h": 20,
+     "mean_max_kt": 20,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-17T16:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T15:00",
+     "slot_start_h": 10,
+     "slot_end_h": 17,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-18T14:00",
      "gust_max_kt": 4,
-     "gust_max_at": "2026-10-18T15:00"
+     "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-19T18:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-19T18:00"
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-19T20:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-20T08:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-20T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-20T14:00"
     },
     "2026-10-21": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-21T14:00",
+     "slot_start_h": 12,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-21T16:00",
      "gust_max_kt": 15,
-     "gust_max_at": "2026-10-21T19:00"
+     "gust_max_at": "2026-10-21T16:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-22T10:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T09:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-23T08:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-23T20:00"
     },
     "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-24T08:00"
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-24T17:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-24T11:00"
     }
    },
-   "pont_darciat": {
+   "pont_de_chavanay": {
     "2026-10-09": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
-     "mean_max_at": "2026-10-09T13:00",
+     "slot_start_h": 9,
+     "slot_end_h": 12,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-09T10:00",
      "gust_max_kt": 18,
-     "gust_max_at": "2026-10-09T13:00"
+     "gust_max_at": "2026-10-09T10:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-10T11:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-10T12:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-10T20:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-10T20:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-11T17:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-11T17:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-11T15:00"
     },
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 6,
-     "gust_max_at": "2026-10-12T17:00"
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-12T13:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-13T18:00",
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-13T17:00",
      "gust_max_kt": 8,
-     "gust_max_at": "2026-10-13T18:00"
+     "gust_max_at": "2026-10-13T17:00"
     },
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-14T12:00",
-     "gust_max_kt": 12,
-     "gust_max_at": "2026-10-14T11:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-14T14:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 4,
-     "mean_max_at": "2026-10-15T13:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-15T11:00"
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-16T15:00",
-     "gust_max_kt": 10,
-     "gust_max_at": "2026-10-16T16:00"
+     "slot_start_h": 15,
+     "slot_end_h": 19,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-16T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-16T14:00"
     },
     "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-17T16:00",
-     "gust_max_kt": 14,
-     "gust_max_at": "2026-10-17T12:00"
+     "slot_start_h": 9,
+     "slot_end_h": 20,
+     "mean_max_kt": 20,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-17T16:00"
     },
     "2026-10-18": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T15:00",
+     "slot_start_h": 10,
+     "slot_end_h": 17,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-18T14:00",
      "gust_max_kt": 4,
-     "gust_max_at": "2026-10-18T15:00"
+     "gust_max_at": "2026-10-18T17:00"
     },
     "2026-10-19": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-19T18:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-19T18:00"
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-19T20:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-19T16:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-20T08:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-20T17:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-20T14:00"
     },
     "2026-10-21": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-21T14:00",
+     "slot_start_h": 12,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-21T16:00",
      "gust_max_kt": 15,
-     "gust_max_at": "2026-10-21T19:00"
+     "gust_max_at": "2026-10-21T16:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 6,
-     "mean_max_at": "2026-10-22T10:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-22T09:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-23T08:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-23T20:00"
     },
     "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-24T08:00"
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-24T17:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-24T11:00"
     }
    },
-   "wwmeyzieu": {
+   "loire_sur_rhone": {
     "2026-10-09": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 11,
+     "slot_start_h": 9,
+     "slot_end_h": 18,
+     "mean_max_kt": 12,
      "mean_max_at": "2026-10-09T11:00",
-     "gust_max_kt": 17,
-     "gust_max_at": "2026-10-09T11:00"
+     "gust_max_kt": 21,
+     "gust_max_at": "2026-10-09T16:00"
     },
     "2026-10-10": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-10T16:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-10T16:00"
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-10T17:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-10T17:00"
     },
     "2026-10-11": {
      "slot_start_h": null,
@@ -4187,15 +3667,145 @@
     "2026-10-12": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 4,
-     "mean_max_at": "2026-10-12T17:00",
-     "gust_max_kt": 9,
-     "gust_max_at": "2026-10-12T17:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-12T14:00"
     },
     "2026-10-13": {
      "slot_start_h": null,
      "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-13T16:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-13T16:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T15:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
      "mean_max_kt": 4,
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T16:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": 15,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-16T14:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": 9,
+     "slot_end_h": 20,
+     "mean_max_kt": 20,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-17T16:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": 10,
+     "slot_end_h": 16,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-18T17:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-19T19:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-19T16:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-20T14:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 12,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-21T16:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-22T20:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-23T20:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-24T17:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-24T11:00"
+    }
+   },
+   "st_cyr_sur_le_rhone": {
+    "2026-10-09": {
+     "slot_start_h": 11,
+     "slot_end_h": 17,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-09T16:00",
+     "gust_max_kt": 19,
+     "gust_max_at": "2026-10-09T16:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-10T17:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-10T18:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-11T16:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-12T13:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-12T13:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
      "mean_max_at": "2026-10-13T17:00",
      "gust_max_kt": 9,
      "gust_max_at": "2026-10-13T17:00"
@@ -4203,89 +3813,479 @@
     "2026-10-14": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 7,
-     "mean_max_at": "2026-10-14T11:00",
-     "gust_max_kt": 15,
-     "gust_max_at": "2026-10-14T12:00"
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-14T15:00"
     },
     "2026-10-15": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 5,
-     "mean_max_at": "2026-10-15T14:00",
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-15T16:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": 15,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-16T15:00",
      "gust_max_kt": 11,
-     "gust_max_at": "2026-10-15T14:00"
+     "gust_max_at": "2026-10-16T14:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": 9,
+     "slot_end_h": 20,
+     "mean_max_kt": 20,
+     "mean_max_at": "2026-10-17T15:00",
+     "gust_max_kt": 7,
+     "gust_max_at": "2026-10-17T16:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": 10,
+     "slot_end_h": 16,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-18T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-18T17:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-19T19:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-19T16:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-20T14:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-20T14:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": 12,
+     "slot_end_h": 20,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-21T16:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-22T20:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-23T20:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-23T20:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": 13,
+     "slot_end_h": 20,
+     "mean_max_kt": 12,
+     "mean_max_at": "2026-10-24T17:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-24T11:00"
+    }
+   },
+   "st_romain_des_iles": {
+    "2026-10-09": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-09T12:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-09T12:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-10T11:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-10T11:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-11T17:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-12T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-12T16:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T18:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-13T18:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-14T17:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-15T08:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-16T20:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": 11,
+     "slot_end_h": 19,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-17T11:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-18T13:00",
+     "gust_max_kt": 3,
+     "gust_max_at": "2026-10-18T18:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-19T15:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-19T16:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-20T18:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-21T15:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-21T08:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 11,
+     "slot_end_h": 16,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-22T12:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-22T20:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-23T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-23T11:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-24T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-24T11:00"
+    }
+   },
+   "pont_darciat": {
+    "2026-10-09": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 9,
+     "mean_max_at": "2026-10-09T12:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-09T12:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-10T12:00",
+     "gust_max_kt": 10,
+     "gust_max_at": "2026-10-10T12:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-11T13:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-11T17:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-12T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-12T16:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T17:00",
+     "gust_max_kt": 4,
+     "gust_max_at": "2026-10-13T17:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-14T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-14T17:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-15T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-15T08:00"
+    },
+    "2026-10-16": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-16T20:00"
+    },
+    "2026-10-17": {
+     "slot_start_h": 11,
+     "slot_end_h": 19,
+     "mean_max_kt": 13,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 6,
+     "gust_max_at": "2026-10-17T11:00"
+    },
+    "2026-10-18": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-18T13:00",
+     "gust_max_kt": 3,
+     "gust_max_at": "2026-10-18T18:00"
+    },
+    "2026-10-19": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-19T15:00",
+     "gust_max_kt": 9,
+     "gust_max_at": "2026-10-19T16:00"
+    },
+    "2026-10-20": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 3,
+     "mean_max_at": "2026-10-20T18:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-20T20:00"
+    },
+    "2026-10-21": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-21T15:00",
+     "gust_max_kt": 14,
+     "gust_max_at": "2026-10-21T08:00"
+    },
+    "2026-10-22": {
+     "slot_start_h": 11,
+     "slot_end_h": 16,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-22T12:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-22T20:00"
+    },
+    "2026-10-23": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-23T15:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-23T11:00"
+    },
+    "2026-10-24": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-24T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-24T11:00"
+    }
+   },
+   "wwmeyzieu": {
+    "2026-10-09": {
+     "slot_start_h": 12,
+     "slot_end_h": 15,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-09T13:00",
+     "gust_max_kt": 18,
+     "gust_max_at": "2026-10-09T13:00"
+    },
+    "2026-10-10": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-10T17:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-10T19:00"
+    },
+    "2026-10-11": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-11T15:00",
+     "gust_max_kt": 16,
+     "gust_max_at": "2026-10-11T15:00"
+    },
+    "2026-10-12": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 6,
+     "mean_max_at": "2026-10-12T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-12T16:00"
+    },
+    "2026-10-13": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-13T20:00",
+     "gust_max_kt": 3,
+     "gust_max_at": "2026-10-13T12:00"
+    },
+    "2026-10-14": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 5,
+     "mean_max_at": "2026-10-14T16:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-14T16:00"
+    },
+    "2026-10-15": {
+     "slot_start_h": null,
+     "slot_end_h": null,
+     "mean_max_kt": 2,
+     "mean_max_at": "2026-10-15T17:00",
+     "gust_max_kt": 5,
+     "gust_max_at": "2026-10-15T16:00"
     },
     "2026-10-16": {
      "slot_start_h": null,
      "slot_end_h": null,
      "mean_max_kt": 9,
-     "mean_max_at": "2026-10-16T16:00",
-     "gust_max_kt": 17,
+     "mean_max_at": "2026-10-16T15:00",
+     "gust_max_kt": 16,
      "gust_max_at": "2026-10-16T20:00"
     },
     "2026-10-17": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-17T16:00",
-     "gust_max_kt": 20,
-     "gust_max_at": "2026-10-17T20:00"
+     "slot_start_h": 10,
+     "slot_end_h": 20,
+     "mean_max_kt": 14,
+     "mean_max_at": "2026-10-17T14:00",
+     "gust_max_kt": 11,
+     "gust_max_at": "2026-10-17T08:00"
     },
     "2026-10-18": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 3,
-     "mean_max_at": "2026-10-18T14:00",
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-18T11:00",
      "gust_max_kt": 4,
-     "gust_max_at": "2026-10-18T14:00"
+     "gust_max_at": "2026-10-18T18:00"
     },
     "2026-10-19": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 2,
-     "mean_max_at": "2026-10-19T20:00",
-     "gust_max_kt": 5,
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-19T15:00",
+     "gust_max_kt": 10,
      "gust_max_at": "2026-10-19T17:00"
     },
     "2026-10-20": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-20T11:00",
-     "gust_max_kt": 16,
-     "gust_max_at": "2026-10-20T09:00"
+     "mean_max_kt": 4,
+     "mean_max_at": "2026-10-20T17:00",
+     "gust_max_kt": 8,
+     "gust_max_at": "2026-10-20T20:00"
     },
     "2026-10-21": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 9,
-     "mean_max_at": "2026-10-21T14:00",
-     "gust_max_kt": 18,
-     "gust_max_at": "2026-10-21T20:00"
+     "mean_max_kt": 10,
+     "mean_max_at": "2026-10-21T16:00",
+     "gust_max_kt": 12,
+     "gust_max_at": "2026-10-21T19:00"
     },
     "2026-10-22": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-22T14:00",
-     "gust_max_kt": 21,
-     "gust_max_at": "2026-10-22T08:00"
+     "mean_max_kt": 8,
+     "mean_max_at": "2026-10-22T13:00",
+     "gust_max_kt": 15,
+     "gust_max_at": "2026-10-22T20:00"
     },
     "2026-10-23": {
      "slot_start_h": null,
      "slot_end_h": null,
-     "mean_max_kt": 10,
-     "mean_max_at": "2026-10-23T14:00",
-     "gust_max_kt": 19,
-     "gust_max_at": "2026-10-23T08:00"
+     "mean_max_kt": 7,
+     "mean_max_at": "2026-10-23T17:00",
+     "gust_max_kt": 13,
+     "gust_max_at": "2026-10-23T20:00"
     },
     "2026-10-24": {
-     "slot_start_h": null,
-     "slot_end_h": null,
-     "mean_max_kt": 8,
-     "mean_max_at": "2026-10-24T14:00",
-     "gust_max_kt": 16,
+     "slot_start_h": 13,
+     "slot_end_h": 18,
+     "mean_max_kt": 11,
+     "mean_max_at": "2026-10-24T15:00",
+     "gust_max_kt": 15,
      "gust_max_at": "2026-10-24T08:00"
     }
    }
