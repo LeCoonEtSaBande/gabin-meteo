@@ -1,7 +1,7 @@
 # Gabin-meteo — prévisions de vent des spots (Rhône-Alpes / Léman)
 
-- Prévisions collectées le : 10/10/2026 18:19 (Europe/Paris)
-- Fichiers générés le : 2026-10-10T18:23:09+02:00
+- Prévisions collectées le : 10/10/2026 22:38 (Europe/Paris)
+- Fichiers générés le : 2026-10-10T22:46:18+02:00
 - Collecte prévue 3 fois par jour (vers 7h30, 13h30 et 19h30, une heure plus tôt en hiver). GitHub la retarde parfois de plusieurs heures : se fier à la date de collecte ci-dessus.
 - Carte : https://lecoonetsabande.github.io/gabin-meteo/
 - Archive des prévisions de la veille à 23 h (AROME HD et ICON-CH1 bruts) : https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md
@@ -47,40 +47,40 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 9 | 13 | 207° SSO | aucun | soleil-couvert | 0.9 | 16°C |
 | Plage d'Hermance | 11 | 14 | 190° S | aucun | soleil-couvert | 0.3 | 16°C |
 | Lac d'Annecy - Plage de Sévrier | 4 | 5 | 171° S | aucun | pluie | 2.7 | 14°C |
-| Lac du Bourget - Cap des Séselets | 5 | 7 | 360° N | aucun | soleil-couvert | 0.2 | 15°C |
+| Lac du Bourget - Cap des Séselets | 5 | 7 | 360° N | aucun | soleil-couvert | 0.3 | 15°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 9 | 20 | 5° N | aucun | soleil-couvert | 0.5 | 11°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 11 | 20 | 354° N | 13h-16h | soleil-couvert | 0.0 | 15°C |
 | Portes-lès-Valence - Parking des Surfeurs | 8 | 15 | 9° N | aucun | soleil | 0.0 | 21°C |
-| La Roche-de-Glun - Base Nautique | 5 | 10 | 30° NNE | aucun | pluie | 0.6 | 21°C |
-| Centrale de Saint-Alban-du-Rhône | 7 | 15 | 6° N | aucun | soleil-couvert | 0.4 | 19°C |
-| Nord du Pont de Chavanay | 7 | 15 | 11° N | aucun | soleil-couvert | 0.2 | 19°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 6 | 12 | 335° NNO | aucun | orage | 9.1 | 19°C |
-| Saint-Cyr-sur-le-Rhône | 5 | 15 | 7° N | aucun | orage | 9.1 | 19°C |
-| Saint-Romain-des-Iles | 7 | 14 | 316° NO | aucun | pluie | 1.5 | 17°C |
-| Nord du Pont d'Arciat | 8 | 16 | 314° NO | aucun | pluie | 0.8 | 17°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 11 | 343° NNO | aucun | pluie | 3.7 | 16°C |
+| La Roche-de-Glun - Base Nautique | 5 | 10 | 317° NO | aucun | soleil | 0.0 | 21°C |
+| Centrale de Saint-Alban-du-Rhône | 8 | 15 | 20° NNE | aucun | soleil-couvert | 0.0 | 19°C |
+| Nord du Pont de Chavanay | 7 | 14 | 24° NNE | aucun | soleil-couvert | 0.0 | 19°C |
+| Loire-sur-Rhône / Chasse-sur-Rhône | 6 | 16 | 344° NNO | aucun | pluie | 2.3 | 19°C |
+| Saint-Cyr-sur-le-Rhône | 7 | 16 | 7° N | aucun | pluie | 0.7 | 19°C |
+| Saint-Romain-des-Iles | 6 | 14 | 322° NO | aucun | pluie | 1.5 | 17°C |
+| Nord du Pont d'Arciat | 7 | 16 | 323° NO | aucun | pluie | 0.8 | 17°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 7 | 14 | 324° NO | aucun | orage | 10.8 | 16°C |
 
 ### dim. 11/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 7 | 9 | 332° NNO | aucun | soleil-couvert | 0.0 | 15°C |
-| Plage d'Excenevex | 10 | 15 | 18° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Plage du Vengeron | 7 | 10 | 357° N | aucun | soleil-couvert | 0.0 | 16°C |
-| Plage d'Hermance | 5 | 8 | 341° NNO | aucun | soleil-couvert | 0.0 | 16°C |
-| Lac d'Annecy - Plage de Sévrier | 6 | 10 | 285° ONO | aucun | soleil-couvert | 0.0 | 15°C |
-| Lac du Bourget - Cap des Séselets | 9 | 11 | 23° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 10 | 19 | 21° NNE | aucun | couvert | 0.0 | 10°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 9 | 17 | 348° NNO | aucun | soleil-couvert | 0.0 | 14°C |
-| Portes-lès-Valence - Parking des Surfeurs | 14 | 25 | 6° N | 10h-20h | soleil-couvert | 0.0 | 17°C |
-| La Roche-de-Glun - Base Nautique | 9 | 18 | 355° N | aucun | soleil-couvert | 0.0 | 17°C |
-| Centrale de Saint-Alban-du-Rhône | 8 | 16 | 7° N | aucun | soleil-couvert | 0.0 | 17°C |
-| Nord du Pont de Chavanay | 8 | 15 | 7° N | aucun | soleil-couvert | 0.0 | 17°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 5 | 11 | 10° N | aucun | soleil-couvert | 0.0 | 16°C |
-| Saint-Cyr-sur-le-Rhône | 6 | 14 | 10° N | aucun | soleil-couvert | 0.0 | 16°C |
-| Saint-Romain-des-Iles | 5 | 9 | 15° NNE | aucun | couvert | 0.0 | 16°C |
-| Nord du Pont d'Arciat | 7 | 11 | 336° NNO | aucun | couvert | 0.0 | 16°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 11 | 4° N | aucun | couvert | 0.0 | 15°C |
+| Plage de la pointe - Messery | 11 | 18 | 326° NO | aucun | couvert | 0.0 | 15°C |
+| Plage d'Excenevex | 6 | 8 | 325° NO | aucun | couvert | 0.0 | 15°C |
+| Plage du Vengeron | 9 | 11 | 324° NO | aucun | couvert | 0.0 | 16°C |
+| Plage d'Hermance | 6 | 8 | 358° N | aucun | couvert | 0.0 | 15°C |
+| Lac d'Annecy - Plage de Sévrier | 7 | 9 | 308° NO | aucun | couvert | 0.0 | 15°C |
+| Lac du Bourget - Cap des Séselets | 9 | 11 | 17° NNE | aucun | soleil-couvert | 0.0 | 15°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 10 | 18 | 7° N | aucun | couvert | 0.0 | 10°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 11 | 19 | 346° NNO | 13h-16h | couvert | 0.0 | 15°C |
+| Portes-lès-Valence - Parking des Surfeurs | 15 | 26 | 10° N | 11h-20h | soleil-couvert | 0.0 | 17°C |
+| La Roche-de-Glun - Base Nautique | 9 | 19 | 13° NNE | aucun | soleil-couvert | 0.0 | 17°C |
+| Centrale de Saint-Alban-du-Rhône | 8 | 15 | 18° NNE | aucun | soleil-couvert | 0.0 | 17°C |
+| Nord du Pont de Chavanay | 8 | 15 | 18° NNE | aucun | soleil-couvert | 0.0 | 17°C |
+| Loire-sur-Rhône / Chasse-sur-Rhône | 6 | 12 | 8° N | aucun | soleil-couvert | 0.0 | 16°C |
+| Saint-Cyr-sur-le-Rhône | 6 | 14 | 17° NNE | aucun | soleil-couvert | 0.0 | 16°C |
+| Saint-Romain-des-Iles | 7 | 12 | 7° N | aucun | couvert | 0.0 | 16°C |
+| Nord du Pont d'Arciat | 7 | 11 | 335° NNO | aucun | soleil-couvert | 0.0 | 16°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 12 | 355° N | aucun | soleil-couvert | 0.0 | 16°C |
 
 ### lun. 12/10/2026
 
@@ -91,18 +91,18 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 10 | 13 | 35° NE | aucun | soleil | 0.0 | 16°C |
 | Plage d'Hermance | 9 | 13 | 54° NE | aucun | soleil | 0.0 | 16°C |
 | Lac d'Annecy - Plage de Sévrier | 5 | 8 | 289° ONO | aucun | soleil | 0.0 | 17°C |
-| Lac du Bourget - Cap des Séselets | 10 | 14 | 15° NNE | aucun | soleil | 0.0 | 17°C |
+| Lac du Bourget - Cap des Séselets | 10 | 13 | 351° N | aucun | soleil | 0.0 | 17°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 7 | 15 | 18° NNE | aucun | soleil | 0.0 | 11°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 8 | 14 | 335° NNO | aucun | soleil | 0.0 | 15°C |
-| Portes-lès-Valence - Parking des Surfeurs | 14 | 24 | 7° N | 08h-20h | soleil | 0.0 | 18°C |
-| La Roche-de-Glun - Base Nautique | 10 | 18 | 11° N | aucun | soleil | 0.0 | 19°C |
-| Centrale de Saint-Alban-du-Rhône | 10 | 17 | 8° N | aucun | soleil | 0.0 | 19°C |
-| Nord du Pont de Chavanay | 8 | 16 | 9° N | aucun | soleil | 0.0 | 19°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 6 | 13 | 10° N | aucun | soleil | 0.0 | 18°C |
-| Saint-Cyr-sur-le-Rhône | 6 | 13 | 10° N | aucun | soleil | 0.0 | 18°C |
-| Saint-Romain-des-Iles | 6 | 12 | 28° NNE | aucun | soleil | 0.0 | 18°C |
-| Nord du Pont d'Arciat | 7 | 12 | 30° NNE | aucun | soleil | 0.0 | 17°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 11 | 354° N | aucun | soleil | 0.0 | 16°C |
+| Portes-lès-Valence - Parking des Surfeurs | 13 | 24 | 6° N | 08h-18h | soleil | 0.0 | 19°C |
+| La Roche-de-Glun - Base Nautique | 8 | 16 | 7° N | aucun | soleil | 0.0 | 19°C |
+| Centrale de Saint-Alban-du-Rhône | 10 | 18 | 6° N | aucun | soleil | 0.0 | 19°C |
+| Nord du Pont de Chavanay | 8 | 16 | 8° N | aucun | soleil | 0.0 | 19°C |
+| Loire-sur-Rhône / Chasse-sur-Rhône | 5 | 12 | 356° N | aucun | soleil | 0.0 | 18°C |
+| Saint-Cyr-sur-le-Rhône | 6 | 14 | 18° NNE | aucun | soleil | 0.0 | 18°C |
+| Saint-Romain-des-Iles | 7 | 13 | 28° NNE | aucun | soleil | 0.0 | 18°C |
+| Nord du Pont d'Arciat | 7 | 12 | 26° NNE | aucun | soleil | 0.0 | 17°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 11 | 356° N | aucun | soleil | 0.0 | 17°C |
 
 ### mar. 13/10/2026
 
@@ -157,18 +157,12 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 3 | 4 | 348° NNO | aucun | soleil-couvert | 0.0 | 20°C |
 | Plage d'Hermance | 3 | 4 | 348° NNO | aucun | soleil-couvert | 0.0 | 20°C |
 | Lac d'Annecy - Plage de Sévrier | 3 | 6 | 111° ESE | aucun | soleil | 0.0 | 20°C |
-| Lac du Bourget - Cap des Séselets | 4 | 8 | 10° N | aucun | soleil-couvert | 0.0 | 20°C |
+| Lac du Bourget - Cap des Séselets | 4 | 10 | 15° NNE | aucun | soleil-couvert | 0.0 | 20°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 5 | 120° ESE | aucun | soleil | 0.0 | 19°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 4 | 209° SSO | aucun | soleil | 0.0 | 21°C |
-| Portes-lès-Valence - Parking des Surfeurs | 10 | 23 | 195° SSO | 14h-17h | soleil-couvert | 0.0 | 22°C |
-| La Roche-de-Glun - Base Nautique | 11 | 24 | 194° SSO | 14h-17h | soleil-couvert | 0.0 | 21°C |
-| Centrale de Saint-Alban-du-Rhône | 10 | 24 | 170° S | aucun | soleil-couvert | 0.0 | 22°C |
-| Nord du Pont de Chavanay | 10 | 24 | 170° S | aucun | soleil-couvert | 0.0 | 22°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 9 | 21 | 166° SSE | aucun | soleil-couvert | 0.0 | 22°C |
-| Saint-Cyr-sur-le-Rhône | 10 | 23 | 170° S | aucun | soleil-couvert | 0.0 | 22°C |
-| Saint-Romain-des-Iles | 8 | 15 | 168° SSE | aucun | soleil-couvert | 0.0 | 21°C |
-| Nord du Pont d'Arciat | 8 | 15 | 168° SSE | aucun | soleil-couvert | 0.0 | 21°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 8 | 19 | 169° S | aucun | soleil-couvert | 0.0 | 22°C |
+| Portes-lès-Valence - Parking des Surfeurs | 8 | 18 | 190° S | aucun | soleil-couvert | 0.0 | 21°C |
+| La Roche-de-Glun - Base Nautique | 9 | 19 | 188° S | aucun | soleil-couvert | 0.0 | 21°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 15 | 164° SSE | aucun | soleil-couvert | 0.0 | 21°C |
 
 ### ven. 16/10/2026
 
@@ -179,18 +173,12 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 4 | 6 | 355° N | aucun | soleil-couvert | 0.0 | 21°C |
 | Plage d'Hermance | 4 | 6 | 355° N | aucun | soleil-couvert | 0.0 | 21°C |
 | Lac d'Annecy - Plage de Sévrier | 3 | 6 | 105° ESE | aucun | soleil-couvert | 0.0 | 19°C |
-| Lac du Bourget - Cap des Séselets | 2 | 8 | 197° SSO | aucun | soleil | 0.0 | 20°C |
+| Lac du Bourget - Cap des Séselets | 1 | 6 | 180° S | aucun | soleil | 0.0 | 20°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 8 | 332° NNO | aucun | soleil-couvert | 0.0 | 18°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 3 | 7 | 16° NNE | aucun | soleil-couvert | 0.0 | 20°C |
-| Portes-lès-Valence - Parking des Surfeurs | 9 | 16 | 2° N | aucun | soleil-couvert | 0.0 | 20°C |
-| La Roche-de-Glun - Base Nautique | 9 | 17 | 1° N | aucun | soleil-couvert | 0.0 | 20°C |
-| Centrale de Saint-Alban-du-Rhône | 3 | 12 | 201° SSO | aucun | soleil | 0.6 | 20°C |
-| Nord du Pont de Chavanay | 3 | 12 | 201° SSO | aucun | soleil | 0.6 | 20°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 4 | 8 | 195° SSO | aucun | soleil | 0.6 | 20°C |
-| Saint-Cyr-sur-le-Rhône | 3 | 10 | 193° SSO | aucun | pluie | 1.2 | 20°C |
-| Saint-Romain-des-Iles | 4 | 9 | 305° NO | aucun | soleil-couvert | 0.6 | 21°C |
-| Nord du Pont d'Arciat | 4 | 9 | 305° NO | aucun | soleil-couvert | 0.6 | 21°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 4 | 9 | 139° SE | aucun | pluie | 3.0 | 19°C |
+| Portes-lès-Valence - Parking des Surfeurs | 6 | 14 | 356° N | aucun | soleil-couvert | 0.0 | 19°C |
+| La Roche-de-Glun - Base Nautique | 5 | 13 | 345° NNO | aucun | soleil-couvert | 0.0 | 19°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 3 | 6 | 12° NNE | aucun | soleil-couvert | 0.0 | 18°C |
 
 ### sam. 17/10/2026
 
@@ -201,169 +189,137 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 11 | 16 | 26° NNE | aucun | soleil-couvert | 0.0 | 19°C |
 | Plage d'Hermance | 11 | 16 | 26° NNE | aucun | soleil-couvert | 0.0 | 19°C |
 | Lac d'Annecy - Plage de Sévrier | 4 | 8 | 326° NO | aucun | couvert | 0.0 | 18°C |
-| Lac du Bourget - Cap des Séselets | 5 | 14 | 17° NNE | aucun | couvert | 0.8 | 11°C |
+| Lac du Bourget - Cap des Séselets | 3 | 10 | 227° SO | aucun | pluie | 3.6 | 16°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 7 | 349° N | aucun | couvert | 0.0 | 17°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 5 | 14° NNE | aucun | couvert | 0.0 | 18°C |
-| Portes-lès-Valence - Parking des Surfeurs | 17 | 36 | 7° N | 08h-20h | soleil-couvert | 0.0 | 13°C |
-| La Roche-de-Glun - Base Nautique | 16 | 31 | 2° N | 08h-20h | couvert | 0.0 | 13°C |
-| Centrale de Saint-Alban-du-Rhône | 12 | 27 | 356° N | 08h-20h | couvert | 0.0 | 13°C |
-| Nord du Pont de Chavanay | 12 | 27 | 356° N | 08h-20h | couvert | 0.0 | 13°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 11 | 24 | 353° N | 08h-18h | couvert | 0.1 | 12°C |
-| Saint-Cyr-sur-le-Rhône | 12 | 26 | 351° N | 08h-19h | soleil-couvert | 0.0 | 12°C |
-| Saint-Romain-des-Iles | 11 | 20 | 331° NNO | 08h-13h | couvert | 0.2 | 12°C |
-| Nord du Pont d'Arciat | 11 | 20 | 331° NNO | 08h-13h | couvert | 0.2 | 12°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 11 | 24 | 330° NNO | 08h-15h | soleil-couvert | 0.3 | 12°C |
+| Portes-lès-Valence - Parking des Surfeurs | 14 | 31 | 6° N | 10h-20h | couvert | 0.0 | 15°C |
+| La Roche-de-Glun - Base Nautique | 14 | 29 | 355° N | 11h-20h | couvert | 0.0 | 14°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 12 | 26 | 348° NNO | 12h-20h | couvert | 0.6 | 13°C |
 
 ### dim. 18/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 13 | 19 | 25° NNE | 08h-20h | couvert | 0.9 | 13°C |
-| Plage d'Excenevex | 13 | 18 | 22° NNE | 08h-20h | pluie | 1.1 | 14°C |
-| Plage du Vengeron | 13 | 19 | 25° NNE | 08h-20h | couvert | 0.9 | 13°C |
-| Plage d'Hermance | 13 | 19 | 25° NNE | 08h-20h | couvert | 0.9 | 13°C |
-| Lac d'Annecy - Plage de Sévrier | 4 | 11 | 335° NNO | aucun | pluie | 1.7 | 10°C |
-| Lac du Bourget - Cap des Séselets | 2 | 9 | 360° N | aucun | pluie | 2.0 | 11°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 12 | 350° N | aucun | pluie | 5.2 | 7°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 12 | 337° NNO | aucun | pluie | 5.9 | 6°C |
-| Portes-lès-Valence - Parking des Surfeurs | 14 | 33 | 4° N | 08h-15h | pluie | 4.5 | 10°C |
-| La Roche-de-Glun - Base Nautique | 12 | 28 | 355° N | 08h-12h | pluie | 3.2 | 10°C |
-| Centrale de Saint-Alban-du-Rhône | 8 | 22 | 348° NNO | aucun | pluie | 6.0 | 10°C |
-| Nord du Pont de Chavanay | 8 | 22 | 348° NNO | aucun | pluie | 6.0 | 10°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 8 | 17 | 344° NNO | aucun | pluie | 7.8 | 10°C |
-| Saint-Cyr-sur-le-Rhône | 9 | 20 | 344° NNO | aucun | pluie | 7.2 | 10°C |
-| Saint-Romain-des-Iles | 9 | 16 | 2° N | aucun | pluie | 4.8 | 10°C |
-| Nord du Pont d'Arciat | 9 | 16 | 2° N | aucun | pluie | 4.8 | 10°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 8 | 18 | 353° N | aucun | pluie | 9.0 | 10°C |
+| Plage de la pointe - Messery | 14 | 23 | 28° NNE | 08h-20h | soleil-couvert | 0.0 | 14°C |
+| Plage d'Excenevex | 14 | 20 | 17° NNE | 08h-20h | couvert | 0.0 | 14°C |
+| Plage du Vengeron | 14 | 23 | 28° NNE | 08h-20h | soleil-couvert | 0.0 | 14°C |
+| Plage d'Hermance | 14 | 23 | 28° NNE | 08h-20h | soleil-couvert | 0.0 | 14°C |
+| Lac d'Annecy - Plage de Sévrier | 5 | 13 | 348° NNO | aucun | soleil-couvert | 0.0 | 13°C |
+| Lac du Bourget - Cap des Séselets | 4 | 12 | 33° NNE | aucun | couvert | 0.0 | 14°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 9 | 352° N | aucun | soleil-couvert | 0.0 | 12°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 9 | 330° NNO | aucun | couvert | 0.1 | 11°C |
+| Portes-lès-Valence - Parking des Surfeurs | 12 | 26 | 8° N | 08h-20h | pluie | 1.2 | 14°C |
+| La Roche-de-Glun - Base Nautique | 10 | 21 | 1° N | aucun | couvert | 0.6 | 14°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 21 | 329° NNO | aucun | couvert | 0.0 | 14°C |
 
 ### lun. 19/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 12 | 19 | 21° NNE | 08h-20h | soleil | 0.0 | 13°C |
-| Plage d'Excenevex | 12 | 18 | 31° NNE | 08h-20h | soleil-couvert | 0.0 | 13°C |
-| Plage du Vengeron | 12 | 19 | 21° NNE | 08h-20h | soleil | 0.0 | 13°C |
-| Plage d'Hermance | 12 | 19 | 21° NNE | 08h-20h | soleil | 0.0 | 13°C |
-| Lac d'Annecy - Plage de Sévrier | 5 | 14 | 335° NNO | aucun | soleil | 0.0 | 14°C |
-| Lac du Bourget - Cap des Séselets | 4 | 13 | 34° NE | aucun | soleil-couvert | 0.0 | 15°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 8 | 11° N | aucun | couvert | 0.0 | 15°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 7 | 190° S | aucun | couvert | 0.0 | 14°C |
-| Portes-lès-Valence - Parking des Surfeurs | 11 | 25 | 7° N | 12h-19h | couvert | 0.0 | 16°C |
-| La Roche-de-Glun - Base Nautique | 9 | 20 | 360° N | aucun | couvert | 0.0 | 15°C |
-| Centrale de Saint-Alban-du-Rhône | 7 | 17 | 24° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Nord du Pont de Chavanay | 7 | 17 | 24° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 4 | 12 | 20° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Saint-Cyr-sur-le-Rhône | 7 | 16 | 16° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Saint-Romain-des-Iles | 6 | 12 | 6° N | aucun | soleil-couvert | 0.0 | 15°C |
-| Nord du Pont d'Arciat | 6 | 12 | 6° N | aucun | soleil-couvert | 0.0 | 15°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 5 | 13 | 318° NO | aucun | soleil-couvert | 0.0 | 15°C |
+| Plage de la pointe - Messery | 14 | 21 | 22° NNE | 08h-20h | soleil | 0.0 | 13°C |
+| Plage d'Excenevex | 14 | 20 | 21° NNE | 08h-20h | soleil-couvert | 0.0 | 13°C |
+| Plage du Vengeron | 14 | 21 | 22° NNE | 08h-20h | soleil | 0.0 | 13°C |
+| Plage d'Hermance | 14 | 21 | 22° NNE | 08h-20h | soleil | 0.0 | 13°C |
+| Lac d'Annecy - Plage de Sévrier | 5 | 14 | 342° NNO | aucun | soleil-couvert | 0.0 | 12°C |
+| Lac du Bourget - Cap des Séselets | 5 | 14 | 44° NE | aucun | soleil-couvert | 0.0 | 13°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 13 | 352° N | aucun | soleil-couvert | 0.0 | 12°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 14 | 309° NO | aucun | soleil-couvert | 0.0 | 12°C |
+| Portes-lès-Valence - Parking des Surfeurs | 12 | 26 | 8° N | 10h-20h | soleil-couvert | 0.0 | 15°C |
+| La Roche-de-Glun - Base Nautique | 10 | 22 | 8° N | 13h-16h | soleil-couvert | 0.0 | 15°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 7 | 17 | 337° NNO | aucun | soleil | 0.0 | 14°C |
 
 ### mar. 20/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 13 | 18 | 22° NNE | 12h-20h | couvert | 0.0 | 15°C |
-| Plage d'Excenevex | 12 | 17 | 20° NNE | 14h-20h | couvert | 0.0 | 14°C |
-| Plage du Vengeron | 13 | 18 | 22° NNE | 12h-20h | couvert | 0.0 | 15°C |
-| Plage d'Hermance | 13 | 18 | 22° NNE | 12h-20h | couvert | 0.0 | 15°C |
-| Lac d'Annecy - Plage de Sévrier | 6 | 15 | 342° NNO | aucun | soleil-couvert | 0.0 | 14°C |
-| Lac du Bourget - Cap des Séselets | 4 | 14 | 41° NE | aucun | couvert | 0.0 | 15°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 5 | 18 | 360° N | aucun | soleil-couvert | 0.0 | 14°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 5 | 18 | 359° N | aucun | soleil-couvert | 0.0 | 15°C |
-| Portes-lès-Valence - Parking des Surfeurs | 14 | 29 | 11° N | 08h-20h | soleil-couvert | 0.0 | 15°C |
-| La Roche-de-Glun - Base Nautique | 12 | 25 | 360° N | 12h-20h | soleil-couvert | 0.0 | 15°C |
-| Centrale de Saint-Alban-du-Rhône | 9 | 21 | 9° N | aucun | soleil-couvert | 0.0 | 15°C |
-| Nord du Pont de Chavanay | 9 | 21 | 9° N | aucun | soleil-couvert | 0.0 | 15°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 9 | 18 | 325° NO | aucun | couvert | 0.0 | 14°C |
-| Saint-Cyr-sur-le-Rhône | 10 | 20 | 332° NNO | aucun | couvert | 0.0 | 15°C |
-| Saint-Romain-des-Iles | 10 | 18 | 347° NNO | aucun | couvert | 0.0 | 14°C |
-| Nord du Pont d'Arciat | 10 | 18 | 347° NNO | aucun | couvert | 0.0 | 14°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 9 | 18 | 338° NNO | aucun | couvert | 0.0 | 14°C |
+| Plage de la pointe - Messery | 18 | 26 | 30° NNE | 08h-20h | soleil | 0.0 | 12°C |
+| Plage d'Excenevex | 17 | 23 | 26° NNE | 08h-20h | soleil-couvert | 0.0 | 12°C |
+| Plage du Vengeron | 18 | 26 | 30° NNE | 08h-20h | soleil | 0.0 | 12°C |
+| Plage d'Hermance | 18 | 26 | 30° NNE | 08h-20h | soleil | 0.0 | 12°C |
+| Lac d'Annecy - Plage de Sévrier | 5 | 16 | 325° NO | aucun | soleil-couvert | 0.0 | 11°C |
+| Lac du Bourget - Cap des Séselets | 3 | 12 | 31° NNE | aucun | soleil-couvert | 0.0 | 13°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 8 | 34° NE | aucun | soleil-couvert | 0.0 | 13°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 8 | 358° N | aucun | soleil-couvert | 0.0 | 13°C |
+| Portes-lès-Valence - Parking des Surfeurs | 11 | 24 | 13° NNE | 08h-15h | soleil-couvert | 0.0 | 14°C |
+| La Roche-de-Glun - Base Nautique | 9 | 20 | 2° N | aucun | soleil | 0.0 | 14°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 5 | 11 | 335° NNO | aucun | soleil-couvert | 0.0 | 13°C |
 
 ### mer. 21/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 19 | 28 | 25° NNE | 08h-20h | soleil-couvert | 0.0 | 12°C |
-| Plage d'Excenevex | 18 | 25 | 26° NNE | 08h-18h | soleil-couvert | 0.0 | 12°C |
-| Plage du Vengeron | 19 | 28 | 25° NNE | 08h-20h | soleil-couvert | 0.0 | 12°C |
-| Plage d'Hermance | 19 | 28 | 25° NNE | 08h-20h | soleil-couvert | 0.0 | 12°C |
-| Lac d'Annecy - Plage de Sévrier | 5 | 15 | 325° NO | aucun | soleil-couvert | 0.0 | 11°C |
-| Lac du Bourget - Cap des Séselets | 5 | 16 | 32° NNE | aucun | soleil-couvert | 0.0 | 13°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 1 | 10 | 30° NNE | aucun | soleil-couvert | 0.0 | 15°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 11 | 354° N | aucun | soleil-couvert | 0.0 | 15°C |
-| Portes-lès-Valence - Parking des Surfeurs | 16 | 35 | 15° NNE | 08h-13h | soleil-couvert | 0.0 | 14°C |
-| La Roche-de-Glun - Base Nautique | 12 | 25 | 9° N | aucun | soleil | 0.0 | 14°C |
-| Centrale de Saint-Alban-du-Rhône | 7 | 20 | 355° N | aucun | soleil | 0.0 | 14°C |
-| Nord du Pont de Chavanay | 7 | 20 | 355° N | aucun | soleil | 0.0 | 14°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 7 | 18 | 321° NO | aucun | soleil | 0.0 | 14°C |
-| Saint-Cyr-sur-le-Rhône | 8 | 20 | 336° NNO | aucun | soleil | 0.0 | 14°C |
-| Saint-Romain-des-Iles | 11 | 19 | 342° NNO | aucun | soleil | 0.0 | 14°C |
-| Nord du Pont d'Arciat | 11 | 19 | 342° NNO | aucun | soleil | 0.0 | 14°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 7 | 18 | 334° NNO | aucun | soleil | 0.0 | 14°C |
+| Plage de la pointe - Messery | 10 | 20 | 24° NNE | aucun | soleil | 0.0 | 12°C |
+| Plage d'Excenevex | 8 | 15 | 15° NNE | aucun | soleil | 0.0 | 12°C |
+| Plage du Vengeron | 10 | 20 | 24° NNE | aucun | soleil | 0.0 | 12°C |
+| Plage d'Hermance | 10 | 20 | 24° NNE | aucun | soleil | 0.0 | 12°C |
+| Lac d'Annecy - Plage de Sévrier | 4 | 11 | 321° NO | aucun | soleil | 0.0 | 11°C |
+| Lac du Bourget - Cap des Séselets | 4 | 12 | 33° NNE | aucun | soleil | 0.0 | 13°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 10 | 351° N | aucun | soleil | 0.0 | 14°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 5 | 150° SSE | aucun | soleil | 0.0 | 14°C |
+| Portes-lès-Valence - Parking des Surfeurs | 6 | 15 | 354° N | aucun | soleil | 0.0 | 16°C |
+| La Roche-de-Glun - Base Nautique | 6 | 13 | 337° NNO | aucun | soleil | 0.0 | 15°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 4 | 8 | 344° NNO | aucun | soleil | 0.0 | 14°C |
 
 ### jeu. 22/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 10 | 15 | 28° NNE | aucun | soleil | 0.0 | 13°C |
-| Plage d'Excenevex | 8 | 13 | 18° NNE | aucun | soleil | 0.0 | 13°C |
-| Plage du Vengeron | 10 | 15 | 28° NNE | aucun | soleil | 0.0 | 13°C |
-| Plage d'Hermance | 10 | 15 | 28° NNE | aucun | soleil | 0.0 | 13°C |
-| Lac d'Annecy - Plage de Sévrier | 3 | 10 | 326° NO | aucun | soleil | 0.0 | 12°C |
-| Lac du Bourget - Cap des Séselets | 5 | 12 | 31° NNE | aucun | soleil | 0.0 | 14°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 1 | 3 | 197° SSO | aucun | soleil | 0.0 | 16°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 3 | 191° S | aucun | soleil | 0.0 | 16°C |
-| Portes-lès-Valence - Parking des Surfeurs | 4 | 10 | 7° N | aucun | soleil | 0.0 | 16°C |
-| La Roche-de-Glun - Base Nautique | 4 | 10 | 312° NO | aucun | soleil | 0.0 | 15°C |
-| Centrale de Saint-Alban-du-Rhône | 2 | 5 | 341° NNO | aucun | soleil | 0.0 | 15°C |
-| Nord du Pont de Chavanay | 2 | 5 | 341° NNO | aucun | soleil | 0.0 | 15°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 2 | 9 | 32° NNE | aucun | soleil | 0.0 | 14°C |
-| Saint-Cyr-sur-le-Rhône | 2 | 8 | 41° NE | aucun | soleil | 0.0 | 14°C |
-| Saint-Romain-des-Iles | 2 | 7 | 79° E | aucun | soleil | 0.0 | 13°C |
-| Nord du Pont d'Arciat | 2 | 7 | 79° E | aucun | soleil | 0.0 | 13°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 3 | 6 | 350° N | aucun | soleil | 0.0 | 14°C |
+| Plage de la pointe - Messery | 10 | 16 | 22° NNE | aucun | soleil | 0.0 | 13°C |
+| Plage d'Excenevex | 9 | 15 | 33° NNE | aucun | soleil-couvert | 0.0 | 13°C |
+| Plage du Vengeron | 10 | 16 | 22° NNE | aucun | soleil | 0.0 | 13°C |
+| Plage d'Hermance | 10 | 16 | 22° NNE | aucun | soleil | 0.0 | 13°C |
+| Lac d'Annecy - Plage de Sévrier | 4 | 11 | 328° NNO | aucun | soleil | 0.0 | 13°C |
+| Lac du Bourget - Cap des Séselets | 4 | 13 | 36° NE | aucun | soleil | 0.0 | 15°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 10 | 7° N | aucun | soleil | 0.0 | 17°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 9 | 7° N | aucun | soleil | 0.0 | 17°C |
+| Portes-lès-Valence - Parking des Surfeurs | 10 | 22 | 2° N | aucun | soleil | 0.0 | 17°C |
+| La Roche-de-Glun - Base Nautique | 8 | 18 | 349° N | aucun | soleil | 0.0 | 16°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 4 | 11 | 329° NNO | aucun | soleil | 0.0 | 15°C |
 
 ### ven. 23/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 9 | 13 | 27° NNE | aucun | soleil | 0.0 | 14°C |
-| Plage d'Excenevex | 8 | 13 | 25° NNE | aucun | soleil | 0.0 | 14°C |
-| Plage du Vengeron | 9 | 13 | 27° NNE | aucun | soleil | 0.0 | 14°C |
-| Plage d'Hermance | 9 | 13 | 27° NNE | aucun | soleil | 0.0 | 14°C |
-| Lac d'Annecy - Plage de Sévrier | 3 | 10 | 313° NO | aucun | soleil | 0.0 | 13°C |
-| Lac du Bourget - Cap des Séselets | 4 | 11 | 36° NE | aucun | soleil | 0.0 | 15°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 8 | 347° NNO | aucun | soleil | 0.0 | 18°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 7 | 301° ONO | aucun | soleil | 0.0 | 19°C |
-| Portes-lès-Valence - Parking des Surfeurs | 4 | 12 | 5° N | aucun | soleil | 0.0 | 17°C |
-| La Roche-de-Glun - Base Nautique | 4 | 10 | 357° N | aucun | soleil | 0.0 | 16°C |
-| Centrale de Saint-Alban-du-Rhône | 2 | 9 | 43° NE | aucun | soleil | 0.0 | 16°C |
-| Nord du Pont de Chavanay | 2 | 9 | 43° NE | aucun | soleil | 0.0 | 16°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 2 | 8 | 25° NNE | aucun | soleil | 0.0 | 15°C |
-| Saint-Cyr-sur-le-Rhône | 2 | 9 | 27° NNE | aucun | soleil | 0.0 | 16°C |
-| Saint-Romain-des-Iles | 2 | 7 | 65° ENE | aucun | soleil | 0.0 | 14°C |
-| Nord du Pont d'Arciat | 2 | 7 | 65° ENE | aucun | soleil | 0.0 | 14°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 2 | 6 | 7° N | aucun | soleil | 0.0 | 15°C |
+| Plage de la pointe - Messery | 6 | 12 | 27° NNE | aucun | soleil-couvert | 0.0 | 13°C |
+| Plage d'Excenevex | 6 | 10 | 40° NE | aucun | soleil-couvert | 0.0 | 13°C |
+| Plage du Vengeron | 6 | 12 | 27° NNE | aucun | soleil-couvert | 0.0 | 13°C |
+| Plage d'Hermance | 6 | 12 | 27° NNE | aucun | soleil-couvert | 0.0 | 13°C |
+| Lac d'Annecy - Plage de Sévrier | 2 | 8 | 294° ONO | aucun | soleil | 0.0 | 17°C |
+| Lac du Bourget - Cap des Séselets | 4 | 10 | 26° NNE | aucun | soleil | 0.0 | 17°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 1 | 6 | 186° S | aucun | soleil | 0.0 | 21°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 1 | 6 | 185° S | aucun | soleil | 0.0 | 22°C |
+| Portes-lès-Valence - Parking des Surfeurs | 4 | 8 | 5° N | aucun | soleil | 0.0 | 18°C |
+| La Roche-de-Glun - Base Nautique | 4 | 8 | 329° NNO | aucun | soleil | 0.0 | 18°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 5 | 9 | 358° N | aucun | soleil-couvert | 0.0 | 16°C |
 
 ### sam. 24/10/2026
 
 | Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
 |---|---|---|---|---|---|---|---|
-| Plage de la pointe - Messery | 6 | 10 | 33° NNE | aucun | soleil-couvert | 0.0 | 12°C |
-| Plage d'Excenevex | 6 | 10 | 36° NE | aucun | soleil-couvert | 0.0 | 12°C |
-| Plage du Vengeron | 6 | 10 | 33° NNE | aucun | soleil-couvert | 0.0 | 12°C |
-| Plage d'Hermance | 6 | 10 | 33° NNE | aucun | soleil-couvert | 0.0 | 12°C |
-| Lac d'Annecy - Plage de Sévrier | 3 | 10 | 319° NO | aucun | soleil | 0.0 | 14°C |
-| Lac du Bourget - Cap des Séselets | 3 | 9 | 34° NE | aucun | soleil | 0.0 | 16°C |
-| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 8 | 16° NNE | aucun | soleil | 0.0 | 16°C |
-| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 8 | 28° NNE | aucun | soleil | 0.0 | 17°C |
-| Portes-lès-Valence - Parking des Surfeurs | 4 | 9 | 349° N | aucun | soleil | 0.0 | 18°C |
-| La Roche-de-Glun - Base Nautique | 5 | 10 | 325° NO | aucun | soleil | 0.0 | 18°C |
-| Centrale de Saint-Alban-du-Rhône | 2 | 9 | 324° NO | aucun | soleil | 0.0 | 16°C |
-| Nord du Pont de Chavanay | 2 | 9 | 324° NO | aucun | soleil | 0.0 | 16°C |
-| Loire-sur-Rhône / Chasse-sur-Rhône | 2 | 9 | 303° ONO | aucun | soleil | 0.0 | 15°C |
-| Saint-Cyr-sur-le-Rhône | 2 | 8 | 31° NNE | aucun | soleil | 0.0 | 16°C |
-| Saint-Romain-des-Iles | 2 | 8 | 105° ESE | aucun | soleil | 0.0 | 14°C |
-| Nord du Pont d'Arciat | 2 | 8 | 105° ESE | aucun | soleil | 0.0 | 14°C |
-| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 5 | 9 | 352° N | aucun | soleil | 0.0 | 16°C |
+| Plage de la pointe - Messery | 15 | 19 | 23° NNE | 15h-20h | soleil | 0.0 | 14°C |
+| Plage d'Excenevex | 12 | 17 | 23° NNE | 14h-20h | soleil | 0.0 | 14°C |
+| Plage du Vengeron | 15 | 19 | 23° NNE | 15h-20h | soleil | 0.0 | 14°C |
+| Plage d'Hermance | 15 | 19 | 23° NNE | 15h-20h | soleil | 0.0 | 14°C |
+| Lac d'Annecy - Plage de Sévrier | 5 | 13 | 331° NNO | aucun | soleil | 0.0 | 15°C |
+| Lac du Bourget - Cap des Séselets | 1 | 5 | 17° NNE | aucun | soleil | 0.0 | 16°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 12 | 3° N | aucun | soleil | 0.0 | 17°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 11 | 353° N | aucun | soleil | 0.0 | 17°C |
+| Portes-lès-Valence - Parking des Surfeurs | 12 | 25 | 5° N | 13h-20h | soleil | 0.0 | 16°C |
+| La Roche-de-Glun - Base Nautique | 11 | 22 | 3° N | 17h-20h | soleil | 0.0 | 15°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 6 | 15 | 322° NO | aucun | soleil-couvert | 0.0 | 13°C |
+
+### dim. 25/10/2026
+
+| Spot | Moy. max | Raf. | Dir. | Créneau | Icône | Pluie sur le créneau, sinon 8h-20h (mm) | T° 15h |
+|---|---|---|---|---|---|---|---|
+| Plage de la pointe - Messery | 12 | 22 | 29° NNE | 08h-11h | soleil | 0.0 | 14°C |
+| Plage d'Excenevex | 10 | 18 | 29° NNE | aucun | soleil-couvert | 0.0 | 14°C |
+| Plage du Vengeron | 12 | 22 | 29° NNE | 08h-11h | soleil | 0.0 | 14°C |
+| Plage d'Hermance | 12 | 22 | 29° NNE | 08h-11h | soleil | 0.0 | 14°C |
+| Lac d'Annecy - Plage de Sévrier | 3 | 9 | 311° NO | aucun | soleil | 0.0 | 14°C |
+| Lac du Bourget - Cap des Séselets | 3 | 10 | 31° NNE | aucun | soleil | 0.0 | 15°C |
+| Grand Lac de Laffrey - Parking du pré de la rencontre | 2 | 8 | 31° NNE | aucun | soleil-couvert | 0.0 | 19°C |
+| Lac du Monteynard - Treffort - Parking du camping de la Plage | 2 | 7 | 22° NNE | aucun | soleil-couvert | 0.0 | 20°C |
+| Portes-lès-Valence - Parking des Surfeurs | 7 | 20 | 358° N | aucun | soleil | 0.0 | 15°C |
+| La Roche-de-Glun - Base Nautique | 5 | 15 | 329° NNO | aucun | soleil-couvert | 0.0 | 15°C |
+| Réservoir du Grand Large - Windfoil Windsurf Meyzieu | 2 | 7 | 22° NNE | aucun | soleil-couvert | 0.0 | 13°C |
