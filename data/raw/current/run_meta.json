@@ -1,13 +1,50 @@
 {
-  "run_id": "2026-10-10T18:15:00+02:00",
-  "fetched_at": "2026-10-10T18:19:01+02:00",
-  "last_update_at": "2026-10-10T18:19:01+02:00",
-  "last_update_label": "10/10/2026 18:19",
+  "run_id": "2026-10-10T19:15:00+02:00",
+  "fetched_at": "2026-10-10T22:38:17+02:00",
+  "last_update_at": "2026-10-10T22:38:17+02:00",
+  "last_update_label": "10/10/2026 22:38",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 21420,
-  "n_ok": 119,
+  "n_forecast_rows": 19935,
+  "n_ok": 113,
   "n_partial": 0,
-  "n_failed": 0,
+  "n_failed": 6,
   "nulls_replaced_by_zero": 0,
-  "failed": []
+  "failed": [
+    {
+      "spot_key": "loire_sur_rhone",
+      "model_key": "IFS",
+      "error_message": "JSON invalide ou tronqué (Expecting value: line 1 column 1 (char 0))",
+      "http_status": ""
+    },
+    {
+      "spot_key": "pont_darciat",
+      "model_key": "IFS",
+      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
+      "http_status": ""
+    },
+    {
+      "spot_key": "pont_de_chavanay",
+      "model_key": "IFS",
+      "error_message": "JSON invalide ou tronqué (Expecting value: line 1 column 1 (char 0))",
+      "http_status": ""
+    },
+    {
+      "spot_key": "st_alban_du_rhone",
+      "model_key": "IFS",
+      "error_message": "JSON invalide ou tronqué (Expecting value: line 1 column 1 (char 0))",
+      "http_status": ""
+    },
+    {
+      "spot_key": "st_cyr_sur_le_rhone",
+      "model_key": "IFS",
+      "error_message": "JSON invalide ou tronqué (Expecting value: line 1 column 1 (char 0))",
+      "http_status": ""
+    },
+    {
+      "spot_key": "st_romain_des_iles",
+      "model_key": "IFS",
+      "error_message": "Réseau : _ssl.c:993: The handshake operation timed out",
+      "http_status": ""
+    }
+  ]
 }
