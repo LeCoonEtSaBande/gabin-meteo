@@ -1,16 +1,16 @@
 /**
- * Onglet Balises temps réel (prototype MétéoSuisse) : lecture directe des
- * fichiers 10 min de MétéoSuisse au moment de l'ouverture, vignettes sur la
- * carte, courbe du jour avec la prévision du spot le plus proche en trait fin.
- * Aucun appel réseau tant que l'onglet n'est pas ouvert, pas de rafraîchissement
- * automatique.
+ * Onglet Balises temps réel : un seul appel au Worker « gabin-meteo » au moment
+ * de l'ouverture, qui renvoie les mesures du jour de toutes les balises (suisses
+ * et françaises) déjà converties en nœuds. Vignettes sur la carte, courbe du jour
+ * avec la prévision du spot le plus proche en trait fin. Aucun appel réseau tant
+ * que l'onglet n'est pas ouvert, pas de rafraîchissement automatique.
  */
 
 const BUOY_SPECS_URL = "assets/balises_specs/balises_specifications.csv";
+const BUOY_API_URL = "https://gabin-meteo.garinlu-subs.workers.dev/balises";
 const BUOY_REFETCH_MIN = 10;
 const BUOY_STALE_MIN = 30;
-const KMH_PER_KN = 1.852;
-const BUOY_SOURCE_LABELS = { MeteoSuisse: "MétéoSuisse" };
+const BUOY_SOURCE_LABELS = { MeteoSuisse: "MétéoSuisse", MeteoFrance: "Météo-France" };
 const CARDINALS_FR = [
   "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
   "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO",
@@ -27,11 +27,6 @@ let buoyClock = null;
 const BUOY_CURVES = ["MESURE", "AROMEIFS", "ICONGFS"];
 const BUOY_CURVE_LABELS = { MESURE: "Mesure", AROMEIFS: "AROME", ICONGFS: "ICON" };
 const buoyCurves = new Map();
-
-function meteoSuisseNowUrl(stationId) {
-  const id = String(stationId || "").toLowerCase();
-  return `https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/${id}/ogd-smn_${id}_t_now.csv`;
-}
 
 const PARIS_PARTS = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Europe/Paris",
@@ -51,39 +46,43 @@ function parisValidAt(ms) {
   return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
 }
 
-function parseSwissTimestampUtc(raw) {
-  const match = /^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/.exec(String(raw || "").trim());
-  if (!match) return null;
-  const [, dd, mm, yyyy, hh, mi] = match.map(Number);
-  return Date.UTC(yyyy, mm - 1, dd, hh, mi);
+/* `Number(null)` vaut 0 : une direction absente deviendrait plein Nord. */
+function finiteOrNaN(raw) {
+  if (raw === null || raw === undefined || raw === "") return NaN;
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : NaN;
 }
 
-function numberOrNull(raw) {
-  const text = String(raw ?? "").trim();
-  if (!text) return null;
-  const value = Number(text);
-  return Number.isFinite(value) ? value : null;
+/** Un point du Worker (nœuds, horodatage UTC) au format des courbes. */
+function buoyPoint(raw) {
+  const ms = Date.parse(raw?.t);
+  const mean = finiteOrNaN(raw?.mean_kt);
+  if (!Number.isFinite(ms) || Number.isNaN(mean)) return null;
+  const gust = finiteOrNaN(raw.gust_kt);
+  return {
+    ms,
+    valid_at: parisValidAt(ms),
+    source_model: "MESURE",
+    mean,
+    gust: Number.isNaN(gust) ? mean : gust,
+    dir: finiteOrNaN(raw.dir_deg),
+  };
 }
 
-/** `fu3010z0` vent moyen 10 min, `fu3010z1` rafale (1 s), en km/h ; `dkl010z0` provenance. */
-function parseMeteoSuisseNow(text) {
-  const points = [];
-  for (const row of parseCsv(text)) {
-    const ms = parseSwissTimestampUtc(row.reference_timestamp);
-    const meanKmh = numberOrNull(row.fu3010z0);
-    if (ms == null || meanKmh == null) continue;
-    const gustKmh = numberOrNull(row.fu3010z1);
-    const dir = numberOrNull(row.dkl010z0);
-    points.push({
-      ms,
-      valid_at: parisValidAt(ms),
-      source_model: "MESURE",
-      mean: meanKmh / KMH_PER_KN,
-      gust: gustKmh == null ? meanKmh / KMH_PER_KN : gustKmh / KMH_PER_KN,
-      dir: dir == null ? NaN : dir,
-    });
+/** Réponse du Worker → une entrée par balise, mesures triées, dernière à part. */
+function parseBuoyPayload(payload) {
+  const out = {};
+  for (const station of payload?.stations || []) {
+    if (!station?.station_key) continue;
+    const points = (station.points || []).map(buoyPoint).filter(Boolean);
+    points.sort((a, b) => a.ms - b.ms);
+    out[station.station_key] = {
+      points,
+      last: points[points.length - 1] || null,
+      error: station.status === "ok" ? "" : station.error || "indisponible",
+    };
   }
-  return points.sort((a, b) => a.ms - b.ms);
+  return out;
 }
 
 function cardinalFr(deg) {
@@ -217,12 +216,11 @@ async function loadBuoySpecs() {
   return buoySpecs;
 }
 
-async function fetchStation(station) {
-  if (station.source !== "MeteoSuisse") return null;
-  const res = await fetch(meteoSuisseNowUrl(station.source_id), { cache: "no-cache" });
-  if (!res.ok) throw new Error(`${station.source_id} : HTTP ${res.status}`);
-  const points = parseMeteoSuisseNow(await res.text());
-  return { points, last: points[points.length - 1] || null };
+/** Un seul appel pour toutes les balises ; le Worker tient la clé Météo-France. */
+async function fetchBuoyPayload() {
+  const res = await fetch(BUOY_API_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Relais balises : HTTP ${res.status}`);
+  return parseBuoyPayload(await res.json());
 }
 
 function fetchBuoys() {
@@ -230,15 +228,15 @@ function fetchBuoys() {
   buoyLoading = (async () => {
     try {
       const specs = await loadBuoySpecs();
-      const results = await Promise.allSettled(specs.map((station) => fetchStation(station)));
+      const measured = await fetchBuoyPayload();
       const next = {};
-      specs.forEach((station, i) => {
-        const result = results[i];
-        next[station.station_key] =
-          result.status === "fulfilled" && result.value
-            ? result.value
-            : { points: [], last: null, error: result.reason?.message || "indisponible" };
-      });
+      for (const station of specs) {
+        next[station.station_key] = measured[station.station_key] || {
+          points: [],
+          last: null,
+          error: "indisponible",
+        };
+      }
       buoyData = next;
       buoyFetchedAt = Date.now();
       buoyError = Object.values(next).every((item) => !item.last) ? "Mesures indisponibles" : "";
@@ -636,10 +634,10 @@ function bindBuoysUi() {
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
-    meteoSuisseNowUrl,
+    BUOY_API_URL,
     parisValidAt,
-    parseSwissTimestampUtc,
-    parseMeteoSuisseNow,
+    buoyPoint,
+    parseBuoyPayload,
     cardinalFr,
     fitAffine,
     projectLatLon,

@@ -9,9 +9,10 @@ global.parseCsv = parseCsv;
 global.parseValidAt = courbes.parseValidAt;
 
 const {
-  meteoSuisseNowUrl,
+  BUOY_API_URL,
   parisValidAt,
-  parseMeteoSuisseNow,
+  buoyPoint,
+  parseBuoyPayload,
   cardinalFr,
   fitAffine,
   projectLatLon,
@@ -26,35 +27,72 @@ const {
 
 const ROOT = path.join(__dirname, "..");
 
-const NOW_CSV = [
-  "station_abbr;reference_timestamp;tre200s0;fkl010z1;fve010z0;fkl010z0;dkl010z0;fu3010z0;fu3010z1",
-  "GVE;03.10.2026 13:50;20.9;3.3;1.6;1.7;75;6.1;11.9",
-  "GVE;03.10.2026 14:00;20.7;3.2;1.6;1.6;72;18.52;37.04",
-  "GVE;03.10.2026 14:10;20.7;;;;;;",
-].join("\n");
+const WORKER_PAYLOAD = {
+  generated_at: "2026-10-03T14:12:00Z",
+  day: "2026-10-03",
+  unit: "kt",
+  direction: "provenance",
+  stations: [
+    {
+      station_key: "geneve_cointrin",
+      source: "MeteoSuisse",
+      source_id: "GVE",
+      status: "ok",
+      points: [
+        { t: "2026-10-03T14:00:00Z", mean_kt: 10, gust_kt: 20, dir_deg: 72 },
+        { t: "2026-10-03T13:50:00Z", mean_kt: 3.29, gust_kt: 6.43, dir_deg: 75 },
+      ],
+    },
+    {
+      station_key: "chambery_aix",
+      source: "MeteoFrance",
+      source_id: "73329001",
+      status: "error",
+      error: "HTTP 401",
+      points: [],
+    },
+  ],
+};
 
-test("URL du fichier 10 min MétéoSuisse en minuscules", () => {
-  assert.equal(
-    meteoSuisseNowUrl("GVE"),
-    "https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/gve/ogd-smn_gve_t_now.csv"
-  );
+test("le front n'appelle que le Worker", () => {
+  assert.equal(BUOY_API_URL, "https://gabin-meteo.garinlu-subs.workers.dev/balises");
 });
 
-test("heure UTC MétéoSuisse convertie en heure de Paris (été et hiver)", () => {
+test("heure UTC convertie en heure de Paris (été et hiver)", () => {
   assert.equal(parisValidAt(Date.UTC(2026, 9, 3, 14, 0)), "2026-10-03T16:00");
   assert.equal(parisValidAt(Date.UTC(2026, 11, 3, 14, 0)), "2026-12-03T15:00");
   assert.equal(parisValidAt(Date.UTC(2026, 9, 3, 22, 10)), "2026-10-04T00:10");
 });
 
-test("CSV MétéoSuisse : km/h → nœuds, provenance, lignes vides écartées", () => {
-  const points = parseMeteoSuisseNow(NOW_CSV);
-  assert.equal(points.length, 2);
-  const last = points[1];
-  assert.equal(last.valid_at, "2026-10-03T16:00");
-  assert.equal(last.source_model, "MESURE");
-  assert.ok(Math.abs(last.mean - 10) < 1e-9);
-  assert.ok(Math.abs(last.gust - 20) < 1e-9);
-  assert.equal(last.dir, 72);
+test("réponse du Worker : points triés, dernière mesure à part, station en panne signalée", () => {
+  const data = parseBuoyPayload(WORKER_PAYLOAD);
+  assert.deepEqual(Object.keys(data), ["geneve_cointrin", "chambery_aix"]);
+
+  const gve = data.geneve_cointrin;
+  assert.deepEqual(gve.points.map((p) => p.valid_at), ["2026-10-03T15:50", "2026-10-03T16:00"]);
+  assert.equal(gve.error, "");
+  assert.equal(gve.last.source_model, "MESURE");
+  assert.equal(gve.last.mean, 10);
+  assert.equal(gve.last.gust, 20);
+  assert.equal(gve.last.dir, 72);
+
+  const chambery = data.chambery_aix;
+  assert.deepEqual(chambery.points, []);
+  assert.equal(chambery.last, null);
+  assert.equal(chambery.error, "HTTP 401");
+});
+
+test("point du Worker : rafale ou direction absente tolérée, ligne illisible écartée", () => {
+  const point = buoyPoint({ t: "2026-10-03T14:00:00Z", mean_kt: 12, gust_kt: null, dir_deg: null });
+  assert.equal(point.gust, 12);
+  assert.ok(Number.isNaN(point.dir));
+  assert.equal(buoyPoint({ t: "2026-10-03T14:00:00Z", mean_kt: null }), null);
+  assert.equal(buoyPoint({ t: "jamais", mean_kt: 12 }), null);
+});
+
+test("réponse vide ou cassée : aucune balise, pas d'exception", () => {
+  assert.deepEqual(parseBuoyPayload(null), {});
+  assert.deepEqual(parseBuoyPayload({ stations: [{ points: [] }] }), {});
 });
 
 test("rose des vents en français sur 16 secteurs", () => {
@@ -113,18 +151,44 @@ test("chaque balise est rattachée au spot le plus proche", () => {
     geneve_cointrin: "vengeron",
     changins: "messery",
     st_prex: "excenevex",
+    annecy_meythet: "plage_de_sevrier",
+    chambery_aix: "cap_des_seselets",
+    macon: "pont_darciat",
+    lyon_bron: "wwmeyzieu",
+    reventin: "st_cyr_sur_le_rhone",
+    etoile: "portes_les_valence",
+    montelimar: "portes_les_valence",
+    la_mure: "treffort",
   });
 });
 
-test("fiches balises MétéoSuisse complètes", () => {
+test("fiches balises complètes : 3 suisses, 8 françaises", () => {
   const balises = parseCsv(
     fs.readFileSync(path.join(ROOT, "assets", "balises_specs", "balises_specifications.csv"), "utf8")
   );
-  assert.deepEqual(balises.map((row) => row.source_id), ["GVE", "CGI", "PRE"]);
+  assert.deepEqual(
+    balises.map((row) => [row.source, row.source_id]),
+    [
+      ["MeteoSuisse", "GVE"],
+      ["MeteoSuisse", "CGI"],
+      ["MeteoSuisse", "PRE"],
+      ["MeteoFrance", "74182001"],
+      ["MeteoFrance", "73329001"],
+      ["MeteoFrance", "71105001"],
+      ["MeteoFrance", "69029001"],
+      ["MeteoFrance", "38336001"],
+      ["MeteoFrance", "26124001"],
+      ["MeteoFrance", "26198001"],
+      ["MeteoFrance", "38269004"],
+    ]
+  );
   for (const row of balises) {
-    assert.equal(row.source, "MeteoSuisse");
+    assert.ok(row.display_name && row.short_name);
     assert.ok(Number.isFinite(Number(row.latitude)) && Number.isFinite(Number(row.longitude)));
-    assert.match(row.link_station, /^https:\/\/www\.meteosuisse\.admin\.ch\//);
+    assert.ok(Number.isFinite(Number(row.elevation_m)));
+    assert.match(row.link_station, /^https:\/\//);
+    // Le Worker filtre les identifiants sur leur forme : 3 lettres ou 8 chiffres.
+    assert.match(row.source_id, row.source === "MeteoSuisse" ? /^[A-Z]{3}$/ : /^\d{8}$/);
   }
 });
 
