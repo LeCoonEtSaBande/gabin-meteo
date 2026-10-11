@@ -34,9 +34,10 @@ const DEFAULTS = {
 const ERROR_CACHE_SECONDS = 30;
 const FETCH_TIMEOUT_MS = 8000;
 // Une heure révolue ne bouge plus : gardée jusqu'au lendemain. Une heure encore
-// vide (donnée pas insérée, ou station muette) est réessayée un quart d'heure plus tard.
+// vide est réessayée au bout de 5 min, un peu plus que le délai d'insertion de
+// Météo-France (~2 min 30), pour que l'heure qui vient de sonner ne manque pas longtemps.
 const HOUR_CACHE_SECONDS = 26 * 3600;
-const EMPTY_HOUR_CACHE_SECONDS = 900;
+const EMPTY_HOUR_CACHE_SECONDS = 300;
 
 function setting(env, name) {
   const value = env[name];

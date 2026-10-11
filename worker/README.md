@@ -43,7 +43,8 @@ station en une fois. Le Worker compose donc, pour chaque station française :
   portent la vignette et le dernier point de la courbe ;
 - les **heures pleines** déjà écoulées de la journée parisienne, relues du plus
   récent au plus ancien et gardées 26 h dans le cache du Worker. Une heure encore
-  vide (donnée pas insérée) est réessayée un quart d'heure plus tard.
+  vide est réessayée au bout de 5 min : Météo-France insère la mesure environ
+  2 min 30 après l'heure de validité.
 
 `METEOFRANCE_HOURS_BUDGET` (36) plafonne ces appels horaires par requête, toutes
 stations confondues : la limite est de 50 sous-requêtes par requête sur un compte
