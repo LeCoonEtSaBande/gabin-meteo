@@ -1,0 +1,24 @@
+{
+  "target_day": "2026-10-11",
+  "snapshot_at": "2026-10-10T23:00:00+02:00",
+  "valid_from": "2026-10-11T01:00",
+  "valid_to": "2026-10-12T00:00",
+  "models": [
+    "AROMEHD",
+    "ICONCH1"
+  ],
+  "collecte_run_id": "2026-10-10T19:15:00+02:00",
+  "collecte_fetched_at": "2026-10-10T22:38:17+02:00",
+  "collecte_commit": "8238d2e49365",
+  "runs_used": [
+    {
+      "collecte_run_id": "2026-10-10T19:15:00+02:00",
+      "collecte_fetched_at": "2026-10-10T22:38:17+02:00",
+      "collecte_commit": "8238d2e49365",
+      "dossier": "current"
+    }
+  ],
+  "missing": [],
+  "incomplete": {},
+  "archived_at": "2026-10-11T02:11:47+02:00"
+}
