@@ -122,6 +122,19 @@ test("direction absente : celle de la rafale prend le relais", () => {
   assert.equal(parseMeteoFrance(csv)[0].dir_deg, 290);
 });
 
+test("Météo-France : « dd » vaut 0 au calme et 360 au nord", () => {
+  const csv = [
+    "geo_id_insee;validity_time;dd;ff;ddraf10;raf10",
+    "73329001;2026-10-11T20:06:00Z;360;5.144;350;6",
+    "73329001;2026-10-11T20:12:00Z;0;0;260;0.6",
+    "73329001;2026-10-11T20:18:00Z;0;0;;",
+  ].join("\n");
+  assert.deepEqual(
+    parseMeteoFrance(csv).map((p) => p.dir_deg),
+    [0, 260, null]
+  );
+});
+
 test("heures pleines du jour : celles déjà écoulées, dans le fuseau de Paris", () => {
   const now = Date.UTC(2026, 9, 11, 9, 30);
   const stamps = hourStampsForDay("2026-10-11", now);

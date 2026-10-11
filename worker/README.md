@@ -30,6 +30,10 @@ Champs lus :
 | Rafale | `fu3010z1`, pointe 1 s (km/h) | `raf10`, maxi sur 10 min (m/s) | `raf`, maxi de l'heure (m/s) |
 | Provenance | `dkl010z0` (°) | `dd` (°), `ddraf10` en secours | `dd` (°), `ddraf` en secours |
 
+Côté Météo-France, `dd` suit la convention OMM : **360 = plein nord, 0 = calme**.
+Au calme, la provenance du vent moyen n'existe pas ; le Worker reprend alors celle
+de la rafale, et renvoie `dir_deg: null` si la station n'en relève pas.
+
 ### Courbe du jour des balises françaises
 
 DPObs ne rend qu'**une** mesure par appel : impossible d'obtenir la journée d'une

@@ -127,7 +127,7 @@ export function meteoFranceHourUrl(sourceId, iso, base = METEOFRANCE_BASE) {
  * sa direction changent de nom (`raf10`/`ddraf10` à 6 min, `raf`/`ddraf` à
  * l'heure). `fxi10`/`dxi10` sont ceux de l'ancien paquet DPPaquetObs. */
 const MF_GUST_FIELDS = ["raf10", "raf", "fxi10"];
-const MF_DIR_FIELDS = ["dd", "ddraf10", "ddraf", "dxi10"];
+const MF_GUST_DIR_FIELDS = ["ddraf10", "ddraf", "dxi10"];
 
 function firstNumber(row, fields) {
   for (const name of fields) {
@@ -135,6 +135,17 @@ function firstNumber(row, fields) {
     if (value != null) return value;
   }
   return null;
+}
+
+/**
+ * Convention OMM reprise par Météo-France : `dd = 360` est le plein nord et
+ * `dd = 0` le calme, pas le nord. Un vent nul n'a pas de provenance ; reste
+ * celle de la rafale, quand la station en relève une.
+ */
+function meteoFranceDirection(row) {
+  const mean = numberOrNull(row.dd);
+  if (mean != null && mean !== 0) return mean;
+  return firstNumber(row, MF_GUST_DIR_FIELDS);
 }
 
 /** CSV Météo-France (6 min ou horaire) → points en nœuds, provenance en degrés. */
@@ -147,12 +158,7 @@ export function parseMeteoFrance(text) {
     if (!Number.isFinite(ms) || meanMs == null) continue;
     const gustMs = firstNumber(row, MF_GUST_FIELDS);
     points.push(
-      point(
-        ms,
-        meanMs / MS_PER_KN,
-        gustMs == null ? null : gustMs / MS_PER_KN,
-        firstNumber(row, MF_DIR_FIELDS)
-      )
+      point(ms, meanMs / MS_PER_KN, gustMs == null ? null : gustMs / MS_PER_KN, meteoFranceDirection(row))
     );
   }
   return points.sort((a, b) => (a.t < b.t ? -1 : 1));
