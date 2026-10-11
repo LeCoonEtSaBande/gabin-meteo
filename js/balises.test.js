@@ -227,18 +227,18 @@ test("repère en bordure : point hors carte ramené au bord avec une flèche", (
 test("vignettes empilées : quatre balises au même endroit se séparent", () => {
   const box = (left, top) => ({ left, right: left + 90, top, height: 50 });
   // Bron, Reventin, Étoile, Montélimar tombent toutes vers 360 dans la vallée.
-  const tops = stackBoxes([box(10, 360), box(20, 360), box(15, 360), box(5, 356)], 60, 480);
+  const tops = stackBoxes([box(10, 360), box(20, 360), box(15, 360), box(5, 356)], 800);
   const sorted = [...tops].sort((a, b) => a - b);
   for (let i = 1; i < sorted.length; i += 1) {
     assert.ok(sorted[i] - sorted[i - 1] >= 50 + 6, `vignettes ${i - 1} et ${i} encore collées`);
   }
-  assert.ok(Math.min(...tops) >= 60 && Math.max(...tops) + 50 <= 480);
+  assert.ok(Math.max(...tops) + 50 <= 800);
 });
 
 test("vignettes : deux colonnes distinctes ne se poussent pas", () => {
   const left = { left: 0, right: 80, top: 100, height: 50 };
   const right = { left: 200, right: 280, top: 100, height: 50 };
-  assert.deepEqual(stackBoxes([left, right], 0, 600), [100, 100]);
+  assert.deepEqual(stackBoxes([left, right], 600), [100, 100]);
 });
 
 test("vignettes : ce qui déborde en bas remonte au lieu de sortir de la carte", () => {
@@ -247,8 +247,18 @@ test("vignettes : ce qui déborde en bas remonte au lieu de sortir de la carte",
     { left: 0, right: 90, top: 400, height: 50 },
     { left: 0, right: 90, top: 400, height: 50 },
   ];
-  const tops = stackBoxes(boxes, 100, 500);
-  assert.deepEqual(tops, [338, 394, 450]);
+  assert.deepEqual(stackBoxes(boxes, 500), [338, 394, 450]);
+});
+
+test("vignettes : une file trop longue reste séparée plutôt que recadrée", () => {
+  const boxes = [];
+  for (let i = 0; i < 6; i += 1) boxes.push({ left: 0, right: 90, top: 300, height: 50 });
+  const tops = stackBoxes(boxes, 400);
+  const sorted = [...tops].sort((a, b) => a - b);
+  for (let i = 1; i < sorted.length; i += 1) {
+    assert.ok(sorted[i] - sorted[i - 1] >= 56, "vignettes recollées par le recadrage");
+  }
+  assert.equal(Math.max(...tops) + 50, 400);
 });
 
 test("graphique en mode mesures : pas de rangée météo, prévision en trait fin, flèches aux heures pleines", () => {

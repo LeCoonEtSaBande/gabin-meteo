@@ -359,12 +359,12 @@ function clearBuoyDots(host, anchors, sides) {
 
 /**
  * Empilement vertical des vignettes qui se recouvrent : descente du haut vers
- * le bas, puis remontée de ce qui dépasse. Le décalage deux à deux des puces de
- * zone n'y suffit plus — quatre balises de la vallée du Rhône tombent au même
- * endroit sur une fenêtre courte et se renvoient la balle sans converger.
- * `boxes` : `{ left, right, top, height }`. Renvoie le nouveau haut de chacune.
+ * le bas, puis remontée de ce qui dépasse `limitBottom`. Le décalage deux à deux
+ * des puces de zone n'y suffit plus — quatre balises de la vallée du Rhône
+ * tombent au même endroit sur une fenêtre courte et se renvoient la balle sans
+ * converger. `boxes` : `{ left, right, top, height }`. Renvoie les nouveaux hauts.
  */
-function stackBoxes(boxes, limitTop, limitBottom, gap = 6) {
+function stackBoxes(boxes, limitBottom, gap = 6) {
   const order = boxes.map((box, i) => i).sort((i, j) => boxes[i].top - boxes[j].top);
   const tops = boxes.map((box) => box.top);
   const sameColumn = (a, b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 0;
@@ -378,16 +378,17 @@ function stackBoxes(boxes, limitTop, limitBottom, gap = 6) {
       tops[i] = Math.max(tops[i], tops[j] + boxes[j].height + gap);
     }
   }
-  // Remontée : ce qui dépasse en bas remonte la file, sans sortir par le haut.
+  // Remontée : ce qui déborde en bas repousse vers le haut toute la file qui le
+  // précède. Pas de recadrage sur `limitTop` ici, il recollerait les vignettes.
   for (let k = order.length - 1; k >= 0; k -= 1) {
     const i = order[k];
-    let ceiling = limitBottom - boxes[i].height;
+    let lowest = limitBottom - boxes[i].height;
     for (let p = k + 1; p < order.length; p += 1) {
       const j = order[p];
       if (!sameColumn(boxes[i], boxes[j])) continue;
-      ceiling = Math.min(ceiling, tops[j] - boxes[i].height - gap);
+      lowest = Math.min(lowest, tops[j] - boxes[i].height - gap);
     }
-    tops[i] = Math.max(limitTop, Math.min(tops[i], ceiling));
+    tops[i] = Math.min(tops[i], lowest);
   }
   return tops;
 }
@@ -400,7 +401,6 @@ function stackBuoyChips(host) {
   const rects = chips.map((chip) => chip.getBoundingClientRect());
   const tops = stackBoxes(
     rects.map((r) => ({ left: r.left, right: r.right, top: r.top, height: r.height })),
-    box.top + 6,
     box.bottom - 6
   );
   let moved = false;
@@ -413,21 +413,62 @@ function stackBuoyChips(host) {
   return moved;
 }
 
-function layoutBuoyChips(host, anchors) {
-  const paneW = host.getBoundingClientRect().width;
-  const sides = {};
-  for (const { key, x, y } of anchors) {
-    const chip = host.querySelector(`.chip[data-buoy="${key}"]`);
-    if (!chip) continue;
-    sides[key] = x > paneW / 2 ? -1 : 1;
-    chip.style.left = `${x + sides[key] * (chip.offsetWidth / 2 + 12)}px`;
-    chip.style.top = `${y}px`;
+/* Recadrage horizontal seul : la verticale appartient à l'empilement. */
+function clampBuoyChipsX(host) {
+  const pane = document.getElementById("map-pane");
+  if (!pane) return;
+  const box = pane.getBoundingClientRect();
+  const pad = 6;
+  for (const chip of host.querySelectorAll(".chip")) {
+    const r = chip.getBoundingClientRect();
+    let dx = 0;
+    if (r.left < box.left + pad) dx = box.left + pad - r.left;
+    if (r.right > box.right - pad) dx += box.right - pad - r.right;
+    if (dx) chip.style.left = `${parseFloat(chip.style.left) + dx}px`;
   }
-  for (let pass = 0; pass < 3; pass += 1) {
-    clampChips(host);
+}
+
+function placeBuoyChips(host, anchors, sides, alternate) {
+  const paneW = host.getBoundingClientRect().width;
+  const byHeight = [...anchors].sort((a, b) => a.y - b.y);
+  byHeight.forEach((anchor, rank) => {
+    const chip = host.querySelector(`.chip[data-buoy="${anchor.key}"]`);
+    if (!chip) return;
+    sides[anchor.key] = alternate ? (rank % 2 ? -1 : 1) : anchor.x > paneW / 2 ? -1 : 1;
+    chip.style.left = `${anchor.x + sides[anchor.key] * (chip.offsetWidth / 2 + 12)}px`;
+    chip.style.top = `${anchor.y}px`;
+  });
+  clampChips(host);
+  // L'empilement finit chaque passe : l'écart aux points, lui, est horizontal.
+  for (let pass = 0; pass < 4; pass += 1) {
+    const moved = clearBuoyDots(host, anchors, sides);
+    clampBuoyChipsX(host);
     const stacked = stackBuoyChips(host);
-    clampChips(host);
-    if (!clearBuoyDots(host, anchors, sides) && !stacked) break;
+    if (!moved && !stacked) break;
+  }
+}
+
+/* Vignettes poussées hors du haut de la carte : la file ne tient pas en hauteur. */
+function buoyChipsOverflowTop(host) {
+  const pane = document.getElementById("map-pane");
+  if (!pane) return 0;
+  const top = pane.getBoundingClientRect().top;
+  let worst = 0;
+  for (const chip of host.querySelectorAll(".chip")) {
+    worst = Math.max(worst, top - chip.getBoundingClientRect().top);
+  }
+  return worst;
+}
+
+function layoutBuoyChips(host, anchors) {
+  const sides = {};
+  placeBuoyChips(host, anchors, sides, false);
+  if (buoyChipsOverflowTop(host) > 1) {
+    // Fenêtre trop basse pour une seule file : on ouvre une seconde colonne en
+    // renvoyant une vignette sur deux de l'autre côté de son point.
+    const single = buoyChipsOverflowTop(host);
+    placeBuoyChips(host, anchors, sides, true);
+    if (buoyChipsOverflowTop(host) > single) placeBuoyChips(host, anchors, sides, false);
   }
   drawBuoyLinks(host, anchors);
 }
