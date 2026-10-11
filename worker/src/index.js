@@ -1,15 +1,18 @@
 /**
  * Worker « gabin-meteo » : un seul appel renvoie les mesures du jour de toutes
  * les balises de `balises_specifications.csv` (MétéoSuisse en accès libre,
- * Météo-France via la clé DPPaquetObs gardée en secret du Worker).
+ * Météo-France via la clé DPObs gardée en secret du Worker).
  *
  * Appelé par l'onglet Balises de la carte, à la demande. Petit cache de bord
  * pour qu'une volée de visites ne multiplie pas les appels aux deux API.
  */
 
 import {
+  hourStampsForDay,
   isAllowedOrigin,
-  meteoFranceUrl,
+  mergePoints,
+  meteoFranceHourUrl,
+  meteoFranceLatestUrl,
   meteoSuisseUrl,
   parisDayKey,
   parseMeteoFrance,
@@ -24,11 +27,16 @@ const DEFAULTS = {
   ALLOWED_ORIGINS: "https://lecoonetsabande.github.io",
   CACHE_SECONDS: "180",
   SPECS_CACHE_SECONDS: "600",
-  METEOFRANCE_BASE: "https://public-api.meteofrance.fr/public/DPPaquetObs/v1",
+  METEOFRANCE_BASE: "https://public-api.meteofrance.fr/public/DPObs/v2",
+  METEOFRANCE_HOURS_BUDGET: "36",
 };
 
 const ERROR_CACHE_SECONDS = 30;
 const FETCH_TIMEOUT_MS = 8000;
+// Une heure révolue ne bouge plus : gardée jusqu'au lendemain. Une heure encore
+// vide (donnée pas insérée, ou station muette) est réessayée un quart d'heure plus tard.
+const HOUR_CACHE_SECONDS = 26 * 3600;
+const EMPTY_HOUR_CACHE_SECONDS = 900;
 
 function setting(env, name) {
   const value = env[name];
@@ -84,21 +92,82 @@ async function loadSpecs(request, env, ctx) {
   return parseSpecs(text);
 }
 
-async function readStation(station, env) {
+function hourCacheKey(request, sourceId, iso) {
+  const url = new URL(`/_mf/${encodeURIComponent(sourceId)}/${iso}`, request.url);
+  return new Request(url.toString(), { method: "GET" });
+}
+
+/**
+ * Courbe du jour d'une station française. DPObs ne renvoie qu'une mesure par
+ * appel : on relit les heures pleines écoulées, du plus récent au plus ancien,
+ * et chaque heure obtenue reste dans le cache du Worker jusqu'au lendemain.
+ * `budget` plafonne les appels de l'ensemble des stations pour une requête ; les
+ * heures laissées de côté sont rattrapées par les lectures suivantes.
+ */
+async function readFrenchHours(station, { base, headers, day, now, budget, request, ctx }) {
+  const series = [];
+  for (const iso of hourStampsForDay(day, now).reverse()) {
+    const key = hourCacheKey(request, station.source_id, iso);
+    const hit = await caches.default.match(key);
+    if (hit) {
+      series.push(parseMeteoFrance(await hit.text()));
+      continue;
+    }
+    if (budget.left <= 0) continue;
+    budget.left -= 1;
+    let text;
+    try {
+      text = await fetchText(meteoFranceHourUrl(station.source_id, iso, base), {
+        headers,
+        cf: { cacheTtl: 0 },
+      });
+    } catch {
+      // Un trou dans la courbe ne doit pas emporter la mesure du moment.
+      continue;
+    }
+    const points = parseMeteoFrance(text);
+    const ttl = points.length ? HOUR_CACHE_SECONDS : EMPTY_HOUR_CACHE_SECONDS;
+    ctx.waitUntil(
+      caches.default.put(
+        key,
+        new Response(text, {
+          headers: {
+            "content-type": "text/csv; charset=utf-8",
+            "cache-control": `public, s-maxage=${ttl}`,
+          },
+        })
+      )
+    );
+    series.push(points);
+  }
+  return mergePoints(...series);
+}
+
+async function readStation(station, env, shared) {
   if (station.source === "MeteoSuisse") {
     return parseMeteoSuisse(await fetchText(meteoSuisseUrl(station.source_id)));
   }
   const apikey = env.METEOFRANCE_API_KEY;
   if (!apikey) throw new Error("clé Météo-France absente du Worker");
-  const url = meteoFranceUrl(station.source_id, setting(env, "METEOFRANCE_BASE"));
-  return parseMeteoFrance(await fetchText(url, { headers: { apikey, accept: "*/*" } }));
+  const headers = { apikey, accept: "*/*" };
+  const base = setting(env, "METEOFRANCE_BASE");
+  const latest = parseMeteoFrance(
+    await fetchText(meteoFranceLatestUrl(station.source_id, base), { headers, cf: { cacheTtl: 0 } })
+  );
+  const hours = await readFrenchHours(station, { ...shared, base, headers });
+  // La mesure de 6 min passe après l'heure pleine qu'elle recouvre parfois.
+  return mergePoints(hours, latest);
 }
 
 async function buildPayload(request, env, ctx) {
   const now = Date.now();
   const day = parisDayKey(now);
   const specs = await loadSpecs(request, env, ctx);
-  const results = await Promise.allSettled(specs.map((station) => readStation(station, env)));
+  const budget = { left: Number(setting(env, "METEOFRANCE_HOURS_BUDGET")) };
+  const shared = { day, now, budget, request, ctx };
+  const results = await Promise.allSettled(
+    specs.map((station) => readStation(station, env, shared))
+  );
   const stations = specs.map((station, i) => {
     const result = results[i];
     if (result.status !== "fulfilled") {
@@ -178,6 +247,7 @@ export default {
           service: "gabin-meteo",
           endpoint: "/balises",
           meteofrance_key: env.METEOFRANCE_API_KEY ? "présente" : "absente",
+          meteofrance_base: setting(env, "METEOFRANCE_BASE"),
           specs: setting(env, "SPECS_URL"),
         },
         { headers: cors }

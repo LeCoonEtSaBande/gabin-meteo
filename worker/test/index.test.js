@@ -7,6 +7,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import worker from "../src/index.js";
+import { hourStampsForDay } from "../src/parse.js";
 
 const SPECS_URL = "https://exemple.test/balises.csv";
 
@@ -33,14 +34,23 @@ function swissCsvToday() {
   ].join("\n");
 }
 
-function frenchCsvToday() {
+/* Dernière mesure 6 min de DPObs : un seul enregistrement. */
+function frenchLatestCsv() {
   return [
-    "geo_id_insee;validity_time;dd;ff;dxi10;fxi10",
+    "geo_id_insee;validity_time;dd;ff;ddraf10;raf10",
     `73329001;${nowIso()}T12:06:00Z;210;5.144;230;7.716`,
   ].join("\n");
 }
 
-function stub({ french = frenchCsvToday(), frenchStatus = 200 } = {}) {
+/* Mesure horaire de DPObs : un seul enregistrement, à l'heure demandée. */
+function frenchHourCsv(iso) {
+  return [
+    "geo_id_insee;validity_time;dd;ff;ddraf;raf",
+    `73329001;${iso};200;2.572;210;5.144`,
+  ].join("\n");
+}
+
+function stub({ frenchStatus = 200 } = {}) {
   const calls = [];
   const store = new Map();
   globalThis.caches = {
@@ -55,11 +65,14 @@ function stub({ french = frenchCsvToday(), frenchStatus = 200 } = {}) {
     },
   };
   globalThis.fetch = async (url, init) => {
-    calls.push({ url: String(url), headers: init?.headers || {} });
-    if (String(url) === SPECS_URL) return new Response(SPECS_CSV, { status: 200 });
-    if (String(url).includes("meteoschweiz")) return new Response(swissCsvToday(), { status: 200 });
-    if (String(url).includes("meteofrance")) {
-      return new Response(frenchStatus === 200 ? french : "", { status: frenchStatus });
+    const href = String(url);
+    calls.push({ url: href, headers: init?.headers || {} });
+    if (href === SPECS_URL) return new Response(SPECS_CSV, { status: 200 });
+    if (href.includes("meteoschweiz")) return new Response(swissCsvToday(), { status: 200 });
+    if (href.includes("meteofrance")) {
+      if (frenchStatus !== 200) return new Response("", { status: frenchStatus });
+      const iso = new URL(href).searchParams.get("date");
+      return new Response(iso ? frenchHourCsv(iso) : frenchLatestCsv(), { status: 200 });
     }
     return new Response("", { status: 404 });
   };
@@ -71,14 +84,16 @@ const CTX = { waitUntil: (promise) => promise };
 
 const SITE = "https://lecoonetsabande.github.io";
 
-function get(path, { origin } = {}) {
+function get(path, { origin, env = ENV } = {}) {
   const headers = origin ? { Origin: origin } : {};
-  return worker.fetch(new Request(`https://gabin-meteo.test${path}`, { headers }), ENV, CTX);
+  return worker.fetch(new Request(`https://gabin-meteo.test${path}`, { headers }), env, CTX);
 }
+
+const hourly = (calls) => calls.filter((call) => call.url.includes("station/horaire"));
 
 test("/balises renvoie les deux sources en nœuds dans un seul appel", async () => {
   const { calls } = stub();
-  const res = await get("/balises", { origin: SITE });
+  const res = await get("/balises", { origin: SITE, env: { ...ENV, METEOFRANCE_HOURS_BUDGET: "0" } });
   assert.equal(res.status, 200);
   assert.equal(res.headers.get("x-cache"), "MISS");
   const body = await res.json();
@@ -104,11 +119,30 @@ test("/balises renvoie les deux sources en nœuds dans un seul appel", async () 
     gust_kt: 15,
     dir_deg: 210,
   });
-  // Fiches + une lecture par station, rien de plus.
+  // Fiches + une lecture par station, rien de plus quand le rattrapage est coupé.
   assert.equal(calls.length, 3);
   const mf = calls.find((call) => call.url.includes("meteofrance"));
   assert.equal(mf.headers.apikey, "clé-de-test");
-  assert.match(mf.url, /paquet\/infrahoraire-6m\?id_station=73329001&format=csv$/);
+  assert.match(mf.url, /station\/infrahoraire-6m\?id_station=73329001&format=csv$/);
+});
+
+test("courbe française : les heures écoulées sont relues, dans la limite du budget", async () => {
+  const { calls, store } = stub();
+  const budget = 2;
+  const expected = Math.min(budget, hourStampsForDay(nowIso(), Date.now()).length);
+  const body = await (
+    await get("/balises", { origin: SITE, env: { ...ENV, METEOFRANCE_HOURS_BUDGET: String(budget) } })
+  ).json();
+  assert.equal(hourly(calls).length, expected);
+  // Les heures pleines les plus récentes d'abord, puis la mesure de 6 min.
+  assert.equal(body.stations[1].points.length, expected + 1);
+  assert.equal(body.stations[1].points.at(-1).t, `${nowIso()}T12:06:00Z`);
+
+  // Deuxième passage : le cache des heures évite de rappeler l'API.
+  store.delete("https://gabin-meteo.test/balises");
+  const before = hourly(calls).length;
+  await get("/balises", { origin: SITE, env: { ...ENV, METEOFRANCE_HOURS_BUDGET: String(budget) } });
+  assert.equal(hourly(calls).length, before);
 });
 
 test("deuxième appel servi par le cache de bord, sans toucher aux API", async () => {

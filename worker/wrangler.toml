@@ -15,6 +15,10 @@ ALLOWED_ORIGINS = "https://lecoonetsabande.github.io"
 # Cache de bord de /balises, en secondes.
 CACHE_SECONDS = "180"
 SPECS_CACHE_SECONDS = "600"
-METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v1"
+METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2"
+# Appels horaires Météo-France autorisés par requête, toutes stations confondues
+# (DPObs ne rend qu'une mesure par appel). À relever si le compte Workers passe
+# payant : la limite est de 50 sous-requêtes par requête en gratuit, 1000 ensuite.
+METEOFRANCE_HOURS_BUDGET = "36"
 
 # La clé Météo-France n'est pas ici : `wrangler secret put METEOFRANCE_API_KEY`.

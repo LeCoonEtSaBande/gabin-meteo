@@ -2,8 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  hourStampsForDay,
   isAllowedOrigin,
-  meteoFranceUrl,
+  mergePoints,
+  meteoFranceHourUrl,
+  meteoFranceLatestUrl,
   meteoSuisseUrl,
   parisDayKey,
   parseCsv,
@@ -22,8 +25,9 @@ const SWISS_CSV = [
   "GVE;11.10.2026 20:30;10.1;;;;;;",
 ].join("\n");
 
+/* Pas de 6 min de DPObs : rafale `raf10`, sa direction `ddraf10`. */
 const FRENCH_CSV = [
-  "geo_id_insee;reference_time;insert_time;validity_time;t;td;u;dd;ff;dxi10;fxi10;rr_per;pres",
+  "geo_id_insee;reference_time;insert_time;validity_time;t;td;u;dd;ff;ddraf10;raf10;rr_per;pres",
   "73329001;2026-10-11T20:12:07Z;2026-10-11T20:11:03Z;2026-10-11T20:06:00Z;283.75;282.15;90;210;2;230;3.9;0;968",
   "73329001;2026-10-11T20:18:07Z;2026-10-11T20:17:03Z;2026-10-11T20:12:00Z;283.65;282.05;91;;;230;;0;968",
   "73329001;2026-10-11T20:24:07Z;2026-10-11T20:23:03Z;2026-10-11T20:18:00Z;283.55;282.05;91;390;5.144;240;7.716;0;968",
@@ -49,10 +53,14 @@ test("URL MétéoSuisse en minuscules", () => {
   );
 });
 
-test("URL Météo-France : paquet 24 h au pas de 6 min", () => {
+test("URL Météo-France : dernière mesure 6 min et heure pleine", () => {
   assert.equal(
-    meteoFranceUrl("73329001"),
-    "https://public-api.meteofrance.fr/public/DPPaquetObs/v1/paquet/infrahoraire-6m?id_station=73329001&format=csv"
+    meteoFranceLatestUrl("73329001"),
+    "https://public-api.meteofrance.fr/public/DPObs/v2/station/infrahoraire-6m?id_station=73329001&format=csv"
+  );
+  assert.equal(
+    meteoFranceHourUrl("73329001", "2026-10-11T18:00:00Z"),
+    "https://public-api.meteofrance.fr/public/DPObs/v2/station/horaire?id_station=73329001&date=2026-10-11T18%3A00%3A00Z&format=csv"
   );
 });
 
@@ -86,14 +94,57 @@ test("Météo-France : m/s → nœuds, dd en provenance, lignes sans vent ignor�
   });
 });
 
+test("Météo-France : le pas horaire nomme la rafale autrement", () => {
+  const csv = [
+    "geo_id_insee;validity_time;dd;ff;dxy;fxy;ddraf;raf",
+    "73329001;2026-10-11T18:00:00Z;160;5.144;140;6;220;7.716",
+  ].join("\n");
+  assert.deepEqual(parseMeteoFrance(csv), [
+    { t: "2026-10-11T18:00:00Z", mean_kt: 10, gust_kt: 15, dir_deg: 160 },
+  ]);
+});
+
 test("rafale absente : on retombe sur le vent moyen", () => {
   const csv = [
-    "geo_id_insee;validity_time;dd;ff;dxi10;fxi10",
+    "geo_id_insee;validity_time;dd;ff;ddraf10;raf10",
     "73329001;2026-10-11T20:06:00Z;180;5.144;;",
   ].join("\n");
   const [point] = parseMeteoFrance(csv);
   assert.equal(point.mean_kt, 10);
   assert.equal(point.gust_kt, 10);
+});
+
+test("direction absente : celle de la rafale prend le relais", () => {
+  const csv = [
+    "geo_id_insee;validity_time;dd;ff;ddraf10;raf10",
+    "73329001;2026-10-11T20:06:00Z;;5.144;290;6",
+  ].join("\n");
+  assert.equal(parseMeteoFrance(csv)[0].dir_deg, 290);
+});
+
+test("heures pleines du jour : celles déjà écoulées, dans le fuseau de Paris", () => {
+  const now = Date.UTC(2026, 9, 11, 9, 30);
+  const stamps = hourStampsForDay("2026-10-11", now);
+  // Été : le jour parisien commence à 22 h UTC la veille.
+  assert.equal(stamps[0], "2026-10-10T22:00:00Z");
+  assert.equal(stamps.at(-1), "2026-10-11T09:00:00Z");
+  assert.equal(stamps.length, 12);
+  // Le 25 octobre 2026, Paris repasse à l'heure d'hiver : la journée fait 25 h.
+  assert.equal(hourStampsForDay("2026-10-25", Date.UTC(2026, 9, 26, 12, 0)).length, 25);
+  assert.deepEqual(hourStampsForDay("", now), []);
+  assert.deepEqual(hourStampsForDay("2026-10-11", Date.UTC(2026, 9, 1)), []);
+});
+
+test("mergePoints : horodatages dédoublonnés, la dernière série gagne", () => {
+  const hours = [
+    { t: "2026-10-11T18:00:00Z", mean_kt: 10 },
+    { t: "2026-10-11T19:00:00Z", mean_kt: 11 },
+  ];
+  const latest = [{ t: "2026-10-11T19:00:00Z", mean_kt: 12 }];
+  assert.deepEqual(mergePoints(hours, latest), [
+    { t: "2026-10-11T18:00:00Z", mean_kt: 10 },
+    { t: "2026-10-11T19:00:00Z", mean_kt: 12 },
+  ]);
 });
 
 test("les points sont triés par horodatage croissant", () => {

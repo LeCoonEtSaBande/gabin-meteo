@@ -6,6 +6,7 @@
 
 export const KMH_PER_KN = 1.852;
 export const MS_PER_KN = 1.852 / 3.6;
+export const HOUR_MS = 3600000;
 
 export const SOURCES = ["MeteoSuisse", "MeteoFrance"];
 
@@ -107,15 +108,36 @@ export function parseMeteoSuisse(text) {
   return points.sort((a, b) => (a.t < b.t ? -1 : 1));
 }
 
-/** Paquet 24 h au pas de 6 min pour une station (API DPPaquetObs). */
-export function meteoFranceUrl(sourceId, base = "https://public-api.meteofrance.fr/public/DPPaquetObs/v1") {
-  return `${base}/paquet/infrahoraire-6m?id_station=${encodeURIComponent(sourceId)}&format=csv`;
+export const METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2";
+
+/** Dernière mesure disponible d'une station, au pas de 6 min (API DPObs). */
+export function meteoFranceLatestUrl(sourceId, base = METEOFRANCE_BASE) {
+  return `${base}/station/infrahoraire-6m?id_station=${encodeURIComponent(sourceId)}&format=csv`;
 }
 
 /**
- * Paquet 6 min Météo-France : `ff` vent moyen 10 min et `fxi10` rafale maximale
- * instantanée sur 10 min en m/s, `dd` provenance de `ff` (`dxi10` en secours).
+ * Mesure horaire d'une station à l'heure pile `iso` (API DPObs). DPObs ne sert
+ * qu'une mesure par appel : la courbe du jour se reconstitue heure par heure.
  */
+export function meteoFranceHourUrl(sourceId, iso, base = METEOFRANCE_BASE) {
+  return `${base}/station/horaire?id_station=${encodeURIComponent(sourceId)}&date=${encodeURIComponent(iso)}&format=csv`;
+}
+
+/* `ff` est le vent moyen 10 min en m/s dans les deux pas de temps ; la rafale et
+ * sa direction changent de nom (`raf10`/`ddraf10` à 6 min, `raf`/`ddraf` à
+ * l'heure). `fxi10`/`dxi10` sont ceux de l'ancien paquet DPPaquetObs. */
+const MF_GUST_FIELDS = ["raf10", "raf", "fxi10"];
+const MF_DIR_FIELDS = ["dd", "ddraf10", "ddraf", "dxi10"];
+
+function firstNumber(row, fields) {
+  for (const name of fields) {
+    const value = numberOrNull(row[name]);
+    if (value != null) return value;
+  }
+  return null;
+}
+
+/** CSV Météo-France (6 min ou horaire) → points en nœuds, provenance en degrés. */
 export function parseMeteoFrance(text) {
   const points = [];
   for (const row of parseCsv(text)) {
@@ -123,18 +145,42 @@ export function parseMeteoFrance(text) {
     const ms = Date.parse(String(stamp || "").trim());
     const meanMs = numberOrNull(row.ff);
     if (!Number.isFinite(ms) || meanMs == null) continue;
-    const gustMs = numberOrNull(row.fxi10);
-    const dir = numberOrNull(row.dd);
+    const gustMs = firstNumber(row, MF_GUST_FIELDS);
     points.push(
       point(
         ms,
         meanMs / MS_PER_KN,
         gustMs == null ? null : gustMs / MS_PER_KN,
-        dir == null ? numberOrNull(row.dxi10) : dir
+        firstNumber(row, MF_DIR_FIELDS)
       )
     );
   }
   return points.sort((a, b) => (a.t < b.t ? -1 : 1));
+}
+
+/**
+ * Heures pleines (UTC) déjà écoulées de la journée `dayKey` à Paris. Une journée
+ * parisienne compte 23, 24 ou 25 heures selon le changement d'heure : on balaie
+ * les heures UTC autour de la date et on garde celles qui tombent dans le jour.
+ */
+export function hourStampsForDay(dayKey, nowMs) {
+  const [year, month, day] = String(dayKey || "").split("-").map(Number);
+  if (!year || !month || !day) return [];
+  const start = Date.UTC(year, month - 1, day) - 2 * HOUR_MS;
+  const stamps = [];
+  for (let ms = start; ms <= start + 27 * HOUR_MS && ms <= nowMs; ms += HOUR_MS) {
+    if (parisDayKey(ms) === dayKey) stamps.push(isoUtc(ms));
+  }
+  return stamps;
+}
+
+/** Fusionne plusieurs séries : à horodatage égal, la dernière passée gagne. */
+export function mergePoints(...series) {
+  const byStamp = new Map();
+  for (const points of series) {
+    for (const item of points || []) byStamp.set(item.t, item);
+  }
+  return [...byStamp.values()].sort((a, b) => (a.t < b.t ? -1 : 1));
 }
 
 /** Ne garde que les mesures tombant dans la journée `dayKey` à Paris. */
