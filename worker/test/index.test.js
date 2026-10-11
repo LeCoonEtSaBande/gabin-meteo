@@ -16,7 +16,14 @@ const SPECS_CSV = [
   "chambery_aix;Chambéry-Aix;Chambéry;MeteoFrance;73329001;45.63;5.88;235;https://x",
 ].join("\n");
 
-const nowIso = () => new Date().toISOString().slice(0, 10);
+/* Jour de Paris, celui que renvoie le Worker : après 22 h UTC il a déjà tourné. */
+const nowIso = () =>
+  new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 
 function swissCsvToday() {
   const [y, m, d] = nowIso().split("-");

@@ -15,7 +15,7 @@ import {
   parseMeteoFrance,
   parseMeteoSuisse,
   parseSpecs,
-  pointsForDay,
+  pointsForDayOrLast,
 } from "./parse.js";
 
 const DEFAULTS = {
@@ -104,7 +104,7 @@ async function buildPayload(request, env, ctx) {
     if (result.status !== "fulfilled") {
       return { ...station, status: "error", error: String(result.reason?.message || result.reason), points: [] };
     }
-    const points = pointsForDay(result.value, day);
+    const points = pointsForDayOrLast(result.value, day);
     return { ...station, status: "ok", points };
   });
   return {

@@ -12,6 +12,7 @@ import {
   parseSpecs,
   parseSwissTimestampUtc,
   pointsForDay,
+  pointsForDayOrLast,
 } from "../src/parse.js";
 
 const SWISS_CSV = [
@@ -125,6 +126,17 @@ test("pointsForDay garde la journée parisienne demandée", () => {
     pointsForDay(points, "2026-10-12").map((p) => p.t),
     ["2026-10-11T22:30:00Z", "2026-10-12T05:00:00Z"]
   );
+});
+
+test("journée pas encore commencée : la dernière mesure de la veille est conservée", () => {
+  // Minuit passé à Paris, le fichier suisse en est encore au jour UTC d'avant.
+  const points = [{ t: "2026-10-11T21:40:00Z" }, { t: "2026-10-11T21:50:00Z" }];
+  assert.deepEqual(
+    pointsForDayOrLast(points, "2026-10-12").map((p) => p.t),
+    ["2026-10-11T21:50:00Z"]
+  );
+  assert.deepEqual(pointsForDayOrLast([], "2026-10-12"), []);
+  assert.equal(pointsForDayOrLast(points, "2026-10-11").length, 2);
 });
 
 test("fiches : sources inconnues et identifiants mal formés écartés", () => {

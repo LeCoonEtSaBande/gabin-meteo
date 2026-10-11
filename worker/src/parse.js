@@ -142,6 +142,17 @@ export function pointsForDay(points, dayKey) {
   return (points || []).filter((p) => parisDayKey(Date.parse(p.t)) === dayKey);
 }
 
+/**
+ * Comme `pointsForDay`, mais une journée encore vide retombe sur la dernière
+ * mesure connue. Entre minuit à Paris et la première mesure du jour, la vignette
+ * doit continuer d'afficher la soirée de la veille plutôt que « indisponible ».
+ */
+export function pointsForDayOrLast(points, dayKey) {
+  const day = pointsForDay(points, dayKey);
+  if (day.length || !points?.length) return day;
+  return [points[points.length - 1]];
+}
+
 const SOURCE_ID_PATTERNS = {
   MeteoSuisse: /^[A-Za-z]{3}$/,
   MeteoFrance: /^\d{8}$/,
