@@ -59,7 +59,7 @@ restent servies. `GET /health` dit seulement si la clé est posée, jamais sa va
 
 Le Worker ne tient **pas** sa propre table : il relit
 `assets/balises_specs/balises_specifications.csv` sur la branche `affichage-web`
-(variable `SPECS_URL`), gardé une heure en cache. Ajouter une balise = éditer ce
+(variable `SPECS_URL`), gardé dix minutes en cache. Ajouter une balise = éditer ce
 CSV, rien d'autre. Les identifiants sont filtrés sur leur forme (3 lettres pour
 MétéoSuisse, 8 chiffres pour Météo-France) et plafonnés à 40, pour que le Worker
 ne puisse pas servir de relais vers autre chose.

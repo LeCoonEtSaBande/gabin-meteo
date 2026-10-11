@@ -14,7 +14,7 @@ SPECS_URL = "https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/affic
 ALLOWED_ORIGINS = "https://lecoonetsabande.github.io"
 # Cache de bord de /balises, en secondes.
 CACHE_SECONDS = "180"
-SPECS_CACHE_SECONDS = "3600"
+SPECS_CACHE_SECONDS = "600"
 METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v1"
 
 # La clé Météo-France n'est pas ici : `wrangler secret put METEOFRANCE_API_KEY`.

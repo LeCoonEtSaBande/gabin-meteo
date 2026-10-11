@@ -23,7 +23,7 @@ const DEFAULTS = {
     "https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/affichage-web/assets/balises_specs/balises_specifications.csv",
   ALLOWED_ORIGINS: "https://lecoonetsabande.github.io",
   CACHE_SECONDS: "180",
-  SPECS_CACHE_SECONDS: "3600",
+  SPECS_CACHE_SECONDS: "600",
   METEOFRANCE_BASE: "https://public-api.meteofrance.fr/public/DPPaquetObs/v1",
 };
 
@@ -63,13 +63,17 @@ async function fetchText(url, init = {}) {
   return res.text();
 }
 
-/** Les fiches changent rarement : une lecture par heure suffit. */
-async function loadSpecs(env, ctx) {
-  const url = setting(env, "SPECS_URL");
-  const key = new Request(url, { method: "GET" });
+/**
+ * Les fiches changent rarement : gardées quelques minutes, assez peu pour
+ * qu'une balise ajoutée au CSV apparaisse sans attendre. La clé de cache est
+ * celle du Worker, pas l'URL d'origine, qui est partagée avec le cache général.
+ */
+async function loadSpecs(request, env, ctx) {
+  const key = new Request(new URL("/_specs", request.url).toString(), { method: "GET" });
   const cached = await caches.default.match(key);
   if (cached) return parseSpecs(await cached.text());
-  const text = await fetchText(url);
+  // `cacheTtl: 0` : pas de second cache sous l'URL d'origine, celui du Worker suffit.
+  const text = await fetchText(setting(env, "SPECS_URL"), { cf: { cacheTtl: 0 } });
   const store = new Response(text, {
     headers: {
       "content-type": "text/csv; charset=utf-8",
@@ -90,10 +94,10 @@ async function readStation(station, env) {
   return parseMeteoFrance(await fetchText(url, { headers: { apikey, accept: "*/*" } }));
 }
 
-async function buildPayload(env, ctx) {
+async function buildPayload(request, env, ctx) {
   const now = Date.now();
   const day = parisDayKey(now);
-  const specs = await loadSpecs(env, ctx);
+  const specs = await loadSpecs(request, env, ctx);
   const results = await Promise.allSettled(specs.map((station) => readStation(station, env)));
   const stations = specs.map((station, i) => {
     const result = results[i];
@@ -119,7 +123,7 @@ async function handleBalises(request, env, ctx) {
 
   let payload;
   try {
-    payload = await buildPayload(env, ctx);
+    payload = await buildPayload(request, env, ctx);
   } catch (error) {
     payload = {
       generated_at: new Date().toISOString().replace(/\.\d{3}Z$/, "Z"),
