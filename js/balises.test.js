@@ -14,6 +14,7 @@ const {
   buoyPoint,
   parseBuoyPayload,
   cardinalFr,
+  dirSentence,
   fitAffine,
   projectLatLon,
   nearestSpot,
@@ -103,6 +104,12 @@ test("rose des vents en français sur 16 secteurs", () => {
   assert.equal(cardinalFr(292), "ONO");
   assert.equal(cardinalFr(359), "N");
   assert.equal(cardinalFr(NaN), "");
+});
+
+test("au calme, la fiche n'annonce pas de provenance", () => {
+  assert.equal(dirSentence(292), ", provenance ONO (292°)");
+  assert.equal(dirSentence(NaN), "");
+  assert.equal(dirSentence(null), "");
 });
 
 test("projection GPS → carte calée sur les marqueurs des spots", () => {

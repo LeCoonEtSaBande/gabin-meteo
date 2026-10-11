@@ -610,11 +610,16 @@ function buoyLegendHtml(station, payload) {
   </div>`;
 }
 
+/* Au calme, la station ne donne pas de provenance : la phrase s'arrête au vent. */
+function dirSentence(dir) {
+  return Number.isFinite(dir) ? `, provenance ${cardinalFr(dir)} (${Math.round(dir)}°)` : "";
+}
+
 function buoyInfoHtml(station, item, payload) {
   const last = item?.last;
   const source = BUOY_SOURCE_LABELS[station.source] || station.source;
   const lastLine = last
-    ? `Dernière mesure ${hourLabel(last.valid_at)} (${ageLabel(last.ms)}) : ${Math.round(last.mean)} nds, rafales ${Math.round(last.gust)} nds, provenance ${cardinalFr(last.dir)} (${Math.round(last.dir)}°).`
+    ? `Dernière mesure ${hourLabel(last.valid_at)} (${ageLabel(last.ms)}) : ${Math.round(last.mean)} nds, rafales ${Math.round(last.gust)} nds${dirSentence(last.dir)}.`
     : `Pas de mesure disponible${item?.error ? ` (${escapeHtml(item.error)})` : ""}.`;
   const near = payload.near
     ? `Spot rattaché : ${escapeHtml(payload.near.spot.display_name)}, à ${Math.round(payload.near.km)} km.`
@@ -736,6 +741,7 @@ if (typeof module !== "undefined" && module.exports) {
     buoyPoint,
     parseBuoyPayload,
     cardinalFr,
+    dirSentence,
     fitAffine,
     projectLatLon,
     distanceKm,
