@@ -10,13 +10,13 @@ Ce dépôt n’est **pas** un historique unique fusionné dans `main`. Chaque br
 
 | Branche | Contenu | README détaillé |
 | --- | --- | --- |
-| `main` | Workflows GitHub Actions (cron et enchaînement). Pas de données métier. | ce fichier |
+| `main` | Workflows GitHub Actions (cron et enchaînement) et Worker Cloudflare des balises. Pas de données métier. | ce fichier |
 | `collecte-api-meteo` | Script Python, CSV bruts Open-Meteo, **specs parentes** des spots | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/collecte-api-meteo/README.md) |
 | `traitement-donnees` | Courbes assemblées, JSON des puces et du graphique, Markdown pour Claude (**parent** de `data/processed`) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
 | `affichage-web` | Site GitHub Pages (copies publiées + front) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md) |
 | `archive-previsions` | Prévision AROME HD / ICON-CH1 du lendemain figée chaque soir à 23 h | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md) |
 
-Les changements d’interface vont sur `affichage-web`, ceux de collecte, de traitement et d’archive sur leur branche. `main` ne reçoit que les workflows et la doc d’ensemble.
+Les changements d’interface vont sur `affichage-web`, ceux de collecte, de traitement et d’archive sur leur branche. `main` ne reçoit que les workflows, le Worker des balises et la doc d’ensemble.
 
 Ne jamais réécrire l’historique de `collecte-api-meteo` (force push, squash) : l’archive de 23 h relit les collectes passées dans cet historique.
 
@@ -30,6 +30,7 @@ Chaque jeu a **un seul fichier parent**. Les autres branches ne l’éditent pas
 | Prévisions brutes (`data/raw/`) | `collecte-api-meteo` | Lues par le traitement, jamais versionnées ailleurs |
 | Courbes et JSON quotidien (`data/processed/`) | `traitement-donnees` | Recopiés vers `affichage-web` (`quotidien.json`, `creneaux.json`, `last_update.json`, `AROMEIFS.csv`, `ICONGFS.csv`, `llm/`) |
 | Archive de 23 h (`data/archive/`) | `archive-previsions` | Lue par Claude via `raw.githubusercontent.com` |
+| Balises (`assets/balises_specs/balises_specifications.csv`) | `affichage-web` | Relue telle quelle par le Worker (`SPECS_URL`) |
 
 Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copies publiées** pour GitHub Pages. Ne pas les modifier à la main. `traitement-donnees` ne versionne pas les specs ni les bruts.
 
@@ -75,7 +76,22 @@ Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéan
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
 - Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 8 h–20 h, créneau, température à 15 h.
 - Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics de vent moyen et de rafales (nombre seul), et bornes du créneau de chaque courbe sous l’axe des heures.
-- Onglet *Balises temps réel* : pas encore branché.
+- Onglet *Balises temps réel* : vignettes des balises sur la carte, clic = courbe du jour avec la prévision du spot le plus proche.
+
+## Balises temps réel
+
+Mesures du jour des stations automatiques, affichées dans l’onglet *Balises* : vent moyen et rafale du dernier pas **en nœuds**, flèche vers où souffle le vent, provenance en lettres, pas de minimum.
+
+| Source | Pas | Rétention | Clé |
+| --- | --- | --- | --- |
+| MétéoSuisse (`ogd-smn`, 3 stations) | 10 min | jour UTC en cours | non |
+| Météo-France (`DPPaquetObs`, 8 stations) | 6 min | 24 h glissantes | oui |
+
+Le navigateur n’appelle qu’une seule adresse, le **Worker Cloudflare `gabin-meteo`** (`worker/`, déployé sur `https://gabin-meteo.garinlu-subs.workers.dev/balises`) : il garde la clé Météo-France en secret, interroge les deux sources, convertit tout en nœuds et met le résultat en cache 3 min. Voir le [README du Worker](worker/README.md).
+
+Sobriété : aucun appel tant que l’onglet n’est pas ouvert, pas de rafraîchissement automatique. Relecture au bouton ↻, ou au retour sur l’appli si les mesures ont plus de 10 min.
+
+La liste des balises est le CSV `assets/balises_specs/balises_specifications.csv` de `affichage-web`, relu par le Worker comme par le front : **ajouter une balise = éditer ce seul fichier**.
 
 ## Lecture par Claude (appli téléphone ou PC)
 
