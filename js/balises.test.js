@@ -21,6 +21,7 @@ const {
   hourLabel,
   ageLabel,
   clampToBox,
+  stackBoxes,
   defaultBuoyCurves,
   toggleBuoyCurveState,
 } = require("./balises.js");
@@ -221,6 +222,33 @@ test("repère en bordure : point hors carte ramené au bord avec une flèche", (
   assert.deepEqual(clampToBox({ x: 85, y: 1246 }, box, 14), { x: 85, y: 1114, edge: "↓" });
   assert.deepEqual(clampToBox({ x: 646, y: 290 }, box, 14), { x: 646, y: 290, edge: "" });
   assert.equal(clampToBox({ x: 900, y: 500 }, box, 14).edge, "→");
+});
+
+test("vignettes empilées : quatre balises au même endroit se séparent", () => {
+  const box = (left, top) => ({ left, right: left + 90, top, height: 50 });
+  // Bron, Reventin, Étoile, Montélimar tombent toutes vers 360 dans la vallée.
+  const tops = stackBoxes([box(10, 360), box(20, 360), box(15, 360), box(5, 356)], 60, 480);
+  const sorted = [...tops].sort((a, b) => a - b);
+  for (let i = 1; i < sorted.length; i += 1) {
+    assert.ok(sorted[i] - sorted[i - 1] >= 50 + 6, `vignettes ${i - 1} et ${i} encore collées`);
+  }
+  assert.ok(Math.min(...tops) >= 60 && Math.max(...tops) + 50 <= 480);
+});
+
+test("vignettes : deux colonnes distinctes ne se poussent pas", () => {
+  const left = { left: 0, right: 80, top: 100, height: 50 };
+  const right = { left: 200, right: 280, top: 100, height: 50 };
+  assert.deepEqual(stackBoxes([left, right], 0, 600), [100, 100]);
+});
+
+test("vignettes : ce qui déborde en bas remonte au lieu de sortir de la carte", () => {
+  const boxes = [
+    { left: 0, right: 90, top: 400, height: 50 },
+    { left: 0, right: 90, top: 400, height: 50 },
+    { left: 0, right: 90, top: 400, height: 50 },
+  ];
+  const tops = stackBoxes(boxes, 100, 500);
+  assert.deepEqual(tops, [338, 394, 450]);
 });
 
 test("graphique en mode mesures : pas de rangée météo, prévision en trait fin, flèches aux heures pleines", () => {

@@ -357,6 +357,62 @@ function clearBuoyDots(host, anchors, sides) {
   return moved;
 }
 
+/**
+ * Empilement vertical des vignettes qui se recouvrent : descente du haut vers
+ * le bas, puis remontée de ce qui dépasse. Le décalage deux à deux des puces de
+ * zone n'y suffit plus — quatre balises de la vallée du Rhône tombent au même
+ * endroit sur une fenêtre courte et se renvoient la balle sans converger.
+ * `boxes` : `{ left, right, top, height }`. Renvoie le nouveau haut de chacune.
+ */
+function stackBoxes(boxes, limitTop, limitBottom, gap = 6) {
+  const order = boxes.map((box, i) => i).sort((i, j) => boxes[i].top - boxes[j].top);
+  const tops = boxes.map((box) => box.top);
+  const sameColumn = (a, b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 0;
+
+  // Descente : chaque vignette passe sous celles qu'elle recouvre.
+  for (let k = 0; k < order.length; k += 1) {
+    const i = order[k];
+    for (let p = 0; p < k; p += 1) {
+      const j = order[p];
+      if (!sameColumn(boxes[i], boxes[j])) continue;
+      tops[i] = Math.max(tops[i], tops[j] + boxes[j].height + gap);
+    }
+  }
+  // Remontée : ce qui dépasse en bas remonte la file, sans sortir par le haut.
+  for (let k = order.length - 1; k >= 0; k -= 1) {
+    const i = order[k];
+    let ceiling = limitBottom - boxes[i].height;
+    for (let p = k + 1; p < order.length; p += 1) {
+      const j = order[p];
+      if (!sameColumn(boxes[i], boxes[j])) continue;
+      ceiling = Math.min(ceiling, tops[j] - boxes[i].height - gap);
+    }
+    tops[i] = Math.max(limitTop, Math.min(tops[i], ceiling));
+  }
+  return tops;
+}
+
+function stackBuoyChips(host) {
+  const pane = document.getElementById("map-pane");
+  if (!pane) return false;
+  const box = pane.getBoundingClientRect();
+  const chips = [...host.querySelectorAll(".chip")];
+  const rects = chips.map((chip) => chip.getBoundingClientRect());
+  const tops = stackBoxes(
+    rects.map((r) => ({ left: r.left, right: r.right, top: r.top, height: r.height })),
+    box.top + 6,
+    box.bottom - 6
+  );
+  let moved = false;
+  chips.forEach((chip, i) => {
+    const shift = tops[i] - rects[i].top;
+    if (Math.abs(shift) < 0.5) return;
+    chip.style.top = `${parseFloat(chip.style.top) + shift}px`;
+    moved = true;
+  });
+  return moved;
+}
+
 function layoutBuoyChips(host, anchors) {
   const paneW = host.getBoundingClientRect().width;
   const sides = {};
@@ -369,9 +425,9 @@ function layoutBuoyChips(host, anchors) {
   }
   for (let pass = 0; pass < 3; pass += 1) {
     clampChips(host);
-    resolveChipCollisions(host, true);
+    const stacked = stackBuoyChips(host);
     clampChips(host);
-    if (!clearBuoyDots(host, anchors, sides)) break;
+    if (!clearBuoyDots(host, anchors, sides) && !stacked) break;
   }
   drawBuoyLinks(host, anchors);
 }
@@ -647,6 +703,7 @@ if (typeof module !== "undefined" && module.exports) {
     hourLabel,
     ageLabel,
     clampToBox,
+    stackBoxes,
     defaultBuoyCurves,
     toggleBuoyCurveState,
   };
