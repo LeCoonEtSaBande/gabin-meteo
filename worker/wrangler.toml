@@ -1,0 +1,25 @@
+name = "gabin-meteo"
+main = "src/index.js"
+compatibility_date = "2026-10-11"
+workers_dev = true
+preview_urls = false
+
+[observability]
+enabled = true
+
+[vars]
+# Fiches des balises : branche affichage-web, lue en direct (pas de seconde table).
+SPECS_URL = "https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/affichage-web/assets/balises_specs/balises_specifications.csv"
+# Origines autorisées en plus de localhost / 127.0.0.1, séparées par des virgules.
+ALLOWED_ORIGINS = "https://lecoonetsabande.github.io"
+# Cache de bord de /balises, en secondes.
+CACHE_SECONDS = "180"
+SPECS_CACHE_SECONDS = "600"
+METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2"
+# Appels horaires Météo-France autorisés par requête, toutes stations confondues
+# (DPObs ne rend qu'une mesure par appel). Cloudflare plafonne un appel du Worker
+# à 50 sous-requêtes en gratuit, 1000 en payant, et une écriture de cache en
+# consomme une : 24 laisse de la marge sur les ~15 sous-requêtes fixes.
+METEOFRANCE_HOURS_BUDGET = "24"
+
+# La clé Météo-France n'est pas ici : `wrangler secret put METEOFRANCE_API_KEY`.
