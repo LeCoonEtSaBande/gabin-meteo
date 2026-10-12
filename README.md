@@ -52,7 +52,9 @@ GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Trai
 
 `assets/balises_specs/balises_specifications.csv` (fiche des balises) est éditée **ici** : c'est le fichier parent. Le Worker le relit directement sur cette branche (`SPECS_URL`), donc ajouter une balise ne demande que cette ligne — `source` vaut `MeteoSuisse` (3 lettres) ou `MeteoFrance` (identifiant à 8 chiffres).
 
-`chip_dx_svg` et `chip_dy_svg`, facultatives, écartent la vignette de son point sans déplacer le point : en unités du SVG de la carte, positif vers l'est et vers le sud. Les cinq balises de la vallée posées sur le Rhône et la Saône sont poussées vers l'est pour laisser voir le fleuve. La verticale reste un souhait : l'empilement des vignettes la reprend, et il n'y a plus de jeu vers le nord quand la file touche le bas de la carte.
+`chip_dx_svg` et `chip_dy_svg`, facultatives, écartent la vignette de son point sans déplacer le point : en unités du SVG de la carte, positif vers l'est et vers le sud. Les quatre balises de la vallée posées sur le Rhône sont poussées vers l'est pour laisser voir le fleuve. La verticale reste un souhait : l'empilement des vignettes la reprend, et il n'y a plus de jeu vers le nord quand la file touche le bas de la carte.
+
+Un décalage se vérifie **aussi sur un gabarit de téléphone** : l'empilement considère comme une même colonne deux vignettes qui se chevauchent ne serait-ce que d'un pixel en largeur. Sur un écran étroit, un décalage qui fait juste effleurer la colonne voisine fusionne les deux files en une seule, saturée, et remonte tout le paquet — c'est ce qui était arrivé aux balises suisses quand Mâcon était poussée de 45 unités.
 
 Modifier les spots uniquement sur `collecte-api-meteo`. `ICONIFS.csv` n’est pas recopié : le détail n’affiche que AROMEIFS et ICONGFS.
 
