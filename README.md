@@ -15,6 +15,7 @@ Ce dépôt n’est **pas** un historique unique fusionné dans `main`. Chaque br
 | `traitement-donnees` | Courbes assemblées, JSON des puces et du graphique, Markdown pour Claude (**parent** de `data/processed`) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
 | `affichage-web` | Site GitHub Pages (copies publiées + front) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md) |
 | `archive-previsions` | Prévision AROME HD / ICON-CH1 du lendemain figée chaque soir à 23 h | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md) |
+| `balises` | Mesures des balises au pas de 30 min, une journée de Paris par fichier | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/balises/README.md) |
 
 Les changements d’interface vont sur `affichage-web`, ceux de collecte, de traitement et d’archive sur leur branche. `main` ne reçoit que les workflows et la doc d’ensemble.
 
@@ -30,6 +31,8 @@ Chaque jeu a **un seul fichier parent**. Les autres branches ne l’éditent pas
 | Prévisions brutes (`data/raw/`) | `collecte-api-meteo` | Lues par le traitement, jamais versionnées ailleurs |
 | Courbes et JSON quotidien (`data/processed/`) | `traitement-donnees` | Recopiés vers `affichage-web` (`quotidien.json`, `creneaux.json`, `last_update.json`, `AROMEIFS.csv`, `ICONGFS.csv`, `llm/`) |
 | Archive de 23 h (`data/archive/`) | `archive-previsions` | Lue par Claude via `raw.githubusercontent.com` |
+| Balises (`assets/balises_specs/balises_specifications.csv`) | `affichage-web` | Lue par le Worker Cloudflare (`SPECS_URL`) et par l’archive des balises |
+| Archive des balises (`data/archive/`) | `balises` | Lue par Claude via `raw.githubusercontent.com` |
 
 Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copies publiées** pour GitHub Pages. Ne pas les modifier à la main. `traitement-donnees` ne versionne pas les specs ni les bruts.
 
@@ -50,9 +53,13 @@ main : Archive des prévisions de 23 h  (cron 23h05 Paris)
         → checkout archive-previsions + historique de collecte-api-meteo
         → python src/archive/run.py (sans appel API)
         → push data/archive et index.md sur archive-previsions
+main : Archive des balises (30 min)  (23h10 Paris, puis clôture de la veille)
+        → checkout balises + fiche des balises d'affichage-web
+        → python src/archive/run.py (appels Météo-France et MétéoSuisse)
+        → push data/archive et index.md sur balises
 ```
 
-Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau), *Traitement et affichage*, ou *Archive des prévisions de 23 h* (`day`, `force`).
+Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau), *Traitement et affichage*, *Archive des prévisions de 23 h* (`day`, `force`) ou *Archive des balises (30 min)* (`day`, `force`).
 
 ## Données
 
@@ -75,7 +82,7 @@ Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéan
 - Coque HTML (onglets, date, puces) autour d’une **carte SVG seule**.
 - Vue *Tendances journalières* : une puce par zone avec icône météo, vent max 8 h–20 h, créneau, température à 15 h.
 - Panneau détail : specs, liens, graphiques `AROMEIFS` / `ICONGFS` (1 / 3 / 5 jours, tooltip, plein écran). Sur le graphique : trait pointillé à 10 nds, zone colorée là où le vent moyen dépasse 10 nds, valeurs des pics de vent moyen et de rafales (nombre seul), et bornes du créneau de chaque courbe sous l’axe des heures.
-- Onglet *Balises temps réel* : pas encore branché.
+- Onglet *Balises temps réel* : 11 stations (3 MétéoSuisse, 8 Météo-France) servies par un Worker Cloudflare qui porte la clé Météo-France. Aucun appel avant l’ouverture de l’onglet, pas de rafraîchissement automatique : bouton ↻, relecture au retour si les mesures ont plus de 10 minutes.
 
 ## Lecture par Claude (appli téléphone ou PC)
 
@@ -83,8 +90,9 @@ Le dépôt est public : Claude lit ces fichiers Markdown avec sa recherche / lec
 
 - Prévisions actuelles (courbes AROMEIFS et ICONGFS heure par heure, tous les spots) : `https://lecoonetsabande.github.io/gabin-meteo/llm/index.md`
 - Archive de 23 h (AROME HD / ICON-CH1 bruts) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md`
+- Archive des balises (mesures au pas de 30 min) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/index.md`
 
-Conseil : un Projet Claude dont les instructions donnent ces deux adresses.
+Conseil : un Projet Claude dont les instructions donnent ces trois adresses.
 
 ## Lancer en local
 
@@ -102,3 +110,5 @@ python src/traitement/run.py
 Pour la carte : checkout `affichage-web` et servir la racine (`python -m http.server 8080`).
 
 Pour l’archive : voir le [README de `archive-previsions`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md#lancer-en-local) (il faut un checkout de `collecte-api-meteo` avec son historique).
+
+Pour l’archive des balises : voir le [README de `balises`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/balises/README.md#lancer-en-local) (il faut la fiche des balises d’`affichage-web` et la clé Météo-France).

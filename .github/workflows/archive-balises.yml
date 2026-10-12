@@ -1,0 +1,80 @@
+# Archive les mesures des balises au pas de 30 minutes, journée de Paris par
+# journée de Paris, sur la branche `balises`. Deux écritures par jour : à 23 h le
+# jour en cours, encore partiel, puis sa clôture au premier passage suivant, qui
+# relit tous les créneaux et répare ce qui manquait.
+#
+# Quatre déclenchements pour couvrir été et hiver : 21 h UTC tombe à 23h10 en été
+# et 22h10 en hiver, 22 h UTC à 00h10 et 23h10, 11 h UTC à 13h10 et 12h10, 12 h
+# UTC à 14h10 et 13h10. Le script ne retient que la fenêtre de 23 h et celle de
+# la clôture ; les autres passages ne font rien, sauf rattraper un échec.
+#
+# Les balises viennent de la fiche d'`affichage-web` : en ajouter une n'y demande
+# que sa ligne, l'archive la suit sans toucher au code.
+name: Archive des balises (30 min)
+
+"on":
+  schedule:
+    - cron: "10 11,12,21,22 * * *"
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Jour à archiver (AAAA-MM-JJ). Vide : la veille, ou le jour en cours s'il est 23 h"
+        type: string
+        default: ""
+      force:
+        description: "Réécrire un jour déjà clôturé"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-balises
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout balises
+        uses: actions/checkout@v7
+        with:
+          ref: balises
+
+      - name: Checkout de la fiche des balises
+        uses: actions/checkout@v7
+        with:
+          ref: affichage-web
+          path: _web
+          sparse-checkout: assets/balises_specs
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Archiver
+        env:
+          METEOFRANCE_API_KEY: ${{ secrets.METEOFRANCE_API_KEY }}
+          DAY: ${{ inputs.day }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          args=(--specs _web/assets/balises_specs/balises_specifications.csv)
+          if [ -n "$DAY" ]; then args+=(--day "$DAY"); fi
+          if [ "$FORCE" = "true" ]; then args+=(--force); fi
+          python -u src/archive/run.py "${args[@]}"
+
+      - name: Committer l'archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/archive index.md
+          if git diff --cached --quiet; then
+            echo "Archive déjà à jour."
+            exit 0
+          fi
+          git commit -m "Archive balises $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin HEAD:balises
