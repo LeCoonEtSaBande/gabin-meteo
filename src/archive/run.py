@@ -568,6 +568,42 @@ def write_index() -> None:
 # --- Programme --------------------------------------------------------------
 
 
+def load_archived(day: date) -> dict[str, dict[datetime, Measure]]:
+    """Ce qui est déjà dans le fichier du jour, pour ne jamais perdre une mesure.
+
+    La clôture relit tout, mais une source momentanément muette ne doit pas
+    effacer ce que le passage du soir avait su lire : les valeurs relues
+    remplacent les anciennes, les créneaux qu'elles n'ont pas restent en place.
+    """
+    csv_path, _, _ = day_paths(day)
+    if not csv_path.exists():
+        return {}
+    archived: dict[str, dict[datetime, Measure]] = {}
+    with csv_path.open(encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle, delimiter=";"):
+            try:
+                slot = datetime.fromisoformat(row["valid_at"])
+            except (KeyError, ValueError):
+                continue
+            archived.setdefault(row["station_key"], {})[slot] = Measure(
+                wind_kn=number(row.get("wind_speed_10m_kn")),
+                gust_kn=number(row.get("wind_gusts_10m_kn")),
+                dir_deg=number(row.get("wind_direction_10m_deg")),
+                temp_c=number(row.get("temperature_2m_c")),
+            )
+    return archived
+
+
+def merge_measures(
+    archived: dict[str, dict[datetime, Measure]],
+    fresh: dict[str, dict[datetime, Measure]],
+) -> dict[str, dict[datetime, Measure]]:
+    merged = {key: dict(slots) for key, slots in archived.items()}
+    for key, slots in fresh.items():
+        merged.setdefault(key, {}).update(slots)
+    return merged
+
+
 def already_complete(day: date) -> bool:
     _, _, meta_path = day_paths(day)
     if not meta_path.exists():
@@ -610,7 +646,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--specs", type=Path, required=True, help="Fiche des balises (CSV d'affichage-web)")
     parser.add_argument("--day", help="Jour à archiver (AAAA-MM-JJ)")
-    parser.add_argument("--force", action="store_true", help="Réécrire un jour déjà clôturé")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Réécrire un jour déjà clôturé, en repartant de zéro au lieu de compléter",
+    )
     args = parser.parse_args(argv)
 
     now = datetime.now(PARIS)
@@ -642,6 +682,8 @@ def main(argv: list[str] | None = None) -> int:
 
     apikey = os.environ.get("METEOFRANCE_API_KEY", "")
     measures = gather(stations, slots, apikey)
+    if not args.force:
+        measures = merge_measures(load_archived(day), measures)
     rows = build_rows(day, stations, measures, now)
     by_source: dict[str, int] = {}
     for station in stations:

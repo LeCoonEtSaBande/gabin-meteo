@@ -17,6 +17,7 @@ from run import (
     index_swiss,
     mf_direction,
     mf_measure,
+    merge_measures,
     mf_slot_url,
     parse_swiss_stamp,
     peak,
@@ -155,6 +156,32 @@ class SpecsTests(unittest.TestCase):
             )
             stations = read_specs(path)
         self.assertIn("tournon", [station.key for station in stations])
+
+
+class MergeTests(unittest.TestCase):
+    def test_fresh_values_win_and_old_slots_survive(self) -> None:
+        soir = datetime(2026, 10, 11, 12, 0, tzinfo=PARIS)
+        nuit = datetime(2026, 10, 11, 23, 30, tzinfo=PARIS)
+        archived = {"etoile": {soir: Measure(10.0, 15.0, 180, 12.0)}}
+        fresh = {"etoile": {soir: Measure(17.7, 23.9, 350, 15.8), nuit: Measure(4.0, 6.0, 20, 11.0)}}
+        merged = merge_measures(archived, fresh)
+        self.assertEqual(merged["etoile"][soir].wind_kn, 17.7)
+        self.assertEqual(merged["etoile"][nuit].wind_kn, 4.0)
+
+    def test_a_mute_source_does_not_erase_the_day(self) -> None:
+        soir = datetime(2026, 10, 11, 12, 0, tzinfo=PARIS)
+        archived = {"geneve_cointrin": {soir: Measure(4.9, 7.8, 60, 15.1)}}
+        merged = merge_measures(archived, {"geneve_cointrin": {}})
+        self.assertEqual(merged["geneve_cointrin"][soir].gust_kn, 7.8)
+
+    def test_slots_are_matched_on_the_instant_not_the_timezone_object(self) -> None:
+        # Le CSV relu rend un décalage figé, la grille une zone nommée.
+        from datetime import timezone, timedelta as delta
+
+        relu = datetime(2026, 10, 11, 12, 0, tzinfo=timezone(delta(hours=2)))
+        grille = datetime(2026, 10, 11, 12, 0, tzinfo=PARIS)
+        merged = merge_measures({"etoile": {relu: Measure(10.0, 15.0, 180, 12.0)}}, {})
+        self.assertIn(grille, merged["etoile"])
 
 
 class SummaryTests(unittest.TestCase):

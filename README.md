@@ -8,6 +8,7 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 
 - Pas de **30 minutes**, heures en **Europe/Paris**. Une journée fait 48 créneaux, 46 ou 50 les jours de changement d’heure.
 - **Deux écritures par jour.** À 23 h le jour en cours est posé, encore partiel (`complet: false`) ; au premier passage suivant il est **clôturé** : tous ses créneaux sont relus depuis le début, ce qui répare au passage ce que le passage du soir avait manqué (`complet: true`).
+- Une relecture **complète** le fichier, elle ne le remplace pas : les valeurs relues prennent la place des anciennes, mais un créneau qu'une source momentanément muette ne rend plus reste en place. `--force` seul repart de zéro.
 - **Toutes les balises de la fiche** `assets/balises_specs/balises_specifications.csv` d’`affichage-web`, lue à chaque passage. En ajouter une ne demande que sa ligne là-bas : l’archive la suit sans toucher au code.
 - Mesures **brutes des stations**, sans assemblage ni interpolation. Un créneau sans mesure est absent du fichier, il n’est pas comblé.
 
@@ -52,7 +53,7 @@ Lecture depuis Claude : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin
 
 ## Workflow
 
-*Archive des balises (30 min)* (sur `main`) : cron `10 11,12,21,22 * * *` UTC. Quatre déclenchements pour couvrir été et hiver ; le script ne retient que la fenêtre de **23 h** (écriture du jour en cours) et celle d’**avant 18 h** (clôture de la veille), ce qui fait deux écritures par jour dans les deux saisons. Les autres passages ne font rien, sauf rattraper un échec. Déclenchement manuel : `day` (AAAA-MM-JJ) et `force` pour réécrire un jour déjà clôturé.
+*Archive des balises (30 min)* (sur `main`) : cron `10 11,12,21,22 * * *` UTC. Quatre déclenchements pour couvrir été et hiver ; le script ne retient que la fenêtre de **23 h** (écriture du jour en cours) et celle d’**avant 18 h** (clôture de la veille), ce qui fait deux écritures par jour dans les deux saisons. Les autres passages ne font rien, sauf rattraper un échec. Déclenchement manuel : `day` (AAAA-MM-JJ) et `force` pour réécrire un jour déjà clôturé, en repartant de zéro au lieu de le compléter.
 
 La clé Météo-France vient du secret de dépôt `METEOFRANCE_API_KEY` (Settings → Secrets and variables → Actions). Elle n’est jamais dans le dépôt.
 
