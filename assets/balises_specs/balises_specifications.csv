@@ -1,12 +1,12 @@
-station_key;display_name;short_name;source;source_id;latitude;longitude;elevation_m;link_station
-geneve_cointrin;Genève / Cointrin;Genève;MeteoSuisse;GVE;46.247519;6.127742;411;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=GVE
-changins;Nyon / Changins;Changins;MeteoSuisse;CGI;46.401053;6.227722;458;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=CGI
-st_prex;St-Prex;St-Prex;MeteoSuisse;PRE;46.483683;6.443;425;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=PRE
-annecy_meythet;Annecy / Meythet;Annecy;MeteoFrance;74182001;45.928167;6.094;455;https://meteofrance.com/previsions-meteo-france/annecy/74000
-chambery_aix;Chambéry-Aix;Chambéry;MeteoFrance;73329001;45.641333;5.877833;235;https://meteofrance.com/previsions-meteo-france/aix-les-bains/73100
-macon;Mâcon;Mâcon;MeteoFrance;71105001;46.2945;4.794333;219;https://meteofrance.com/previsions-meteo-france/macon/71000
-lyon_bron;Lyon-Bron;Bron;MeteoFrance;69029001;45.721333;4.949167;202;https://meteofrance.com/previsions-meteo-france/bron/69500
-reventin;Reventin;Reventin;MeteoFrance;38336001;45.478667;4.810667;295;https://meteofrance.com/previsions-meteo-france/reventin-vaugris/38121
-etoile;Étoile-sur-Rhône;Étoile;MeteoFrance;26124001;44.819;4.8895;145;https://meteofrance.com/previsions-meteo-france/etoile-sur-rhone/26800
-montelimar;Montélimar;Montélimar;MeteoFrance;26198001;44.581167;4.733;73;https://meteofrance.com/previsions-meteo-france/montelimar/26200
-la_mure;La Mure Radôme;La Mure;MeteoFrance;38269004;44.935;5.786167;885;https://meteofrance.com/previsions-meteo-france/la-mure/38350
+station_key;display_name;short_name;source;source_id;latitude;longitude;elevation_m;link_station;chip_dx_svg;chip_dy_svg
+geneve_cointrin;Genève / Cointrin;Genève;MeteoSuisse;GVE;46.247519;6.127742;411;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=GVE;;
+changins;Nyon / Changins;Changins;MeteoSuisse;CGI;46.401053;6.227722;458;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=CGI;;
+st_prex;St-Prex;St-Prex;MeteoSuisse;PRE;46.483683;6.443;425;https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&station=PRE;;
+annecy_meythet;Annecy / Meythet;Annecy;MeteoFrance;74182001;45.928167;6.094;455;https://meteofrance.com/previsions-meteo-france/annecy/74000;;
+chambery_aix;Chambéry-Aix;Chambéry;MeteoFrance;73329001;45.641333;5.877833;235;https://meteofrance.com/previsions-meteo-france/aix-les-bains/73100;;
+macon;Mâcon;Mâcon;MeteoFrance;71105001;46.2945;4.794333;219;https://meteofrance.com/previsions-meteo-france/macon/71000;45;
+lyon_bron;Lyon-Bron;Bron;MeteoFrance;69029001;45.721333;4.949167;202;https://meteofrance.com/previsions-meteo-france/bron/69500;55;
+reventin;Reventin;Reventin;MeteoFrance;38336001;45.478667;4.810667;295;https://meteofrance.com/previsions-meteo-france/reventin-vaugris/38121;55;
+etoile;Étoile-sur-Rhône;Étoile;MeteoFrance;26124001;44.819;4.8895;145;https://meteofrance.com/previsions-meteo-france/etoile-sur-rhone/26800;70;
+montelimar;Montélimar;Montélimar;MeteoFrance;26198001;44.581167;4.733;73;https://meteofrance.com/previsions-meteo-france/montelimar/26200;70;
+la_mure;La Mure Radôme;La Mure;MeteoFrance;38269004;44.935;5.786167;885;https://meteofrance.com/previsions-meteo-france/la-mure/38350;;

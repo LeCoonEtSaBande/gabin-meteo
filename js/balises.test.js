@@ -14,6 +14,7 @@ const {
   buoyPoint,
   parseBuoyPayload,
   cardinalFr,
+  chipNudge,
   dirSentence,
   fitAffine,
   projectLatLon,
@@ -104,6 +105,13 @@ test("rose des vents en français sur 16 secteurs", () => {
   assert.equal(cardinalFr(292), "ONO");
   assert.equal(cardinalFr(359), "N");
   assert.equal(cardinalFr(NaN), "");
+});
+
+test("décalage de vignette : colonnes absentes ou vides = pas de décalage", () => {
+  assert.deepEqual(chipNudge({ chip_dx_svg: "55", chip_dy_svg: "-30" }), { x: 55, y: -30 });
+  assert.deepEqual(chipNudge({ chip_dx_svg: "", chip_dy_svg: "-45" }), { x: 0, y: -45 });
+  assert.deepEqual(chipNudge({}), { x: 0, y: 0 });
+  assert.deepEqual(chipNudge(undefined), { x: 0, y: 0 });
 });
 
 test("au calme, la fiche n'annonce pas de provenance", () => {

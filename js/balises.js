@@ -196,6 +196,20 @@ function ageLabel(ms, now = Date.now()) {
   return `il y a ${h} h`;
 }
 
+/**
+ * Écart voulu entre le point d'une balise et sa vignette, en unités du SVG
+ * (`chip_dx_svg` vers l'est, `chip_dy_svg` vers le sud), pris dans la fiche de
+ * la balise. Sert à dégager ce que la vignette recouvre, le Rhône et la Saône
+ * surtout ; le point et le trait de rappel, eux, ne bougent pas. L'écart est un
+ * souhait : l'empilement garde la main sur la verticale, et il ne reste aucun
+ * jeu vers le nord dès que la file touche le bas de la carte.
+ */
+function chipNudge(station) {
+  const x = finiteOrNaN(station?.chip_dx_svg);
+  const y = finiteOrNaN(station?.chip_dy_svg);
+  return { x: Number.isNaN(x) ? 0 : x, y: Number.isNaN(y) ? 0 : y };
+}
+
 /** Repère en bordure : point ramené dans la carte et flèche vers la vraie position. */
 function clampToBox(pt, box, margin) {
   const x = Math.min(box.x + box.width - margin, Math.max(box.x + margin, pt.x));
@@ -435,8 +449,8 @@ function placeBuoyChips(host, anchors, sides, alternate) {
     const chip = host.querySelector(`.chip[data-buoy="${anchor.key}"]`);
     if (!chip) return;
     sides[anchor.key] = alternate ? (rank % 2 ? -1 : 1) : anchor.x > paneW / 2 ? -1 : 1;
-    chip.style.left = `${anchor.x + sides[anchor.key] * (chip.offsetWidth / 2 + 12)}px`;
-    chip.style.top = `${anchor.y}px`;
+    chip.style.left = `${anchor.chipX + sides[anchor.key] * (chip.offsetWidth / 2 + 12)}px`;
+    chip.style.top = `${anchor.chipY}px`;
   });
   clampChips(host);
   // L'empilement finit chaque passe : l'écart aux points, lui, est horizontal.
@@ -488,15 +502,17 @@ function renderBuoys() {
     const raw = projectLatLon(buoyProjection, Number(station.latitude), Number(station.longitude));
     const pt = clampToBox(raw, view, 14);
     const pane = svgToPane(pt.x, pt.y);
-    anchors.push({ key: station.station_key, x: pane.x, y: pane.y });
+    const nudge = chipNudge(station);
+    const away = svgToPane(pt.x + nudge.x, pt.y + nudge.y);
+    anchors.push({ key: station.station_key, x: pane.x, y: pane.y, chipX: away.x, chipY: away.y });
     const btn = document.createElement("button");
     btn.type = "button";
     const last = buoyData[station.station_key]?.last;
     const stale = !last || ageMinutes(last.ms) > BUOY_STALE_MIN;
     btn.className = `chip buoy-chip${stale ? " is-stale" : ""}${selectedBuoy === station.station_key ? " is-selected" : ""}`;
     btn.dataset.buoy = station.station_key;
-    btn.style.left = `${pane.x}px`;
-    btn.style.top = `${pane.y}px`;
+    btn.style.left = `${away.x}px`;
+    btn.style.top = `${away.y}px`;
     btn.innerHTML = buoyChipHtml(station, buoyData[station.station_key], pt.edge);
     btn.addEventListener("click", (event) => {
       event.preventDefault();
@@ -741,6 +757,7 @@ if (typeof module !== "undefined" && module.exports) {
     buoyPoint,
     parseBuoyPayload,
     cardinalFr,
+    chipNudge,
     dirSentence,
     fitAffine,
     projectLatLon,
