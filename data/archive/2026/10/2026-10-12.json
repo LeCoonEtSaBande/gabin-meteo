@@ -2,32 +2,32 @@
   "day": "2026-10-12",
   "step_min": 30,
   "fuseau": "Europe/Paris",
-  "mode": "manuel",
+  "mode": "soir",
   "complet": false,
   "creneaux": 48,
-  "creneaux_releves": 27,
+  "creneaux_releves": 47,
   "balises": 11,
   "balises_par_source": {
     "MeteoSuisse": 3,
     "MeteoFrance": 8
   },
   "couverture": {
-    "geneve_cointrin": 26,
-    "changins": 26,
-    "st_prex": 26,
-    "annecy_meythet": 27,
-    "chambery_aix": 25,
-    "macon": 27,
-    "lyon_bron": 27,
-    "reventin": 27,
-    "etoile": 27,
-    "montelimar": 27,
-    "la_mure": 27
+    "geneve_cointrin": 47,
+    "changins": 47,
+    "st_prex": 47,
+    "annecy_meythet": 47,
+    "chambery_aix": 45,
+    "macon": 47,
+    "lyon_bron": 47,
+    "reventin": 47,
+    "etoile": 47,
+    "montelimar": 47,
+    "la_mure": 47
   },
   "muettes": [],
   "sources": {
     "MeteoFrance": "DPObs v2 station/infrahoraire-6m (une mesure par appel)",
     "MeteoSuisse": "OGD SMN ogd-smn_<id>_t_now.csv et fin de _t_recent.csv"
   },
-  "archived_at": "2026-10-12T13:05:42+02:00"
+  "archived_at": "2026-10-12T23:14:21+02:00"
 }
