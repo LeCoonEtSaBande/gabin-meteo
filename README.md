@@ -56,6 +56,8 @@ GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Trai
 
 Un décalage se vérifie **aussi sur un gabarit de téléphone** : l'empilement considère comme une même colonne deux vignettes qui se chevauchent ne serait-ce que d'un pixel en largeur. Sur un écran étroit, un décalage qui fait juste effleurer la colonne voisine fusionne les deux files en une seule, saturée, et remonte tout le paquet — c'est ce qui était arrivé aux balises suisses quand Mâcon était poussée de 45 unités.
 
+Sur une carte trop courte pour une seule file — un téléphone, où les marges système et le bandeau de la date laissent moins de 600 px —, les vignettes basculent en deux colonnes : une sur deux repart de l'autre côté de son point, en alternant **au sein de son versant** de la carte. Alterner sur le classement général en hauteur mettrait du même côté toutes les balises d'une même vallée, puisque leurs voisines en hauteur sont sur l'autre rive : les quatre balises du Rhône finissaient en file unique contre le bord gauche de l'écran.
+
 Modifier les spots uniquement sur `collecte-api-meteo`. `ICONIFS.csv` n’est pas recopié : le détail n’affiche que AROMEIFS et ICONGFS.
 
 Les libellés courts des puces (`ZONE_LABELS` dans `js/quotidien.js`) restent du code d’affichage, pas une seconde table de specs.

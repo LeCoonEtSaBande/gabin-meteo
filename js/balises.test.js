@@ -24,6 +24,7 @@ const {
   ageLabel,
   clampToBox,
   stackBoxes,
+  buoyChipSides,
   defaultBuoyCurves,
   toggleBuoyCurveState,
 } = require("./balises.js");
@@ -254,6 +255,40 @@ test("vignettes : deux colonnes distinctes ne se poussent pas", () => {
   const left = { left: 0, right: 80, top: 100, height: 50 };
   const right = { left: 200, right: 280, top: 100, height: 50 };
   assert.deepEqual(stackBoxes([left, right], 600), [100, 100]);
+});
+
+test("vignettes en deux colonnes : l'alternance se fait par versant", () => {
+  // Cinq balises de la vallée du Rhône à l'ouest, six balises suisses et
+  // alpines à l'est, entrelacées en hauteur comme sur la carte.
+  const anchors = [
+    { key: "st_prex", x: 330, y: 40 },
+    { key: "macon", x: 60, y: 90 },
+    { key: "changins", x: 310, y: 100 },
+    { key: "geneve", x: 300, y: 160 },
+    { key: "annecy", x: 320, y: 220 },
+    { key: "bron", x: 90, y: 240 },
+    { key: "chambery", x: 290, y: 290 },
+    { key: "reventin", x: 80, y: 310 },
+    { key: "etoile", x: 85, y: 430 },
+    { key: "la_mure", x: 280, y: 445 },
+    { key: "montelimar", x: 70, y: 500 },
+  ];
+  const single = buoyChipSides(anchors, 393, false);
+  // File simple : chaque vignette part vers le milieu de la carte.
+  assert.equal(single.macon, 1);
+  assert.equal(single.bron, 1);
+  assert.equal(single.st_prex, -1);
+  assert.equal(single.la_mure, -1);
+
+  const two = buoyChipSides(anchors, 393, true);
+  // Les quatre balises du Rhône ne finissent plus toutes du même côté.
+  assert.deepEqual(
+    [two.bron, two.reventin, two.etoile, two.montelimar],
+    [-1, 1, -1, 1]
+  );
+  // Et chaque versant se partage bien en deux colonnes.
+  assert.deepEqual([two.macon, two.bron, two.reventin], [1, -1, 1]);
+  assert.deepEqual([two.st_prex, two.changins, two.geneve], [-1, 1, -1]);
 });
 
 test("vignettes : ce qui déborde en bas remonte au lieu de sortir de la carte", () => {

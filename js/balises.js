@@ -407,6 +407,18 @@ function stackBoxes(boxes, limitBottom, gap = 6) {
   return tops;
 }
 
+/**
+ * Plancher des vignettes. La légende « Vent en Nds » tient le bas de la carte,
+ * et le bandeau de la date commence juste après : une file qui descend jusqu'au
+ * bord paraît coupée, Montélimar surtout, dont le point est à l'extrême sud.
+ */
+function buoyChipFloor(box) {
+  const legend = document.getElementById("map-legend");
+  const floor = box.bottom - 6;
+  if (!legend || legend.hidden) return floor;
+  return Math.min(floor, legend.getBoundingClientRect().top - 6);
+}
+
 function stackBuoyChips(host) {
   const pane = document.getElementById("map-pane");
   if (!pane) return false;
@@ -415,7 +427,7 @@ function stackBuoyChips(host) {
   const rects = chips.map((chip) => chip.getBoundingClientRect());
   const tops = stackBoxes(
     rects.map((r) => ({ left: r.left, right: r.right, top: r.top, height: r.height })),
-    box.bottom - 6
+    buoyChipFloor(box)
   );
   let moved = false;
   chips.forEach((chip, i) => {
@@ -442,16 +454,36 @@ function clampBuoyChipsX(host) {
   }
 }
 
+/**
+ * Côté de chaque vignette par rapport à son point. En file simple, une vignette
+ * part vers le milieu de la carte. En deux colonnes, elle alterne **au sein de
+ * son versant** : alterner sur le classement général renverrait du même côté
+ * toutes les balises d'une même vallée, puisque leurs voisines en hauteur sont
+ * sur l'autre rive. Les quatre balises du Rhône se retrouvaient ainsi en file
+ * unique contre le bord gauche de l'écran.
+ */
+function buoyChipSides(anchors, paneW, alternate) {
+  const sides = {};
+  const ranks = [0, 0];
+  for (const anchor of [...anchors].sort((a, b) => a.y - b.y)) {
+    const east = anchor.x > paneW / 2;
+    const toward = east ? -1 : 1;
+    const rank = ranks[east ? 1 : 0];
+    ranks[east ? 1 : 0] = rank + 1;
+    sides[anchor.key] = alternate && rank % 2 ? -toward : toward;
+  }
+  return sides;
+}
+
 function placeBuoyChips(host, anchors, sides, alternate) {
   const paneW = host.getBoundingClientRect().width;
-  const byHeight = [...anchors].sort((a, b) => a.y - b.y);
-  byHeight.forEach((anchor, rank) => {
+  Object.assign(sides, buoyChipSides(anchors, paneW, alternate));
+  for (const anchor of anchors) {
     const chip = host.querySelector(`.chip[data-buoy="${anchor.key}"]`);
-    if (!chip) return;
-    sides[anchor.key] = alternate ? (rank % 2 ? -1 : 1) : anchor.x > paneW / 2 ? -1 : 1;
+    if (!chip) continue;
     chip.style.left = `${anchor.chipX + sides[anchor.key] * (chip.offsetWidth / 2 + 12)}px`;
     chip.style.top = `${anchor.chipY}px`;
-  });
+  }
   clampChips(host);
   // L'empilement finit chaque passe : l'écart aux points, lui, est horizontal.
   for (let pass = 0; pass < 4; pass += 1) {
@@ -768,6 +800,7 @@ if (typeof module !== "undefined" && module.exports) {
     ageLabel,
     clampToBox,
     stackBoxes,
+    buoyChipSides,
     defaultBuoyCurves,
     toggleBuoyCurveState,
   };
