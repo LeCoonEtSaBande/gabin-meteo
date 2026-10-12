@@ -11,6 +11,7 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 - Une relecture **complète** le fichier, elle ne le remplace pas : les valeurs relues prennent la place des anciennes, mais un créneau qu'une source momentanément muette ne rend plus reste en place. `--force` seul repart de zéro.
 - **Toutes les balises de la fiche** `assets/balises_specs/balises_specifications.csv` d’`affichage-web`, lue à chaque passage. En ajouter une ne demande que sa ligne là-bas : l’archive la suit sans toucher au code.
 - Mesures **brutes des stations**, sans assemblage ni interpolation. Un créneau sans mesure est absent du fichier, il n’est pas comblé.
+- `complet: true` veut dire que **tous les créneaux du jour sont passés et ont été relus**, pas qu’il n’y a aucun trou : la couverture réelle est dans `couverture` du `.json` et dans la colonne *Créneaux* du `.md`. Pour rattraper un trou, relancer le workflow à la main avec `day` (dans les quatre jours d’historique de Météo-France).
 
 ## Sources
 

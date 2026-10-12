@@ -1,8 +1,8 @@
 """Archive au pas de 30 minutes les mesures des balises, jour de Paris par jour de Paris.
 
-Deux écritures par jour : le soir vers 23 h on pose le jour en cours, encore
-partiel ; le lendemain midi on le clôture en relisant tous ses créneaux, ce qui
-répare au passage ce que le passage du soir avait manqué.
+Deux écritures par jour : à 23 h on pose le jour en cours, encore partiel ; au
+premier passage suivant on le clôture en relisant tous ses créneaux, ce qui
+complète ce que le passage du soir avait manqué.
 
 Sources, appelées en direct (les mesures ne sont pas dans le dépôt) :
 
@@ -554,10 +554,10 @@ def write_index() -> None:
     ]
     for meta, meta_path in metas:
         day = date.fromisoformat(meta["day"])
-        relevés = sum(meta["couverture"].values())
+        releves = sum(meta["couverture"].values())
         total = meta["creneaux"] * meta["balises"]
         lines.append(
-            f"| {day_label(day)} | {meta['balises']} | {relevés}/{total} |"
+            f"| {day_label(day)} | {meta['balises']} | {releves}/{total} |"
             f" {'oui' if meta['complet'] else 'non'} |"
             f" {rel_url(meta_path.with_suffix('.md'))} | {rel_url(meta_path.with_suffix('.csv'))} |"
         )
