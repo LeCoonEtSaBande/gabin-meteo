@@ -28,16 +28,16 @@ const DEFAULTS = {
   CACHE_SECONDS: "180",
   SPECS_CACHE_SECONDS: "600",
   METEOFRANCE_BASE: "https://public-api.meteofrance.fr/public/DPObs/v2",
-  METEOFRANCE_HOURS_BUDGET: "36",
+  METEOFRANCE_HOURS_BUDGET: "24",
 };
 
 const ERROR_CACHE_SECONDS = 30;
 const FETCH_TIMEOUT_MS = 8000;
-// Une heure révolue ne bouge plus : gardée jusqu'au lendemain. Une heure encore
-// vide est réessayée au bout de 5 min, un peu plus que le délai d'insertion de
-// Météo-France (~2 min 30), pour que l'heure qui vient de sonner ne manque pas longtemps.
-const HOUR_CACHE_SECONDS = 26 * 3600;
-const EMPTY_HOUR_CACHE_SECONDS = 300;
+// Une heure révolue ne bouge plus : la journée déjà lue est gardée jusqu'au
+// lendemain. Une heure encore vide est réessayée au bout de 5 min, un peu plus
+// que le délai d'insertion de Météo-France (~2 min 30).
+const HOURS_CACHE_SECONDS = 26 * 3600;
+const MISS_RETRY_MS = 300000;
 
 function setting(env, name) {
   const value = env[name];
@@ -73,6 +73,19 @@ async function fetchText(url, init = {}) {
 }
 
 /**
+ * Mise en cache au mieux : une écriture compte dans le quota de sous-requêtes
+ * de l'appel, donc elle peut être refusée. La réponse est déjà partie, on
+ * n'échoue pas pour autant.
+ */
+function cachePut(key, response, ctx) {
+  try {
+    ctx.waitUntil(caches.default.put(key, response).catch(() => {}));
+  } catch {
+    // Quota dépassé dès l'appel : la prochaine lecture refera le travail.
+  }
+}
+
+/**
  * Les fiches changent rarement : gardées quelques minutes, assez peu pour
  * qu'une balise ajoutée au CSV apparaisse sans attendre. La clé de cache est
  * celle du Worker, pas l'URL d'origine, qui est partagée avec le cache général.
@@ -89,59 +102,62 @@ async function loadSpecs(request, env, ctx) {
       "cache-control": `public, s-maxage=${setting(env, "SPECS_CACHE_SECONDS")}`,
     },
   });
-  ctx.waitUntil(caches.default.put(key, store));
+  cachePut(key, store, ctx);
   return parseSpecs(text);
 }
 
-function hourCacheKey(request, sourceId, iso) {
-  const url = new URL(`/_mf/${encodeURIComponent(sourceId)}/${iso}`, request.url);
-  return new Request(url.toString(), { method: "GET" });
+function hoursCacheKey(request, day) {
+  return new Request(new URL(`/_mf/${day}`, request.url).toString(), { method: "GET" });
 }
 
 /**
- * Courbe du jour d'une station française. DPObs ne renvoie qu'une mesure par
- * appel : on relit les heures pleines écoulées, du plus récent au plus ancien,
- * et chaque heure obtenue reste dans le cache du Worker jusqu'au lendemain.
- * `budget` plafonne les appels de l'ensemble des stations pour une requête ; les
- * heures laissées de côté sont rattrapées par les lectures suivantes.
+ * Heures françaises déjà connues de la journée : `{ id_station: { heure ISO:
+ * point } }`. Une seule entrée de cache pour toutes les stations, parce qu'une
+ * écriture de cache compte dans le quota de sous-requêtes du Worker.
  */
-async function readFrenchHours(station, { base, headers, day, now, budget, request, ctx }) {
-  const series = [];
+async function loadFrenchHours(request, day) {
+  try {
+    const hit = await caches.default.match(hoursCacheKey(request, day));
+    if (hit) return await hit.json();
+  } catch {
+    // Cache de bord muet : on repart d'une journée vide, les heures se relisent.
+  }
+  return {};
+}
+
+function saveFrenchHours(request, day, known, ctx) {
+  const store = new Response(JSON.stringify(known), {
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": `public, s-maxage=${HOURS_CACHE_SECONDS}`,
+    },
+  });
+  cachePut(hoursCacheKey(request, day), store, ctx);
+}
+
+/**
+ * Complète la courbe du jour d'une station française. DPObs ne renvoie qu'une
+ * mesure par appel : on relit les heures pleines encore manquantes, du plus
+ * récent au plus ancien. `budget` plafonne les appels de l'ensemble des stations
+ * pour une requête ; le reste est rattrapé par les lectures suivantes.
+ */
+async function fillFrenchHours(station, { base, headers, day, now, budget, known }) {
+  const hours = known[station.source_id] || (known[station.source_id] = {});
   for (const iso of hourStampsForDay(day, now).reverse()) {
-    const key = hourCacheKey(request, station.source_id, iso);
-    const hit = await caches.default.match(key);
-    if (hit) {
-      series.push(parseMeteoFrance(await hit.text()));
-      continue;
-    }
+    const seen = hours[iso];
+    if (seen?.t) continue;
+    if (seen && now - seen.miss < MISS_RETRY_MS) continue;
     if (budget.left <= 0) continue;
     budget.left -= 1;
-    let text;
     try {
-      text = await fetchText(meteoFranceHourUrl(station.source_id, iso, base), {
-        headers,
-        cf: { cacheTtl: 0 },
-      });
+      const url = meteoFranceHourUrl(station.source_id, iso, base);
+      const [point] = parseMeteoFrance(await fetchText(url, { headers, cf: { cacheTtl: 0 } }));
+      hours[iso] = point || { miss: now };
     } catch {
       // Un trou dans la courbe ne doit pas emporter la mesure du moment.
-      continue;
     }
-    const points = parseMeteoFrance(text);
-    const ttl = points.length ? HOUR_CACHE_SECONDS : EMPTY_HOUR_CACHE_SECONDS;
-    ctx.waitUntil(
-      caches.default.put(
-        key,
-        new Response(text, {
-          headers: {
-            "content-type": "text/csv; charset=utf-8",
-            "cache-control": `public, s-maxage=${ttl}`,
-          },
-        })
-      )
-    );
-    series.push(points);
   }
-  return mergePoints(...series);
+  return Object.values(hours).filter((item) => item.t);
 }
 
 async function readStation(station, env, shared) {
@@ -155,7 +171,12 @@ async function readStation(station, env, shared) {
   const latest = parseMeteoFrance(
     await fetchText(meteoFranceLatestUrl(station.source_id, base), { headers, cf: { cacheTtl: 0 } })
   );
-  const hours = await readFrenchHours(station, { ...shared, base, headers });
+  let hours = [];
+  try {
+    hours = await fillFrenchHours(station, { ...shared, base, headers });
+  } catch {
+    // Courbe incomplète plutôt que balise muette : la vignette, elle, tient.
+  }
   // La mesure de 6 min passe après l'heure pleine qu'elle recouvre parfois.
   return mergePoints(hours, latest);
 }
@@ -164,11 +185,15 @@ async function buildPayload(request, env, ctx) {
   const now = Date.now();
   const day = parisDayKey(now);
   const specs = await loadSpecs(request, env, ctx);
-  const budget = { left: Number(setting(env, "METEOFRANCE_HOURS_BUDGET")) };
-  const shared = { day, now, budget, request, ctx };
+  const french = specs.some((station) => station.source === "MeteoFrance");
+  const known = french ? await loadFrenchHours(request, day) : {};
+  const asked = Number(setting(env, "METEOFRANCE_HOURS_BUDGET"));
+  const budget = { left: asked };
+  const shared = { day, now, budget, known };
   const results = await Promise.allSettled(
     specs.map((station) => readStation(station, env, shared))
   );
+  if (french && budget.left < asked) saveFrenchHours(request, day, known, ctx);
   const stations = specs.map((station, i) => {
     const result = results[i];
     if (result.status !== "fulfilled") {
@@ -215,7 +240,7 @@ async function handleBalises(request, env, ctx) {
       "cache-control": `public, s-maxage=${ttl}`,
     },
   });
-  ctx.waitUntil(caches.default.put(key, store));
+  cachePut(key, store, ctx);
   return { body, cache: "MISS" };
 }
 

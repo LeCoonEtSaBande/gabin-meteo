@@ -50,9 +50,18 @@ function frenchHourCsv(iso) {
   ].join("\n");
 }
 
-function stub({ frenchStatus = 200 } = {}) {
+/**
+ * `subrequests` reproduit le plafond de Cloudflare : au-delà, `fetch` et
+ * `caches.default.put` lèvent la même erreur que sur la plateforme.
+ */
+function stub({ frenchStatus = 200, subrequests = Infinity } = {}) {
   const calls = [];
   const store = new Map();
+  let spent = 0;
+  const spend = () => {
+    spent += 1;
+    if (spent > subrequests) throw new Error("Too many subrequests by single Worker invocation.");
+  };
   globalThis.caches = {
     default: {
       async match(request) {
@@ -60,6 +69,7 @@ function stub({ frenchStatus = 200 } = {}) {
         return hit ? hit.clone() : undefined;
       },
       async put(request, response) {
+        spend();
         store.set(request.url, response.clone());
       },
     },
@@ -67,6 +77,7 @@ function stub({ frenchStatus = 200 } = {}) {
   globalThis.fetch = async (url, init) => {
     const href = String(url);
     calls.push({ url: href, headers: init?.headers || {} });
+    spend();
     if (href === SPECS_URL) return new Response(SPECS_CSV, { status: 200 });
     if (href.includes("meteoschweiz")) return new Response(swissCsvToday(), { status: 200 });
     if (href.includes("meteofrance")) {
@@ -126,23 +137,49 @@ test("/balises renvoie les deux sources en nœuds dans un seul appel", async () 
   assert.match(mf.url, /station\/infrahoraire-6m\?id_station=73329001&format=csv$/);
 });
 
-test("courbe française : les heures écoulées sont relues, dans la limite du budget", async () => {
+const elapsedHours = () => hourStampsForDay(nowIso(), Date.now());
+
+test("budget des appels horaires : l'heure la plus récente d'abord", async () => {
+  const { calls } = stub();
+  await get("/balises", { origin: SITE, env: { ...ENV, METEOFRANCE_HOURS_BUDGET: "1" } });
+  const asked = hourly(calls).map((call) => new URL(call.url).searchParams.get("date"));
+  assert.deepEqual(asked, [elapsedHours().at(-1)]);
+});
+
+test("courbe française : la journée lue est gardée dans une seule entrée de cache", async () => {
   const { calls, store } = stub();
-  const budget = 2;
-  const expected = Math.min(budget, hourStampsForDay(nowIso(), Date.now()).length);
-  const body = await (
-    await get("/balises", { origin: SITE, env: { ...ENV, METEOFRANCE_HOURS_BUDGET: String(budget) } })
-  ).json();
-  assert.equal(hourly(calls).length, expected);
-  // Les heures pleines les plus récentes d'abord, puis la mesure de 6 min.
-  assert.equal(body.stations[1].points.length, expected + 1);
+  const hours = elapsedHours();
+  const env = { ...ENV, METEOFRANCE_HOURS_BUDGET: String(hours.length) };
+  const body = await (await get("/balises", { origin: SITE, env })).json();
+  assert.equal(hourly(calls).length, hours.length);
+  // Les heures pleines, puis la mesure de 6 min.
+  assert.equal(body.stations[1].points.length, hours.length + 1);
   assert.equal(body.stations[1].points.at(-1).t, `${nowIso()}T12:06:00Z`);
 
-  // Deuxième passage : le cache des heures évite de rappeler l'API.
+  // Une seule clé pour toutes les stations : une écriture de cache coûte une sous-requête.
+  const keys = [...store.keys()].filter((url) => url.includes("/_mf/"));
+  assert.deepEqual(keys, [`https://gabin-meteo.test/_mf/${nowIso()}`]);
+
+  // Deuxième passage : la journée déjà lue évite de rappeler l'API.
   store.delete("https://gabin-meteo.test/balises");
   const before = hourly(calls).length;
-  await get("/balises", { origin: SITE, env: { ...ENV, METEOFRANCE_HOURS_BUDGET: String(budget) } });
+  await get("/balises", { origin: SITE, env });
   assert.equal(hourly(calls).length, before);
+});
+
+test("plafond de sous-requêtes atteint : la courbe se vide, pas la vignette", async () => {
+  // Les fiches (lecture + mise en cache) et une lecture par station tiennent
+  // dans 4 sous-requêtes ; la courbe, non.
+  stub({ subrequests: 4 });
+  const body = await (await get("/balises", { origin: SITE })).json();
+  assert.deepEqual(
+    body.stations.map((s) => [s.station_key, s.status, s.points.length]),
+    [
+      ["geneve_cointrin", "ok", 1],
+      ["chambery_aix", "ok", 1],
+    ]
+  );
+  assert.equal(body.stations[1].points[0].t, `${nowIso()}T12:06:00Z`);
 });
 
 test("deuxième appel servi par le cache de bord, sans toucher aux API", async () => {
