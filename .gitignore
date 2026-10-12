@@ -11,3 +11,5 @@ node_modules/
 dist/
 .idea/
 .vscode/
+*.py[cod]
+_web/
