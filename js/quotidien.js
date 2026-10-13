@@ -41,6 +41,7 @@ const ZONE_LABELS = {
   laffrey: "Laffrey",
   monteynard: "Monteynard",
   valence: "Valence",
+  montelimar: "Montélimar",
   st_alban_du_rhone: "St-Alban",
   chasse_sur_rhone: "Chasse",
   saone: "Saône",
@@ -60,6 +61,7 @@ const PRIMARY_SPOT = {
   laffrey: "parking_pre_rencontre",
   monteynard: "treffort",
   valence: "portes_les_valence",
+  montelimar: "cruas",
   st_alban_du_rhone: "st_alban_du_rhone",
   chasse_sur_rhone: "loire_sur_rhone",
   saone: "pont_darciat",
@@ -77,6 +79,7 @@ const CHIP_POS = {
   chasse_sur_rhone: { x: 36, y: 658 },
   st_alban_du_rhone: { x: 178, y: 798 },
   valence: { x: 62, y: 1038 },
+  montelimar: { x: 62, y: 1192 },
   laffrey: { x: 580, y: 958 },
   monteynard: { x: 374, y: 1048 },
 };
@@ -94,6 +97,7 @@ const CHIP_POS_MOBILE = {
   chasse_sur_rhone: { x: 0.14, y: 0.50 },
   st_alban_du_rhone: { x: 0.31, y: 0.64 },
   valence: { x: 0.20, y: 0.76 },
+  montelimar: { x: 0.17, y: 0.91 },
   laffrey: { x: 0.79, y: 0.80 },
   monteynard: { x: 0.40, y: 0.89 },
 };
