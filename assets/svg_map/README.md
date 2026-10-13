@@ -27,3 +27,11 @@ Chaque zone contient :
 - `Marqueur` — un cercle dont le **centre** est la position du spot. C’est ce point que le JS utilise.
 
 Pour une nouvelle région : mêmes préfixes `Z_` / `S_`, mêmes clés que le JSON, un marqueur par spot, une hit-area par zone.
+
+## Bande sud (y ≥ 1137)
+
+Le dessin Linearity Curve s’arrête à `y ≈ 1137`. La `viewBox` descend plus bas (`-24 128 852 1150`) pour contenir Cruas : la bande sous le dessin a été **générée** à partir du modèle de terrain Open-Meteo et du tracé OSM du Rhône, puis peinte avec la même palette. Elle tient dans cinq calques repérables à leur suffixe :
+
+`Bas_sud`, `Moyens_sud`, `Hauts_sud`, `Sommets_sud` (reliefs) et `Courdeau_rhone_sud` (le fleuve), plus l’étiquette `Villes_txt_Montélimar`.
+
+Un ré-export depuis Curve les écraserait. Les réimporter dans le document Curve, ou les réinjecter après export.

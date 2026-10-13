@@ -174,7 +174,7 @@ test("chaque balise est rattachée au spot le plus proche", () => {
     lyon_bron: "wwmeyzieu",
     reventin: "st_cyr_sur_le_rhone",
     etoile: "portes_les_valence",
-    montelimar: "portes_les_valence",
+    montelimar: "cruas",
     la_mure: "treffort",
   });
 });
