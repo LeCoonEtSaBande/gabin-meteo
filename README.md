@@ -4,7 +4,7 @@ Branche `collecte-api-meteo` : récupération des prévisions brutes Open-Meteo 
 
 Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/main/README.md).
 
-**17 spots** dans **11 zones**. Un run réussi déclenche ensuite le workflow *Traitement et affichage* sur `main` (courbes + republication de la carte).
+**18 spots** dans **12 zones**. Un run réussi déclenche ensuite le workflow *Traitement et affichage* sur `main` (courbes + republication de la carte).
 
 ## Horaires
 
