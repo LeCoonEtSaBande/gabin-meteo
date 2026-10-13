@@ -11,7 +11,7 @@ entre 11 h et 19 h. 30 minutes est le seul pas qui tombe juste à la fois sur le
 
 Sources, appelées en direct (les mesures ne sont pas dans le dépôt) :
 
-- Météo-France DPPaquetObs v1, `paquet/infrahoraire-6m?id_station=<id>` : les
+- Météo-France DPPaquetObs v2, `paquet/infrahoraire-6m?id_station=<id>` : les
   24 h écoulées au pas de 6 min, en un appel par balise. La rétention est
   glissante, donc un run en retard laisse le début de la journée en dehors.
 - Météo-France DPObs v2, `station/infrahoraire-6m?date=<créneau>` : une mesure
@@ -55,7 +55,7 @@ PEAK_TO_HOUR = 20
 RAW_BASE_URL = "https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises"
 
 MF_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2"
-MF_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v1"
+MF_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v2"
 MF_PAUSE_S = 0.7
 MF_BACKOFF_S = (15, 30, 45)
 MF_HISTORY_DAYS = 4
@@ -703,7 +703,7 @@ def write_index() -> None:
     lines = [
         "# Gabin-meteo — archive des balises",
         "",
-        "Mesures des balises relevées sur les API Météo-France (DPPaquetObs v1 et DPObs v2)"
+        "Mesures des balises relevées sur les API Météo-France (DPPaquetObs v2 et DPObs v2)"
         f" et MétéoSuisse (OGD SMN), un créneau toutes les {STEP_MIN} minutes, journées de"
         " Paris. Reventin et Étoile sont relevées toutes les 6 minutes entre 11 h et 19 h.",
         "",
@@ -877,7 +877,7 @@ def main(argv: list[str] | None = None) -> int:
         "couverture": {station.key: len(measures.get(station.key, {})) for station in stations},
         "muettes": sorted(station.key for station in stations if not measures.get(station.key)),
         "sources": {
-            "MeteoFrance": "DPPaquetObs v1 paquet/infrahoraire-6m (24 h en un appel),"
+            "MeteoFrance": "DPPaquetObs v2 paquet/infrahoraire-6m (24 h en un appel),"
             " complété par DPObs v2 station/infrahoraire-6m (une mesure par appel)",
             "MeteoSuisse": "OGD SMN ogd-smn_<id>_t_now.csv et fin de _t_recent.csv",
         },

@@ -19,7 +19,7 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 
 | Source | Appel | Ce qu’on lit |
 | --- | --- | --- |
-| Météo-France, le paquet | `DPPaquetObs/v1/paquet/infrahoraire-6m?id_station=…` | Les **24 h écoulées au pas de 6 min en un seul appel** : `ff` (vent moyen 10 min, m/s), `raf10` (rafale, m/s), `dd` / `ddraf10` (direction), `t` (température, K) |
+| Météo-France, le paquet | `DPPaquetObs/v2/paquet/infrahoraire-6m?id_station=…` | Les **24 h écoulées au pas de 6 min en un seul appel** : `ff` (vent moyen 10 min, m/s), `raf10` (rafale, m/s), `dd` / `ddraf10` (direction), `t` (température, K) |
 | Météo-France, le rattrapage | `DPObs/v2/station/infrahoraire-6m?id_station=…&date=<créneau>` | **Une** mesure, celle du créneau demandé, mêmes champs |
 | MétéoSuisse | `ogd-smn_<id>_t_now.csv` et la fin de `ogd-smn_<id>_t_recent.csv` | La mesure 10 min du même instant : `fu3010z0` (vent moyen, km/h), `fu3010z1` (rafale, km/h), `dkl010z0` (direction), `tre200s0` (température, °C) |
 
