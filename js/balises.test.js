@@ -209,6 +209,24 @@ test("fiches balises complètes : 3 suisses, 8 françaises", () => {
   }
 });
 
+test("pas fin : les trois colonnes vont ensemble, et seules les balises de vol les portent", () => {
+  const balises = parseCsv(
+    fs.readFileSync(path.join(ROOT, "assets", "balises_specs", "balises_specifications.csv"), "utf8")
+  );
+  const fines = balises.filter((row) => row.pas_fin_min);
+  assert.deepEqual(
+    fines.map((row) => [row.station_key, row.pas_fin_min, row.pas_fin_debut_h, row.pas_fin_fin_h]),
+    [
+      ["reventin", "6", "11", "19"],
+      ["etoile", "6", "11", "19"],
+    ]
+  );
+  for (const row of balises) {
+    const filled = [row.pas_fin_min, row.pas_fin_debut_h, row.pas_fin_fin_h].filter(Boolean);
+    assert.ok(filled.length === 0 || filled.length === 3, `${row.station_key} : pas fin incomplet`);
+  }
+});
+
 test("pics mesurés limités à 8 h–20 h du jour demandé", () => {
   const points = [
     { valid_at: "2026-10-03T07:50", mean: 30, gust: 40 },

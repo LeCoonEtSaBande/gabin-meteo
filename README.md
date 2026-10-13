@@ -52,6 +52,8 @@ GitHub Pages ne peut servir que ce qui est sur cette branche. Le workflow **Trai
 
 `assets/balises_specs/balises_specifications.csv` (fiche des balises) est éditée **ici** : c'est le fichier parent. Le Worker le relit directement sur cette branche (`SPECS_URL`), donc ajouter une balise ne demande que cette ligne — `source` vaut `MeteoSuisse` (3 lettres) ou `MeteoFrance` (identifiant à 8 chiffres).
 
+`pas_fin_min`, `pas_fin_debut_h` et `pas_fin_fin_h`, facultatives, demandent un pas de temps plus serré que les 30 minutes communes, sur une plage d'heures de Paris. Seules Reventin et Étoile les portent (`6;11;19`) : ce sont les deux balises de vol, et l'après-midi y mérite la minute près. Le Worker et l'archive des balises lisent ces trois colonnes, personne ne tient de seconde liste. Laisser les trois vides revient à garder le pas commun toute la journée.
+
 `chip_dx_svg` et `chip_dy_svg`, facultatives, écartent la vignette de son point sans déplacer le point : en unités du SVG de la carte, positif vers l'est et vers le sud. Les quatre balises de la vallée posées sur le Rhône sont poussées vers l'est pour laisser voir le fleuve. La verticale reste un souhait : l'empilement des vignettes la reprend, et il n'y a plus de jeu vers le nord quand la file touche le bas de la carte.
 
 Un décalage se vérifie **aussi sur un gabarit de téléphone** : l'empilement considère comme une même colonne deux vignettes qui se chevauchent ne serait-ce que d'un pixel en largeur. Sur un écran étroit, un décalage qui fait juste effleurer la colonne voisine fusionne les deux files en une seule, saturée, et remonte tout le paquet — c'est ce qui était arrivé aux balises suisses quand Mâcon était poussée de 45 unités.
