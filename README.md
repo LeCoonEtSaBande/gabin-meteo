@@ -111,7 +111,7 @@ La liste des balises est le CSV `assets/balises_specs/balises_specifications.csv
 
 Une seule clé sert à tout le projet : les balises en direct (Worker) et l’archive des balises (GitHub Actions). Les prévisions viennent d’Open-Meteo, sans clé.
 
-**Clé actuelle : générée le 13 octobre 2026, valable deux ans, elle expire vers le 13 octobre 2028.** La date exacte est lisible sans dépenser d’appel : champ `meteofrance_expire` de [`/health`](https://gabin-meteo.garinlu-subs.workers.dev/health).
+**Clé actuelle : générée le 13 octobre 2026, valable deux ans, elle expire le 12 octobre 2028.** Elle se relit sans dépenser d’appel : champ `meteofrance_expire` de [`/health`](https://gabin-meteo.garinlu-subs.workers.dev/health).
 
 ### Où l’obtenir
 
