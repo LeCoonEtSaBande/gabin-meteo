@@ -323,21 +323,31 @@ export function parseSpecs(text, maxStations = 40) {
  * dans le jeton : les lire dit si le Paquet est accessible sans dépenser un
  * appel, et sans jamais sortir la clé du Worker.
  */
-export function subscribedApis(token) {
+function jwtPayload(token) {
   const part = String(token || "").split(".")[1];
-  if (!part) return [];
+  if (!part) return null;
   try {
     const base64 = part.replace(/-/g, "+").replace(/_/g, "/");
     const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
     const bytes = Uint8Array.from(atob(padded), (char) => char.charCodeAt(0));
-    const payload = JSON.parse(new TextDecoder().decode(bytes));
-    const apis = payload?.subscribedAPIs;
-    if (!Array.isArray(apis)) return [];
-    return apis.map((api) => String(api?.name ?? api)).filter(Boolean);
+    return JSON.parse(new TextDecoder().decode(bytes));
   } catch {
     // Jeton illisible : on ne sait pas, et /health le dira ainsi.
-    return [];
+    return null;
   }
+}
+
+export function subscribedApis(token) {
+  const apis = jwtPayload(token)?.subscribedAPIs;
+  if (!Array.isArray(apis)) return [];
+  return apis.map((api) => String(api?.name ?? api)).filter(Boolean);
+}
+
+/** Date d'expiration de la clé (AAAA-MM-JJ), ou null si le jeton ne la porte pas. */
+export function keyExpiry(token) {
+  const exp = Number(jwtPayload(token)?.exp);
+  if (!Number.isFinite(exp) || exp <= 0) return null;
+  return new Date(exp * 1000).toISOString().slice(0, 10);
 }
 
 const LOCALHOST = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;

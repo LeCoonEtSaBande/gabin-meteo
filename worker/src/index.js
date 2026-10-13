@@ -26,6 +26,7 @@ import {
   parseSpecs,
   pointsForDayOrLast,
   subscribedApis,
+  keyExpiry,
   timeGrid,
 } from "./parse.js";
 
@@ -255,6 +256,7 @@ export default {
           // reste vide tant que le paquet n'y est pas, et c'est ici qu'on le voit.
           meteofrance_paquet: apis.includes(PAQUET_API) ? "abonné" : "absent de la clé",
           meteofrance_apis: apis,
+          meteofrance_expire: keyExpiry(env.METEOFRANCE_API_KEY),
           meteofrance_base: setting(env, "METEOFRANCE_BASE"),
           meteofrance_paquet_base: setting(env, "METEOFRANCE_PAQUET_BASE"),
           step_min: Number(setting(env, "COARSE_STEP_MIN")),

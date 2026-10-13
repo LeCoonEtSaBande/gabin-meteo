@@ -19,6 +19,7 @@ import {
   pointsForDay,
   pointsForDayOrLast,
   subscribedApis,
+  keyExpiry,
   timeGrid,
 } from "../src/parse.js";
 
@@ -350,6 +351,16 @@ test("abonnements lus dans la clé, sans appel ni fuite", () => {
   assert.deepEqual(subscribedApis("entete"), []);
   assert.deepEqual(subscribedApis("entete.pas-du-base64-json.signature"), []);
   assert.deepEqual(subscribedApis(""), []);
+});
+
+test("date d'expiration lue dans la clé", () => {
+  const exp = Date.UTC(2028, 9, 13, 6, 50) / 1000;
+  const body = Buffer.from(JSON.stringify({ exp })).toString("base64url");
+  assert.equal(keyExpiry(`entete.${body}.signature`), "2028-10-13");
+  const sans = Buffer.from(JSON.stringify({ sub: "x" })).toString("base64url");
+  assert.equal(keyExpiry(`entete.${sans}.signature`), null);
+  assert.equal(keyExpiry("entete"), null);
+  assert.equal(keyExpiry(""), null);
 });
 
 test("CORS : le site publié et le serveur local, rien d'autre", () => {

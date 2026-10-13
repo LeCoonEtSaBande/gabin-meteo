@@ -181,8 +181,12 @@ La même clé va à **deux endroits**, et les deux doivent être mis à jour ens
 | Worker | [tableau de bord Cloudflare](https://dash.cloudflare.com/?to=/:account/workers/services/view/gabin-meteo/production/settings) → *Variables and Secrets*, secret `METEOFRANCE_API_KEY` ; ou `npx wrangler secret put METEOFRANCE_API_KEY` |
 | GitHub Actions | [secrets du dépôt](https://github.com/LeCoonEtSaBande/gabin-meteo/settings/secrets/actions), secret `METEOFRANCE_API_KEY` (archive des balises) |
 
-Vérification, sans dépenser d'appel : `GET /health` renvoie `meteofrance_paquet` et
-la liste `meteofrance_apis`, lues dans le jeton lui-même. En ligne de commande :
+La clé actuelle vaut **deux ans** et expire vers le **13 octobre 2028** : procédure
+complète de renouvellement dans le [README d'ensemble](../README.md#clé-météo-france).
+
+Vérification, sans dépenser d'appel : `GET /health` renvoie `meteofrance_paquet`, la
+liste `meteofrance_apis` et la date `meteofrance_expire`, lues dans le jeton
+lui-même. En ligne de commande :
 
 ```bash
 python3 -c "import base64,json,os,sys; p=os.environ['METEOFRANCE_API_KEY'].split('.')[1]; \

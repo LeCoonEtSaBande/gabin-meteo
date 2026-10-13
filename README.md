@@ -107,6 +107,42 @@ Sobriété : aucun appel tant que l’onglet n’est pas ouvert, pas de rafraîc
 
 La liste des balises est le CSV `assets/balises_specs/balises_specifications.csv` de `affichage-web`, relu par le Worker comme par le front et par l’archive : **ajouter une balise = éditer ce seul fichier**.
 
+## Clé Météo-France
+
+Une seule clé sert à tout le projet : les balises en direct (Worker) et l’archive des balises (GitHub Actions). Les prévisions viennent d’Open-Meteo, sans clé.
+
+**Clé actuelle : générée le 13 octobre 2026, valable deux ans, elle expire vers le 13 octobre 2028.** La date exacte est lisible sans dépenser d’appel : champ `meteofrance_expire` de [`/health`](https://gabin-meteo.garinlu-subs.workers.dev/health).
+
+### Où l’obtenir
+
+Sur le [portail API de Météo-France](https://portail-api.meteofrance.fr/web/fr/), compte du projet. Deux abonnements, gratuits, **dans la même application** (`DefaultApplication`) :
+
+| API | Sert à | Abonnement |
+| --- | --- | --- |
+| `DonneesPubliquesPaquetObservation` | La journée de chaque balise française en un appel : courbe du Worker, archive des balises | [page de l’API](https://portail-api.meteofrance.fr/web/fr/api/DonneesPubliquesPaquetObservation) |
+| `DonneesPubliquesObservation` | Le repli : dernière mesure d’une balise, rattrapage de l’archive | [page de l’API](https://portail-api.meteofrance.fr/web/fr/api/DonneesPubliquesObservation) |
+
+Les abonnements sont inscrits **dans** la clé : une clé générée avant un abonnement ne marche pas pour cette API. Dans l’ordre :
+
+1. Vérifier que les deux abonnements sont actifs : icône du compte en haut à droite → *My API*.
+2. Générer la clé : page d’une des deux API → *Configure API* → type **API Key** → durée en secondes (deux ans : `63072000`) → *Generate Token*. Le portail rappelle : la clé couvre toutes les API abonnées de l’application ([FAQ](https://portail-api.meteofrance.fr/web/fr/faq)).
+3. Copier la clé **en entier** : trois morceaux séparés par des points, plusieurs centaines de caractères. Un double-clic n’en prend que le premier.
+
+### Où la poser
+
+Le même nom aux deux endroits, **`METEOFRANCE_API_KEY`**, et les deux à mettre à jour ensemble :
+
+| Où | Lien | Utilisé par |
+| --- | --- | --- |
+| Secret GitHub Actions | [Settings → Secrets and variables → Actions](https://github.com/LeCoonEtSaBande/gabin-meteo/settings/secrets/actions) | Workflow *Archive des balises* |
+| Secret du Worker Cloudflare | [Workers & Pages → `gabin-meteo` → Settings → Variables and Secrets](https://dash.cloudflare.com/?to=/:account/workers/services/view/gabin-meteo/production/settings) (ou `npx wrangler secret put METEOFRANCE_API_KEY` dans `worker/`) | Onglet *Balises* |
+
+Contrôle après la mise à jour : [`/health`](https://gabin-meteo.garinlu-subs.workers.dev/health) doit répondre `meteofrance_paquet: "abonné"` et la nouvelle date dans `meteofrance_expire`.
+
+### Quand elle expire
+
+Plus de balises françaises dans l’onglet, et l’archive des balises les marque muettes (`::warning` dans le run, `muettes` dans le `.json`). Rien ne casse côté prévisions. Refaire les étapes ci-dessus, puis corriger la date d’expiration dans ce README.
+
 ## Lecture par Claude (appli téléphone ou PC)
 
 Le dépôt est public : Claude lit ces fichiers Markdown avec sa recherche / lecture web, sans connecteur.
