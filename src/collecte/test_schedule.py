@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 
 from config import PARIS
 from schedule import already_collected_for_slot, current_slot_start
@@ -35,46 +35,30 @@ class CurrentSlotStartTests(unittest.TestCase):
         self.assertEqual(current_slot_start(now), paris(2026, 8, 26, 6, 15))
 
 
-class CronPairTests(unittest.TestCase):
-    """Les deux crons UTC d'un créneau : l'un collecte, l'autre doit renoncer.
+class UtcCronTests(unittest.TestCase):
+    """Le cron `28 5,17 * * *` UTC tombe dans le bon créneau été comme hiver."""
 
-    Le workflow part à 4h28 et 5h28 UTC le matin, 16h28 et 17h28 le soir. En
-    été Paris a deux heures d'avance, en hiver une seule : c'est à chaque fois
-    le second cron d'été et le premier d'hiver qui tombent à côté.
-    """
+    def utc(self, *args: int) -> datetime:
+        return datetime(*args, tzinfo=timezone.utc).astimezone(PARIS)
 
-    def assert_pair(self, on_time: datetime, beside: datetime, slot: datetime) -> None:
-        self.assertEqual(current_slot_start(on_time), slot)
-        collected = {"last_update_at": on_time.isoformat()}
-        self.assertFalse(already_collected_for_slot(slot, None))
-        # Le cron à côté retombe sur un créneau déjà servi, donc ne collecte pas.
-        self.assertTrue(
-            already_collected_for_slot(current_slot_start(beside), collected),
-            f"{beside:%H:%M} aurait collecté une seconde fois",
-        )
+    def assert_collects(self, run: datetime, slot: datetime, previous: datetime) -> None:
+        self.assertEqual(current_slot_start(run), slot)
+        # La collecte précédente appartient à l'autre créneau : celle-ci doit partir.
+        self.assertFalse(already_collected_for_slot(slot, {"last_update_at": previous.isoformat()}))
+        # Un second départ dans le même créneau ne recollecte pas.
+        self.assertTrue(already_collected_for_slot(slot, {"last_update_at": run.isoformat()}))
 
-    def test_summer_morning(self) -> None:
-        # 4h28 UTC = 6h28 à Paris, 5h28 UTC = 7h28.
-        self.assert_pair(paris(2026, 8, 27, 6, 28), paris(2026, 8, 27, 7, 28), paris(2026, 8, 27, 6, 15))
+    def test_winter_runs_at_6h28_and_18h28(self) -> None:
+        morning, evening = self.utc(2026, 1, 15, 5, 28), self.utc(2026, 1, 15, 17, 28)
+        self.assertEqual((f"{morning:%H:%M}", f"{evening:%H:%M}"), ("06:28", "18:28"))
+        self.assert_collects(morning, paris(2026, 1, 15, 6, 15), self.utc(2026, 1, 14, 17, 28))
+        self.assert_collects(evening, paris(2026, 1, 15, 18, 15), morning)
 
-    def test_summer_evening(self) -> None:
-        self.assert_pair(
-            paris(2026, 8, 27, 18, 28), paris(2026, 8, 27, 19, 28), paris(2026, 8, 27, 18, 15)
-        )
-
-    def test_winter_morning(self) -> None:
-        # 5h28 UTC = 6h28 à Paris ; 4h28 UTC tombe à 5h28, avant l'ouverture.
-        self.assert_pair(paris(2026, 1, 15, 6, 28), paris(2026, 1, 15, 5, 28), paris(2026, 1, 15, 6, 15))
-
-    def test_winter_evening(self) -> None:
-        # 17h28 UTC = 18h28 à Paris ; 16h28 UTC tombe à 17h28, encore le matin.
-        self.assert_pair(
-            paris(2026, 1, 15, 18, 28), paris(2026, 1, 15, 17, 28), paris(2026, 1, 15, 18, 15)
-        )
-
-    def test_winter_morning_early_cron_lands_on_yesterday_evening(self) -> None:
-        # Le cron de 4h28 UTC en hiver vise la soirée de la veille, pas le matin.
-        self.assertEqual(current_slot_start(paris(2026, 1, 15, 5, 28)), paris(2026, 1, 14, 18, 15))
+    def test_summer_runs_at_7h28_and_19h28(self) -> None:
+        morning, evening = self.utc(2026, 8, 27, 5, 28), self.utc(2026, 8, 27, 17, 28)
+        self.assertEqual((f"{morning:%H:%M}", f"{evening:%H:%M}"), ("07:28", "19:28"))
+        self.assert_collects(morning, paris(2026, 8, 27, 6, 15), self.utc(2026, 8, 26, 17, 28))
+        self.assert_collects(evening, paris(2026, 8, 27, 18, 15), morning)
 
 
 class AlreadyCollectedTests(unittest.TestCase):

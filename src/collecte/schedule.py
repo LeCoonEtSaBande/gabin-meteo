@@ -1,10 +1,8 @@
 """Créneaux de collecte Europe/Paris.
 
-Deux créneaux par jour, 6h15 et 18h15, tenus été comme hiver. Un cron UTC ne
-suit pas l'heure d'été : le workflow en pose deux par créneau (4h28 et 5h28 UTC
-le matin, 16h28 et 17h28 le soir). Selon la saison, l'un part à 6h28 ou 18h28 à
-Paris et collecte ; l'autre tombe une heure à côté, retombe sur un créneau déjà
-collecté et ne fait rien.
+Deux créneaux par jour, ouverts à 6h15 et 18h15. Le cron est fixe en UTC (5h28
+et 17h28) : il part à 6h28 / 18h28 à Paris en hiver, 7h28 / 19h28 en été, et
+tombe dans le même créneau dans les deux saisons.
 
 GitHub retarde souvent ces départs de plusieurs heures. On rattache chaque run
 au dernier créneau déjà ouvert et on le saute s'il a déjà été collecté
