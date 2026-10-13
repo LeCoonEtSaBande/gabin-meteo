@@ -1,11 +1,18 @@
-"""Archive la prévision AROME HD et ICON-CH1 du lendemain telle qu'elle était à 23 h.
+"""Archive la prévision AROME HD et ICON-CH1 du jour, telle qu'on la voyait la veille.
 
-À 23 h le jour J, on fige pour chaque spot les échéances de J+1 01 h à J+2 00 h
-(« 01 h à 24 h » de J+1) de la dernière collecte réussie lancée avant 23 h
-(`fetched_at`). Aucun appel API : lecture de l'historique git de `collecte-api-meteo`.
+À 1 h du matin le jour J, on fige pour chaque spot les échéances de J 01 h à
+J+1 00 h (« 01 h à 24 h » de J) de la dernière collecte réussie lancée **avant
+minuit de J** (`fetched_at`), c'est-à-dire la collecte du soir de la veille.
+
+Le seuil est une date, pas l'heure du run : GitHub retarde souvent ses crons de
+plusieurs heures, et un passage de 8 h du matin doit produire exactement le même
+fichier qu'un passage de 1 h — sans quoi il irait piocher dans la collecte du
+matin même, qui n'est plus « ce qu'on prévoyait la veille ».
+
+Aucun appel API : lecture de l'historique git de `collecte-api-meteo`.
 
 Usage :
-    python src/archive/run.py --collecte _collecte            # lendemain du dernier 23 h passé
+    python src/archive/run.py --collecte _collecte            # la journée de Paris en cours
     python src/archive/run.py --collecte _collecte --day 2026-10-02 --force
 """
 
@@ -29,7 +36,7 @@ PARIS = ZoneInfo("Europe/Paris")
 
 MODELS = ("AROMEHD", "ICONCH1")
 MODEL_LABELS = {"AROMEHD": "AROME HD", "ICONCH1": "ICON-CH1"}
-SNAPSHOT_HOUR = 23
+SNAPSHOT_HOUR = 1
 USABLE_STATUSES = {"ok", "partial"}
 RAW_BASE_URL = "https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions"
 HISTORY_DEPTH = 120
@@ -157,18 +164,17 @@ def target_hours(target: date) -> list[str]:
 
 
 def default_target(now: datetime) -> date:
-    """Lendemain du dernier 23 h passé (un cron en retard vise toujours le même jour)."""
-    today = now.date()
-    last_snapshot_day = today if now.hour >= SNAPSHOT_HOUR else today - timedelta(days=1)
-    return last_snapshot_day + timedelta(days=1)
+    """La journée de Paris en cours : un cron en retard vise toujours le même jour."""
+    return now.date()
 
 
 def snapshot_cutoff(target: date) -> datetime:
-    return datetime.combine(target - timedelta(days=1), time(SNAPSHOT_HOUR, 0), tzinfo=PARIS)
+    """Minuit du jour archivé : après, on verrait la prévision du matin même."""
+    return datetime.combine(target, time(0, 0), tzinfo=PARIS)
 
 
 def collect_rows(repo: Path, target: date, spot_keys: list[str]) -> tuple[list[dict[str, str]], dict]:
-    """Pour chaque (spot, modèle), la dernière collecte réussie lancée avant 23 h la veille."""
+    """Pour chaque (spot, modèle), la dernière collecte réussie lancée avant minuit."""
     cutoff = snapshot_cutoff(target)
     snapshots = snapshots_before(repo, cutoff)
     if not snapshots:
@@ -308,10 +314,11 @@ def build_day_markdown(target: date, rows: list[dict[str, str]], meta: dict, spo
     hours = target_hours(target)
     fetched = datetime.fromisoformat(meta["collecte_fetched_at"])
     lines = [
-        f"# Archive — prévision du {day_label(target)} figée la veille à 23 h",
+        f"# Archive — prévision du {day_label(target)} figée à {SNAPSHOT_HOUR} h du matin",
         "",
         f"- Jour prévu : {day_label(target)}, échéances de 01h à 24h (24h = {hours[-1].replace('T', ' ')})",
-        f"- Prévision figée le : {day_label(target - timedelta(days=1))} à {SNAPSHOT_HOUR} h (Europe/Paris)",
+        f"- Prévision figée le : {day_label(target)} à {SNAPSHOT_HOUR} h (Europe/Paris), "
+        f"sur les données de la veille",
         f"- Collecte utilisée : créneau {meta['collecte_run_id'] or '?'}, lancée le "
         f"{fetched.strftime('%d/%m/%Y %H:%M')} (commit `{meta['collecte_commit']}` de `collecte-api-meteo`)",
         "- Modèles bruts : AROME HD (Météo-France, ~1,3 km) et ICON-CH1 (MétéoSuisse, ~1 km), sans assemblage.",
@@ -385,10 +392,11 @@ def write_index() -> None:
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
         days.append((meta, meta_path.with_suffix(".md"), meta_path.with_suffix(".csv")))
     lines = [
-        "# Gabin-meteo — archive des prévisions de la veille à 23 h",
+        "# Gabin-meteo — archive des prévisions, figées à 1 h du matin",
         "",
-        "Chaque jour J+1 est archivé à 23 h le jour J : prévisions **brutes AROME HD et ICON-CH1** pour les "
-        "17 spots, échéances de 01h à 24h de J+1, tirées de la dernière collecte lancée avant 23 h.",
+        "Chaque jour J est archivé à 1 h du matin le jour J : prévisions **brutes AROME HD et ICON-CH1** "
+        "pour les 17 spots, échéances de 01h à 24h de J, tirées de la dernière collecte lancée avant "
+        "minuit, donc de la veille au soir.",
         "",
         "- Fichier `.md` : tableau heure par heure par spot (lisible par Claude).",
         "- Fichier `.csv` : valeurs brutes Open-Meteo, séparateur `;`, une ligne par (spot, modèle, heure).",
