@@ -38,7 +38,7 @@ Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copie
 
 ## Pipeline (2 fois par jour)
 
-Créneaux **Europe/Paris** : **6h15** et **18h15**, été comme hiver. Un cron UTC ne suit pas l’heure d’été, donc le cron `28 4,5,16,17 * * *` en pose deux par créneau : selon la saison, l’un part à **6h28 / 18h28** à Paris et collecte, l’autre tombe une heure à côté, ne trouve que le créneau déjà collecté et ne fait rien.
+Le cron `28 5,17 * * *` est fixe en UTC : il part à **6h28 / 18h28** à Paris en hiver et à **7h28 / 19h28** en été. Tenir 18h28 Paris l’été voudrait partir à 16h28 UTC, avant que le run ICON-CH1 de 15 UTC soit sûrement publié ; l’heure de décalage d’été est le prix d’une collecte du soir toujours fraîche.
 
 GitHub retarde souvent ces déclenchements, parfois de plusieurs heures. Un cron en retard collecte encore le créneau ouvert ; un doublon est ignoré si la collecte a déjà réussi. L’heure réelle de collecte est affichée sur la carte (« MAJ ») et dans les fichiers pour Claude. Entre deux collectes il peut donc s’écouler jusqu’à douze heures.
 

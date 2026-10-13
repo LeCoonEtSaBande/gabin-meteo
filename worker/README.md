@@ -155,7 +155,10 @@ ni dans `wrangler.toml`, ni dans le dépôt.
 ### Clé Météo-France : deux abonnements dans un seul jeton
 
 Sur [portail-api.meteofrance.fr](https://portail-api.meteofrance.fr), la clé doit
-porter **les deux** API :
+porter **les deux** API, abonnées dans la **même application** (`DefaultApplication`
+sauf choix contraire) : un jeton couvre toutes les API de son application, pas
+celles d'une autre. Page d'abonnement du paquet :
+[DonneesPubliquesPaquetObservation](https://portail-api.meteofrance.fr/web/fr/api/DonneesPubliquesPaquetObservation).
 
 | API | Sert à |
 | --- | --- |
@@ -175,8 +178,8 @@ La même clé va à **deux endroits**, et les deux doivent être mis à jour ens
 
 | Où | Comment |
 | --- | --- |
-| Worker | `npx wrangler secret put METEOFRANCE_API_KEY` |
-| GitHub Actions | *Settings → Secrets and variables → Actions*, secret `METEOFRANCE_API_KEY` (archive des balises) |
+| Worker | [tableau de bord Cloudflare](https://dash.cloudflare.com/?to=/:account/workers/services/view/gabin-meteo/production/settings) → *Variables and Secrets*, secret `METEOFRANCE_API_KEY` ; ou `npx wrangler secret put METEOFRANCE_API_KEY` |
+| GitHub Actions | [secrets du dépôt](https://github.com/LeCoonEtSaBande/gabin-meteo/settings/secrets/actions), secret `METEOFRANCE_API_KEY` (archive des balises) |
 
 Vérification, sans dépenser d'appel : `GET /health` renvoie `meteofrance_paquet` et
 la liste `meteofrance_apis`, lues dans le jeton lui-même. En ligne de commande :

@@ -1,8 +1,10 @@
-# Collecte Open-Meteo — 2 créneaux par jour : 6h15 et 18h15 Europe/Paris, été
-# comme hiver. Un cron UTC ne suit pas l'heure d'été : on en pose deux par
-# créneau, 4h28 et 5h28 UTC le matin, 16h28 et 17h28 le soir. Selon la saison,
-# l'un tombe à 6h28 / 18h28 à Paris et fait la collecte, l'autre tombe une heure
-# à côté et ne trouve que le créneau déjà collecté, donc ne fait rien.
+# Collecte Open-Meteo — 2 créneaux par jour, sur un cron UTC fixe : 5h28 et
+# 17h28 UTC, soit 6h28 / 18h28 à Paris en hiver et 7h28 / 19h28 en été.
+#
+# Tenir 6h28 Paris toute l'année obligerait à partir à 16h28 UTC en été, avant
+# que le run ICON-CH1 de 15 UTC soit sûrement publié. À 17h28 UTC il l'est dans
+# les deux saisons : on accepte l'heure de décalage l'été pour toujours collecter
+# le run le plus frais.
 #
 # Le cron part à :28 plutôt qu'à l'heure pile, où GitHub est le plus chargé ;
 # il peut quand même arriver avec plusieurs heures de retard. Un run en retard
@@ -12,7 +14,7 @@ name: Collecte Open-Meteo
 
 "on":
   schedule:
-    - cron: "28 4,5,16,17 * * *"
+    - cron: "28 5,17 * * *"
   workflow_dispatch:
     inputs:
       force:
