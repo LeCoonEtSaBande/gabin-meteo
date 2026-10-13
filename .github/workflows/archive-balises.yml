@@ -1,28 +1,32 @@
-# Archive les mesures des balises au pas de 30 minutes, journée de Paris par
-# journée de Paris, sur la branche `balises`. Deux écritures par jour : à 23 h le
-# jour en cours, encore partiel, puis sa clôture au premier passage suivant, qui
-# relit tous les créneaux et répare ce qui manquait.
+# Archive les mesures des balises de la journée de Paris écoulée, sur la branche
+# `balises`. Une seule écriture par jour, à 1 h du matin : la journée est
+# terminée, donc complète du premier coup. Pas de pose partielle le soir ni de
+# clôture le lendemain.
 #
-# Quatre déclenchements pour couvrir été et hiver : 21 h UTC tombe à 23h10 en été
-# et 22h10 en hiver, 22 h UTC à 00h10 et 23h10, 11 h UTC à 13h10 et 12h10, 12 h
-# UTC à 14h10 et 13h10. Le script ne retient que la fenêtre de 23 h et celle de
-# la clôture ; les autres passages ne font rien, sauf rattraper un échec.
+# 23:10 UTC tombe à 1h10 en été et 0h10 en hiver ; dans les deux cas la veille
+# parisienne est close. Les quatre autres déclenchements trouvent un jour déjà
+# archivé et ne font rien, sauf rattraper un passage échoué.
 #
-# Les balises viennent de la fiche d'`affichage-web` : en ajouter une n'y demande
-# que sa ligne, l'archive la suit sans toucher au code.
-name: Archive des balises (30 min)
+# Partir tôt n'est pas qu'une question d'habitude : le paquet Météo-France ne
+# remonte que 24 h glissantes, donc chaque heure de retard laisse quelques
+# créneaux à rattraper en appels unitaires. Le script s'en charge seul, le run
+# dure simplement un peu plus longtemps.
+#
+# Les balises viennent de la fiche d'`affichage-web` : en ajouter une, ou changer
+# son pas fin, n'y demande que sa ligne.
+name: Archive des balises
 
 "on":
   schedule:
-    - cron: "10 11,12,21,22 * * *"
+    - cron: "10 23,0,1,2,3 * * *"
   workflow_dispatch:
     inputs:
       day:
-        description: "Jour à archiver (AAAA-MM-JJ). Vide : la veille, ou le jour en cours s'il est 23 h"
+        description: "Jour à archiver (AAAA-MM-JJ). Vide : la journée de Paris écoulée"
         type: string
         default: ""
       force:
-        description: "Réécrire un jour déjà clôturé"
+        description: "Réécrire un jour déjà archivé"
         type: boolean
         default: false
 

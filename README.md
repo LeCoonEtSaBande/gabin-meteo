@@ -14,12 +14,12 @@ Ce dépôt n’est **pas** un historique unique fusionné dans `main`. Chaque br
 | `collecte-api-meteo` | Script Python, CSV bruts Open-Meteo, **specs parentes** des spots | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/collecte-api-meteo/README.md) |
 | `traitement-donnees` | Courbes assemblées, JSON des puces et du graphique, Markdown pour Claude (**parent** de `data/processed`) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/traitement-donnees/README.md) |
 | `affichage-web` | Site GitHub Pages (copies publiées + front) | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/affichage-web/README.md) |
-| `archive-previsions` | Prévision AROME HD / ICON-CH1 du lendemain figée chaque soir à 23 h | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md) |
-| `balises` | Mesures des balises au pas de 30 min, une journée de Paris par fichier | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/balises/README.md) |
+| `archive-previsions` | Prévision AROME HD / ICON-CH1 du jour, figée à 1 h du matin | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/archive-previsions/README.md) |
+| `balises` | Mesures des balises de la veille, une journée de Paris par fichier | [README](https://github.com/LeCoonEtSaBande/gabin-meteo/blob/balises/README.md) |
 
 Les changements d’interface vont sur `affichage-web`, ceux de collecte, de traitement et d’archive sur leur branche. `main` ne reçoit que les workflows, le Worker des balises et la doc d’ensemble.
 
-Ne jamais réécrire l’historique de `collecte-api-meteo` (force push, squash) : l’archive de 23 h relit les collectes passées dans cet historique.
+Ne jamais réécrire l’historique de `collecte-api-meteo` (force push, squash) : l’archive de 1 h relit les collectes passées dans cet historique.
 
 ## Source unique des données
 
@@ -30,15 +30,17 @@ Chaque jeu a **un seul fichier parent**. Les autres branches ne l’éditent pas
 | Spots et zones (`assets/spots_specs/*.csv`) | `collecte-api-meteo` | Lues par le traitement (checkout / `git show`). Recopiées vers `affichage-web` à chaque run |
 | Prévisions brutes (`data/raw/`) | `collecte-api-meteo` | Lues par le traitement, jamais versionnées ailleurs |
 | Courbes et JSON quotidien (`data/processed/`) | `traitement-donnees` | Recopiés vers `affichage-web` (`quotidien.json`, `creneaux.json`, `last_update.json`, `AROMEIFS.csv`, `ICONGFS.csv`, `llm/`) |
-| Archive de 23 h (`data/archive/`) | `archive-previsions` | Lue par Claude via `raw.githubusercontent.com` |
+| Archive de 1 h (`data/archive/`) | `archive-previsions` | Lue par Claude via `raw.githubusercontent.com` |
 | Balises (`assets/balises_specs/balises_specifications.csv`) | `affichage-web` | Relue telle quelle par le Worker (`SPECS_URL`), par le front et par l’archive des balises |
 | Archive des balises (`data/archive/`) | `balises` | Lue par Claude via `raw.githubusercontent.com` |
 
 Sur `affichage-web`, `assets/spots_specs/` et `data/processed/` sont des **copies publiées** pour GitHub Pages. Ne pas les modifier à la main. `traitement-donnees` ne versionne pas les specs ni les bruts.
 
-## Pipeline (3 fois par jour)
+## Pipeline (2 fois par jour)
 
-Créneaux **Europe/Paris** : **7h15 / 13h15 / 19h15** en été, **6h15 / 12h15 / 18h15** en hiver (même cron UTC, un décalage d’une heure est accepté). Le cron `28 5,11,17 * * *` UTC part au plus tôt à :28 (7h28 / 13h28 / 19h28 en été), et GitHub le retarde souvent, parfois de plusieurs heures. Un cron en retard collecte encore le créneau ouvert ; un doublon est ignoré si la collecte a déjà réussi. L’heure réelle de collecte est affichée sur la carte (« MAJ ») et dans les fichiers pour Claude.
+Créneaux **Europe/Paris** : **6h15** et **18h15**, été comme hiver. Un cron UTC ne suit pas l’heure d’été, donc le cron `28 4,5,16,17 * * *` en pose deux par créneau : selon la saison, l’un part à **6h28 / 18h28** à Paris et collecte, l’autre tombe une heure à côté, ne trouve que le créneau déjà collecté et ne fait rien.
+
+GitHub retarde souvent ces déclenchements, parfois de plusieurs heures. Un cron en retard collecte encore le créneau ouvert ; un doublon est ignoré si la collecte a déjà réussi. L’heure réelle de collecte est affichée sur la carte (« MAJ ») et dans les fichiers pour Claude. Entre deux collectes il peut donc s’écouler jusqu’à douze heures.
 
 ```
 main : Collecte Open-Meteo
@@ -49,17 +51,19 @@ main : Traitement et affichage  (après un run de collecte réussi)
         → push data/processed sur traitement-donnees
         → copie specs, JSON, courbes AROMEIFS/ICONGFS et llm/ sur affichage-web
 GitHub Pages  (source : racine de affichage-web)
-main : Archive des prévisions de 23 h  (cron 23h05 Paris)
+main : Archive des prévisions de 1 h  (cron 1h05 Paris, pour le jour qui commence)
         → checkout archive-previsions + historique de collecte-api-meteo
         → python src/archive/run.py (sans appel API)
         → push data/archive et index.md sur archive-previsions
-main : Archive des balises (30 min)  (23h10 Paris, puis clôture de la veille)
+main : Archive des balises  (cron 1h10 Paris, pour la journée écoulée)
         → checkout balises + fiche des balises d'affichage-web
         → python src/archive/run.py (appels Météo-France et MétéoSuisse)
         → push data/archive et index.md sur balises
 ```
 
-Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau), *Traitement et affichage*, *Archive des prévisions de 23 h* (`day`, `force`) ou *Archive des balises (30 min)* (`day`, `force`).
+Les deux archives tournent à 1 h du matin et visent une journée déjà déterminée par le calendrier, pas par l’heure du run : un cron en retard produit le même fichier. L’archive des balises paie seulement un peu de rattrapage, le paquet Météo-France ne remontant que 24 h glissantes.
+
+Déclenchement manuel : Actions → *Collecte Open-Meteo* (`force` ignore le filtre de créneau), *Traitement et affichage*, *Archive des prévisions de 1 h* (`day`, `force`) ou *Archive des balises* (`day`, `force`).
 
 ## Données
 
@@ -88,12 +92,16 @@ Une courbe garde le modèle le plus court terme jusqu’à sa dernière échéan
 
 Mesures du jour des **11 stations** automatiques, affichées dans l’onglet *Balises* : vent moyen et rafale du dernier pas **en nœuds**, flèche vers où souffle le vent, provenance en lettres, pas de minimum.
 
-| Source | Appel | Pas | Clé |
+| Source | Appel | Contenu | Clé |
 | --- | --- | --- | --- |
-| MétéoSuisse (`ogd-smn`, 3 stations) | Fichier du jour UTC en cours, toute la journée d’un coup | 10 min | non |
-| Météo-France (`DPObs v2`, 8 stations) | Une mesure par appel : le dernier pas 6 min, puis les heures de la journée pour la courbe | 6 min / 1 h | oui |
+| MétéoSuisse (`ogd-smn`, 3 stations) | Fichier du jour UTC en cours | Journée entière, pas de 10 min | non |
+| Météo-France (`DPPaquetObs v1`, 8 stations) | Paquet d’une station | 24 h glissantes, pas de 6 min | oui |
 
-Le navigateur n’appelle qu’une seule adresse, le **Worker Cloudflare `gabin-meteo`** (`worker/`, déployé sur `https://gabin-meteo.garinlu-subs.workers.dev/balises`) : il garde la clé Météo-France en secret, interroge les deux sources, convertit tout en nœuds et met le résultat en cache 3 min. La journée française relue heure par heure est mémorisée 26 h dans une seule entrée de cache, pour rester sous le plafond de sous-requêtes de Cloudflare. Voir le [README du Worker](worker/README.md).
+**Une balise = un appel**, soit onze en tout. Le navigateur n’appelle qu’une seule adresse, le **Worker Cloudflare `gabin-meteo`** (`worker/`, déployé sur `https://gabin-meteo.garinlu-subs.workers.dev/balises`) : il garde la clé Météo-France en secret, interroge les deux sources, convertit tout en nœuds et met le résultat en cache 3 min.
+
+Les mesures sont ramenées sur une grille de **30 minutes** — seul pas qui tombe juste à la fois sur les 6 minutes françaises et les 10 minutes suisses, donc sans déplacer aucune mesure. **Reventin et Étoile passent à 6 minutes entre 11 h et 19 h**, les deux balises de vol aux heures qui comptent, selon les colonnes `pas_fin_*` de la fiche. La dernière mesure reçue est toujours gardée, même hors grille, pour que la vignette ne traîne pas de retard.
+
+Une requête dépense ainsi une quinzaine de sous-requêtes sur les 50 que Cloudflare accorde par invocation, et onze appels sur les 100 par minute de Météo-France. Si la clé ne porte pas l’abonnement au paquet, le Worker retombe sur la seule dernière mesure de chaque balise : vignette vivante, courbe vide. Voir le [README du Worker](worker/README.md).
 
 Sobriété : aucun appel tant que l’onglet n’est pas ouvert, pas de rafraîchissement automatique. Relecture au bouton ↻, ou au retour sur l’appli si les mesures ont plus de 10 min.
 
@@ -104,7 +112,7 @@ La liste des balises est le CSV `assets/balises_specs/balises_specifications.csv
 Le dépôt est public : Claude lit ces fichiers Markdown avec sa recherche / lecture web, sans connecteur.
 
 - Prévisions actuelles (courbes AROMEIFS et ICONGFS heure par heure, tous les spots) : `https://lecoonetsabande.github.io/gabin-meteo/llm/index.md`
-- Archive de 23 h (AROME HD / ICON-CH1 bruts) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md`
+- Archive de 1 h (AROME HD / ICON-CH1 bruts) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md`
 - Archive des balises (mesures au pas de 30 min) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/index.md`
 
 Conseil : un Projet Claude dont les instructions donnent ces trois adresses.
