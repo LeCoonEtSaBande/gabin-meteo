@@ -15,11 +15,14 @@ ALLOWED_ORIGINS = "https://lecoonetsabande.github.io"
 # Cache de bord de /balises, en secondes.
 CACHE_SECONDS = "180"
 SPECS_CACHE_SECONDS = "600"
+# Paquet de 24 h au pas de 6 min, un appel par balise : c'est la source normale
+# de la courbe française. DPObs ne sert plus que de repli pour la vignette.
+METEOFRANCE_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v2"
 METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2"
-# Appels horaires Météo-France autorisés par requête, toutes stations confondues
-# (DPObs ne rend qu'une mesure par appel). Cloudflare plafonne un appel du Worker
-# à 50 sous-requêtes en gratuit, 1000 en payant, et une écriture de cache en
-# consomme une : 24 laisse de la marge sur les ~15 sous-requêtes fixes.
-METEOFRANCE_HOURS_BUDGET = "24"
+# Pas commun renvoyé au navigateur. 30 minutes est le seul pas qui tombe juste
+# à la fois sur les 6 min de Météo-France et les 10 min de MétéoSuisse : décimer
+# ne déplace aucune mesure. Les balises qui méritent mieux portent un pas fin
+# dans la fiche (`pas_fin_min`), pas ici.
+COARSE_STEP_MIN = "30"
 
 # La clé Météo-France n'est pas ici : `wrangler secret put METEOFRANCE_API_KEY`.
