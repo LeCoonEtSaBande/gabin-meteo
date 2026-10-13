@@ -2,13 +2,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
-  hourStampsForDay,
   isAllowedOrigin,
+  lastCsvRecord,
   mergePoints,
-  meteoFranceHourUrl,
   meteoFranceLatestUrl,
+  meteoFrancePaquetUrl,
   meteoSuisseUrl,
+  onGrid,
   parisDayKey,
+  parisHourMs,
   parseCsv,
   parseMeteoFrance,
   parseMeteoSuisse,
@@ -16,6 +18,8 @@ import {
   parseSwissTimestampUtc,
   pointsForDay,
   pointsForDayOrLast,
+  subscribedApis,
+  timeGrid,
 } from "../src/parse.js";
 
 const SWISS_CSV = [
@@ -41,6 +45,27 @@ test("parseCsv découpe sur « ; » et nettoie les cellules", () => {
   ]);
 });
 
+test("parseCsv : une ligne écartée par « keep » n'est jamais construite", () => {
+  const seen = [];
+  const rows = parseCsv("a;b\n1;x\n2;y\n3;z\n", (cell) => {
+    seen.push(cell("a"));
+    return cell("a") !== "2";
+  });
+  assert.deepEqual(seen, ["1", "2", "3"]);
+  assert.deepEqual(rows, [
+    { a: "1", b: "x" },
+    { a: "3", b: "z" },
+  ]);
+});
+
+test("lastCsvRecord : en-tête et dernière ligne, sans redécouper le paquet", () => {
+  assert.equal(lastCsvRecord("a;b\r\n1;2\r\n3;4\r\n"), "a;b\n3;4");
+  assert.equal(lastCsvRecord("a;b\n1;2"), "a;b\n1;2");
+  // En-tête seul ou fichier vide : rien à relire.
+  assert.equal(lastCsvRecord("a;b\n"), "");
+  assert.equal(lastCsvRecord(""), "");
+});
+
 test("horodatage MétéoSuisse lu en UTC", () => {
   assert.equal(parseSwissTimestampUtc("11.10.2026 20:20"), Date.UTC(2026, 9, 11, 20, 20));
   assert.equal(parseSwissTimestampUtc("2026-10-11 20:20"), null);
@@ -53,14 +78,14 @@ test("URL MétéoSuisse en minuscules", () => {
   );
 });
 
-test("URL Météo-France : dernière mesure 6 min et heure pleine", () => {
+test("URL Météo-France : paquet de 24 h, et dernière mesure pour le repli", () => {
+  assert.equal(
+    meteoFrancePaquetUrl("73329001"),
+    "https://public-api.meteofrance.fr/public/DPPaquetObs/v1/paquet/infrahoraire-6m?id_station=73329001&format=csv"
+  );
   assert.equal(
     meteoFranceLatestUrl("73329001"),
     "https://public-api.meteofrance.fr/public/DPObs/v2/station/infrahoraire-6m?id_station=73329001&format=csv"
-  );
-  assert.equal(
-    meteoFranceHourUrl("73329001", "2026-10-11T18:00:00Z"),
-    "https://public-api.meteofrance.fr/public/DPObs/v2/station/horaire?id_station=73329001&date=2026-10-11T18%3A00%3A00Z&format=csv"
   );
 });
 
@@ -135,26 +160,79 @@ test("Météo-France : « dd » vaut 0 au calme et 360 au nord", () => {
   );
 });
 
-test("heures pleines du jour : celles déjà écoulées, dans le fuseau de Paris", () => {
-  const now = Date.UTC(2026, 9, 11, 9, 30);
-  const stamps = hourStampsForDay("2026-10-11", now);
-  // Été : le jour parisien commence à 22 h UTC la veille.
-  assert.equal(stamps[0], "2026-10-10T22:00:00Z");
-  assert.equal(stamps.at(-1), "2026-10-11T09:00:00Z");
-  assert.equal(stamps.length, 12);
-  // Le 25 octobre 2026, Paris repasse à l'heure d'hiver : la journée fait 25 h.
-  assert.equal(hourStampsForDay("2026-10-25", Date.UTC(2026, 9, 26, 12, 0)).length, 25);
-  assert.deepEqual(hourStampsForDay("", now), []);
-  assert.deepEqual(hourStampsForDay("2026-10-11", Date.UTC(2026, 9, 1)), []);
+test("parseMeteoFrance : « keep » reçoit l'horodatage de validité", () => {
+  const kept = parseMeteoFrance(FRENCH_CSV, (ms) => ms === Date.UTC(2026, 9, 11, 20, 18));
+  assert.deepEqual(
+    kept.map((p) => p.t),
+    ["2026-10-11T20:18:00Z"]
+  );
+});
+
+test("parseMeteoSuisse : « keep » reçoit l'horodatage de la mesure", () => {
+  const kept = parseMeteoSuisse(SWISS_CSV, (ms) => ms === Date.UTC(2026, 9, 11, 20, 20));
+  assert.deepEqual(
+    kept.map((p) => p.t),
+    ["2026-10-11T20:20:00Z"]
+  );
+});
+
+test("heure de Paris → instant UTC, changement d'heure compris", () => {
+  // Été : Paris a deux heures d'avance.
+  assert.equal(parisHourMs("2026-10-11", 11), Date.UTC(2026, 9, 11, 9, 0));
+  // Hiver : une seule.
+  assert.equal(parisHourMs("2026-12-11", 11), Date.UTC(2026, 11, 11, 10, 0));
+  // 25 octobre 2026, jour du retour à l'heure d'hiver : 11 h reste 11 h.
+  assert.equal(parisHourMs("2026-10-25", 11), Date.UTC(2026, 9, 25, 10, 0));
+  assert.equal(parisHourMs("", 11), null);
+});
+
+const FINE = { fine_step_min: 6, fine_from_hour: 11, fine_to_hour: 19 };
+
+test("grille : 30 min partout, 6 min dans la plage fine de la fiche", () => {
+  const grid = timeGrid({ station_key: "reventin", ...FINE }, "2026-10-11", 30);
+  const at = (h, m) => Date.UTC(2026, 9, 11, h, m);
+  // 9 h UTC = 11 h à Paris : la plage fine s'ouvre.
+  assert.equal(onGrid(at(8, 54), grid), false);
+  assert.equal(onGrid(at(9, 0), grid), true);
+  assert.equal(onGrid(at(9, 6), grid), true);
+  assert.equal(onGrid(at(9, 7), grid), false);
+  // 17 h UTC = 19 h à Paris : elle se referme, 18h54 est le dernier pas fin.
+  assert.equal(onGrid(at(16, 54), grid), true);
+  assert.equal(onGrid(at(17, 6), grid), false);
+  assert.equal(onGrid(at(17, 0), grid), true);
+  assert.equal(onGrid(at(17, 30), grid), true);
+  // Hors plage, seules les demi-heures restent.
+  assert.equal(onGrid(at(6, 0), grid), true);
+  assert.equal(onGrid(at(6, 30), grid), true);
+  assert.equal(onGrid(at(6, 12), grid), false);
+  assert.equal(onGrid(NaN, grid), false);
+});
+
+test("grille : une balise sans pas fin garde les demi-heures toute la journée", () => {
+  const grid = timeGrid({ station_key: "macon" }, "2026-10-11", 30);
+  assert.equal(grid.fine, null);
+  assert.equal(onGrid(Date.UTC(2026, 9, 11, 12, 30), grid), true);
+  assert.equal(onGrid(Date.UTC(2026, 9, 11, 12, 6), grid), false);
+});
+
+test("grille : 30 min tombe juste sur les 6 min françaises et les 10 min suisses", () => {
+  const grid = timeGrid({ station_key: "x" }, "2026-10-11", 30);
+  const kept = (step) =>
+    Array.from({ length: 60 / step }, (_, i) => Date.UTC(2026, 9, 11, 12, i * step)).filter((ms) =>
+      onGrid(ms, grid)
+    ).length;
+  // Deux mesures gardées par heure dans les deux cas : aucun point déplacé.
+  assert.equal(kept(6), 2);
+  assert.equal(kept(10), 2);
 });
 
 test("mergePoints : horodatages dédoublonnés, la dernière série gagne", () => {
-  const hours = [
+  const grid = [
     { t: "2026-10-11T18:00:00Z", mean_kt: 10 },
     { t: "2026-10-11T19:00:00Z", mean_kt: 11 },
   ];
   const latest = [{ t: "2026-10-11T19:00:00Z", mean_kt: 12 }];
-  assert.deepEqual(mergePoints(hours, latest), [
+  assert.deepEqual(mergePoints(grid, latest), [
     { t: "2026-10-11T18:00:00Z", mean_kt: 10 },
     { t: "2026-10-11T19:00:00Z", mean_kt: 12 },
   ]);
@@ -220,6 +298,33 @@ test("fiches : sources inconnues et identifiants mal formés écartés", () => {
   ]);
 });
 
+test("fiches : le pas fin est repris, une plage incohérente est ignorée", () => {
+  const csv = [
+    "station_key;source;source_id;pas_fin_min;pas_fin_debut_h;pas_fin_fin_h",
+    "reventin;MeteoFrance;38336001;6;11;19",
+    "macon;MeteoFrance;71105001;;;",
+    // Un pas qui ne divise pas l'heure ne retomberait pas sur ses pieds.
+    "pas_bancal;MeteoFrance;71105002;7;11;19",
+    // Plage vide ou à l'envers.
+    "plage_vide;MeteoFrance;71105003;6;19;11",
+    "heures_absentes;MeteoFrance;71105004;6;;",
+  ].join("\n");
+  assert.deepEqual(parseSpecs(csv), [
+    {
+      station_key: "reventin",
+      source: "MeteoFrance",
+      source_id: "38336001",
+      fine_step_min: 6,
+      fine_from_hour: 11,
+      fine_to_hour: 19,
+    },
+    { station_key: "macon", source: "MeteoFrance", source_id: "71105001" },
+    { station_key: "pas_bancal", source: "MeteoFrance", source_id: "71105002" },
+    { station_key: "plage_vide", source: "MeteoFrance", source_id: "71105003" },
+    { station_key: "heures_absentes", source: "MeteoFrance", source_id: "71105004" },
+  ]);
+});
+
 test("fiches : le nombre de stations relayées est plafonné", () => {
   const rows = [
     "station_key;source;source_id",
@@ -227,6 +332,24 @@ test("fiches : le nombre de stations relayées est plafonné", () => {
   ].join("\n");
   assert.equal(parseSpecs(rows).length, 40);
   assert.equal(parseSpecs(rows, 5).length, 5);
+});
+
+test("abonnements lus dans la clé, sans appel ni fuite", () => {
+  const payload = {
+    subscribedAPIs: [
+      { name: "DonneesPubliquesObservation", context: "/public/DPObs" },
+      { name: "DonneesPubliquesPaquetObservation", context: "/public/DPPaquetObs" },
+    ],
+  };
+  const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  assert.deepEqual(subscribedApis(`entete.${body}.signature`), [
+    "DonneesPubliquesObservation",
+    "DonneesPubliquesPaquetObservation",
+  ]);
+  // Jeton tronqué, illisible ou absent : on ne prétend rien.
+  assert.deepEqual(subscribedApis("entete"), []);
+  assert.deepEqual(subscribedApis("entete.pas-du-base64-json.signature"), []);
+  assert.deepEqual(subscribedApis(""), []);
 });
 
 test("CORS : le site publié et le serveur local, rien d'autre", () => {

@@ -1,24 +1,32 @@
 /**
  * Worker « gabin-meteo » : un seul appel renvoie les mesures du jour de toutes
  * les balises de `balises_specifications.csv` (MétéoSuisse en accès libre,
- * Météo-France via la clé DPObs gardée en secret du Worker).
+ * Météo-France via la clé gardée en secret du Worker).
+ *
+ * Une balise = un appel à sa source, et la journée entière arrive d'un coup :
+ * côté suisse le fichier du jour, côté français le paquet de 24 h au pas de
+ * 6 min. Les mesures sont ensuite ramenées sur la grille de la fiche avant de
+ * partir vers le navigateur.
  *
  * Appelé par l'onglet Balises de la carte, à la demande. Petit cache de bord
  * pour qu'une volée de visites ne multiplie pas les appels aux deux API.
  */
 
 import {
-  hourStampsForDay,
   isAllowedOrigin,
+  lastCsvRecord,
   mergePoints,
-  meteoFranceHourUrl,
+  meteoFrancePaquetUrl,
   meteoFranceLatestUrl,
   meteoSuisseUrl,
+  onGrid,
   parisDayKey,
   parseMeteoFrance,
   parseMeteoSuisse,
   parseSpecs,
   pointsForDayOrLast,
+  subscribedApis,
+  timeGrid,
 } from "./parse.js";
 
 const DEFAULTS = {
@@ -28,16 +36,13 @@ const DEFAULTS = {
   CACHE_SECONDS: "180",
   SPECS_CACHE_SECONDS: "600",
   METEOFRANCE_BASE: "https://public-api.meteofrance.fr/public/DPObs/v2",
-  METEOFRANCE_HOURS_BUDGET: "24",
+  METEOFRANCE_PAQUET_BASE: "https://public-api.meteofrance.fr/public/DPPaquetObs/v1",
+  COARSE_STEP_MIN: "30",
 };
 
 const ERROR_CACHE_SECONDS = 30;
 const FETCH_TIMEOUT_MS = 8000;
-// Une heure révolue ne bouge plus : la journée déjà lue est gardée jusqu'au
-// lendemain. Une heure encore vide est réessayée au bout de 5 min, un peu plus
-// que le délai d'insertion de Météo-France (~2 min 30).
-const HOURS_CACHE_SECONDS = 26 * 3600;
-const MISS_RETRY_MS = 300000;
+const PAQUET_API = "DonneesPubliquesPaquetObservation";
 
 function setting(env, name) {
   const value = env[name];
@@ -106,107 +111,79 @@ async function loadSpecs(request, env, ctx) {
   return parseSpecs(text);
 }
 
-function hoursCacheKey(request, day) {
-  return new Request(new URL(`/_mf/${day}`, request.url).toString(), { method: "GET" });
+/**
+ * Journée d'une balise française : un appel au paquet de 24 h, décimé à la
+ * volée sur la grille de la fiche, plus la mesure la plus récente du fichier
+ * pour que la vignette ne traîne pas une demi-heure de retard.
+ */
+async function readFrance(station, env, shared) {
+  const headers = { apikey: shared.apikey, accept: "*/*" };
+  const grid = timeGrid(station, shared.day, shared.coarseStepMin);
+  const url = meteoFrancePaquetUrl(station.source_id, setting(env, "METEOFRANCE_PAQUET_BASE"));
+  const text = await fetchText(url, { headers, cf: { cacheTtl: 0 } });
+  return mergePoints(
+    parseMeteoFrance(text, (ms) => onGrid(ms, grid)),
+    parseMeteoFrance(lastCsvRecord(text))
+  );
 }
 
 /**
- * Heures françaises déjà connues de la journée : `{ id_station: { heure ISO:
- * point } }`. Une seule entrée de cache pour toutes les stations, parce qu'une
- * écriture de cache compte dans le quota de sous-requêtes du Worker.
+ * Repli quand le paquet n'est pas accessible : DPObs ne rend qu'une mesure par
+ * appel, reconstituer la journée y coûtait des dizaines de sous-requêtes. On
+ * garde la vignette vivante et on laisse la courbe vide plutôt que d'entretenir
+ * cette mécanique pour une panne d'abonnement.
  */
-async function loadFrenchHours(request, day) {
-  try {
-    const hit = await caches.default.match(hoursCacheKey(request, day));
-    if (hit) return await hit.json();
-  } catch {
-    // Cache de bord muet : on repart d'une journée vide, les heures se relisent.
-  }
-  return {};
-}
-
-function saveFrenchHours(request, day, known, ctx) {
-  const store = new Response(JSON.stringify(known), {
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-      "cache-control": `public, s-maxage=${HOURS_CACHE_SECONDS}`,
-    },
-  });
-  cachePut(hoursCacheKey(request, day), store, ctx);
-}
-
-/**
- * Complète la courbe du jour d'une station française. DPObs ne renvoie qu'une
- * mesure par appel : on relit les heures pleines encore manquantes, du plus
- * récent au plus ancien. `budget` plafonne les appels de l'ensemble des stations
- * pour une requête ; le reste est rattrapé par les lectures suivantes.
- */
-async function fillFrenchHours(station, { base, headers, day, now, budget, known }) {
-  const hours = known[station.source_id] || (known[station.source_id] = {});
-  for (const iso of hourStampsForDay(day, now).reverse()) {
-    const seen = hours[iso];
-    if (seen?.t) continue;
-    if (seen && now - seen.miss < MISS_RETRY_MS) continue;
-    if (budget.left <= 0) continue;
-    budget.left -= 1;
-    try {
-      const url = meteoFranceHourUrl(station.source_id, iso, base);
-      const [point] = parseMeteoFrance(await fetchText(url, { headers, cf: { cacheTtl: 0 } }));
-      hours[iso] = point || { miss: now };
-    } catch {
-      // Un trou dans la courbe ne doit pas emporter la mesure du moment.
-    }
-  }
-  return Object.values(hours).filter((item) => item.t);
+async function readFranceLatest(station, env, shared) {
+  const headers = { apikey: shared.apikey, accept: "*/*" };
+  const url = meteoFranceLatestUrl(station.source_id, setting(env, "METEOFRANCE_BASE"));
+  return parseMeteoFrance(await fetchText(url, { headers, cf: { cacheTtl: 0 } }));
 }
 
 async function readStation(station, env, shared) {
   if (station.source === "MeteoSuisse") {
-    return parseMeteoSuisse(await fetchText(meteoSuisseUrl(station.source_id)));
+    const grid = timeGrid(station, shared.day, shared.coarseStepMin);
+    const text = await fetchText(meteoSuisseUrl(station.source_id));
+    return mergePoints(
+      parseMeteoSuisse(text, (ms) => onGrid(ms, grid)),
+      parseMeteoSuisse(lastCsvRecord(text))
+    );
   }
-  const apikey = env.METEOFRANCE_API_KEY;
-  if (!apikey) throw new Error("clé Météo-France absente du Worker");
-  const headers = { apikey, accept: "*/*" };
-  const base = setting(env, "METEOFRANCE_BASE");
-  const latest = parseMeteoFrance(
-    await fetchText(meteoFranceLatestUrl(station.source_id, base), { headers, cf: { cacheTtl: 0 } })
-  );
-  let hours = [];
+  if (!shared.apikey) throw new Error("clé Météo-France absente du Worker");
   try {
-    hours = await fillFrenchHours(station, { ...shared, base, headers });
-  } catch {
-    // Courbe incomplète plutôt que balise muette : la vignette, elle, tient.
+    return await readFrance(station, env, shared);
+  } catch (error) {
+    shared.degraded.push(`${station.station_key} : ${error?.message || error}`);
+    return readFranceLatest(station, env, shared);
   }
-  // La mesure de 6 min passe après l'heure pleine qu'elle recouvre parfois.
-  return mergePoints(hours, latest);
 }
 
 async function buildPayload(request, env, ctx) {
   const now = Date.now();
   const day = parisDayKey(now);
   const specs = await loadSpecs(request, env, ctx);
-  const french = specs.some((station) => station.source === "MeteoFrance");
-  const known = french ? await loadFrenchHours(request, day) : {};
-  const asked = Number(setting(env, "METEOFRANCE_HOURS_BUDGET"));
-  const budget = { left: asked };
-  const shared = { day, now, budget, known };
+  const shared = {
+    day,
+    apikey: env.METEOFRANCE_API_KEY || "",
+    coarseStepMin: Number(setting(env, "COARSE_STEP_MIN")),
+    degraded: [],
+  };
   const results = await Promise.allSettled(
     specs.map((station) => readStation(station, env, shared))
   );
-  if (french && budget.left < asked) saveFrenchHours(request, day, known, ctx);
   const stations = specs.map((station, i) => {
     const result = results[i];
     if (result.status !== "fulfilled") {
       return { ...station, status: "error", error: String(result.reason?.message || result.reason), points: [] };
     }
-    const points = pointsForDayOrLast(result.value, day);
-    return { ...station, status: "ok", points };
+    return { ...station, status: "ok", points: pointsForDayOrLast(result.value, day) };
   });
   return {
     generated_at: new Date(now).toISOString().replace(/\.\d{3}Z$/, "Z"),
     day,
     unit: "kt",
     direction: "provenance",
+    step_min: shared.coarseStepMin,
+    ...(shared.degraded.length ? { degraded: shared.degraded } : {}),
     stations,
   };
 }
@@ -268,12 +245,19 @@ export default {
     }
 
     if (pathname === "/" || pathname === "/health") {
+      const apis = subscribedApis(env.METEOFRANCE_API_KEY);
       return json(
         {
           service: "gabin-meteo",
           endpoint: "/balises",
           meteofrance_key: env.METEOFRANCE_API_KEY ? "présente" : "absente",
+          // Les abonnements sont encodés dans la clé : la courbe française
+          // reste vide tant que le paquet n'y est pas, et c'est ici qu'on le voit.
+          meteofrance_paquet: apis.includes(PAQUET_API) ? "abonné" : "absent de la clé",
+          meteofrance_apis: apis,
           meteofrance_base: setting(env, "METEOFRANCE_BASE"),
+          meteofrance_paquet_base: setting(env, "METEOFRANCE_PAQUET_BASE"),
+          step_min: Number(setting(env, "COARSE_STEP_MIN")),
           specs: setting(env, "SPECS_URL"),
         },
         { headers: cors }
