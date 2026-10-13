@@ -10,7 +10,7 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 - Source : la **dernière collecte réussie lancée avant minuit de J** (champ `fetched_at` de `run_meta.json`), donc la collecte du soir de la veille, retrouvée dans l’historique git de `collecte-api-meteo`. **Aucun appel API.**
 - Le seuil est **une date, pas l’heure du run**. GitHub retarde souvent ses crons de plusieurs heures ; un passage de 8 h du matin doit produire le même fichier qu’un passage de 1 h, sans quoi il irait prendre la collecte du matin même, qui n’est plus « ce qu’on prévoyait la veille ».
 - Par (spot, modèle) : si ce modèle est en échec dans cette collecte, on prend la collecte réussie précédente.
-- Les heures au-delà de l’horizon du modèle au moment de la collecte restent absentes. ICON-CH1 va à 33 h : en été, la collecte de 18h15 part à 16h28 UTC, où le run de 15 UTC n’est pas toujours publié, et celui de 12 UTC peut s’arrêter avant la fin de J. Le compte `23/24 h` du fichier le dit.
+- Les heures au-delà de l’horizon du modèle au moment de la collecte restent absentes. ICON-CH1 va à 33 h : la collecte du soir part à 17h28 UTC pour trouver le run de 15 UTC publié ; s’il manque malgré tout, celui de 12 UTC peut s’arrêter avant la fin de J. Le compte `23/24 h` du fichier le dit.
 - Jours archivés jusqu’au 02/10/2026 inclus : il manque aussi la dernière heure d’ICON-CH1 (23/24 h), car la collecte coupait alors la fin de l’horizon (`forecast_days` trop court, corrigé le 02/10/2026).
 
 ## Fichiers
