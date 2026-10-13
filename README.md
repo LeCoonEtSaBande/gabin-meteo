@@ -8,9 +8,16 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 
 ## Horaires
 
-Trois créneaux par jour. En **heure d'été** : **7h15 / 13h15 / 19h15**. En **heure d'hiver**, le même cron UTC tombe une heure plus tôt (**6h15 / 12h15 / 18h15**).
+Deux créneaux par jour, ouverts à **6h15** et **18h15** heure de Paris, sur un cron **fixe en UTC** (`28 5,17 * * *`) :
 
-Le cron (`28 5,11,17 * * *` UTC) part au plus tôt à :28, soit vers 7h28 / 13h28 / 19h28 en été. GitHub le retarde souvent, parfois de plusieurs heures. L'heure réelle de chaque collecte est `fetched_at` dans `run_meta.json`.
+| Cron UTC | Hiver | Été |
+| --- | --- | --- |
+| 5h28 | **6h28** | 7h28 |
+| 17h28 | **18h28** | 19h28 |
+
+L'été, la collecte part donc une heure plus tard à Paris. C'est voulu : tenir 18h28 Paris l'été obligerait à partir à 16h28 UTC, où le run ICON-CH1 de 15 UTC n'est pas toujours publié, et l'on retomberait sur celui de 12 UTC, dont l'horizon de 33 h peut s'arrêter avant la fin du lendemain. À 17h28 UTC le run de 15 UTC est là dans les deux saisons.
+
+GitHub retarde souvent ces départs, parfois de plusieurs heures. L'heure réelle de chaque collecte est `fetched_at` dans `run_meta.json`. Entre deux collectes il peut s'écouler jusqu'à douze heures : il n'y a plus de passage à la mi-journée.
 
 Le script rattache chaque run au dernier créneau déjà ouvert. Un cron en retard collecte encore ce créneau. Un second déclenchement dans le même créneau est ignoré si `last_update.json` est déjà à jour ; `--force` lève ce filtre.
 
@@ -90,4 +97,4 @@ Un run est publié dès qu’au moins un couple (spot, modèle) a réussi : `cur
 ## Lecteurs de cette branche
 
 - `traitement-donnees` : en local, `git show collecte-api-meteo:data/raw/current/forecasts.csv` ; en CI, le job de traitement fait un second checkout de `collecte-api-meteo` et recopie `data/raw` plus `assets/spots_specs`.
-- `archive-previsions` : l’archive de 23 h relit l’**historique git** de cette branche (`current/` et `previous/` de chaque commit) pour retrouver la dernière collecte lancée avant 23 h, et remonter à une collecte plus ancienne pour un modèle en échec. Ne jamais réécrire l’historique de cette branche (pas de force push ni de squash).
+- `archive-previsions` : l’archive de 1 h relit l’**historique git** de cette branche (`current/` et `previous/` de chaque commit) pour retrouver la dernière collecte lancée avant minuit du jour archivé, et remonter à une collecte plus ancienne pour un modèle en échec. Ne jamais réécrire l’historique de cette branche (pas de force push ni de squash).
