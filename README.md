@@ -8,9 +8,20 @@ Vue d’ensemble du dépôt : [README de `main`](https://github.com/LeCoonEtSaBa
 
 ## Horaires
 
-Trois créneaux par jour. En **heure d'été** : **7h15 / 13h15 / 19h15**. En **heure d'hiver**, le même cron UTC tombe une heure plus tôt (**6h15 / 12h15 / 18h15**).
+Deux créneaux par jour : **6h15** et **18h15**, heure de Paris, été comme hiver.
 
-Le cron (`28 5,11,17 * * *` UTC) part au plus tôt à :28, soit vers 7h28 / 13h28 / 19h28 en été. GitHub le retarde souvent, parfois de plusieurs heures. L'heure réelle de chaque collecte est `fetched_at` dans `run_meta.json`.
+Un cron UTC ne suit pas l'heure d'été, donc le workflow en pose **deux par créneau** (`28 4,5,16,17 * * *` UTC). Selon la saison, l'un tombe à **6h28** ou **18h28** à Paris et collecte ; l'autre arrive une heure à côté, se rattache à un créneau déjà collecté et ne fait rien.
+
+| Cron UTC | Été | Hiver |
+| --- | --- | --- |
+| 4h28 | **6h28**, collecte | 5h28, créneau de la veille au soir |
+| 5h28 | 7h28, créneau du matin déjà servi | **6h28**, collecte |
+| 16h28 | **18h28**, collecte | 17h28, créneau du matin déjà servi |
+| 17h28 | 19h28, créneau du soir déjà servi | **18h28**, collecte |
+
+GitHub retarde souvent ces départs, parfois de plusieurs heures. L'heure réelle de chaque collecte est `fetched_at` dans `run_meta.json`. Entre deux collectes il peut s'écouler jusqu'à douze heures : il n'y a plus de passage à la mi-journée.
+
+Conséquence côté modèles : la collecte du soir à 18h28 Paris part à 16h28 UTC en été, où le run ICON-CH1 de 15 UTC n'est pas toujours publié. On retombe alors sur celui de 12 UTC, dont l'horizon de 33 h peut s'arrêter avant la fin du lendemain. L'archive de 1 h le signale en comptant les échéances trouvées sur 24.
 
 Le script rattache chaque run au dernier créneau déjà ouvert. Un cron en retard collecte encore ce créneau. Un second déclenchement dans le même créneau est ignoré si `last_update.json` est déjà à jour ; `--force` lève ce filtre.
 
@@ -90,4 +101,4 @@ Un run est publié dès qu’au moins un couple (spot, modèle) a réussi : `cur
 ## Lecteurs de cette branche
 
 - `traitement-donnees` : en local, `git show collecte-api-meteo:data/raw/current/forecasts.csv` ; en CI, le job de traitement fait un second checkout de `collecte-api-meteo` et recopie `data/raw` plus `assets/spots_specs`.
-- `archive-previsions` : l’archive de 23 h relit l’**historique git** de cette branche (`current/` et `previous/` de chaque commit) pour retrouver la dernière collecte lancée avant 23 h, et remonter à une collecte plus ancienne pour un modèle en échec. Ne jamais réécrire l’historique de cette branche (pas de force push ni de squash).
+- `archive-previsions` : l’archive de 1 h relit l’**historique git** de cette branche (`current/` et `previous/` de chaque commit) pour retrouver la dernière collecte lancée avant minuit du jour archivé, et remonter à une collecte plus ancienne pour un modèle en échec. Ne jamais réécrire l’historique de cette branche (pas de force push ni de squash).
