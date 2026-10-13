@@ -95,7 +95,7 @@ Mesures du jour des **11 stations** automatiques, affichées dans l’onglet *Ba
 | Source | Appel | Contenu | Clé |
 | --- | --- | --- | --- |
 | MétéoSuisse (`ogd-smn`, 3 stations) | Fichier du jour UTC en cours | Journée entière, pas de 10 min | non |
-| Météo-France (`DPPaquetObs v1`, 8 stations) | Paquet d’une station | 24 h glissantes, pas de 6 min | oui |
+| Météo-France (`DPPaquetObs v2`, 8 stations) | Paquet d’une station | 24 h glissantes, pas de 6 min | oui |
 
 **Une balise = un appel**, soit onze en tout. Le navigateur n’appelle qu’une seule adresse, le **Worker Cloudflare `gabin-meteo`** (`worker/`, déployé sur `https://gabin-meteo.garinlu-subs.workers.dev/balises`) : il garde la clé Météo-France en secret, interroge les deux sources, convertit tout en nœuds et met le résultat en cache 3 min.
 

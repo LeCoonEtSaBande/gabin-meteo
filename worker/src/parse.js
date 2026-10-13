@@ -158,7 +158,7 @@ export function parseMeteoSuisse(text, keepStamp) {
 }
 
 export const METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2";
-export const METEOFRANCE_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v1";
+export const METEOFRANCE_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v2";
 
 /** Dernière mesure disponible d'une station, au pas de 6 min (API DPObs). */
 export function meteoFranceLatestUrl(sourceId, base = METEOFRANCE_BASE) {
@@ -323,6 +323,56 @@ export function parseSpecs(text, maxStations = 40) {
  * dans le jeton : les lire dit si le Paquet est accessible sans dépenser un
  * appel, et sans jamais sortir la clé du Worker.
  */
+/**
+ * Motif lisible d'un refus de la passerelle Météo-France, qui répond en XML
+ * (`<ams:description>`) ou en JSON (`description`). Tronqué : il finit dans
+ * une réponse publique.
+ */
+export function errorReason(body, max = 200) {
+  const text = String(body || "");
+  const xml = text.match(/<(?:\w+:)?description>([\s\S]*?)<\/(?:\w+:)?description>/i)
+    || text.match(/<(?:\w+:)?message>([\s\S]*?)<\/(?:\w+:)?message>/i);
+  let reason = xml ? xml[1] : "";
+  if (!reason) {
+    try {
+      const json = JSON.parse(text);
+      reason = json?.description || json?.message || json?.fault?.description || json?.fault?.message || "";
+    } catch {
+      reason = text;
+    }
+  }
+  return String(reason).replace(/\s+/g, " ").trim().slice(0, max);
+}
+
+/** Abonnements de la clé avec leur chemin et leur version, sans rien du secret. */
+export function subscribedApiDetails(token) {
+  const apis = jwtPayload(token)?.subscribedAPIs;
+  if (!Array.isArray(apis)) return [];
+  return apis.map((api) => ({
+    name: String(api?.name ?? api),
+    context: api?.context ?? null,
+    version: api?.version ?? null,
+  }));
+}
+
+/**
+ * État de l'abonnement à une API au regard de l'adresse appelée. La passerelle
+ * traite chaque version comme une API distincte : être abonné à la v2 et
+ * appeler la v1 répond 403, comme ne pas être abonné du tout.
+ */
+export function subscriptionStatus(details, name, base) {
+  const api = details.find((entry) => entry.name === name);
+  if (!api) return "absent de la clé";
+  let path = "";
+  try {
+    path = new URL(base).pathname.replace(/\/+$/, "");
+  } catch {
+    return "abonné";
+  }
+  if (api.context && api.context !== path) return `abonné à ${api.context}, le Worker appelle ${path}`;
+  return "abonné";
+}
+
 function jwtPayload(token) {
   const part = String(token || "").split(".")[1];
   if (!part) return null;

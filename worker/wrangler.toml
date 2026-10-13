@@ -17,7 +17,7 @@ CACHE_SECONDS = "180"
 SPECS_CACHE_SECONDS = "600"
 # Paquet de 24 h au pas de 6 min, un appel par balise : c'est la source normale
 # de la courbe française. DPObs ne sert plus que de repli pour la vignette.
-METEOFRANCE_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v1"
+METEOFRANCE_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v2"
 METEOFRANCE_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2"
 # Pas commun renvoyé au navigateur. 30 minutes est le seul pas qui tombe juste
 # à la fois sur les 6 min de Météo-France et les 10 min de MétéoSuisse : décimer

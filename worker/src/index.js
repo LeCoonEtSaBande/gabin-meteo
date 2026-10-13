@@ -26,6 +26,9 @@ import {
   parseSpecs,
   pointsForDayOrLast,
   subscribedApis,
+  subscribedApiDetails,
+  subscriptionStatus,
+  errorReason,
   keyExpiry,
   timeGrid,
 } from "./parse.js";
@@ -37,7 +40,7 @@ const DEFAULTS = {
   CACHE_SECONDS: "180",
   SPECS_CACHE_SECONDS: "600",
   METEOFRANCE_BASE: "https://public-api.meteofrance.fr/public/DPObs/v2",
-  METEOFRANCE_PAQUET_BASE: "https://public-api.meteofrance.fr/public/DPPaquetObs/v1",
+  METEOFRANCE_PAQUET_BASE: "https://public-api.meteofrance.fr/public/DPPaquetObs/v2",
   COARSE_STEP_MIN: "30",
 };
 
@@ -74,7 +77,12 @@ function json(body, { status = 200, headers = {} } = {}) {
 
 async function fetchText(url, init = {}) {
   const res = await fetch(url, { ...init, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  if (!res.ok) {
+    // La passerelle Météo-France dit pourquoi elle refuse (abonnement, ressource,
+    // quota) : sans ce motif, un 403 ne se diagnostique pas.
+    const reason = errorReason(await res.text().catch(() => ""));
+    throw new Error(`HTTP ${res.status}${reason ? ` (${reason})` : ""}`);
+  }
   return res.text();
 }
 
@@ -247,6 +255,7 @@ export default {
 
     if (pathname === "/" || pathname === "/health") {
       const apis = subscribedApis(env.METEOFRANCE_API_KEY);
+      const details = subscribedApiDetails(env.METEOFRANCE_API_KEY);
       return json(
         {
           service: "gabin-meteo",
@@ -254,8 +263,9 @@ export default {
           meteofrance_key: env.METEOFRANCE_API_KEY ? "présente" : "absente",
           // Les abonnements sont encodés dans la clé : la courbe française
           // reste vide tant que le paquet n'y est pas, et c'est ici qu'on le voit.
-          meteofrance_paquet: apis.includes(PAQUET_API) ? "abonné" : "absent de la clé",
+          meteofrance_paquet: subscriptionStatus(details, PAQUET_API, setting(env, "METEOFRANCE_PAQUET_BASE")),
           meteofrance_apis: apis,
+          meteofrance_abonnements: details,
           meteofrance_expire: keyExpiry(env.METEOFRANCE_API_KEY),
           meteofrance_base: setting(env, "METEOFRANCE_BASE"),
           meteofrance_paquet_base: setting(env, "METEOFRANCE_PAQUET_BASE"),

@@ -20,7 +20,7 @@ nœuds et renvoie un seul JSON.
 | Source | Service | Contenu d'un appel | Clé |
 | --- | --- | --- | --- |
 | `MeteoSuisse` | `data.geo.admin.ch/ch.meteoschweiz.ogd-smn/<id>/ogd-smn_<id>_t_now.csv` | jour UTC entier, pas de 10 min | non |
-| `MeteoFrance` | `DPPaquetObs/v1/paquet/infrahoraire-6m?id_station=<id>` | **24 h glissantes, pas de 6 min** | oui |
+| `MeteoFrance` | `DPPaquetObs/v2/paquet/infrahoraire-6m?id_station=<id>` | **24 h glissantes, pas de 6 min** | oui |
 | `MeteoFrance` (repli) | `DPObs/v2/station/infrahoraire-6m?id_station=<id>` | une seule mesure, la dernière | oui |
 
 Champs lus :

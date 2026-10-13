@@ -167,7 +167,7 @@ test("/balises : un appel par balise, journée entière, deux sources en nœuds"
   assert.equal(fetched.filter((url) => url.includes("DPPaquetObs")).length, 2);
   assert.match(
     fetched.find((url) => url.includes("38336001")),
-    /DPPaquetObs\/v1\/paquet\/infrahoraire-6m\?id_station=38336001&format=csv$/
+    /DPPaquetObs\/v2\/paquet\/infrahoraire-6m\?id_station=38336001&format=csv$/
   );
   assert.equal(calls.find((call) => call.url.includes("meteofrance")).headers.apikey, "clé-de-test");
 });

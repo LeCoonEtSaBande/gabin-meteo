@@ -19,6 +19,8 @@ import {
   pointsForDay,
   pointsForDayOrLast,
   subscribedApis,
+  subscriptionStatus,
+  errorReason,
   keyExpiry,
   timeGrid,
 } from "../src/parse.js";
@@ -82,7 +84,7 @@ test("URL MétéoSuisse en minuscules", () => {
 test("URL Météo-France : paquet de 24 h, et dernière mesure pour le repli", () => {
   assert.equal(
     meteoFrancePaquetUrl("73329001"),
-    "https://public-api.meteofrance.fr/public/DPPaquetObs/v1/paquet/infrahoraire-6m?id_station=73329001&format=csv"
+    "https://public-api.meteofrance.fr/public/DPPaquetObs/v2/paquet/infrahoraire-6m?id_station=73329001&format=csv"
   );
   assert.equal(
     meteoFranceLatestUrl("73329001"),
@@ -351,6 +353,32 @@ test("abonnements lus dans la clé, sans appel ni fuite", () => {
   assert.deepEqual(subscribedApis("entete"), []);
   assert.deepEqual(subscribedApis("entete.pas-du-base64-json.signature"), []);
   assert.deepEqual(subscribedApis(""), []);
+});
+
+test("abonnement : la version abonnée doit être celle appelée", () => {
+  const details = [
+    { name: "DonneesPubliquesPaquetObservation", context: "/public/DPPaquetObs/v2", version: "v2" },
+  ];
+  const api = "DonneesPubliquesPaquetObservation";
+  assert.equal(subscriptionStatus(details, api, "https://public-api.meteofrance.fr/public/DPPaquetObs/v2"), "abonné");
+  assert.equal(subscriptionStatus(details, api, "https://public-api.meteofrance.fr/public/DPPaquetObs/v2/"), "abonné");
+  assert.equal(
+    subscriptionStatus(details, api, "https://public-api.meteofrance.fr/public/DPPaquetObs/v1"),
+    "abonné à /public/DPPaquetObs/v2, le Worker appelle /public/DPPaquetObs/v1"
+  );
+  assert.equal(subscriptionStatus([], api, "https://x/public/DPPaquetObs/v2"), "absent de la clé");
+});
+
+test("motif d'un refus de la passerelle, en XML ou en JSON", () => {
+  const xml =
+    "<ams:fault xmlns:ams=\"http://wso2.org/apimanager/security\"><ams:code>900908</ams:code>" +
+    "<ams:message>Resource forbidden </ams:message><ams:description>Access failure for API: " +
+    "/public/DPPaquetObs/v1, version: v1 status: (403)</ams:description></ams:fault>";
+  assert.equal(errorReason(xml), "Access failure for API: /public/DPPaquetObs/v1, version: v1 status: (403)");
+  assert.equal(errorReason('{"code":"900804","message":"Quota","description":"Message throttled out"}'), "Message throttled out");
+  assert.equal(errorReason("  texte\n brut  "), "texte brut");
+  assert.equal(errorReason("x".repeat(500)).length, 200);
+  assert.equal(errorReason(""), "");
 });
 
 test("date d'expiration lue dans la clé", () => {
