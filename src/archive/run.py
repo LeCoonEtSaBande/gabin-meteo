@@ -1,13 +1,22 @@
-"""Archive au pas de 30 minutes les mesures des balises, jour de Paris par jour de Paris.
+"""Archive les mesures des balises de la journée de Paris écoulée.
 
-Deux écritures par jour : à 23 h on pose le jour en cours, encore partiel ; au
-premier passage suivant on le clôture en relisant tous ses créneaux, ce qui
-complète ce que le passage du soir avait manqué.
+Une seule écriture par jour, à 1 h du matin : la journée est terminée, donc
+complète du premier coup. Pas de pose partielle le soir ni de clôture le
+lendemain.
+
+Pas de 30 minutes pour tout le monde, et 6 minutes pour les balises dont la
+fiche le demande sur une plage d'heures (`pas_fin_min`) — Reventin et Étoile
+entre 11 h et 19 h. 30 minutes est le seul pas qui tombe juste à la fois sur les
+6 minutes françaises et les 10 minutes suisses : décimer ne déplace rien.
 
 Sources, appelées en direct (les mesures ne sont pas dans le dépôt) :
 
+- Météo-France DPPaquetObs v2, `paquet/infrahoraire-6m?id_station=<id>` : les
+  24 h écoulées au pas de 6 min, en un appel par balise. La rétention est
+  glissante, donc un run en retard laisse le début de la journée en dehors.
 - Météo-France DPObs v2, `station/infrahoraire-6m?date=<créneau>` : une mesure
-  par appel, donc un appel par (balise, créneau). L'historique 6 min ne remonte
+  par appel, pour rattraper ce que le paquet n'a pas couvert, et pour tout faire
+  si la clé ne porte pas l'abonnement au paquet. L'historique 6 min ne remonte
   qu'à environ quatre jours.
 - MétéoSuisse OGD SMN, `ogd-smn_<id>_t_now.csv` pour le jour UTC en cours et la
   fin de `ogd-smn_<id>_t_recent.csv` (requête Range) pour ce qui précède : un
@@ -46,6 +55,7 @@ PEAK_TO_HOUR = 20
 RAW_BASE_URL = "https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises"
 
 MF_BASE = "https://public-api.meteofrance.fr/public/DPObs/v2"
+MF_PAQUET_BASE = "https://public-api.meteofrance.fr/public/DPPaquetObs/v2"
 MF_PAUSE_S = 0.7
 MF_BACKOFF_S = (15, 30, 45)
 MF_HISTORY_DAYS = 4
@@ -100,6 +110,15 @@ class Station:
     latitude: str
     longitude: str
     elevation: str
+    fine_step_min: int = 0
+    fine_from_hour: int = 0
+    fine_to_hour: int = 0
+
+    def step_at(self, slot: datetime) -> int:
+        """Pas de temps de la série à cet instant : le pas fin dans sa plage."""
+        if self.fine_step_min and self.fine_from_hour <= slot.hour < self.fine_to_hour:
+            return self.fine_step_min
+        return STEP_MIN
 
 
 @dataclass(frozen=True)
@@ -121,44 +140,94 @@ def configure_stdio() -> None:
 # --- Créneaux ---------------------------------------------------------------
 
 
-def day_slots(day: date) -> list[datetime]:
-    """Créneaux de 30 min du jour de Paris, en heure de Paris.
+def _steps(start: datetime, end: datetime, step_min: int) -> list[datetime]:
+    """Instants du pas `step_min` entre deux bornes, `end` exclu.
 
     Le pas avance en temps réel, pas en heure locale : une journée de Paris fait
-    46, 48 ou 50 créneaux selon le changement d'heure.
+    46, 48 ou 50 créneaux de 30 min selon le changement d'heure.
     """
-    start = datetime(day.year, day.month, day.day, tzinfo=PARIS)
-    end = datetime.combine(day + timedelta(days=1), datetime.min.time(), tzinfo=PARIS)
     slots = []
     cursor = start.astimezone(UTC)
-    while cursor < end.astimezone(UTC):
+    limit = end.astimezone(UTC)
+    while cursor < limit:
         slots.append(cursor.astimezone(PARIS))
-        cursor += timedelta(minutes=STEP_MIN)
+        cursor += timedelta(minutes=step_min)
     return slots
 
 
-def elapsed_slots(day: date, now: datetime) -> list[datetime]:
-    return [slot for slot in day_slots(day) if slot <= now]
+def _paris_hour(day: date, hour: int) -> datetime:
+    """`hour` du jour de Paris ; 24 désigne minuit du lendemain."""
+    if hour >= 24:
+        return datetime.combine(day + timedelta(days=1), datetime.min.time(), tzinfo=PARIS)
+    return datetime(day.year, day.month, day.day, hour, tzinfo=PARIS)
 
 
-def plan(now: datetime, day_arg: str | None) -> tuple[date | None, str]:
-    """Jour à archiver et mode, d'après l'heure de Paris.
+def day_slots(day: date) -> list[datetime]:
+    """Créneaux de 30 min du jour de Paris, en heure de Paris."""
+    return _steps(_paris_hour(day, 0), _paris_hour(day, 24), STEP_MIN)
 
-    Deux écritures par jour, été comme hiver : à 23 h on pose le jour en cours,
-    encore partiel ; avant 18 h on clôture la veille. Les quatre déclenchements
-    du cron ne tombent dans ces fenêtres que deux fois, les autres ne font rien
-    — soit l'heure est à côté, soit la veille est déjà clôturée.
+
+def station_slots(station: Station, day: date) -> list[datetime]:
+    """Créneaux attendus d'une balise : les demi-heures, plus sa plage fine.
+
+    Les deux grilles se recouvrent aux heures et demies de la plage fine ; c'est
+    bien une union, pas une somme. Reventin attend ainsi 112 créneaux : 48
+    demi-heures et 80 pas de 6 min, dont 16 communs.
+    """
+    slots = set(day_slots(day))
+    if station.fine_step_min:
+        slots.update(
+            _steps(
+                _paris_hour(day, station.fine_from_hour),
+                _paris_hour(day, station.fine_to_hour),
+                station.fine_step_min,
+            )
+        )
+    return sorted(slots)
+
+
+def elapsed_slots(slots: list[datetime], now: datetime) -> list[datetime]:
+    return [slot for slot in slots if slot <= now]
+
+
+def plan(now: datetime, day_arg: str | None) -> tuple[date, str]:
+    """Jour à archiver : la journée de Paris écoulée.
+
+    Les cinq déclenchements du cron visent tous le même jour. Le premier à
+    partir l'archive, les suivants le trouvent déjà fait et sortent. L'heure du
+    run ne change donc pas la cible, seulement le nombre de créneaux que le
+    paquet de 24 h glissantes ne couvre plus et qu'il faut relire un par un.
     """
     if day_arg:
         return date.fromisoformat(day_arg), "manuel"
-    if now.hour == 23:
-        return now.date(), "soir"
-    if now.hour < 18:
-        return now.date() - timedelta(days=1), "cloture"
-    return None, "rien"
+    return now.date() - timedelta(days=1), "veille"
 
 
 # --- Fiche des balises ------------------------------------------------------
+
+
+def _int_or_zero(value: str | None) -> int:
+    try:
+        return int((value or "").strip())
+    except ValueError:
+        return 0
+
+
+def fine_window(row: dict[str, str]) -> tuple[int, int, int]:
+    """Pas fin de la fiche, ou rien si les trois colonnes ne tiennent pas debout.
+
+    Un pas qui ne divise pas l'heure ne retomberait pas sur ses pieds, et une
+    plage vide ou à l'envers n'aurait pas de sens : dans ces cas la balise garde
+    les 30 minutes communes plutôt que de faire échouer l'archive.
+    """
+    step = _int_or_zero(row.get("pas_fin_min"))
+    start = _int_or_zero(row.get("pas_fin_debut_h"))
+    end = _int_or_zero(row.get("pas_fin_fin_h"))
+    if step < 1 or step > 60 or 60 % step:
+        return 0, 0, 0
+    if not 0 <= start < end <= 24:
+        return 0, 0, 0
+    return step, start, end
 
 
 def read_specs(path: Path) -> list[Station]:
@@ -170,6 +239,7 @@ def read_specs(path: Path) -> list[Station]:
         source_id = (row.get("source_id") or "").strip()
         if not key or not source or not source_id:
             continue
+        step, start, end = fine_window(row)
         stations.append(
             Station(
                 key=key,
@@ -179,6 +249,9 @@ def read_specs(path: Path) -> list[Station]:
                 latitude=(row.get("latitude") or "").strip(),
                 longitude=(row.get("longitude") or "").strip(),
                 elevation=(row.get("elevation_m") or "").strip(),
+                fine_step_min=step,
+                fine_from_hour=start,
+                fine_to_hour=end,
             )
         )
     return stations
@@ -252,7 +325,52 @@ def mf_slot_url(source_id: str, slot: datetime, base: str) -> str:
     return f"{base}/station/infrahoraire-6m?id_station={source_id}&date={stamp}&format=csv"
 
 
-def fetch_france(
+def mf_paquet_url(source_id: str, base: str) -> str:
+    return f"{base}/paquet/infrahoraire-6m?id_station={source_id}&format=csv"
+
+
+def mf_stamp(row: dict[str, str]) -> datetime | None:
+    raw = (row.get("validity_time") or row.get("reference_time") or "").strip()
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(UTC)
+    except ValueError:
+        return None
+
+
+def fetch_france_paquet(
+    station: Station, slots: list[datetime], apikey: str, base: str = MF_PAQUET_BASE
+) -> dict[datetime, Measure]:
+    """Les 24 h écoulées de la balise, au pas de 6 min, en un appel.
+
+    La rétention est glissante par rapport à l'instant de l'appel : à 1 h du
+    matin le paquet s'arrête une heure après le début du jour archivé, et chaque
+    heure de retard du cron en découvre un peu plus. Les créneaux laissés de
+    côté reviennent à `fetch_france_slots`, qui les relit un par un.
+
+    Une clé sans l'abonnement `DonneesPubliquesPaquetObservation` répond 403 :
+    on le dit une fois et tout passe par les appels unitaires.
+    """
+    headers = {"apikey": apikey, "accept": "*/*"}
+    url = mf_paquet_url(station.source_id, base)
+    try:
+        rows = csv_rows(http_get(url, headers).decode("utf-8", "replace"))
+    except urllib.error.HTTPError as error:
+        reason = "clé sans abonnement au paquet" if error.code == 403 else f"HTTP {error.code}"
+        print(f"  {station.key} : paquet indisponible ({reason})", file=sys.stderr)
+        return {}
+    except OSError as error:
+        print(f"  {station.key} : paquet indisponible ({error})", file=sys.stderr)
+        return {}
+
+    by_stamp: dict[datetime, Measure] = {}
+    for row in rows:
+        stamp = mf_stamp(row)
+        if stamp is not None:
+            by_stamp[stamp] = mf_measure(row)
+    return {slot: by_stamp[slot.astimezone(UTC)] for slot in slots if slot.astimezone(UTC) in by_stamp}
+
+
+def fetch_france_slots(
     station: Station, slots: list[datetime], apikey: str, base: str = MF_BASE
 ) -> dict[datetime, Measure]:
     """Un appel par créneau : DPObs ne rend qu'une mesure à la fois.
@@ -264,7 +382,7 @@ def fetch_france(
     found: dict[datetime, Measure] = {}
     for slot in slots:
         url = mf_slot_url(station.source_id, slot, base)
-        for attempt, wait in enumerate((*MF_BACKOFF_S, None)):
+        for wait in (*MF_BACKOFF_S, None):
             try:
                 rows = csv_rows(http_get(url, headers).decode("utf-8", "replace"))
                 if rows:
@@ -281,6 +399,22 @@ def fetch_france(
                     break
                 time.sleep(wait)
         time.sleep(MF_PAUSE_S)
+    return found
+
+
+def fetch_france(
+    station: Station, slots: list[datetime], apikey: str
+) -> dict[datetime, Measure]:
+    """Le paquet d'abord, puis un appel par créneau pour ce qu'il n'a pas couvert."""
+    found = fetch_france_paquet(station, slots, apikey)
+    missing = [slot for slot in slots if slot not in found]
+    if missing:
+        print(
+            f"  {station.key} : {len(found)} créneaux par le paquet, "
+            f"{len(missing)} à relire un par un",
+            flush=True,
+        )
+        found.update(fetch_france_slots(station, missing, apikey))
     return found
 
 
@@ -379,7 +513,7 @@ def build_rows(
                     "source": station.source,
                     "source_id": station.source_id,
                     "valid_at": slot.isoformat(timespec="minutes"),
-                    "step_min": str(STEP_MIN),
+                    "step_min": str(station.step_at(slot)),
                     "wind_speed_10m_kn": one_decimal(measure.wind_kn),
                     "wind_gusts_10m_kn": one_decimal(measure.gust_kn),
                     "wind_direction_10m_deg": rounded(measure.dir_deg),
@@ -422,15 +556,18 @@ def build_day_markdown(
 ) -> str:
     slots = day_slots(day)
     counts = meta["couverture"]
+    expected = meta["creneaux_attendus"]
+    fines = [station for station in stations if station.fine_step_min]
     lines = [
         f"# Archive des balises — {day_label(day)}",
         "",
-        f"- Pas de {STEP_MIN} minutes, heures en Europe/Paris, {len(slots)} créneaux dans la journée.",
+        f"- Tableaux au pas de {STEP_MIN} minutes, heures en Europe/Paris,"
+        f" {len(slots)} créneaux dans la journée.",
         (
-            f"- Journée complète, clôturée le {datetime.fromisoformat(meta['archived_at']):%d/%m/%Y à %H h}."
+            f"- Journée complète, archivée le {datetime.fromisoformat(meta['archived_at']):%d/%m/%Y à %H h}."
             if meta["complet"]
-            else f"- Journée encore partielle, posée le {datetime.fromisoformat(meta['archived_at']):%d/%m/%Y à %H h} ;"
-            " elle sera relue en entier et clôturée au passage suivant."
+            else f"- Journée encore partielle, archivée le"
+            f" {datetime.fromisoformat(meta['archived_at']):%d/%m/%Y à %H h}."
         ),
         f"- {len(stations)} balises : "
         + ", ".join(
@@ -441,6 +578,19 @@ def build_day_markdown(
         + ".",
         "- Mesures brutes des stations, sans assemblage : Météo-France rend la mesure 6 min"
         " posée sur le créneau, MétéoSuisse la moyenne 10 min du même instant.",
+    ]
+    if fines:
+        detail = ", ".join(
+            f"{station.name} ({station.fine_from_hour} h – {station.fine_to_hour} h,"
+            f" pas de {station.fine_step_min} min)"
+            for station in fines
+        )
+        lines.append(
+            f"- Mesurées plus finement sur une plage : {detail}. Les pics ci-dessous"
+            " tiennent compte de ces mesures ; le fichier `.csv` les contient toutes,"
+            " les tableaux de ce fichier restent aux demi-heures."
+        )
+    lines += [
         "",
         "> Unités : vent moyen et rafale en nœuds, direction = d'où vient le vent (0 absent = calme),"
         " température en °C.",
@@ -463,7 +613,7 @@ def build_day_markdown(
                     f"{top_wind[1]:%Hh%M}" if top_wind else "",
                     one_decimal(top_gust[0]) if top_gust else "—",
                     f"{top_gust[1]:%Hh%M}" if top_gust else "",
-                    f"{counts.get(station.key, 0)}/{len(slots)}",
+                    f"{counts.get(station.key, 0)}/{expected.get(station.key, len(slots))}",
                 ]
             )
             + " |"
@@ -533,20 +683,35 @@ def rel_url(path: Path) -> str:
     return f"{RAW_BASE_URL}/{path.relative_to(ROOT).as_posix()}"
 
 
+def expected_total(meta: dict) -> int:
+    """Créneaux attendus d'une journée, tous formats de `meta` confondus.
+
+    Les journées archivées avant le pas fin attendaient le même nombre de
+    créneaux pour toutes les balises ; leur `meta` ne porte qu'un total par
+    balise. L'index les relit telles quelles, sans les réécrire.
+    """
+    attendus = meta.get("creneaux_attendus")
+    if isinstance(attendus, dict):
+        return sum(attendus.values())
+    return int(meta.get("creneaux", 0)) * int(meta.get("balises", 0))
+
+
 def write_index() -> None:
     metas = []
     for meta_path in sorted(ARCHIVE_DIR.glob("*/*/*.json"), reverse=True):
         metas.append((json.loads(meta_path.read_text(encoding="utf-8")), meta_path))
     lines = [
-        "# Gabin-meteo — archive des balises, pas de 30 minutes",
+        "# Gabin-meteo — archive des balises",
         "",
-        "Mesures des balises relevées sur les API Météo-France (DPObs v2) et MétéoSuisse (OGD SMN),"
-        f" un créneau toutes les {STEP_MIN} minutes, journées de Paris.",
+        "Mesures des balises relevées sur les API Météo-France (DPPaquetObs v2 et DPObs v2)"
+        f" et MétéoSuisse (OGD SMN), un créneau toutes les {STEP_MIN} minutes, journées de"
+        " Paris. Reventin et Étoile sont relevées toutes les 6 minutes entre 11 h et 19 h.",
         "",
-        "- Fichier `.md` : pics de la journée et tableau créneau par créneau pour chaque balise"
+        "- Fichier `.md` : pics de la journée et tableau aux demi-heures pour chaque balise"
         " (lisible par Claude).",
-        "- Fichier `.csv` : une ligne par (balise, créneau), séparateur `;`, vent en nœuds.",
-        "- Fichier `.json` : couverture, mode d'écriture, sources.",
+        "- Fichier `.csv` : une ligne par (balise, créneau), séparateur `;`, vent en nœuds,"
+        " colonne `step_min` pour le pas de chaque ligne.",
+        "- Fichier `.json` : couverture, créneaux attendus, sources.",
         "- Balises en direct : https://lecoonetsabande.github.io/gabin-meteo/",
         "",
         "| Jour | Balises | Créneaux relevés | Complet | Tableau | CSV |",
@@ -555,7 +720,7 @@ def write_index() -> None:
     for meta, meta_path in metas:
         day = date.fromisoformat(meta["day"])
         releves = sum(meta["couverture"].values())
-        total = meta["creneaux"] * meta["balises"]
+        total = expected_total(meta)
         lines.append(
             f"| {day_label(day)} | {meta['balises']} | {releves}/{total} |"
             f" {'oui' if meta['complet'] else 'non'} |"
@@ -571,8 +736,8 @@ def write_index() -> None:
 def load_archived(day: date) -> dict[str, dict[datetime, Measure]]:
     """Ce qui est déjà dans le fichier du jour, pour ne jamais perdre une mesure.
 
-    La clôture relit tout, mais une source momentanément muette ne doit pas
-    effacer ce que le passage du soir avait su lire : les valeurs relues
+    Une passe suffit d'ordinaire, mais un run relancé après un échec partiel ne
+    doit pas effacer ce que le précédent avait su lire : les valeurs relues
     remplacent les anciennes, les créneaux qu'elles n'ont pas restent en place.
     """
     csv_path, _, _ = day_paths(day)
@@ -615,10 +780,11 @@ def already_complete(day: date) -> bool:
 
 
 def gather(
-    stations: list[Station], slots: list[datetime], apikey: str
+    stations: list[Station], wanted: dict[str, list[datetime]], apikey: str
 ) -> dict[str, dict[datetime, Measure]]:
     measures: dict[str, dict[datetime, Measure]] = {}
     for station in stations:
+        slots = wanted[station.key]
         started = time.monotonic()
         try:
             if station.source == "MeteoSuisse":
@@ -649,17 +815,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Réécrire un jour déjà clôturé, en repartant de zéro au lieu de compléter",
+        help="Réécrire un jour déjà archivé, en repartant de zéro au lieu de compléter",
     )
     args = parser.parse_args(argv)
 
     now = datetime.now(PARIS)
     day, mode = plan(now, args.day)
-    if day is None:
-        print(f"{now:%H:%M} à Paris : hors des fenêtres de 23 h et de la clôture de midi.")
-        return 0
     if already_complete(day) and not args.force:
-        print(f"{day} déjà clôturé, rien à faire.")
+        print(f"{day} déjà archivé, rien à faire.")
         write_index()
         return 0
     if day > now.date():
@@ -672,16 +835,21 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     stations = read_specs(args.specs)
-    slots = elapsed_slots(day, now)
-    complete = len(slots) == len(day_slots(day))
+    expected = {station.key: station_slots(station, day) for station in stations}
+    # Une journée terminée se relit en entier ; `--day` sur le jour en cours
+    # s'arrête à l'heure qu'il est.
+    wanted = {key: elapsed_slots(slots, now) for key, slots in expected.items()}
+    complete = all(len(wanted[key]) == len(expected[key]) for key in expected)
     print(
-        f"Archive {day} ({mode}) : {len(stations)} balises, {len(slots)}/{len(day_slots(day))}"
-        f" créneaux de {STEP_MIN} min{'' if complete else ' (journée en cours)'}.",
+        f"Archive {day} ({mode}) : {len(stations)} balises, "
+        f"{sum(len(slots) for slots in wanted.values())}/"
+        f"{sum(len(slots) for slots in expected.values())} créneaux"
+        f"{'' if complete else ' (journée en cours)'}.",
         flush=True,
     )
 
     apikey = os.environ.get("METEOFRANCE_API_KEY", "")
-    measures = gather(stations, slots, apikey)
+    measures = gather(stations, wanted, apikey)
     if not args.force:
         measures = merge_measures(load_archived(day), measures)
     rows = build_rows(day, stations, measures, now)
@@ -691,17 +859,26 @@ def main(argv: list[str] | None = None) -> int:
     meta = {
         "day": day.isoformat(),
         "step_min": STEP_MIN,
+        "pas_fin": {
+            station.key: {
+                "step_min": station.fine_step_min,
+                "de_h": station.fine_from_hour,
+                "a_h": station.fine_to_hour,
+            }
+            for station in stations
+            if station.fine_step_min
+        },
         "fuseau": "Europe/Paris",
         "mode": mode,
         "complet": complete,
-        "creneaux": len(day_slots(day)),
-        "creneaux_releves": len(slots),
+        "creneaux_attendus": {key: len(slots) for key, slots in expected.items()},
         "balises": len(stations),
         "balises_par_source": by_source,
         "couverture": {station.key: len(measures.get(station.key, {})) for station in stations},
         "muettes": sorted(station.key for station in stations if not measures.get(station.key)),
         "sources": {
-            "MeteoFrance": "DPObs v2 station/infrahoraire-6m (une mesure par appel)",
+            "MeteoFrance": "DPPaquetObs v2 paquet/infrahoraire-6m (24 h en un appel),"
+            " complété par DPObs v2 station/infrahoraire-6m (une mesure par appel)",
             "MeteoSuisse": "OGD SMN ogd-smn_<id>_t_now.csv et fin de _t_recent.csv",
         },
         "archived_at": now.isoformat(timespec="seconds"),

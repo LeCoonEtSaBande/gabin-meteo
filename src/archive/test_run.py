@@ -11,27 +11,45 @@ from run import (
     PARIS,
     UTC,
     Measure,
+    build_day_markdown,
+    build_rows,
     compass,
     day_slots,
     elapsed_slots,
+    expected_total,
+    fine_window,
     index_swiss,
     mf_direction,
     mf_measure,
+    mf_paquet_url,
+    mf_stamp,
     merge_measures,
     mf_slot_url,
     parse_swiss_stamp,
     peak,
     plan,
     read_specs,
+    station_slots,
     swiss_measure,
 )
 
-SPECS = (
-    "station_key;display_name;short_name;source;source_id;latitude;longitude;elevation_m;link_station;chip_dx_svg;chip_dy_svg\n"
-    "geneve_cointrin;Genève / Cointrin;Genève;MeteoSuisse;GVE;46.247519;6.127742;411;https://exemple;;\n"
-    "etoile;Étoile-sur-Rhône;Étoile;MeteoFrance;26124001;44.819;4.8895;145;https://exemple;70;\n"
-    ";;;;;;;;;;\n"
+HEADER = (
+    "station_key;display_name;short_name;source;source_id;latitude;longitude;"
+    "elevation_m;link_station;chip_dx_svg;chip_dy_svg;pas_fin_min;pas_fin_debut_h;pas_fin_fin_h\n"
 )
+SPECS = (
+    HEADER
+    + "geneve_cointrin;Genève / Cointrin;Genève;MeteoSuisse;GVE;46.247519;6.127742;411;https://exemple;;;;;\n"
+    + "etoile;Étoile-sur-Rhône;Étoile;MeteoFrance;26124001;44.819;4.8895;145;https://exemple;70;;6;11;19\n"
+    + ";;;;;;;;;;;;;\n"
+)
+
+
+def one_station(line: str):
+    with TemporaryDirectory() as folder:
+        path = Path(folder) / "balises.csv"
+        path.write_text(HEADER + line, encoding="utf-8")
+        return read_specs(path)[0]
 
 
 class SlotTests(unittest.TestCase):
@@ -60,28 +78,81 @@ class SlotTests(unittest.TestCase):
             self.assertIn(slot.astimezone(UTC).minute, (0, 30))
 
     def test_elapsed_slots_stop_at_now(self) -> None:
-        slots = elapsed_slots(date(2026, 10, 11), datetime(2026, 10, 11, 13, 10, tzinfo=PARIS))
+        slots = elapsed_slots(day_slots(date(2026, 10, 11)), datetime(2026, 10, 11, 13, 10, tzinfo=PARIS))
         self.assertEqual(len(slots), 27)
         self.assertEqual(slots[-1].isoformat(timespec="minutes"), "2026-10-11T13:00+02:00")
 
 
+class StationSlotTests(unittest.TestCase):
+    ETOILE = "etoile;Étoile;Étoile;MeteoFrance;26124001;44.8;4.9;145;https://x;70;;6;11;19\n"
+    MACON = "macon;Mâcon;Mâcon;MeteoFrance;71105001;46.3;4.8;221;https://x;;;;;\n"
+
+    def test_a_balise_without_fine_step_keeps_the_half_hours(self) -> None:
+        station = one_station(self.MACON)
+        self.assertEqual(station.fine_step_min, 0)
+        self.assertEqual(station_slots(station, date(2026, 10, 11)), day_slots(date(2026, 10, 11)))
+
+    def test_the_two_grids_are_a_union_not_a_sum(self) -> None:
+        # 48 demi-heures et 80 pas de 6 min, dont 16 tombent sur les mêmes instants.
+        slots = station_slots(one_station(self.ETOILE), date(2026, 10, 11))
+        self.assertEqual(len(slots), 112)
+        self.assertEqual(len(set(slots)), 112)
+        self.assertEqual(slots, sorted(slots))
+
+    def test_the_fine_step_only_applies_inside_its_window(self) -> None:
+        slots = station_slots(one_station(self.ETOILE), date(2026, 10, 11))
+        minutes = {f"{slot:%H:%M}" for slot in slots}
+        self.assertIn("11:06", minutes)
+        self.assertIn("18:54", minutes)
+        self.assertNotIn("10:54", minutes)
+        self.assertNotIn("19:06", minutes)
+
+    def test_step_min_follows_the_window(self) -> None:
+        station = one_station(self.ETOILE)
+        self.assertEqual(station.step_at(datetime(2026, 10, 11, 10, 30, tzinfo=PARIS)), 30)
+        self.assertEqual(station.step_at(datetime(2026, 10, 11, 11, 0, tzinfo=PARIS)), 6)
+        self.assertEqual(station.step_at(datetime(2026, 10, 11, 18, 54, tzinfo=PARIS)), 6)
+        self.assertEqual(station.step_at(datetime(2026, 10, 11, 19, 0, tzinfo=PARIS)), 30)
+        self.assertEqual(one_station(self.MACON).step_at(datetime(2026, 10, 11, 14, 0, tzinfo=PARIS)), 30)
+
+    def test_fine_slots_land_on_valid_dpobs_marks(self) -> None:
+        # DPObs n'accepte que les multiples de 6 minutes en UTC.
+        for slot in station_slots(one_station(self.ETOILE), date(2026, 10, 11)):
+            self.assertEqual(slot.astimezone(UTC).minute % 6, 0)
+
+
+class FineWindowTests(unittest.TestCase):
+    def test_a_window_is_read_from_the_three_columns(self) -> None:
+        self.assertEqual(fine_window({"pas_fin_min": "6", "pas_fin_debut_h": "11", "pas_fin_fin_h": "19"}), (6, 11, 19))
+
+    def test_a_window_up_to_midnight_is_accepted(self) -> None:
+        self.assertEqual(fine_window({"pas_fin_min": "10", "pas_fin_debut_h": "0", "pas_fin_fin_h": "24"}), (10, 0, 24))
+
+    def test_a_step_that_does_not_divide_the_hour_is_refused(self) -> None:
+        # 7 min ne retomberait pas sur ses pieds d'une heure à l'autre.
+        self.assertEqual(fine_window({"pas_fin_min": "7", "pas_fin_debut_h": "11", "pas_fin_fin_h": "19"}), (0, 0, 0))
+
+    def test_an_empty_or_backwards_window_is_refused(self) -> None:
+        self.assertEqual(fine_window({}), (0, 0, 0))
+        self.assertEqual(fine_window({"pas_fin_min": "6", "pas_fin_debut_h": "19", "pas_fin_fin_h": "11"}), (0, 0, 0))
+        self.assertEqual(fine_window({"pas_fin_min": "6", "pas_fin_debut_h": "11", "pas_fin_fin_h": "11"}), (0, 0, 0))
+        self.assertEqual(fine_window({"pas_fin_min": "6", "pas_fin_debut_h": "11", "pas_fin_fin_h": "25"}), (0, 0, 0))
+
+    def test_a_malformed_column_falls_back_to_the_common_step(self) -> None:
+        self.assertEqual(fine_window({"pas_fin_min": "six", "pas_fin_debut_h": "11", "pas_fin_fin_h": "19"}), (0, 0, 0))
+
+
 class PlanTests(unittest.TestCase):
-    def test_evening_run_writes_the_current_day(self) -> None:
-        # 21 h UTC en été, 22 h UTC en hiver : 23h10 à Paris dans les deux cas.
-        self.assertEqual(plan(datetime(2026, 10, 11, 23, 10, tzinfo=PARIS), None), (date(2026, 10, 11), "soir"))
-        self.assertEqual(plan(datetime(2026, 12, 11, 23, 10, tzinfo=PARIS), None), (date(2026, 12, 11), "soir"))
+    def test_the_day_archived_is_the_one_that_ended(self) -> None:
+        self.assertEqual(plan(datetime(2026, 10, 12, 1, 5, tzinfo=PARIS), None), (date(2026, 10, 11), "veille"))
+        self.assertEqual(plan(datetime(2026, 12, 12, 1, 5, tzinfo=PARIS), None), (date(2026, 12, 11), "veille"))
 
-    def test_midday_run_closes_the_previous_day(self) -> None:
-        self.assertEqual(plan(datetime(2026, 10, 12, 13, 10, tzinfo=PARIS), None), (date(2026, 10, 11), "cloture"))
-        self.assertEqual(plan(datetime(2026, 12, 12, 12, 10, tzinfo=PARIS), None), (date(2026, 12, 11), "cloture"))
-
-    def test_run_just_after_midnight_closes_the_day_that_ended(self) -> None:
-        # Été : le cron de 22 h UTC tombe à 00h10, la veille vient de se terminer.
-        self.assertEqual(plan(datetime(2026, 10, 12, 0, 10, tzinfo=PARIS), None), (date(2026, 10, 11), "cloture"))
-
-    def test_run_at_22h_does_nothing(self) -> None:
-        # Hiver : le cron de 21 h UTC tombe à 22h10, trop tôt pour le jour en cours.
-        self.assertEqual(plan(datetime(2026, 12, 11, 22, 10, tzinfo=PARIS), None), (None, "rien"))
+    def test_a_late_cron_still_aims_at_the_same_day(self) -> None:
+        # Les cinq déclenchements, et même un retard de GitHub, visent la veille.
+        for hour in (0, 1, 2, 3, 4, 5, 11, 23):
+            with self.subTest(hour=hour):
+                now = datetime(2026, 10, 12, hour, 40, tzinfo=PARIS)
+                self.assertEqual(plan(now, None), (date(2026, 10, 11), "veille"))
 
     def test_explicit_day_wins(self) -> None:
         self.assertEqual(plan(datetime(2026, 10, 12, 9, 0, tzinfo=PARIS), "2026-10-05"), (date(2026, 10, 5), "manuel"))
@@ -94,6 +165,24 @@ class MeteoFranceTests(unittest.TestCase):
             mf_slot_url("26124001", slot, "https://x"),
             "https://x/station/infrahoraire-6m?id_station=26124001&date=2026-10-11T12:30:00Z&format=csv",
         )
+
+    def test_the_paquet_url_carries_no_date(self) -> None:
+        # Le paquet rend toujours les 24 h qui précèdent l'appel.
+        self.assertEqual(
+            mf_paquet_url("26124001", "https://x"),
+            "https://x/paquet/infrahoraire-6m?id_station=26124001&format=csv",
+        )
+
+    def test_the_paquet_stamp_is_read_as_utc(self) -> None:
+        self.assertEqual(
+            mf_stamp({"validity_time": "2026-10-11T12:30:00Z"}).isoformat(),
+            "2026-10-11T12:30:00+00:00",
+        )
+        self.assertEqual(
+            mf_stamp({"reference_time": "2026-10-11T12:30:00+00:00"}).isoformat(),
+            "2026-10-11T12:30:00+00:00",
+        )
+        self.assertIsNone(mf_stamp({"validity_time": ""}))
 
     def test_dd_at_360_is_north_and_0_is_calm(self) -> None:
         self.assertEqual(mf_direction({"dd": "360"}), 360)
@@ -146,16 +235,24 @@ class SpecsTests(unittest.TestCase):
         self.assertEqual([station.key for station in stations], ["geneve_cointrin", "etoile"])
         self.assertEqual(stations[1].source_id, "26124001")
         self.assertEqual(stations[1].name, "Étoile-sur-Rhône")
+        self.assertEqual(stations[0].fine_step_min, 0)
+        self.assertEqual(
+            (stations[1].fine_step_min, stations[1].fine_from_hour, stations[1].fine_to_hour),
+            (6, 11, 19),
+        )
 
     def test_a_new_balise_needs_no_code_change(self) -> None:
         with TemporaryDirectory() as folder:
             path = Path(folder) / "balises.csv"
             path.write_text(
-                SPECS + "tournon;Tournon;Tournon;MeteoFrance;07324001;45.06;4.83;120;https://exemple;;\n",
+                SPECS
+                + "tournon;Tournon;Tournon;MeteoFrance;07324001;45.06;4.83;120;https://exemple;;;6;10;18\n",
                 encoding="utf-8",
             )
             stations = read_specs(path)
-        self.assertIn("tournon", [station.key for station in stations])
+        new = [station for station in stations if station.key == "tournon"][0]
+        self.assertEqual(new.fine_from_hour, 10)
+        self.assertEqual(len(station_slots(new, date(2026, 10, 11))), 112)
 
 
 class MergeTests(unittest.TestCase):
@@ -202,6 +299,68 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(compass(45), "NE")
         self.assertEqual(compass(292), "ONO")
         self.assertEqual(compass(None), "")
+
+
+class DayFileTests(unittest.TestCase):
+    DAY = date(2026, 10, 11)
+
+    def setUp(self) -> None:
+        with TemporaryDirectory() as folder:
+            path = Path(folder) / "balises.csv"
+            path.write_text(SPECS, encoding="utf-8")
+            self.stations = read_specs(path)
+        self.measures = {
+            "geneve_cointrin": {
+                datetime(2026, 10, 11, 14, 0, tzinfo=PARIS): Measure(9.9, 15.0, 212, 13.5),
+            },
+            "etoile": {
+                datetime(2026, 10, 11, 14, 0, tzinfo=PARIS): Measure(12.8, 19.6, 350, 15.6),
+                datetime(2026, 10, 11, 14, 6, tzinfo=PARIS): Measure(13.5, 21.0, 355, 15.8),
+            },
+        }
+        self.meta = {
+            "day": self.DAY.isoformat(),
+            "complet": True,
+            "balises": len(self.stations),
+            "balises_par_source": {"MeteoFrance": 1, "MeteoSuisse": 1},
+            "creneaux_attendus": {
+                station.key: len(station_slots(station, self.DAY)) for station in self.stations
+            },
+            "couverture": {key: len(slots) for key, slots in self.measures.items()},
+            "archived_at": "2026-10-12T01:05:00+02:00",
+        }
+
+    def test_step_min_is_written_on_each_row(self) -> None:
+        rows = build_rows(self.DAY, self.stations, self.measures, datetime(2026, 10, 12, 1, 5, tzinfo=PARIS))
+        steps = {row["valid_at"]: row["step_min"] for row in rows if row["station_key"] == "etoile"}
+        self.assertEqual(steps["2026-10-11T14:00+02:00"], "6")
+        self.assertEqual(steps["2026-10-11T14:06+02:00"], "6")
+
+    def test_markdown_counts_each_balise_against_its_own_grid(self) -> None:
+        text = build_day_markdown(self.DAY, self.stations, self.measures, self.meta)
+        # Le pic retient la mesure de 14h06, absente du tableau mais présente dans le CSV.
+        self.assertIn("| Étoile-sur-Rhône | 13.5 | 14h06 | 21.0 | 14h06 | 2/112 |", text)
+        self.assertIn("| Genève / Cointrin | 9.9 | 14h00 | 15.0 | 14h00 | 1/48 |", text)
+
+    def test_markdown_tables_stay_on_the_half_hours(self) -> None:
+        # Le CSV garde les 6 minutes ; le tableau lu par Claude resterait illisible.
+        text = build_day_markdown(self.DAY, self.stations, self.measures, self.meta)
+        self.assertIn("| 14h00 | 12.8 | 19.6 | 350° N | 15.6 |", text)
+        self.assertNotIn("14h06 | 13.5", text)
+        self.assertIn("Mesurées plus finement sur une plage : Étoile-sur-Rhône (11 h – 19 h, pas de 6 min)", text)
+
+
+class ExpectedTotalTests(unittest.TestCase):
+    def test_a_day_with_a_fine_step_sums_its_balises(self) -> None:
+        meta = {"creneaux_attendus": {"etoile": 112, "reventin": 112, "macon": 48}}
+        self.assertEqual(expected_total(meta), 272)
+
+    def test_a_day_archived_before_the_fine_step_is_still_readable(self) -> None:
+        # L'index relit les anciens fichiers tels quels, sans les réécrire.
+        self.assertEqual(expected_total({"creneaux": 48, "balises": 11}), 528)
+
+    def test_a_meta_without_either_counts_zero(self) -> None:
+        self.assertEqual(expected_total({}), 0)
 
 
 if __name__ == "__main__":
