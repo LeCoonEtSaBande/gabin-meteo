@@ -113,7 +113,7 @@ Le dépôt est public : Claude lit ces fichiers Markdown avec sa recherche / lec
 
 - Prévisions actuelles (courbes AROMEIFS et ICONGFS heure par heure, tous les spots) : `https://lecoonetsabande.github.io/gabin-meteo/llm/index.md`
 - Archive de 1 h (AROME HD / ICON-CH1 bruts) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md`
-- Archive des balises (mesures au pas de 30 min) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/index.md`
+- Archive des balises (mesures au pas de 30 min, 6 min pour Reventin et Étoile de 11 h à 19 h) : `https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/index.md`
 
 Conseil : un Projet Claude dont les instructions donnent ces trois adresses.
 
