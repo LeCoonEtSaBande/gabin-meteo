@@ -1,0 +1,56 @@
+{
+  "day": "2026-10-13",
+  "step_min": 30,
+  "pas_fin": {
+    "reventin": {
+      "step_min": 6,
+      "de_h": 11,
+      "a_h": 19
+    },
+    "etoile": {
+      "step_min": 6,
+      "de_h": 11,
+      "a_h": 19
+    }
+  },
+  "fuseau": "Europe/Paris",
+  "mode": "veille",
+  "complet": true,
+  "creneaux_attendus": {
+    "geneve_cointrin": 48,
+    "changins": 48,
+    "st_prex": 48,
+    "annecy_meythet": 48,
+    "chambery_aix": 48,
+    "macon": 48,
+    "lyon_bron": 48,
+    "reventin": 112,
+    "etoile": 112,
+    "montelimar": 48,
+    "la_mure": 48
+  },
+  "balises": 11,
+  "balises_par_source": {
+    "MeteoSuisse": 3,
+    "MeteoFrance": 8
+  },
+  "couverture": {
+    "geneve_cointrin": 4,
+    "changins": 4,
+    "st_prex": 4,
+    "annecy_meythet": 48,
+    "chambery_aix": 48,
+    "macon": 48,
+    "lyon_bron": 48,
+    "reventin": 112,
+    "etoile": 112,
+    "montelimar": 48,
+    "la_mure": 48
+  },
+  "muettes": [],
+  "sources": {
+    "MeteoFrance": "DPPaquetObs v2 paquet/infrahoraire-6m (24 h en un appel), complété par DPObs v2 station/infrahoraire-6m (une mesure par appel)",
+    "MeteoSuisse": "OGD SMN ogd-smn_<id>_t_now.csv et fin de _t_recent.csv"
+  },
+  "archived_at": "2026-10-14T03:49:17+02:00"
+}

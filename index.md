@@ -1,13 +1,14 @@
-# Gabin-meteo — archive des balises, pas de 30 minutes
+# Gabin-meteo — archive des balises
 
-Mesures des balises relevées sur les API Météo-France (DPObs v2) et MétéoSuisse (OGD SMN), un créneau toutes les 30 minutes, journées de Paris.
+Mesures des balises relevées sur les API Météo-France (DPPaquetObs v2 et DPObs v2) et MétéoSuisse (OGD SMN), un créneau toutes les 30 minutes, journées de Paris. Reventin et Étoile sont relevées toutes les 6 minutes entre 11 h et 19 h.
 
-- Fichier `.md` : pics de la journée et tableau créneau par créneau pour chaque balise (lisible par Claude).
-- Fichier `.csv` : une ligne par (balise, créneau), séparateur `;`, vent en nœuds.
-- Fichier `.json` : couverture, mode d'écriture, sources.
+- Fichier `.md` : pics de la journée et tableau aux demi-heures pour chaque balise (lisible par Claude).
+- Fichier `.csv` : une ligne par (balise, créneau), séparateur `;`, vent en nœuds, colonne `step_min` pour le pas de chaque ligne.
+- Fichier `.json` : couverture, créneaux attendus, sources.
 - Balises en direct : https://lecoonetsabande.github.io/gabin-meteo/
 
 | Jour | Balises | Créneaux relevés | Complet | Tableau | CSV |
 |---|---|---|---|---|---|
+| mardi 13/10/2026 | 11 | 524/656 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/10/2026-10-13.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/10/2026-10-13.csv |
 | lundi 12/10/2026 | 11 | 526/528 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/10/2026-10-12.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/10/2026-10-12.csv |
 | dimanche 11/10/2026 | 11 | 528/528 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/10/2026-10-11.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/10/2026-10-11.csv |
