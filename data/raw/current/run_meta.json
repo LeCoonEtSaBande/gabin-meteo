@@ -1,13 +1,13 @@
 {
-  "run_id": "2026-10-28T06:15:00+01:00",
-  "fetched_at": "2026-10-28T07:34:00+01:00",
-  "last_update_at": "2026-10-28T07:34:00+01:00",
-  "last_update_label": "28/10/2026 07:34",
+  "run_id": "2026-10-28T18:15:00+01:00",
+  "fetched_at": "2026-10-28T20:21:00+01:00",
+  "last_update_at": "2026-10-28T20:21:00+01:00",
+  "last_update_label": "28/10/2026 20:21",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 22380,
-  "n_ok": 115,
-  "n_partial": 11,
+  "n_forecast_rows": 23760,
+  "n_ok": 126,
+  "n_partial": 0,
   "n_failed": 0,
-  "nulls_replaced_by_zero": 600,
+  "nulls_replaced_by_zero": 0,
   "failed": []
 }
