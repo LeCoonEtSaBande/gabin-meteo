@@ -9,6 +9,7 @@ Mesures des balises relevées sur les API Météo-France (DPPaquetObs v2 et DPOb
 
 | Jour | Balises | Créneaux relevés | Complet | Tableau | CSV |
 |---|---|---|---|---|---|
+| dimanche 08/11/2026 | 11 | 518/656 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-08.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-08.csv |
 | samedi 07/11/2026 | 11 | 515/656 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-07.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-07.csv |
 | vendredi 06/11/2026 | 11 | 518/656 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-06.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-06.csv |
 | jeudi 05/11/2026 | 11 | 656/656 | oui | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-05.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/balises/data/archive/2026/11/2026-11-05.csv |
