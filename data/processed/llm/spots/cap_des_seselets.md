@@ -1,7 +1,7 @@
 # Lac du Bourget - Cap des Séselets
 
 - Spot : `cap_des_seselets` · zone : Lac du Bourget (`bourget`)
-- Modèle court terme du spot : AROMEHD
+- Modèle court terme du spot : ICONCH1
 - Prévisions collectées le : 08/11/2026 22:15 (Europe/Paris)
 - Conditions de vent : Fonctionne bien par Nord mais le vent a du mal a rentrer dans la vallée donc attendre un bon vent météo. Bonnes vagues (Fetch 18km). Régime de thermique complexe l'été.
 - Infos pratiques : Parking juste devant le cap des Séselets juste une route à traverser
