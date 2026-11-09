@@ -1,7 +1,7 @@
 # Gabin-meteo — prévisions de vent des spots (Rhône-Alpes / Léman)
 
 - Prévisions collectées le : 08/11/2026 22:15 (Europe/Paris)
-- Fichiers générés le : 2026-11-08T22:19:07+01:00
+- Fichiers générés le : 2026-11-09T08:11:04+01:00
 - Collecte prévue 3 fois par jour (vers 7h30, 13h30 et 19h30, une heure plus tôt en hiver). GitHub la retarde parfois de plusieurs heures : se fier à la date de collecte ci-dessus.
 - Carte : https://lecoonetsabande.github.io/gabin-meteo/
 - Archive des prévisions de la veille à 23 h (AROME HD et ICON-CH1 bruts) : https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/index.md
@@ -21,7 +21,7 @@ Pour le détail heure par heure d'un spot (vent moyen, rafales, direction, pluie
 | Plage du Vengeron (`vengeron`) | Leman - Petit Lac (Genève) | ICONCH1 | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/vengeron.md |
 | Plage d'Hermance (`hermance`) | Leman - Petit Lac (Genève) | ICONCH1 | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/hermance.md |
 | Lac d'Annecy - Plage de Sévrier (`plage_de_sevrier`) | Lac d'Annecy | ICONCH1 | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/plage_de_sevrier.md |
-| Lac du Bourget - Cap des Séselets (`cap_des_seselets`) | Lac du Bourget | AROMEHD | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/cap_des_seselets.md |
+| Lac du Bourget - Cap des Séselets (`cap_des_seselets`) | Lac du Bourget | ICONCH1 | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/cap_des_seselets.md |
 | Grand Lac de Laffrey - Parking du pré de la rencontre (`parking_pre_rencontre`) | Grand Lac de Laffrey | ICONCH1 | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/parking_pre_rencontre.md |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage (`treffort`) | Lac du Monteynard-Avignonet | ICONCH1 | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/treffort.md |
 | Portes-lès-Valence - Parking des Surfeurs (`portes_les_valence`) | Valence | AROMEHD | https://lecoonetsabande.github.io/gabin-meteo/llm/spots/portes_les_valence.md |
@@ -48,7 +48,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 3 | 5 | 18° NNE | aucun | soleil-couvert | 0.0 | 11°C |
 | Plage d'Hermance | 4 | 5 | 218° SO | aucun | couvert | 0.0 | 11°C |
 | Lac d'Annecy - Plage de Sévrier | 8 | 10 | 354° N | aucun | soleil-couvert | 0.0 | 13°C |
-| Lac du Bourget - Cap des Séselets | 5 | 6 | 23° NNE | aucun | soleil-couvert | 0.0 | 11°C |
+| Lac du Bourget - Cap des Séselets | 3 | 5 | 188° S | aucun | soleil-couvert | 0.0 | 12°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 11 | 20 | 196° SSO | 13h-18h | couvert | 0.0 | 9°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 10 | 16 | 200° SSO | aucun | couvert | 0.0 | 14°C |
 | Portes-lès-Valence - Parking des Surfeurs | 7 | 10 | 194° SSO | aucun | couvert | 0.0 | 12°C |
@@ -71,7 +71,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 7 | 9 | 28° NNE | aucun | couvert | 0.3 | 13°C |
 | Plage d'Hermance | 6 | 8 | 44° NE | aucun | couvert | 0.1 | 13°C |
 | Lac d'Annecy - Plage de Sévrier | 4 | 6 | 337° NNO | aucun | couvert | 0.0 | 16°C |
-| Lac du Bourget - Cap des Séselets | 12 | 16 | 217° SO | aucun | couvert | 0.0 | 15°C |
+| Lac du Bourget - Cap des Séselets | 3 | 5 | 167° SSE | aucun | couvert | 0.0 | 15°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 18 | 34 | 197° SSO | 08h-20h | couvert | 0.3 | 11°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 13 | 24 | 186° S | 09h-15h | couvert | 0.0 | 15°C |
 | Portes-lès-Valence - Parking des Surfeurs | 13 | 22 | 213° SSO | 11h-20h | couvert | 0.3 | 15°C |
@@ -94,7 +94,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 4 | 6 | 30° NNE | aucun | couvert | 0.0 | 15°C |
 | Plage d'Hermance | 4 | 5 | 38° NE | aucun | couvert | 0.0 | 15°C |
 | Lac d'Annecy - Plage de Sévrier | 4 | 7 | 36° NE | aucun | couvert | 0.0 | 16°C |
-| Lac du Bourget - Cap des Séselets | 7 | 10 | 199° SSO | aucun | orage | 15.8 | 13°C |
+| Lac du Bourget - Cap des Séselets | 2 | 2 | 144° SE | aucun | couvert | 0.0 | 15°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 11 | 23 | 174° S | aucun | soleil-couvert | 0.0 | 14°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 6 | 11 | 155° SSE | aucun | soleil-couvert | 0.0 | 19°C |
 | Portes-lès-Valence - Parking des Surfeurs | 8 | 12 | 196° SSO | aucun | pluie | 4.5 | 16°C |
@@ -117,7 +117,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 12 | 15 | 214° SO | 12h-16h | soleil-couvert | 0.0 | 18°C |
 | Plage d'Hermance | 11 | 16 | 210° SSO | 13h-16h | soleil-couvert | 0.0 | 17°C |
 | Lac d'Annecy - Plage de Sévrier | 5 | 7 | 338° NNO | aucun | couvert | 0.2 | 17°C |
-| Lac du Bourget - Cap des Séselets | 4 | 4 | 41° NE | aucun | pluie | 3.8 | 12°C |
+| Lac du Bourget - Cap des Séselets | 2 | 4 | 72° ENE | aucun | soleil-couvert | 0.6 | 16°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 10 | 21 | 175° S | 10h-14h | couvert | 0.0 | 14°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 6 | 10 | 157° SSE | aucun | couvert | 0.2 | 18°C |
 | Portes-lès-Valence - Parking des Surfeurs | 11 | 17 | 188° S | 12h-15h | soleil-couvert | 0.0 | 16°C |
@@ -140,7 +140,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 20 | 28 | 31° NNE | 14h-20h | orage | 11.4 | 14°C |
 | Plage d'Hermance | 20 | 30 | 34° NE | 14h-20h | orage | 12.6 | 13°C |
 | Lac d'Annecy - Plage de Sévrier | 3 | 4 | 356° N | aucun | orage | 9.4 | 13°C |
-| Lac du Bourget - Cap des Séselets | 7 | 19 | 40° NE | aucun | couvert | 0.6 | 13°C |
+| Lac du Bourget - Cap des Séselets | 13 | 17 | 344° NNO | 14h-20h | pluie | 5.6 | 14°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 10 | 19 | 191° S | aucun | pluie | 13.2 | 10°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 6 | 12 | 327° NNO | aucun | pluie | 11.7 | 12°C |
 | Portes-lès-Valence - Parking des Surfeurs | 13 | 26 | 6° N | aucun | pluie | 2.6 | 14°C |
@@ -163,7 +163,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 27 | 39 | 34° NE | 08h-20h | couvert | 0.0 | 9°C |
 | Plage d'Hermance | 26 | 40 | 36° NE | 08h-20h | couvert | 0.0 | 9°C |
 | Lac d'Annecy - Plage de Sévrier | 6 | 10 | 294° ONO | aucun | couvert | 0.3 | 10°C |
-| Lac du Bourget - Cap des Séselets | 9 | 24 | 15° NNE | aucun | couvert | 0.3 | 8°C |
+| Lac du Bourget - Cap des Séselets | 17 | 22 | 350° N | 08h-20h | pluie | 1.1 | 11°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 10 | 21 | 22° NNE | 14h-19h | couvert | 0.6 | 2°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 9 | 26 | 336° NNO | aucun | couvert | 0.2 | 6°C |
 | Portes-lès-Valence - Parking des Surfeurs | 17 | 36 | 3° N | 08h-20h | couvert | 0.6 | 9°C |
@@ -186,7 +186,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 20 | 32 | 32° NNE | 08h-20h | soleil-couvert | 0.0 | 7°C |
 | Plage d'Hermance | 20 | 32 | 32° NNE | 08h-20h | soleil-couvert | 0.0 | 7°C |
 | Lac d'Annecy - Plage de Sévrier | 4 | 9 | 332° NNO | aucun | soleil-couvert | 0.0 | 5°C |
-| Lac du Bourget - Cap des Séselets | 6 | 16 | 38° NE | aucun | couvert | 0.0 | 6°C |
+| Lac du Bourget - Cap des Séselets | 6 | 12 | 352° N | aucun | soleil-couvert | 0.0 | 5°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 5 | 12 | 340° NNO | aucun | couvert | 0.0 | 4°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 5 | 13 | 9° N | aucun | couvert | 0.0 | 5°C |
 | Portes-lès-Valence - Parking des Surfeurs | 11 | 24 | 6° N | aucun | couvert | 0.0 | 7°C |
@@ -209,7 +209,7 @@ Courbe des puces : AROMEIFS pour les spots AROME HD, ICONIFS (ICON-CH1 → ICON-
 | Plage du Vengeron | 6 | 9 | 29° NNE | aucun | soleil-couvert | 0.0 | 6°C |
 | Plage d'Hermance | 6 | 9 | 29° NNE | aucun | soleil-couvert | 0.0 | 6°C |
 | Lac d'Annecy - Plage de Sévrier | 4 | 8 | 344° NNO | aucun | soleil | 0.0 | 9°C |
-| Lac du Bourget - Cap des Séselets | 4 | 8 | 16° NNE | aucun | couvert | 0.6 | 9°C |
+| Lac du Bourget - Cap des Séselets | 3 | 6 | 67° ENE | aucun | soleil | 0.0 | 10°C |
 | Grand Lac de Laffrey - Parking du pré de la rencontre | 3 | 7 | 126° SE | aucun | soleil-couvert | 0.0 | 8°C |
 | Lac du Monteynard - Treffort - Parking du camping de la Plage | 3 | 8 | 192° SSO | aucun | soleil-couvert | 0.0 | 10°C |
 | Portes-lès-Valence - Parking des Surfeurs | 6 | 13 | 184° S | aucun | pluie | 5.9 | 11°C |
