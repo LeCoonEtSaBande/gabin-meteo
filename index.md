@@ -8,6 +8,7 @@ Chaque jour J est archivé à 1 h du matin le jour J : prévisions **brutes AROM
 
 | Jour prévu | Collecte utilisée (lancée le) | Tableau | CSV |
 |---|---|---|---|
+| vendredi 13/11/2026 | 12/11/2026 23:46 | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-13.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-13.csv |
 | jeudi 12/11/2026 | 11/11/2026 13:50 | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-12.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-12.csv |
 | mercredi 11/11/2026 | 10/11/2026 23:25 | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-11.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-11.csv |
 | mardi 10/11/2026 | 09/11/2026 08:50 | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-10.md | https://raw.githubusercontent.com/LeCoonEtSaBande/gabin-meteo/archive-previsions/data/archive/2026/11/2026-11-10.csv |
