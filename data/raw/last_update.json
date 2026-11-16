@@ -1,9 +1,9 @@
 {
-  "last_update_at": "2026-11-15T13:51:20+01:00",
-  "last_update_label": "15/11/2026 13:51",
+  "last_update_at": "2026-11-16T14:50:16+01:00",
+  "last_update_label": "16/11/2026 14:50",
   "timezone": "Europe/Paris",
-  "run_id": "2026-11-15T06:15:00+01:00",
-  "n_ok": 126,
+  "run_id": "2026-11-16T06:15:00+01:00",
+  "n_ok": 118,
   "n_partial": 0,
-  "n_failed": 0
+  "n_failed": 8
 }
