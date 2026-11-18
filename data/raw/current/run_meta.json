@@ -1,13 +1,38 @@
 {
-  "run_id": "2026-11-17T18:15:00+01:00",
-  "fetched_at": "2026-11-18T00:53:22+01:00",
-  "last_update_at": "2026-11-18T00:53:22+01:00",
-  "last_update_label": "18/11/2026 00:53",
+  "run_id": "2026-11-18T06:15:00+01:00",
+  "fetched_at": "2026-11-18T15:20:41+01:00",
+  "last_update_at": "2026-11-18T15:20:41+01:00",
+  "last_update_label": "18/11/2026 15:20",
   "timezone": "Europe/Paris",
-  "n_forecast_rows": 21474,
-  "n_ok": 108,
-  "n_partial": 18,
-  "n_failed": 0,
-  "nulls_replaced_by_zero": 108,
-  "failed": []
+  "n_forecast_rows": 22702,
+  "n_ok": 122,
+  "n_partial": 0,
+  "n_failed": 4,
+  "nulls_replaced_by_zero": 0,
+  "failed": [
+    {
+      "spot_key": "excenevex",
+      "model_key": "AROMEHD",
+      "error_message": "Réseau : _ssl.c:994: The handshake operation timed out",
+      "http_status": ""
+    },
+    {
+      "spot_key": "hermance",
+      "model_key": "AROMEHD",
+      "error_message": "Réseau : _ssl.c:994: The handshake operation timed out",
+      "http_status": ""
+    },
+    {
+      "spot_key": "messery",
+      "model_key": "AROMEHD",
+      "error_message": "Réseau : _ssl.c:994: The handshake operation timed out",
+      "http_status": ""
+    },
+    {
+      "spot_key": "vengeron",
+      "model_key": "AROMEHD",
+      "error_message": "Réseau : _ssl.c:994: The handshake operation timed out",
+      "http_status": ""
+    }
+  ]
 }
