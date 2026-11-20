@@ -2,7 +2,7 @@
 
 - Spot : `loire_sur_rhone` · zone : Chasse-sur-Rhône (`chasse_sur_rhone`)
 - Modèle court terme du spot : AROMEHD
-- Prévisions collectées le : 20/11/2026 15:11 (Europe/Paris)
+- Prévisions collectées le : 21/11/2026 00:12 (Europe/Paris)
 - Conditions de vent : Fonctionne par Sud ou Sud-Est dans l'axe du spot. Spot réputé pour ses vagues car le Sud se renforce en montant la vallée. Attention peut être très irrégulier surtout si c'est couvert/pré-frontal.
 - Infos pratiques : Les péniches sont prioritaires! Débris possibles en hiver après les crues!
 
@@ -14,483 +14,473 @@
 
 | Jour | AROMEIFS créneau | AROMEIFS moy. max | AROMEIFS raf. max | ICONGFS créneau | ICONGFS moy. max | ICONGFS raf. max |
 |---|---|---|---|---|---|---|
-| ven. 20/11/2026 | aucun | 8 (10h) | 17 (11h) | 09h-14h | 12 (13h) | 20 (11h) |
-| sam. 21/11/2026 | aucun | 4 (08h) | 8 (08h) | aucun | 5 (11h) | 8 (12h) |
-| dim. 22/11/2026 | aucun | 10 (08h) | 24 (10h) | 13h-18h | 16 (16h) | 30 (16h) |
-| lun. 23/11/2026 | aucun | 9 (14h) | 20 (15h) | aucun | 6 (18h) | 12 (18h) |
-| mar. 24/11/2026 | aucun | 3 (08h) | 10 (15h) | aucun | 2 (13h) | 4 (13h) |
-| mer. 25/11/2026 | aucun | 4 (20h) | 7 (20h) | aucun | 3 (15h) | 9 (16h) |
-| jeu. 26/11/2026 | aucun | 9 (13h) | 20 (14h) | aucun | 7 (16h) | 13 (16h) |
-| ven. 27/11/2026 | aucun | 8 (19h) | 24 (08h) | aucun | 9 (13h) | 16 (13h) |
-| sam. 28/11/2026 | 08h-20h | 18 (19h) | 42 (18h) | aucun | 11 (14h) | 22 (13h) |
-| dim. 29/11/2026 | aucun | 6 (08h) | 22 (08h) | aucun | 7 (13h) | 12 (08h) |
-| lun. 30/11/2026 | aucun | 11 (08h) | 29 (08h) | aucun | 5 (20h) | 5 (20h) |
-| mar. 01/12/2026 | aucun | 2 (12h) | 9 (16h) | aucun | 8 (08h) | 13 (08h) |
-| mer. 02/12/2026 | aucun | 9 (14h) | 23 (17h) | aucun | 8 (08h) | 14 (10h) |
-| jeu. 03/12/2026 | aucun | 4 (12h) | 15 (08h) | 08h-20h | 14 (13h) | 28 (16h) |
-| ven. 04/12/2026 | aucun | 6 (20h) | 11 (20h) | 12h-15h | 11 (13h) | 14 (11h) |
-| sam. 05/12/2026 |  |  |  | aucun | 4 (13h) | 5 (13h) |
-
-## ven. 20/11/2026 — heure par heure
-
-| Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 5 | 12 | 190° S | 0.0 | 25 | AROMEHD | 8 | 15 | 198° SSO | 0.0 | 80 | ICONCH1 |
-| 01h | 5 | 13 | 208° SSO | 0.0 | 45 | AROMEHD | 8 | 14 | 190° S | 0.0 | 100 | ICONCH1 |
-| 02h | 6 | 15 | 203° SSO | 0.0 | 11 | AROMEHD | 9 | 15 | 198° SSO | 0.0 | 100 | ICONCH1 |
-| 03h | 6 | 13 | 174° S | 0.0 | 100 | AROMEHD | 8 | 15 | 191° S | 0.0 | 100 | ICONCH1 |
-| 04h | 5 | 12 | 212° SSO | 0.0 | 100 | AROMEHD | 8 | 13 | 190° S | 0.0 | 100 | ICONCH1 |
-| 05h | 5 | 12 | 176° S | 0.0 | 100 | AROMEHD | 8 | 14 | 189° S | 0.0 | 100 | ICONCH1 |
-| 06h | 4 | 11 | 182° S | 0.0 | 98 | AROMEHD | 7 | 14 | 177° S | 0.0 | 0 | ICONCH1 |
-| 07h | 4 | 9 | 183° S | 0.0 | 9 | AROMEHD | 6 | 10 | 154° SSE | 0.0 | 100 | ICONCH1 |
-| 08h | 5 | 10 | 180° S | 0.0 | 6 | AROMEHD | 8 | 13 | 167° SSE | 0.0 | 100 | ICONCH1 |
-| 09h | 5 | 13 | 171° S | 0.0 | 25 | AROMEHD | 11 | 19 | 181° S | 0.0 | 100 | ICONCH1 |
-| 10h | 8 | 16 | 186° S | 0.0 | 25 | AROMEHD | 11 | 18 | 185° S | 0.0 | 100 | ICONCH1 |
-| 11h | 7 | 17 | 178° S | 0.0 | 100 | AROMEHD | 12 | 20 | 188° S | 0.0 | 100 | ICONCH1 |
-| 12h | 8 | 16 | 174° S | 0.0 | 100 | AROMEHD | 11 | 19 | 185° S | 0.0 | 100 | ICONCH1 |
-| 13h | 8 | 17 | 177° S | 0.0 | 69 | AROMEHD | 12 | 20 | 185° S | 0.0 | 97 | ICONCH1 |
-| 14h | 6 | 16 | 174° S | 0.0 | 51 | AROMEHD | 9 | 20 | 184° S | 0.0 | 98 | ICONCH1 |
-| 15h | 6 | 12 | 222° SO | 0.0 | 17 | AROMEHD | 9 | 18 | 191° S | 0.0 | 86 | ICONCH1 |
-| 16h | 6 | 12 | 175° S | 0.0 | 96 | AROMEHD | 7 | 16 | 201° SSO | 0.0 | 100 | ICONCH1 |
-| 17h | 7 | 14 | 175° S | 0.0 | 59 | AROMEHD | 6 | 12 | 236° SO | 0.0 | 81 | ICONCH1 |
-| 18h | 5 | 15 | 189° S | 0.0 | 100 | AROMEHD | 5 | 11 | 226° SO | 0.0 | 100 | ICONCH1 |
-| 19h | 3 | 10 | 227° SO | 0.0 | 100 | AROMEHD | 6 | 13 | 231° SO | 0.0 | 90 | ICONCH1 |
-| 20h | 4 | 11 | 261° O | 0.0 | 63 | AROMEHD | 6 | 12 | 214° SO | 0.0 | 63 | ICONCH1 |
-| 21h | 4 | 8 | 205° SSO | 0.0 | 0 | AROMEHD | 7 | 12 | 245° OSO | 0.0 | 67 | ICONCH1 |
-| 22h | 4 | 11 | 284° ONO | 0.0 | 0 | AROMEHD | 12 | 19 | 255° OSO | 0.0 | 63 | ICONCH1 |
-| 23h | 3 | 8 | 137° SE | 0.0 | 0 | AROMEHD | 6 | 19 | 239° OSO | 0.0 | 63 | ICONCH1 |
+| sam. 21/11/2026 | aucun | 4 (13h) | 9 (13h) | aucun | 4 (20h) | 7 (20h) |
+| dim. 22/11/2026 | aucun | 11 (20h) | 26 (16h) | aucun | 9 (15h) | 18 (15h) |
+| lun. 23/11/2026 | aucun | 3 (18h) | 7 (15h) | aucun | 7 (19h) | 16 (17h) |
+| mar. 24/11/2026 | aucun | 8 (20h) | 16 (20h) | aucun | 4 (09h) | 7 (09h) |
+| mer. 25/11/2026 | aucun | 4 (10h) | 8 (12h) | aucun | 4 (10h) | 8 (11h) |
+| jeu. 26/11/2026 | aucun | 4 (12h) | 10 (15h) | 08h-20h | 15 (14h) | 29 (15h) |
+| ven. 27/11/2026 | aucun | 2 (12h) | 8 (14h) | aucun | 4 (16h) | 8 (16h) |
+| sam. 28/11/2026 | aucun | 7 (08h) | 16 (12h) | aucun | 5 (13h) | 7 (15h) |
+| dim. 29/11/2026 | aucun | 5 (13h) | 12 (15h) | aucun | 4 (13h) | 6 (13h) |
+| lun. 30/11/2026 | aucun | 8 (11h) | 16 (13h) | aucun | 8 (15h) | 15 (16h) |
+| mar. 01/12/2026 | aucun | 10 (12h) | 22 (17h) | aucun | 6 (19h) | 11 (13h) |
+| mer. 02/12/2026 | aucun | 6 (13h) | 15 (16h) | aucun | 4 (15h) | 5 (16h) |
+| jeu. 03/12/2026 | aucun | 5 (20h) | 10 (20h) | aucun | 3 (15h) | 3 (16h) |
+| ven. 04/12/2026 | aucun | 4 (12h) | 11 (08h) | aucun | 2 (20h) | 2 (15h) |
+| sam. 05/12/2026 | aucun | 8 (13h) | 19 (13h) | aucun | 5 (20h) | 6 (17h) |
+| dim. 06/12/2026 |  |  |  | 09h-13h | 16 (13h) | 24 (11h) |
 
 ## sam. 21/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 2 | 5 | 119° ESE | 0.0 | 85 | AROMEHD | 5 | 10 | 167° SSE | 0.0 | 79 | ICONCH1 |
-| 01h | 2 | 4 | 114° ESE | 0.0 | 96 | AROMEHD | 6 | 10 | 185° S | 0.0 | 100 | ICONCH1 |
-| 02h | 2 | 3 | 90° E | 0.0 | 96 | AROMEHD | 8 | 14 | 201° SSO | 0.0 | 100 | ICONCH1 |
-| 03h | 2 | 3 | 130° SE | 0.0 | 100 | AROMEHD | 7 | 12 | 197° SSO | 0.0 | 100 | ICONCH1 |
-| 04h | 2 | 3 | 135° SE | 0.0 | 99 | AROMEHD | 4 | 12 | 174° S | 0.0 | 100 | ICONCH1 |
-| 05h | 2 | 4 | 125° SE | 0.0 | 39 | AROMEHD | 4 | 7 | 177° S | 0.0 | 100 | ICONCH1 |
-| 06h | 3 | 6 | 152° SSE | 0.1 | 52 | AROMEHD | 5 | 8 | 173° S | 0.0 | 100 | ICONCH1 |
-| 07h | 2 | 7 | 150° SSE | 0.0 | 100 | AROMEHD | 3 | 8 | 176° S | 0.0 | 100 | ICONCH1 |
-| 08h | 4 | 8 | 147° SSE | 0.2 | 100 | AROMEHD | 3 | 6 | 169° S | 0.0 | 100 | ICONCH1 |
-| 09h | 3 | 8 | 125° SE | 0.0 | 26 | AROMEHD | 3 | 6 | 163° SSE | 0.0 | 100 | ICONCH1 |
-| 10h | 3 | 6 | 117° ESE | 0.0 | 25 | AROMEHD | 3 | 6 | 159° SSE | 0.0 | 100 | ICONCH1 |
-| 11h | 3 | 7 | 141° SE | 0.0 | 7 | AROMEHD | 5 | 8 | 160° SSE | 0.0 | 99 | ICONCH1 |
-| 12h | 3 | 8 | 163° SSE | 0.0 | 4 | AROMEHD | 4 | 8 | 171° S | 0.0 | 44 | ICONCH1 |
-| 13h | 4 | 8 | 144° SE | 0.0 | 20 | AROMEHD | 2 | 6 | 145° SE | 0.0 | 99 | ICONCH1 |
-| 14h | 2 | 8 | 141° SE | 0.0 | 25 | AROMEHD | 2 | 4 | 114° ESE | 0.0 | 100 | ICONCH1 |
-| 15h | 3 | 6 | 171° S | 0.0 | 25 | AROMEHD | 3 | 5 | 132° SE | 0.0 | 100 | ICONCH1 |
-| 16h | 2 | 6 | 156° SSE | 0.0 | 25 | AROMEHD | 2 | 5 | 145° SE | 0.0 | 100 | ICONCH1 |
-| 17h | 2 | 4 | 180° S | 0.0 | 25 | AROMEHD | 2 | 4 | 191° S | 0.0 | 98 | ICONCH1 |
-| 18h | 2 | 4 | 117° ESE | 0.0 | 25 | AROMEHD | 3 | 5 | 184° S | 0.0 | 100 | ICONCH1 |
-| 19h | 2 | 3 | 117° ESE | 0.0 | 25 | AROMEHD | 3 | 6 | 170° S | 0.0 | 89 | ICONCH1 |
-| 20h | 2 | 3 | 110° ESE | 0.0 | 25 | AROMEHD | 4 | 7 | 152° SSE | 0.0 | 100 | ICONCH1 |
-| 21h | 3 | 4 | 103° ESE | 0.0 | 100 | AROMEHD | 5 | 9 | 151° SSE | 0.0 | 100 | ICONCH1 |
-| 22h | 4 | 7 | 79° E | 0.0 | 99 | AROMEHD | 6 | 10 | 150° SSE | 0.0 | 100 | ICONCH1 |
-| 23h | 1 | 7 | 81° E | 0.0 | 100 | AROMEHD | 1 | 3 | 56° NE | 0.0 | 100 | ICONCH2 |
+| 00h | 3 | 5 | 118° ESE | 0.0 | 89 | AROMEHD | 7 | 12 | 175° S | 0.0 | 94 | ICONCH1 |
+| 01h | 2 | 6 | 135° SE | 0.0 | 31 | AROMEHD | 7 | 13 | 182° S | 0.0 | 96 | ICONCH1 |
+| 02h | 2 | 5 | 127° SE | 0.0 | 1 | AROMEHD | 7 | 12 | 185° S | 0.0 | 98 | ICONCH1 |
+| 03h | 2 | 4 | 99° E | 0.0 | 25 | AROMEHD | 6 | 12 | 191° S | 0.0 | 100 | ICONCH1 |
+| 04h | 3 | 4 | 104° ESE | 0.0 | 25 | AROMEHD | 3 | 10 | 155° SSE | 0.0 | 100 | ICONCH1 |
+| 05h | 2 | 5 | 85° E | 0.0 | 61 | AROMEHD | 3 | 6 | 152° SSE | 0.0 | 100 | ICONCH1 |
+| 06h | 3 | 4 | 94° E | 0.0 | 85 | AROMEHD | 3 | 7 | 167° SSE | 0.0 | 100 | ICONCH1 |
+| 07h | 3 | 4 | 103° ESE | 0.0 | 99 | AROMEHD | 3 | 6 | 195° SSO | 0.0 | 99 | ICONCH1 |
+| 08h | 3 | 5 | 97° E | 0.0 | 97 | AROMEHD | 2 | 5 | 153° SSE | 0.0 | 97 | ICONCH1 |
+| 09h | 3 | 5 | 98° E | 0.0 | 25 | AROMEHD | 3 | 5 | 158° SSE | 0.0 | 96 | ICONCH1 |
+| 10h | 2 | 5 | 99° E | 0.0 | 20 | AROMEHD | 2 | 5 | 153° SSE | 0.0 | 100 | ICONCH1 |
+| 11h | 2 | 5 | 112° ESE | 0.0 | 12 | AROMEHD | 3 | 6 | 159° SSE | 0.0 | 100 | ICONCH1 |
+| 12h | 2 | 5 | 117° ESE | 0.0 | 3 | AROMEHD | 3 | 5 | 146° SE | 0.0 | 72 | ICONCH1 |
+| 13h | 4 | 9 | 152° SSE | 0.0 | 0 | AROMEHD | 3 | 5 | 141° SE | 0.0 | 100 | ICONCH1 |
+| 14h | 3 | 8 | 155° SSE | 0.0 | 25 | AROMEHD | 2 | 5 | 135° SE | 0.0 | 100 | ICONCH1 |
+| 15h | 2 | 7 | 156° SSE | 0.0 | 25 | AROMEHD | 2 | 4 | 135° SE | 0.0 | 100 | ICONCH1 |
+| 16h | 2 | 6 | 170° S | 0.0 | 24 | AROMEHD | 2 | 4 | 148° SSE | 0.0 | 100 | ICONCH1 |
+| 17h | 2 | 5 | 156° SSE | 0.0 | 25 | AROMEHD | 2 | 4 | 195° SSO | 0.0 | 100 | ICONCH1 |
+| 18h | 2 | 4 | 131° SE | 0.0 | 100 | AROMEHD | 3 | 5 | 187° S | 0.0 | 100 | ICONCH1 |
+| 19h | 3 | 4 | 111° ESE | 0.0 | 99 | AROMEHD | 3 | 6 | 170° S | 0.0 | 100 | ICONCH1 |
+| 20h | 2 | 4 | 96° E | 0.0 | 100 | AROMEHD | 4 | 7 | 155° SSE | 0.0 | 100 | ICONCH1 |
+| 21h | 3 | 6 | 101° E | 0.0 | 100 | AROMEHD | 4 | 8 | 152° SSE | 0.0 | 100 | ICONCH1 |
+| 22h | 3 | 6 | 86° E | 0.0 | 100 | AROMEHD | 4 | 8 | 143° SE | 0.0 | 100 | ICONCH1 |
+| 23h | 4 | 10 | 131° SE | 0.0 | 100 | AROMEHD | 5 | 10 | 139° SE | 0.0 | 100 | ICONCH1 |
 
 ## dim. 22/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 8 | 20 | 163° SSE | 0.2 | 100 | AROMEHD | 2 | 4 | 41° NE | 0.0 | 100 | ICONCH2 |
-| 01h | 10 | 20 | 154° SSE | 0.6 | 100 | AROMEHD | 2 | 4 | 31° NNE | 0.3 | 100 | ICONCH2 |
-| 02h | 10 | 21 | 156° SSE | 1.3 | 100 | AROMEHD | 3 | 5 | 81° E | 0.6 | 100 | ICONCH2 |
-| 03h | 8 | 21 | 130° SE | 1.0 | 100 | AROMEHD | 3 | 7 | 93° E | 0.7 | 100 | ICONCH2 |
-| 04h | 5 | 18 | 144° SE | 1.7 | 100 | AROMEHD | 2 | 7 | 45° NE | 1.1 | 100 | ICONCH2 |
-| 05h | 7 | 18 | 153° SSE | 0.7 | 100 | AROMEHD | 2 | 4 | 114° ESE | 2.9 | 100 | ICONCH2 |
-| 06h | 12 | 24 | 166° SSE | 0.1 | 100 | AROMEHD | 1 | 5 | 191° S | 1.9 | 100 | ICONCH2 |
-| 07h | 9 | 24 | 175° S | 0.2 | 100 | AROMEHD | 2 | 5 | 231° SO | 0.9 | 100 | ICONCH2 |
-| 08h | 10 | 21 | 174° S | 0.0 | 100 | AROMEHD | 2 | 5 | 200° SSO | 0.5 | 100 | ICONCH2 |
-| 09h | 7 | 22 | 187° S | 0.0 | 100 | AROMEHD | 6 | 10 | 225° SO | 0.6 | 100 | ICONCH2 |
-| 10h | 10 | 24 | 250° OSO | 0.0 | 100 | AROMEHD | 4 | 11 | 219° SO | 0.1 | 100 | ICONCH2 |
-| 11h | 6 | 21 | 259° O | 0.0 | 100 | AROMEHD | 4 | 8 | 254° OSO | 0.0 | 100 | ICONCH2 |
-| 12h | 4 | 14 | 251° OSO | 0.0 | 100 | AROMEHD | 8 | 16 | 256° OSO | 0.0 | 100 | ICONCH2 |
-| 13h | 5 | 15 | 257° OSO | 0.0 | 100 | AROMEHD | 9 | 18 | 266° O | 0.0 | 100 | ICONCH2 |
-| 14h | 4 | 13 | 207° SSO | 0.6 | 100 | ARPEGE | 14 | 27 | 272° O | 0.0 | 100 | ICONCH2 |
-| 15h | 4 | 13 | 172° S | 0.5 | 100 | ARPEGE | 14 | 29 | 281° O | 0.0 | 100 | ICONCH2 |
-| 16h | 4 | 14 | 188° S | 0.4 | 100 | ARPEGE | 16 | 30 | 278° O | 0.0 | 100 | ICONCH2 |
-| 17h | 4 | 14 | 198° SSO | 0.6 | 100 | ARPEGE | 13 | 29 | 289° ONO | 0.0 | 100 | ICONCH2 |
-| 18h | 5 | 12 | 263° O | 0.2 | 99 | ARPEGE | 9 | 24 | 291° ONO | 0.0 | 100 | ICONCH2 |
-| 19h | 6 | 12 | 266° O | 0.0 | 97 | ARPEGE | 6 | 16 | 297° ONO | 0.0 | 0 | ICONCH2 |
-| 20h | 7 | 15 | 281° O | 0.0 | 97 | ARPEGE | 6 | 12 | 285° ONO | 0.0 | 15 | ICONCH2 |
-| 21h | 8 | 16 | 287° ONO | 0.0 | 96 | ARPEGE | 2 | 11 | 274° O | 0.0 | 100 | ICONCH2 |
-| 22h | 8 | 17 | 293° ONO | 0.0 | 75 | ARPEGE | 3 | 6 | 234° SO | 0.0 | 49 | ICONCH2 |
-| 23h | 7 | 16 | 302° ONO | 0.0 | 70 | ARPEGE | 3 | 6 | 257° OSO | 0.0 | 42 | ICONCH2 |
+| 00h | 4 | 12 | 167° SSE | 0.0 | 100 | AROMEHD | 12 | 20 | 173° S | 0.0 | 100 | ICONCH1 |
+| 01h | 8 | 19 | 167° SSE | 0.2 | 100 | AROMEHD | 12 | 21 | 171° S | 0.7 | 100 | ICONCH1 |
+| 02h | 8 | 22 | 154° SSE | 1.0 | 100 | AROMEHD | 13 | 22 | 166° SSE | 1.0 | 100 | ICONCH1 |
+| 03h | 9 | 20 | 153° SSE | 0.4 | 100 | AROMEHD | 15 | 25 | 161° SSE | 1.2 | 100 | ICONCH1 |
+| 04h | 6 | 19 | 147° SSE | 0.9 | 100 | AROMEHD | 13 | 24 | 158° SSE | 1.0 | 100 | ICONCH1 |
+| 05h | 7 | 15 | 150° SSE | 1.3 | 100 | AROMEHD | 5 | 21 | 152° SSE | 1.3 | 100 | ICONCH1 |
+| 06h | 11 | 23 | 162° SSE | 0.7 | 100 | AROMEHD | 2 | 8 | 165° SSE | 2.4 | 100 | ICONCH1 |
+| 07h | 10 | 24 | 170° S | 0.4 | 100 | AROMEHD | 2 | 5 | 104° ESE | 2.6 | 100 | ICONCH1 |
+| 08h | 10 | 24 | 175° S | 0.0 | 100 | AROMEHD | 1 | 3 | 304° NO | 0.9 | 100 | ICONCH2 |
+| 09h | 8 | 22 | 183° S | 0.0 | 100 | AROMEHD | 0 | 3 | 270° O | 1.1 | 100 | ICONCH2 |
+| 10h | 7 | 19 | 248° OSO | 0.0 | 100 | AROMEHD | 1 | 3 | 326° NO | 0.5 | 100 | ICONCH2 |
+| 11h | 3 | 15 | 223° SO | 0.0 | 100 | AROMEHD | 1 | 4 | 59° ENE | 0.3 | 100 | ICONCH2 |
+| 12h | 5 | 10 | 207° SSO | 0.0 | 100 | AROMEHD | 2 | 4 | 52° NE | 0.0 | 100 | ICONCH2 |
+| 13h | 5 | 12 | 221° SO | 0.5 | 100 | AROMEHD | 4 | 8 | 281° O | 0.0 | 100 | ICONCH2 |
+| 14h | 7 | 18 | 272° O | 0.0 | 100 | AROMEHD | 2 | 8 | 265° O | 0.0 | 100 | ICONCH2 |
+| 15h | 6 | 16 | 264° O | 0.2 | 100 | AROMEHD | 9 | 18 | 275° O | 0.0 | 100 | ICONCH2 |
+| 16h | 7 | 26 | 292° ONO | 0.5 | 100 | AROMEHD | 8 | 18 | 281° O | 0.0 | 100 | ICONCH2 |
+| 17h | 10 | 21 | 293° ONO | 0.0 | 100 | AROMEHD | 7 | 16 | 281° O | 0.0 | 100 | ICONCH2 |
+| 18h | 7 | 22 | 268° O | 0.0 | 100 | AROMEHD | 5 | 14 | 270° O | 0.0 | 100 | ICONCH2 |
+| 19h | 10 | 21 | 287° ONO | 0.0 | 100 | AROMEHD | 4 | 10 | 247° OSO | 0.0 | 57 | ICONCH2 |
+| 20h | 11 | 22 | 290° ONO | 0.0 | 100 | AROMEHD | 2 | 7 | 211° SSO | 0.0 | 76 | ICONCH2 |
+| 21h | 10 | 23 | 291° ONO | 0.0 | 100 | AROMEHD | 6 | 12 | 265° O | 0.0 | 100 | ICONCH2 |
+| 22h | 10 | 22 | 293° ONO | 0.0 | 98 | AROMEHD | 9 | 17 | 268° O | 0.0 | 100 | ICONCH2 |
+| 23h | 8 | 16 | 289° ONO | 0.0 | 97 | ARPEGE | 9 | 17 | 271° O | 0.0 | 14 | ICONCH2 |
 
 ## lun. 23/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 7 | 15 | 309° NO | 0.0 | 60 | ARPEGE | 3 | 6 | 274° O | 0.0 | 32 | ICONCH2 |
-| 01h | 7 | 15 | 316° NO | 0.0 | 47 | ARPEGE | 5 | 8 | 258° OSO | 0.0 | 11 | ICONCH2 |
-| 02h | 6 | 14 | 316° NO | 0.0 | 15 | ARPEGE | 5 | 9 | 248° OSO | 0.0 | 100 | ICONCH2 |
-| 03h | 5 | 12 | 323° NO | 0.0 | 0 | ARPEGE | 4 | 9 | 245° OSO | 0.1 | 100 | ICONCH2 |
-| 04h | 3 | 10 | 332° NNO | 0.0 | 0 | ARPEGE | 3 | 7 | 254° OSO | 0.0 | 100 | ICONCH2 |
-| 05h | 5 | 11 | 310° NO | 0.0 | 100 | ARPEGE | 6 | 11 | 250° OSO | 0.0 | 93 | ICONCH2 |
-| 06h | 7 | 13 | 299° ONO | 0.0 | 76 | ARPEGE | 6 | 12 | 252° OSO | 0.0 | 100 | ICONCH2 |
-| 07h | 8 | 16 | 295° ONO | 0.0 | 9 | ARPEGE | 6 | 13 | 252° OSO | 0.0 | 100 | ICONCH2 |
-| 08h | 8 | 17 | 304° NO | 0.0 | 3 | ARPEGE | 4 | 11 | 240° OSO | 0.0 | 100 | ICONCH2 |
-| 09h | 8 | 16 | 301° ONO | 0.0 | 2 | ARPEGE | 4 | 8 | 229° SO | 0.0 | 100 | ICONCH2 |
-| 10h | 7 | 15 | 311° NO | 0.0 | 2 | ARPEGE | 3 | 8 | 231° SO | 0.0 | 100 | ICONCH2 |
-| 11h | 7 | 15 | 320° NO | 0.0 | 4 | ARPEGE | 3 | 5 | 274° O | 0.0 | 100 | ICONCH2 |
-| 12h | 6 | 14 | 329° NNO | 0.0 | 11 | ARPEGE | 5 | 9 | 312° NO | 0.0 | 100 | ICONCH2 |
-| 13h | 8 | 16 | 338° NNO | 0.0 | 41 | ARPEGE | 5 | 11 | 353° N | 0.0 | 100 | ICONCH2 |
-| 14h | 9 | 18 | 355° N | 0.0 | 76 | ARPEGE | 4 | 9 | 70° ENE | 0.0 | 96 | ICONCH2 |
-| 15h | 9 | 20 | 40° NE | 0.5 | 94 | ARPEGE | 3 | 8 | 54° NE | 0.0 | 100 | ICONCH2 |
-| 16h | 6 | 18 | 26° NNE | 0.1 | 100 | ARPEGE | 4 | 8 | 13° NNE | 0.3 | 100 | ICONCH2 |
-| 17h | 5 | 11 | 358° N | 0.0 | 100 | ARPEGE | 6 | 10 | 356° N | 0.2 | 100 | ICONCH2 |
-| 18h | 4 | 8 | 345° NNO | 0.0 | 95 | ARPEGE | 6 | 12 | 340° NNO | 0.0 | 100 | ICONCH2 |
-| 19h | 2 | 6 | 343° NNO | 0.0 | 80 | ARPEGE | 3 | 12 | 343° NNO | 0.0 | 100 | ICONCH2 |
-| 20h | 5 | 9 | 321° NO | 0.0 | 97 | ARPEGE | 1 | 6 | 256° OSO | 0.0 | 80 | ICONCH2 |
-| 21h | 6 | 12 | 329° NNO | 0.0 | 100 | ARPEGE | 1 | 2 | 248° OSO | 0.0 | 90 | ICONCH2 |
-| 22h | 5 | 12 | 334° NNO | 0.0 | 100 | ARPEGE | 2 | 3 | 284° ONO | 0.0 | 92 | ICONCH2 |
-| 23h | 4 | 9 | 342° NNO | 0.0 | 88 | ARPEGE | 1 | 3 | 262° O | 0.0 | 90 | ICONCH2 |
+| 00h | 8 | 16 | 294° ONO | 0.0 | 62 | ARPEGE | 8 | 16 | 274° O | 0.0 | 65 | ICONCH2 |
+| 01h | 6 | 16 | 303° ONO | 0.0 | 1 | ARPEGE | 6 | 14 | 262° O | 0.0 | 45 | ICONCH2 |
+| 02h | 6 | 13 | 320° NO | 0.0 | 0 | ARPEGE | 3 | 11 | 227° SO | 0.0 | 33 | ICONCH2 |
+| 03h | 4 | 12 | 329° NNO | 0.0 | 0 | ARPEGE | 3 | 7 | 205° SSO | 0.0 | 100 | ICONCH2 |
+| 04h | 3 | 9 | 347° NNO | 0.0 | 0 | ARPEGE | 4 | 7 | 238° OSO | 0.0 | 0 | ICONCH2 |
+| 05h | 2 | 7 | 23° NNE | 0.0 | 24 | ARPEGE | 4 | 9 | 249° OSO | 0.0 | 47 | ICONCH2 |
+| 06h | 2 | 5 | 32° NNE | 0.0 | 36 | ARPEGE | 4 | 9 | 253° OSO | 0.0 | 80 | ICONCH2 |
+| 07h | 1 | 2 | 360° N | 0.0 | 9 | ARPEGE | 4 | 8 | 273° O | 0.0 | 81 | ICONCH2 |
+| 08h | 1 | 1 | 233° SO | 0.0 | 93 | ARPEGE | 3 | 9 | 270° O | 0.0 | 55 | ICONCH2 |
+| 09h | 2 | 2 | 207° SSO | 0.0 | 84 | ARPEGE | 2 | 6 | 210° SSO | 0.0 | 100 | ICONCH2 |
+| 10h | 2 | 2 | 207° SSO | 0.1 | 90 | ARPEGE | 2 | 5 | 83° E | 0.0 | 100 | ICONCH2 |
+| 11h | 1 | 2 | 149° SSE | 0.5 | 88 | ARPEGE | 2 | 4 | 143° SE | 0.0 | 100 | ICONCH2 |
+| 12h | 1 | 4 | 146° SE | 0.6 | 100 | ARPEGE | 1 | 4 | 146° SE | 0.0 | 100 | ICONCH2 |
+| 13h | 2 | 4 | 186° S | 0.5 | 100 | ARPEGE | 6 | 12 | 314° NO | 0.0 | 100 | ICONCH2 |
+| 14h | 2 | 4 | 309° NO | 0.3 | 100 | ARPEGE | 5 | 12 | 342° NNO | 0.1 | 97 | ICONCH2 |
+| 15h | 2 | 7 | 55° NE | 0.2 | 100 | ARPEGE | 6 | 11 | 326° NO | 0.3 | 100 | ICONCH2 |
+| 16h | 3 | 5 | 82° E | 0.2 | 92 | ARPEGE | 7 | 13 | 340° NNO | 0.1 | 100 | ICONCH2 |
+| 17h | 2 | 5 | 86° E | 0.1 | 92 | ARPEGE | 6 | 16 | 358° N | 0.1 | 100 | ICONCH2 |
+| 18h | 3 | 6 | 14° NNE | 0.0 | 90 | ARPEGE | 6 | 14 | 346° NNO | 0.0 | 100 | ICONCH2 |
+| 19h | 3 | 6 | 8° N | 0.0 | 79 | ARPEGE | 7 | 14 | 354° N | 0.0 | 97 | ICONCH2 |
+| 20h | 3 | 5 | 335° NNO | 0.0 | 57 | ARPEGE | 7 | 14 | 353° N | 0.0 | 82 | ICONCH2 |
+| 21h | 3 | 5 | 347° NNO | 0.0 | 11 | ARPEGE | 6 | 13 | 338° NNO | 0.0 | 63 | ICONCH2 |
+| 22h | 2 | 4 | 21° NNE | 0.0 | 6 | ARPEGE | 5 | 12 | 326° NO | 0.0 | 15 | ICONCH2 |
+| 23h | 1 | 3 | 360° N | 0.0 | 1 | ARPEGE | 4 | 10 | 313° NO | 0.0 | 0 | ICONCH2 |
 
 ## mar. 24/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 2 | 7 | 32° NNE | 0.0 | 65 | ARPEGE | 1 | 3 | 239° OSO | 0.0 | 71 | ICONCH2 |
-| 01h | 1 | 4 | 39° NE | 0.0 | 86 | ARPEGE | 1 | 2 | 225° SO | 0.0 | 86 | ICONCH2 |
-| 02h | 1 | 2 | 333° NNO | 0.0 | 79 | ARPEGE | 2 | 3 | 234° SO | 0.0 | 53 | ICONCH2 |
-| 03h | 1 | 1 | 338° NNO | 0.0 | 58 | ARPEGE | 2 | 3 | 229° SO | 0.0 | 8 | ICONCH2 |
-| 04h | 2 | 3 | 342° NNO | 0.0 | 100 | ARPEGE | 1 | 3 | 211° SSO | 0.0 | 2 | ICONCH2 |
-| 05h | 3 | 4 | 27° NNE | 0.0 | 100 | ARPEGE | 1 | 2 | 194° SSO | 0.0 | 30 | ICONCH2 |
-| 06h | 1 | 4 | 18° NNE | 0.0 | 100 | ARPEGE | 1 | 2 | 180° S | 0.0 | 77 | ICONCH2 |
-| 07h | 1 | 2 | 51° NE | 0.0 | 100 | ARPEGE | 1 | 2 | 143° SE | 0.0 | 100 | ICONCH2 |
-| 08h | 3 | 4 | 82° E | 0.0 | 100 | ARPEGE | 0 | 2 | 90° E | 0.0 | 100 | ICONCH2 |
-| 09h | 2 | 5 | 72° ENE | 0.0 | 100 | ARPEGE | 0 | 1 | 45° NE | 0.0 | 100 | ICONCH2 |
-| 10h | 1 | 4 | 63° ENE | 0.0 | 100 | ARPEGE | 1 | 2 | 326° NO | 0.0 | 100 | ICONCH2 |
-| 11h | 1 | 4 | 90° E | 0.0 | 97 | ARPEGE | 0 | 2 | 90° E | 0.0 | 100 | ICONCH2 |
-| 12h | 0 | 4 | 135° SE | 0.0 | 92 | ARPEGE | 2 | 4 | 97° E | 0.0 | 100 | ICONCH2 |
-| 13h | 2 | 6 | 159° SSE | 0.0 | 87 | ARPEGE | 2 | 4 | 69° ENE | 0.0 | 100 | ICONCH2 |
-| 14h | 3 | 9 | 9° N | 0.0 | 100 | IFS | 1 | 4 | 63° ENE | 0.0 | 100 | ICONCH2 |
-| 15h | 2 | 10 | 17° NNE | 0.0 | 100 | IFS | 1 | 3 | 51° NE | 0.0 | 100 | ICONCH2 |
-| 16h | 2 | 10 | 22° NNE | 0.0 | 100 | IFS | 1 | 3 | 22° NNE | 0.0 | 100 | ICONCH2 |
-| 17h | 2 | 9 | 13° NNE | 0.0 | 100 | IFS | 1 | 2 | 18° NNE | 0.0 | 100 | ICONCH2 |
-| 18h | 2 | 7 | 350° N | 0.0 | 100 | IFS | 1 | 3 | 360° N | 0.0 | 100 | ICONCH2 |
-| 19h | 2 | 5 | 336° NNO | 0.0 | 100 | IFS | 1 | 2 | 342° NNO | 0.0 | 100 | ICONCH2 |
-| 20h | 2 | 4 | 337° NNO | 0.0 | 100 | IFS | 1 | 1 | 360° N | 0.0 | 100 | ICONCH2 |
-| 21h | 1 | 4 | 346° NNO | 0.0 | 100 | IFS | 0 | 1 | 360° N | 0.0 | 100 | ICONCH2 |
-| 22h | 1 | 4 | 360° N | 0.0 | 100 | IFS | 1 | 1 | 18° NNE | 0.0 | 100 | ICONCH2 |
-| 23h | 1 | 3 | 9° N | 0.0 | 100 | IFS | 1 | 2 | 326° NO | 0.0 | 100 | ICONCH2 |
+| 00h | 2 | 1 | 310° NO | 0.0 | 14 | ARPEGE | 3 | 8 | 324° NO | 0.0 | 16 | ICONCH2 |
+| 01h | 1 | 2 | 352° N | 0.0 | 35 | ARPEGE | 4 | 8 | 325° NO | 0.0 | 50 | ICONCH2 |
+| 02h | 2 | 2 | 36° NE | 0.0 | 54 | ARPEGE | 3 | 8 | 317° NO | 0.0 | 42 | ICONCH2 |
+| 03h | 1 | 2 | 31° NNE | 0.0 | 63 | ARPEGE | 2 | 6 | 329° NNO | 0.0 | 31 | ICONCH2 |
+| 04h | 1 | 2 | 63° ENE | 0.0 | 76 | ARPEGE | 2 | 5 | 354° N | 0.0 | 36 | ICONCH2 |
+| 05h | 2 | 2 | 84° E | 0.0 | 96 | ARPEGE | 1 | 4 | 333° NNO | 0.0 | 71 | ICONCH2 |
+| 06h | 2 | 2 | 77° ENE | 0.0 | 100 | ARPEGE | 2 | 4 | 287° ONO | 0.0 | 73 | ICONCH2 |
+| 07h | 1 | 2 | 11° N | 0.0 | 100 | ARPEGE | 2 | 5 | 312° NO | 0.0 | 98 | ICONCH2 |
+| 08h | 4 | 7 | 344° NNO | 0.0 | 100 | ARPEGE | 3 | 6 | 320° NO | 0.0 | 100 | ICONCH2 |
+| 09h | 2 | 7 | 5° N | 0.0 | 100 | ARPEGE | 4 | 7 | 304° NO | 0.0 | 100 | ICONCH2 |
+| 10h | 2 | 5 | 21° NNE | 0.0 | 100 | ARPEGE | 2 | 7 | 294° ONO | 0.0 | 100 | ICONCH2 |
+| 11h | 2 | 5 | 34° NE | 0.0 | 100 | ARPEGE | 1 | 5 | 351° N | 0.0 | 100 | ICONCH2 |
+| 12h | 2 | 6 | 32° NNE | 0.0 | 100 | ARPEGE | 2 | 4 | 63° ENE | 0.0 | 100 | ICONCH2 |
+| 13h | 2 | 6 | 52° NE | 0.0 | 100 | ARPEGE | 2 | 5 | 49° NE | 0.0 | 100 | ICONCH2 |
+| 14h | 2 | 6 | 76° ENE | 0.0 | 100 | ARPEGE | 2 | 5 | 34° NE | 0.0 | 100 | ICONCH2 |
+| 15h | 2 | 5 | 120° ESE | 0.0 | 100 | ARPEGE | 3 | 6 | 25° NNE | 0.0 | 100 | ICONCH2 |
+| 16h | 3 | 6 | 168° SSE | 0.0 | 100 | ARPEGE | 2 | 6 | 20° NNE | 0.0 | 100 | ICONCH2 |
+| 17h | 4 | 7 | 174° S | 0.0 | 100 | ARPEGE | 2 | 6 | 6° N | 0.0 | 100 | ICONCH2 |
+| 18h | 6 | 12 | 174° S | 0.0 | 100 | ARPEGE | 1 | 5 | 360° N | 0.0 | 100 | ICONCH2 |
+| 19h | 7 | 14 | 183° S | 0.0 | 100 | ARPEGE | 1 | 3 | 14° NNE | 0.0 | 100 | ICONCH2 |
+| 20h | 8 | 16 | 188° S | 0.0 | 100 | ARPEGE | 1 | 2 | 326° NO | 0.0 | 100 | ICONCH2 |
+| 21h | 13 | 24 | 188° S | 0.2 | 100 | ARPEGE | 1 | 2 | 326° NO | 0.0 | 100 | ICONCH2 |
+| 22h | 6 | 24 | 192° SSO | 2.0 | 100 | ARPEGE | 0 | 2 | 333° NNO | 0.0 | 100 | ICONCH2 |
+| 23h | 4 | 9 | 150° SSE | 0.6 | 100 | ARPEGE | 1 | 2 | 346° NNO | 0.0 | 100 | ICONCH2 |
 
 ## mer. 25/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 0 | 2 | 34° NE | 0.0 | 100 | IFS | 1 | 2 | 333° NNO | 0.0 | 100 | ICONCH2 |
-| 01h | 0 | 2 | 63° ENE | 0.0 | 100 | IFS | 1 | 2 | 326° NO | 0.0 | 100 | ICONCH2 |
-| 02h | 0 | 2 | 90° E | 0.0 | 100 | IFS | 0 | 1 | 27° NNE | 0.0 | 100 | ICONCH2 |
-| 03h | 0 | 2 | 225° SO | 0.0 | 100 | IFS | 2 | 3 | 353° N | 0.0 | 100 | ICONCH2 |
-| 04h | 0 | 3 | 270° O | 0.0 | 100 | IFS | 2 | 4 | 354° N | 0.0 | 100 | ICONCH2 |
-| 05h | 1 | 3 | 59° ENE | 0.5 | 100 | IFS | 2 | 4 | 354° N | 0.5 | 100 | ICONCH2 |
-| 06h | 1 | 4 | 58° ENE | 0.5 | 100 | IFS | 1 | 4 | 315° NO | 1.6 | 100 | ICONCH2 |
-| 07h | 2 | 4 | 61° ENE | 0.5 | 100 | IFS | 2 | 5 | 290° ONO | 0.9 | 100 | ICONCH2 |
-| 08h | 2 | 4 | 65° ENE | 0.4 | 100 | IFS | 0 | 4 | 27° NNE | 1.4 | 100 | ICON13KM |
-| 09h | 2 | 4 | 73° ENE | 0.4 | 100 | IFS | 0 | 3 | 135° SE | 1.4 | 100 | ICON13KM |
-| 10h | 1 | 4 | 74° ENE | 0.4 | 100 | IFS | 1 | 2 | 166° SSE | 1.4 | 100 | ICON13KM |
-| 11h | 1 | 5 | 56° NE | 0.2 | 100 | IFS | 2 | 2 | 173° S | 1.0 | 100 | ICON13KM |
-| 12h | 2 | 5 | 28° NNE | 0.2 | 100 | IFS | 2 | 4 | 175° S | 1.0 | 100 | ICON13KM |
-| 13h | 2 | 6 | 19° NNE | 0.2 | 100 | IFS | 3 | 5 | 172° S | 1.0 | 100 | ICON13KM |
-| 14h | 2 | 6 | 19° NNE | 0.3 | 100 | IFS | 3 | 7 | 169° S | 0.5 | 100 | ICON13KM |
-| 15h | 3 | 6 | 24° NNE | 0.3 | 100 | IFS | 3 | 8 | 167° SSE | 0.5 | 100 | ICON13KM |
-| 16h | 3 | 6 | 27° NNE | 0.3 | 100 | IFS | 3 | 9 | 163° SSE | 0.5 | 100 | ICON13KM |
-| 17h | 3 | 6 | 29° NNE | 0.4 | 100 | IFS | 3 | 8 | 160° SSE | 0.1 | 100 | ICON13KM |
-| 18h | 4 | 6 | 30° NNE | 0.4 | 100 | IFS | 2 | 6 | 160° SSE | 0.1 | 100 | ICON13KM |
-| 19h | 4 | 7 | 27° NNE | 0.4 | 100 | IFS | 2 | 4 | 156° SSE | 0.1 | 100 | ICON13KM |
-| 20h | 4 | 7 | 18° NNE | 0.7 | 100 | IFS | 2 | 4 | 153° SSE | 0.2 | 96 | ICON13KM |
-| 21h | 4 | 7 | 7° N | 0.7 | 100 | IFS | 2 | 3 | 144° SE | 0.2 | 91 | ICON13KM |
-| 22h | 4 | 7 | 357° N | 0.7 | 100 | IFS | 2 | 3 | 140° SE | 0.2 | 87 | ICON13KM |
-| 23h | 4 | 7 | 346° NNO | 0.5 | 100 | IFS | 1 | 2 | 135° SE | 0.0 | 91 | ICON13KM |
+| 00h | 1 | 8 | 141° SE | 0.8 | 100 | ARPEGE | 1 | 2 | 315° NO | 0.0 | 100 | ICONCH2 |
+| 01h | 2 | 2 | 45° NE | 1.2 | 100 | ARPEGE | 0 | 2 | 360° N | 0.0 | 100 | ICONCH2 |
+| 02h | 1 | 4 | 101° E | 0.5 | 100 | IFS | 1 | 2 | 360° N | 0.0 | 100 | ICONCH2 |
+| 03h | 1 | 4 | 63° ENE | 0.5 | 100 | IFS | 0 | 3 | 45° NE | 0.4 | 100 | ICONCH2 |
+| 04h | 2 | 4 | 37° NE | 0.5 | 100 | IFS | 1 | 2 | 307° NO | 0.2 | 100 | ICONCH2 |
+| 05h | 2 | 4 | 28° NNE | 1.0 | 100 | IFS | 0 | 2 | 360° N | 0.3 | 100 | ICONCH2 |
+| 06h | 2 | 4 | 21° NNE | 1.0 | 100 | IFS | 1 | 3 | 254° OSO | 0.6 | 100 | ICONCH2 |
+| 07h | 2 | 4 | 11° N | 1.0 | 100 | IFS | 1 | 6 | 338° NNO | 0.4 | 100 | ICONCH2 |
+| 08h | 3 | 5 | 358° N | 0.7 | 100 | IFS | 1 | 3 | 342° NNO | 0.4 | 100 | ICONCH2 |
+| 09h | 4 | 6 | 347° NNO | 0.7 | 100 | IFS | 2 | 5 | 342° NNO | 0.2 | 100 | ICONCH2 |
+| 10h | 4 | 7 | 338° NNO | 0.7 | 100 | IFS | 4 | 8 | 360° N | 0.0 | 98 | ICONCH2 |
+| 11h | 4 | 8 | 328° NNO | 1.2 | 100 | IFS | 3 | 8 | 10° N | 0.1 | 100 | ICONCH2 |
+| 12h | 3 | 8 | 311° NO | 1.2 | 100 | IFS | 3 | 7 | 23° NNE | 1.2 | 100 | ICONCH2 |
+| 13h | 3 | 8 | 297° ONO | 1.2 | 100 | IFS | 4 | 7 | 341° NNO | 1.5 | 100 | ICONCH2 |
+| 14h | 3 | 8 | 286° ONO | 2.6 | 100 | IFS | 2 | 7 | 309° NO | 3.5 | 100 | ICONCH2 |
+| 15h | 3 | 7 | 279° O | 2.6 | 100 | IFS | 2 | 5 | 53° NE | 2.8 | 100 | ICONCH2 |
+| 16h | 3 | 7 | 270° O | 2.6 | 100 | IFS | 3 | 7 | 83° E | 2.2 | 100 | ICONCH2 |
+| 17h | 1 | 6 | 250° OSO | 1.2 | 100 | IFS | 1 | 7 | 37° NE | 1.8 | 100 | ICONCH2 |
+| 18h | 1 | 6 | 153° SSE | 1.2 | 100 | IFS | 2 | 4 | 304° NO | 2.8 | 100 | ICONCH2 |
+| 19h | 2 | 6 | 126° SE | 1.2 | 100 | IFS | 1 | 4 | 270° O | 0.9 | 100 | ICONCH2 |
+| 20h | 3 | 6 | 130° SE | 0.2 | 100 | IFS | 3 | 6 | 144° SE | 0.0 | 74 | ICON13KM |
+| 21h | 2 | 5 | 138° SE | 0.2 | 100 | IFS | 3 | 6 | 145° SE | 0.0 | 78 | ICON13KM |
+| 22h | 2 | 5 | 153° SSE | 0.2 | 100 | IFS | 4 | 7 | 151° SSE | 0.0 | 83 | ICON13KM |
+| 23h | 2 | 5 | 167° SSE | 0.1 | 100 | IFS | 4 | 7 | 156° SSE | 0.0 | 83 | ICON13KM |
 
 ## jeu. 26/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 4 | 7 | 335° NNO | 0.5 | 100 | IFS | 1 | 2 | 135° SE | 0.0 | 95 | ICON13KM |
-| 01h | 4 | 7 | 330° NNO | 0.5 | 100 | IFS | 1 | 2 | 135° SE | 0.0 | 99 | ICON13KM |
-| 02h | 3 | 8 | 338° NNO | 0.8 | 100 | IFS | 1 | 2 | 135° SE | 0.1 | 98 | ICON13KM |
-| 03h | 3 | 9 | 360° N | 0.8 | 100 | IFS | 2 | 2 | 140° SE | 0.1 | 98 | ICON13KM |
-| 04h | 3 | 10 | 16° NNE | 0.8 | 100 | IFS | 2 | 3 | 140° SE | 0.1 | 97 | ICON13KM |
-| 05h | 3 | 10 | 10° N | 0.4 | 100 | IFS | 2 | 3 | 140° SE | 0.2 | 98 | ICON13KM |
-| 06h | 4 | 11 | 360° N | 0.4 | 100 | IFS | 1 | 2 | 135° SE | 0.2 | 99 | ICON13KM |
-| 07h | 4 | 11 | 354° N | 0.4 | 100 | IFS | 1 | 2 | 129° SE | 0.2 | 100 | ICON13KM |
-| 08h | 8 | 15 | 179° S | 0.4 | 96 | IFS | 1 | 2 | 127° SE | 0.0 | 98 | ICON13KM |
-| 09h | 8 | 16 | 179° S | 0.4 | 90 | IFS | 0 | 1 | 117° ESE | 0.0 | 97 | ICON13KM |
-| 10h | 9 | 17 | 179° S | 0.4 | 83 | IFS | 0 | 1 | 27° NNE | 0.0 | 95 | ICON13KM |
-| 11h | 9 | 18 | 179° S | 0.4 | 75 | IFS | 1 | 3 | 352° N | 0.0 | 96 | ICON13KM |
-| 12h | 9 | 19 | 179° S | 0.4 | 67 | IFS | 3 | 5 | 352° N | 0.0 | 96 | ICON13KM |
-| 13h | 9 | 20 | 179° S | 0.4 | 59 | IFS | 4 | 7 | 354° N | 0.0 | 97 | ICON13KM |
-| 14h | 9 | 20 | 179° S | 0.1 | 50 | IFS | 5 | 10 | 2° N | 0.1 | 98 | ICON13KM |
-| 15h | 9 | 20 | 179° S | 0.1 | 39 | IFS | 6 | 12 | 10° N | 0.1 | 98 | ICON13KM |
-| 16h | 9 | 20 | 179° S | 0.1 | 28 | IFS | 7 | 13 | 14° NNE | 0.1 | 99 | ICON13KM |
-| 17h | 9 | 20 | 179° S | 0.1 | 18 | IFS | 6 | 12 | 16° NNE | 0.0 | 98 | ICON13KM |
-| 18h | 8 | 20 | 179° S | 0.1 | 11 | IFS | 5 | 10 | 17° NNE | 0.0 | 97 | ICON13KM |
-| 19h | 8 | 19 | 179° S | 0.1 | 9 | IFS | 4 | 8 | 19° NNE | 0.0 | 96 | ICON13KM |
-| 20h | 9 | 19 | 177° S | 0.0 | 13 | IFS | 3 | 7 | 22° NNE | 0.0 | 97 | ICON13KM |
-| 21h | 9 | 19 | 176° S | 0.0 | 21 | IFS | 3 | 6 | 25° NNE | 0.0 | 99 | ICON13KM |
-| 22h | 10 | 19 | 175° S | 0.0 | 33 | IFS | 3 | 6 | 28° NNE | 0.0 | 100 | ICON13KM |
-| 23h | 10 | 20 | 173° S | 0.0 | 46 | IFS | 3 | 6 | 28° NNE | 0.0 | 98 | ICON13KM |
+| 00h | 2 | 5 | 182° S | 0.1 | 100 | IFS | 4 | 8 | 166° SSE | 0.0 | 83 | ICON13KM |
+| 01h | 3 | 6 | 191° S | 0.1 | 100 | IFS | 4 | 8 | 170° S | 0.0 | 83 | ICON13KM |
+| 02h | 3 | 6 | 193° SSO | 0.3 | 100 | IFS | 5 | 9 | 169° S | 0.1 | 89 | ICON13KM |
+| 03h | 3 | 7 | 191° S | 0.3 | 100 | IFS | 6 | 10 | 168° SSE | 0.1 | 94 | ICON13KM |
+| 04h | 3 | 7 | 189° S | 0.3 | 100 | IFS | 6 | 12 | 166° SSE | 0.1 | 100 | ICON13KM |
+| 05h | 2 | 7 | 189° S | 0.4 | 100 | IFS | 7 | 13 | 165° SSE | 0.0 | 88 | ICON13KM |
+| 06h | 2 | 6 | 192° SSO | 0.4 | 100 | IFS | 8 | 14 | 167° SSE | 0.0 | 77 | ICON13KM |
+| 07h | 2 | 5 | 192° SSO | 0.4 | 100 | IFS | 8 | 16 | 167° SSE | 0.0 | 65 | ICON13KM |
+| 08h | 3 | 5 | 193° SSO | 0.3 | 100 | IFS | 10 | 18 | 167° SSE | 0.6 | 77 | ICON13KM |
+| 09h | 3 | 6 | 191° S | 0.3 | 100 | IFS | 11 | 20 | 168° SSE | 0.6 | 88 | ICON13KM |
+| 10h | 3 | 6 | 187° S | 0.3 | 98 | IFS | 12 | 22 | 170° S | 0.6 | 100 | ICON13KM |
+| 11h | 3 | 8 | 158° SSE | 0.1 | 72 | IFS | 13 | 24 | 172° S | 0.2 | 100 | ICON13KM |
+| 12h | 4 | 9 | 154° SSE | 0.1 | 64 | IFS | 14 | 26 | 176° S | 0.2 | 100 | ICON13KM |
+| 13h | 4 | 10 | 152° SSE | 0.1 | 56 | IFS | 15 | 28 | 179° S | 0.2 | 100 | ICON13KM |
+| 14h | 3 | 10 | 153° SSE | 0.0 | 48 | IFS | 15 | 29 | 180° S | 0.1 | 100 | ICON13KM |
+| 15h | 2 | 10 | 158° SSE | 0.0 | 38 | IFS | 15 | 29 | 181° S | 0.1 | 100 | ICON13KM |
+| 16h | 1 | 10 | 172° S | 0.0 | 28 | IFS | 14 | 29 | 181° S | 0.1 | 100 | ICON13KM |
+| 17h | 1 | 10 | 216° SO | 0.0 | 20 | IFS | 13 | 27 | 180° S | 0.1 | 100 | ICON13KM |
+| 18h | 1 | 10 | 270° O | 0.0 | 16 | IFS | 12 | 24 | 178° S | 0.1 | 100 | ICON13KM |
+| 19h | 2 | 10 | 285° ONO | 0.0 | 16 | IFS | 11 | 22 | 177° S | 0.1 | 100 | ICON13KM |
+| 20h | 2 | 9 | 287° ONO | 0.0 | 24 | IFS | 10 | 20 | 177° S | 0.1 | 98 | ICON13KM |
+| 21h | 2 | 8 | 287° ONO | 0.0 | 37 | IFS | 10 | 19 | 176° S | 0.1 | 96 | ICON13KM |
+| 22h | 1 | 6 | 286° ONO | 0.0 | 54 | IFS | 9 | 18 | 176° S | 0.1 | 94 | ICON13KM |
+| 23h | 1 | 5 | 279° O | 0.0 | 72 | IFS | 8 | 16 | 177° S | 0.0 | 89 | ICON13KM |
 
 ## ven. 27/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 10 | 20 | 173° S | 0.0 | 58 | IFS | 3 | 6 | 30° NNE | 0.0 | 96 | ICON13KM |
-| 01h | 10 | 20 | 172° S | 0.0 | 67 | IFS | 3 | 6 | 28° NNE | 0.0 | 94 | ICON13KM |
-| 02h | 10 | 21 | 173° S | 0.1 | 74 | IFS | 4 | 7 | 25° NNE | 0.0 | 93 | ICON13KM |
-| 03h | 10 | 22 | 175° S | 0.1 | 82 | IFS | 4 | 8 | 22° NNE | 0.0 | 91 | ICON13KM |
-| 04h | 9 | 23 | 177° S | 0.1 | 88 | IFS | 5 | 9 | 19° NNE | 0.0 | 90 | ICON13KM |
-| 05h | 9 | 24 | 179° S | 0.1 | 93 | IFS | 5 | 10 | 19° NNE | 0.0 | 91 | ICON13KM |
-| 06h | 8 | 25 | 181° S | 0.1 | 95 | IFS | 6 | 11 | 20° NNE | 0.0 | 93 | ICON13KM |
-| 07h | 8 | 25 | 181° S | 0.1 | 94 | IFS | 7 | 12 | 20° NNE | 0.0 | 94 | ICON13KM |
-| 08h | 7 | 24 | 179° S | 0.0 | 88 | IFS | 7 | 13 | 17° NNE | 0.0 | 90 | ICON13KM |
-| 09h | 7 | 22 | 176° S | 0.0 | 77 | IFS | 7 | 13 | 14° NNE | 0.0 | 85 | ICON13KM |
-| 10h | 7 | 20 | 170° S | 0.0 | 64 | IFS | 8 | 14 | 9° N | 0.0 | 81 | ICON13KM |
-| 11h | 7 | 18 | 165° SSE | 0.0 | 51 | IFS | 8 | 15 | 4° N | 0.0 | 79 | ICON13KM |
-| 12h | 6 | 16 | 160° SSE | 0.0 | 40 | IFS | 8 | 16 | 360° N | 0.0 | 77 | ICON13KM |
-| 13h | 6 | 15 | 158° SSE | 0.0 | 34 | IFS | 9 | 16 | 357° N | 0.0 | 75 | ICON13KM |
-| 14h | 7 | 15 | 159° SSE | 0.0 | 33 | IFS | 4 | 3 | 49° NE | 0.0 | 20 | GFS |
-| 15h | 7 | 16 | 162° SSE | 0.0 | 35 | IFS | 3 | 3 | 54° NE | 0.0 | 26 | GFS |
-| 16h | 7 | 17 | 165° SSE | 0.0 | 40 | IFS | 3 | 3 | 60° ENE | 0.0 | 35 | GFS |
-| 17h | 7 | 18 | 169° S | 0.0 | 46 | IFS | 1 | 3 | 74° ENE | 0.0 | 50 | GFS |
-| 18h | 8 | 19 | 173° S | 0.0 | 52 | IFS | 1 | 2 | 180° S | 0.0 | 68 | GFS |
-| 19h | 8 | 19 | 175° S | 0.0 | 57 | IFS | 2 | 2 | 202° SSO | 0.0 | 83 | GFS |
-| 20h | 8 | 19 | 176° S | 0.0 | 62 | IFS | 2 | 2 | 185° S | 0.0 | 92 | GFS |
-| 21h | 7 | 18 | 178° S | 0.0 | 68 | IFS | 2 | 2 | 162° SSE | 0.0 | 97 | GFS |
-| 22h | 7 | 17 | 178° S | 0.0 | 74 | IFS | 3 | 2 | 146° SE | 0.0 | 100 | GFS |
-| 23h | 7 | 16 | 179° S | 0.0 | 79 | IFS | 3 | 3 | 150° SSE | 0.0 | 100 | GFS |
+| 00h | 1 | 4 | 270° O | 0.0 | 88 | IFS | 7 | 15 | 178° S | 0.0 | 85 | ICON13KM |
+| 01h | 1 | 3 | 263° O | 0.0 | 98 | IFS | 5 | 13 | 178° S | 0.0 | 80 | ICON13KM |
+| 02h | 1 | 3 | 261° O | 0.0 | 100 | IFS | 4 | 11 | 177° S | 0.0 | 78 | ICON13KM |
+| 03h | 0 | 3 | 256° OSO | 0.0 | 100 | IFS | 3 | 9 | 173° S | 0.0 | 77 | ICON13KM |
+| 04h | 0 | 3 | 225° SO | 0.0 | 100 | IFS | 2 | 7 | 165° SSE | 0.0 | 75 | ICON13KM |
+| 05h | 0 | 3 | 135° SE | 0.0 | 100 | IFS | 2 | 5 | 153° SSE | 0.0 | 79 | ICON13KM |
+| 06h | 0 | 3 | 104° ESE | 0.0 | 100 | IFS | 1 | 4 | 135° SE | 0.0 | 82 | ICON13KM |
+| 07h | 1 | 4 | 90° E | 0.0 | 100 | IFS | 1 | 2 | 121° ESE | 0.0 | 86 | ICON13KM |
+| 08h | 1 | 4 | 84° E | 0.0 | 96 | IFS | 1 | 2 | 104° ESE | 0.0 | 86 | ICON13KM |
+| 09h | 1 | 5 | 81° E | 0.0 | 89 | IFS | 0 | 2 | 27° NNE | 0.0 | 87 | ICON13KM |
+| 10h | 2 | 6 | 75° ENE | 0.0 | 81 | IFS | 1 | 2 | 360° N | 0.0 | 87 | ICON13KM |
+| 11h | 2 | 6 | 72° ENE | 0.0 | 73 | IFS | 1 | 2 | 360° N | 0.0 | 82 | ICON13KM |
+| 12h | 2 | 7 | 70° ENE | 0.0 | 67 | IFS | 2 | 4 | 14° NNE | 0.0 | 77 | ICON13KM |
+| 13h | 2 | 7 | 70° ENE | 0.0 | 65 | IFS | 2 | 5 | 17° NNE | 0.0 | 72 | ICON13KM |
+| 14h | 2 | 8 | 68° ENE | 0.0 | 67 | IFS | 3 | 6 | 16° NNE | 0.0 | 62 | ICON13KM |
+| 15h | 1 | 8 | 63° ENE | 0.0 | 72 | IFS | 3 | 7 | 13° NNE | 0.0 | 52 | ICON13KM |
+| 16h | 1 | 8 | 54° NE | 0.0 | 79 | IFS | 4 | 8 | 12° NNE | 0.0 | 42 | ICON13KM |
+| 17h | 0 | 8 | 14° NNE | 0.0 | 87 | IFS | 3 | 7 | 11° N | 0.0 | 40 | ICON13KM |
+| 18h | 0 | 7 | 304° NO | 0.0 | 94 | IFS | 2 | 5 | 10° N | 0.0 | 39 | ICON13KM |
+| 19h | 1 | 7 | 261° O | 0.0 | 98 | IFS | 1 | 3 | 8° N | 0.0 | 37 | ICON13KM |
+| 20h | 1 | 7 | 234° SO | 0.0 | 100 | IFS | 1 | 2 | 14° NNE | 0.0 | 37 | ICON13KM |
+| 21h | 1 | 7 | 211° SSO | 0.0 | 100 | IFS | 0 | 2 | 360° N | 0.0 | 38 | ICON13KM |
+| 22h | 2 | 7 | 195° SSO | 0.0 | 100 | IFS | 0 | 1 | 90° E | 0.0 | 38 | ICON13KM |
+| 23h | 2 | 7 | 185° S | 0.0 | 100 | IFS | 1 | 2 | 135° SE | 0.0 | 48 | ICON13KM |
 
 ## sam. 28/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 7 | 15 | 180° S | 0.0 | 83 | IFS | 3 | 4 | 164° SSE | 0.0 | 100 | GFS |
-| 01h | 7 | 15 | 180° S | 0.0 | 83 | IFS | 4 | 4 | 168° SSE | 0.0 | 100 | GFS |
-| 02h | 8 | 15 | 180° S | 0.0 | 79 | IFS | 4 | 4 | 165° SSE | 0.2 | 100 | GFS |
-| 03h | 8 | 16 | 181° S | 0.0 | 70 | IFS | 4 | 5 | 162° SSE | 0.2 | 100 | GFS |
-| 04h | 9 | 18 | 181° S | 0.0 | 60 | IFS | 4 | 6 | 160° SSE | 0.2 | 100 | GFS |
-| 05h | 10 | 19 | 181° S | 0.0 | 50 | IFS | 5 | 7 | 160° SSE | 2.1 | 100 | GFS |
-| 06h | 11 | 21 | 179° S | 0.0 | 43 | IFS | 5 | 9 | 163° SSE | 2.1 | 100 | GFS |
-| 07h | 12 | 23 | 179° S | 0.0 | 40 | IFS | 6 | 10 | 165° SSE | 2.1 | 100 | GFS |
-| 08h | 12 | 25 | 177° S | 0.0 | 44 | IFS | 6 | 9 | 164° SSE | 1.3 | 100 | GFS |
-| 09h | 12 | 28 | 174° S | 0.0 | 52 | IFS | 7 | 7 | 164° SSE | 1.3 | 100 | GFS |
-| 10h | 13 | 30 | 171° S | 0.0 | 63 | IFS | 6 | 7 | 166° SSE | 1.3 | 100 | GFS |
-| 11h | 13 | 33 | 168° SSE | 0.0 | 74 | IFS | 1 | 12 | 211° SSO | 0.6 | 100 | GFS |
-| 12h | 14 | 36 | 166° SSE | 0.0 | 84 | IFS | 6 | 18 | 327° NNO | 0.6 | 100 | GFS |
-| 13h | 14 | 38 | 166° SSE | 0.0 | 91 | IFS | 10 | 22 | 333° NNO | 0.6 | 100 | GFS |
-| 14h | 15 | 39 | 166° SSE | 0.0 | 94 | IFS | 11 | 22 | 338° NNO | 0.0 | 100 | GFS |
-| 15h | 16 | 40 | 168° SSE | 0.0 | 96 | IFS | 9 | 20 | 344° NNO | 0.0 | 100 | GFS |
-| 16h | 17 | 41 | 170° S | 0.0 | 96 | IFS | 8 | 17 | 350° N | 0.0 | 100 | GFS |
-| 17h | 18 | 41 | 172° S | 0.0 | 95 | IFS | 6 | 13 | 347° NNO | 0.0 | 100 | GFS |
-| 18h | 18 | 42 | 173° S | 0.0 | 95 | IFS | 5 | 10 | 337° NNO | 0.0 | 100 | GFS |
-| 19h | 18 | 42 | 174° S | 0.0 | 95 | IFS | 4 | 6 | 323° NO | 0.0 | 100 | GFS |
-| 20h | 18 | 42 | 174° S | 0.5 | 96 | IFS | 4 | 5 | 315° NO | 0.0 | 83 | GFS |
-| 21h | 17 | 41 | 174° S | 0.5 | 96 | IFS | 4 | 4 | 311° NO | 0.0 | 58 | GFS |
-| 22h | 17 | 40 | 173° S | 0.5 | 97 | IFS | 4 | 4 | 306° NO | 0.0 | 38 | GFS |
-| 23h | 16 | 39 | 172° S | 0.5 | 97 | IFS | 4 | 4 | 305° NO | 0.0 | 25 | GFS |
+| 00h | 3 | 7 | 180° S | 0.0 | 100 | IFS | 2 | 3 | 135° SE | 0.0 | 58 | ICON13KM |
+| 01h | 3 | 7 | 180° S | 0.0 | 100 | IFS | 2 | 4 | 135° SE | 0.0 | 68 | ICON13KM |
+| 02h | 4 | 8 | 181° S | 0.0 | 94 | IFS | 3 | 2 | 351° N | 0.0 | 70 | GFS |
+| 03h | 5 | 9 | 185° S | 0.0 | 85 | IFS | 3 | 2 | 356° N | 0.0 | 84 | GFS |
+| 04h | 5 | 10 | 187° S | 0.0 | 75 | IFS | 3 | 2 | 356° N | 0.0 | 95 | GFS |
+| 05h | 6 | 11 | 189° S | 0.0 | 65 | IFS | 3 | 2 | 356° N | 0.0 | 100 | GFS |
+| 06h | 6 | 12 | 191° S | 0.0 | 58 | IFS | 3 | 2 | 356° N | 0.0 | 100 | GFS |
+| 07h | 7 | 13 | 191° S | 0.0 | 55 | IFS | 3 | 2 | 356° N | 0.0 | 100 | GFS |
+| 08h | 7 | 14 | 189° S | 0.4 | 58 | IFS | 3 | 3 | 356° N | 0.0 | 100 | GFS |
+| 09h | 7 | 15 | 186° S | 0.4 | 65 | IFS | 3 | 3 | 357° N | 0.0 | 100 | GFS |
+| 10h | 6 | 15 | 183° S | 0.4 | 75 | IFS | 4 | 4 | 360° N | 0.0 | 96 | GFS |
+| 11h | 6 | 16 | 178° S | 0.4 | 85 | IFS | 4 | 5 | 6° N | 0.0 | 85 | GFS |
+| 12h | 6 | 16 | 174° S | 0.4 | 94 | IFS | 4 | 5 | 10° N | 0.0 | 69 | GFS |
+| 13h | 5 | 16 | 172° S | 0.4 | 100 | IFS | 5 | 6 | 13° NNE | 0.0 | 55 | GFS |
+| 14h | 4 | 15 | 170° S | 0.8 | 100 | IFS | 5 | 6 | 18° NNE | 0.0 | 44 | GFS |
+| 15h | 4 | 14 | 167° SSE | 0.8 | 100 | IFS | 5 | 7 | 23° NNE | 0.0 | 35 | GFS |
+| 16h | 2 | 13 | 165° SSE | 0.8 | 100 | IFS | 4 | 6 | 24° NNE | 0.0 | 26 | GFS |
+| 17h | 1 | 12 | 160° SSE | 0.8 | 100 | IFS | 3 | 5 | 14° NNE | 0.0 | 18 | GFS |
+| 18h | 0 | 11 | 135° SE | 0.8 | 100 | IFS | 2 | 3 | 351° N | 0.0 | 10 | GFS |
+| 19h | 0 | 10 | 360° N | 0.8 | 100 | IFS | 2 | 2 | 319° NO | 0.0 | 5 | GFS |
+| 20h | 0 | 9 | 270° O | 0.1 | 90 | IFS | 2 | 1 | 297° ONO | 0.0 | 4 | GFS |
+| 21h | 1 | 9 | 220° SO | 0.1 | 75 | IFS | 1 | 2 | 270° O | 0.0 | 6 | GFS |
+| 22h | 2 | 8 | 210° SSO | 0.1 | 57 | IFS | 1 | 2 | 243° OSO | 0.0 | 7 | GFS |
+| 23h | 3 | 8 | 205° SSO | 0.1 | 40 | IFS | 1 | 1 | 219° SO | 0.0 | 6 | GFS |
 
 ## dim. 29/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 14 | 38 | 172° S | 0.5 | 98 | IFS | 4 | 5 | 301° ONO | 0.0 | 15 | GFS |
-| 01h | 13 | 37 | 173° S | 0.5 | 98 | IFS | 4 | 5 | 301° ONO | 0.0 | 11 | GFS |
-| 02h | 10 | 35 | 177° S | 3.9 | 98 | IFS | 4 | 5 | 303° ONO | 0.0 | 13 | GFS |
-| 03h | 8 | 33 | 186° S | 3.9 | 99 | IFS | 4 | 4 | 309° NO | 0.0 | 21 | GFS |
-| 04h | 5 | 31 | 210° SSO | 3.9 | 99 | IFS | 4 | 4 | 317° NO | 0.0 | 34 | GFS |
-| 05h | 4 | 29 | 252° OSO | 3.9 | 100 | IFS | 4 | 7 | 330° NNO | 0.0 | 55 | GFS |
-| 06h | 5 | 27 | 283° ONO | 3.9 | 100 | IFS | 5 | 10 | 342° NNO | 0.0 | 81 | GFS |
-| 07h | 6 | 25 | 295° ONO | 3.9 | 100 | IFS | 6 | 12 | 350° N | 0.0 | 100 | GFS |
-| 08h | 6 | 22 | 299° ONO | 2.1 | 100 | IFS | 5 | 12 | 358° N | 0.0 | 100 | GFS |
-| 09h | 5 | 20 | 299° ONO | 2.1 | 100 | IFS | 5 | 11 | 7° N | 0.0 | 100 | GFS |
-| 10h | 4 | 18 | 293° ONO | 2.1 | 100 | IFS | 4 | 10 | 15° NNE | 0.0 | 100 | GFS |
-| 11h | 2 | 16 | 277° O | 2.1 | 100 | IFS | 5 | 10 | 13° NNE | 0.0 | 100 | GFS |
-| 12h | 2 | 14 | 235° SO | 2.1 | 100 | IFS | 6 | 11 | 7° N | 0.0 | 100 | GFS |
-| 13h | 2 | 13 | 196° SSO | 2.1 | 100 | IFS | 7 | 12 | 5° N | 0.0 | 100 | GFS |
-| 14h | 2 | 12 | 182° S | 0.0 | 87 | IFS | 6 | 12 | 11° N | 0.0 | 100 | GFS |
-| 15h | 2 | 10 | 180° S | 0.0 | 67 | IFS | 6 | 12 | 23° NNE | 0.0 | 100 | GFS |
-| 16h | 3 | 9 | 180° S | 0.0 | 44 | IFS | 5 | 11 | 30° NNE | 0.0 | 100 | GFS |
-| 17h | 3 | 8 | 180° S | 0.0 | 23 | IFS | 4 | 9 | 19° NNE | 0.0 | 100 | GFS |
-| 18h | 4 | 8 | 180° S | 0.0 | 7 | IFS | 4 | 7 | 355° N | 0.0 | 100 | GFS |
-| 19h | 4 | 8 | 179° S | 0.0 | 0 | IFS | 4 | 5 | 336° NNO | 0.0 | 95 | GFS |
-| 20h | 5 | 10 | 176° S | 0.0 | 5 | IFS | 4 | 4 | 325° NO | 0.0 | 67 | GFS |
-| 21h | 7 | 12 | 174° S | 0.0 | 19 | IFS | 4 | 4 | 311° NO | 0.0 | 31 | GFS |
-| 22h | 8 | 15 | 172° S | 0.0 | 38 | IFS | 3 | 3 | 301° ONO | 0.0 | 8 | GFS |
-| 23h | 10 | 18 | 171° S | 0.0 | 58 | IFS | 3 | 3 | 300° ONO | 0.0 | 11 | GFS |
+| 00h | 3 | 8 | 202° SSO | 0.1 | 27 | IFS | 1 | 1 | 202° SSO | 0.0 | 6 | GFS |
+| 01h | 4 | 8 | 200° SSO | 0.1 | 20 | IFS | 1 | 1 | 189° S | 0.0 | 5 | GFS |
+| 02h | 4 | 8 | 198° SSO | 0.0 | 21 | IFS | 1 | 1 | 188° S | 0.0 | 6 | GFS |
+| 03h | 5 | 8 | 196° SSO | 0.0 | 28 | IFS | 2 | 1 | 187° S | 0.0 | 6 | GFS |
+| 04h | 5 | 9 | 194° SSO | 0.0 | 38 | IFS | 2 | 1 | 187° S | 0.0 | 7 | GFS |
+| 05h | 5 | 9 | 192° SSO | 0.0 | 49 | IFS | 1 | 1 | 196° SSO | 0.0 | 7 | GFS |
+| 06h | 5 | 10 | 188° S | 0.0 | 60 | IFS | 1 | 1 | 198° SSO | 0.0 | 6 | GFS |
+| 07h | 5 | 10 | 184° S | 0.0 | 68 | IFS | 1 | 1 | 202° SSO | 0.0 | 5 | GFS |
+| 08h | 5 | 10 | 176° S | 0.0 | 74 | IFS | 1 | 1 | 191° S | 0.0 | 3 | GFS |
+| 09h | 5 | 10 | 165° SSE | 0.0 | 80 | IFS | 1 | 2 | 162° SSE | 0.0 | 1 | GFS |
+| 10h | 5 | 11 | 154° SSE | 0.0 | 86 | IFS | 2 | 2 | 153° SSE | 0.0 | 0 | GFS |
+| 11h | 5 | 11 | 143° SE | 0.0 | 90 | IFS | 3 | 4 | 153° SSE | 0.0 | 0 | GFS |
+| 12h | 5 | 11 | 136° SE | 0.0 | 91 | IFS | 4 | 6 | 153° SSE | 0.0 | 0 | GFS |
+| 13h | 5 | 12 | 133° SE | 0.0 | 89 | IFS | 4 | 6 | 155° SSE | 0.0 | 0 | GFS |
+| 14h | 5 | 12 | 136° SE | 0.0 | 81 | IFS | 4 | 6 | 153° SSE | 0.0 | 0 | GFS |
+| 15h | 4 | 12 | 143° SE | 0.0 | 67 | IFS | 4 | 4 | 155° SSE | 0.0 | 0 | GFS |
+| 16h | 4 | 12 | 156° SSE | 0.0 | 51 | IFS | 3 | 3 | 158° SSE | 0.0 | 0 | GFS |
+| 17h | 4 | 12 | 171° S | 0.0 | 36 | IFS | 3 | 2 | 172° S | 0.0 | 0 | GFS |
+| 18h | 4 | 12 | 184° S | 0.0 | 24 | IFS | 3 | 3 | 187° S | 0.0 | 0 | GFS |
+| 19h | 4 | 11 | 191° S | 0.0 | 20 | IFS | 4 | 3 | 193° SSO | 0.0 | 0 | GFS |
+| 20h | 4 | 11 | 192° SSO | 0.0 | 25 | IFS | 4 | 4 | 189° S | 0.0 | 0 | GFS |
+| 21h | 4 | 11 | 190° S | 0.0 | 36 | IFS | 4 | 4 | 180° S | 0.0 | 0 | GFS |
+| 22h | 4 | 10 | 186° S | 0.0 | 51 | IFS | 4 | 4 | 172° S | 0.0 | 0 | GFS |
+| 23h | 5 | 10 | 182° S | 0.0 | 68 | IFS | 4 | 4 | 169° S | 0.0 | 0 | GFS |
 
 ## lun. 30/11/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 11 | 21 | 171° S | 0.0 | 76 | IFS | 3 | 3 | 305° NO | 0.0 | 29 | GFS |
-| 01h | 12 | 23 | 171° S | 0.0 | 89 | IFS | 3 | 3 | 309° NO | 0.0 | 48 | GFS |
-| 02h | 12 | 25 | 172° S | 0.0 | 96 | IFS | 2 | 2 | 309° NO | 0.0 | 66 | GFS |
-| 03h | 13 | 26 | 174° S | 0.0 | 100 | IFS | 2 | 2 | 304° NO | 0.0 | 86 | GFS |
-| 04h | 13 | 27 | 176° S | 0.0 | 100 | IFS | 2 | 2 | 302° ONO | 0.0 | 100 | GFS |
-| 05h | 13 | 28 | 177° S | 0.0 | 100 | IFS | 1 | 2 | 301° ONO | 0.0 | 100 | GFS |
-| 06h | 13 | 29 | 179° S | 0.0 | 100 | IFS | 0 | 1 | 315° NO | 0.0 | 100 | GFS |
-| 07h | 12 | 29 | 179° S | 0.0 | 100 | IFS | 0 | 1 | 45° NE | 0.0 | 100 | GFS |
-| 08h | 11 | 29 | 178° S | 0.1 | 91 | IFS | 1 | 1 | 63° ENE | 0.0 | 100 | GFS |
-| 09h | 10 | 29 | 175° S | 0.1 | 76 | IFS | 1 | 1 | 63° ENE | 0.0 | 100 | GFS |
-| 10h | 8 | 28 | 170° S | 0.1 | 59 | IFS | 2 | 1 | 69° ENE | 0.0 | 100 | GFS |
-| 11h | 6 | 27 | 161° SSE | 0.1 | 42 | IFS | 2 | 1 | 83° E | 0.0 | 100 | GFS |
-| 12h | 4 | 26 | 148° SSE | 0.1 | 26 | IFS | 2 | 1 | 104° ESE | 0.0 | 100 | GFS |
-| 13h | 3 | 24 | 133° SE | 0.1 | 15 | IFS | 2 | 1 | 126° SE | 0.0 | 100 | GFS |
-| 14h | 3 | 22 | 120° ESE | 0.0 | 7 | IFS | 2 | 2 | 146° SE | 0.0 | 100 | GFS |
-| 15h | 2 | 20 | 113° ESE | 0.0 | 1 | IFS | 3 | 2 | 163° SSE | 0.0 | 100 | GFS |
-| 16h | 2 | 18 | 106° ESE | 0.0 | 0 | IFS | 3 | 3 | 170° S | 0.0 | 100 | GFS |
-| 17h | 1 | 15 | 103° ESE | 0.0 | 0 | IFS | 4 | 3 | 168° SSE | 0.0 | 100 | GFS |
-| 18h | 1 | 12 | 96° E | 0.0 | 0 | IFS | 4 | 3 | 164° SSE | 0.0 | 100 | GFS |
-| 19h | 1 | 10 | 81° E | 0.0 | 0 | IFS | 5 | 4 | 163° SSE | 0.0 | 100 | GFS |
-| 20h | 0 | 8 | 53° NE | 0.0 | 11 | IFS | 5 | 5 | 165° SSE | 0.0 | 100 | GFS |
-| 21h | 0 | 7 | 22° NNE | 0.0 | 29 | IFS | 6 | 8 | 166° SSE | 0.0 | 100 | GFS |
-| 22h | 1 | 5 | 9° N | 0.0 | 49 | IFS | 6 | 9 | 169° S | 0.0 | 100 | GFS |
-| 23h | 1 | 4 | 360° N | 0.0 | 70 | IFS | 6 | 10 | 173° S | 0.0 | 100 | GFS |
+| 00h | 5 | 10 | 179° S | 0.0 | 82 | IFS | 4 | 3 | 168° SSE | 0.0 | 0 | GFS |
+| 01h | 5 | 10 | 177° S | 0.0 | 92 | IFS | 3 | 3 | 167° SSE | 0.0 | 0 | GFS |
+| 02h | 5 | 10 | 177° S | 0.0 | 97 | IFS | 3 | 3 | 169° S | 0.0 | 0 | GFS |
+| 03h | 6 | 11 | 177° S | 0.0 | 100 | IFS | 3 | 3 | 172° S | 0.0 | 0 | GFS |
+| 04h | 6 | 12 | 178° S | 0.0 | 100 | IFS | 3 | 2 | 176° S | 0.0 | 0 | GFS |
+| 05h | 7 | 12 | 179° S | 0.0 | 100 | IFS | 3 | 2 | 176° S | 0.0 | 0 | GFS |
+| 06h | 7 | 13 | 179° S | 0.0 | 100 | IFS | 3 | 2 | 176° S | 0.0 | 0 | GFS |
+| 07h | 7 | 14 | 179° S | 0.0 | 100 | IFS | 3 | 2 | 172° S | 0.0 | 0 | GFS |
+| 08h | 8 | 14 | 178° S | 0.1 | 100 | IFS | 3 | 3 | 164° SSE | 0.0 | 0 | GFS |
+| 09h | 8 | 15 | 176° S | 0.1 | 100 | IFS | 3 | 4 | 152° SSE | 0.0 | 0 | GFS |
+| 10h | 8 | 15 | 174° S | 0.1 | 100 | IFS | 3 | 5 | 149° SSE | 0.0 | 0 | GFS |
+| 11h | 8 | 16 | 172° S | 0.1 | 100 | IFS | 4 | 6 | 156° SSE | 0.0 | 0 | GFS |
+| 12h | 8 | 16 | 170° S | 0.1 | 100 | IFS | 6 | 8 | 163° SSE | 0.0 | 0 | GFS |
+| 13h | 7 | 16 | 170° S | 0.1 | 100 | IFS | 7 | 10 | 166° SSE | 0.0 | 0 | GFS |
+| 14h | 7 | 16 | 171° S | 0.0 | 99 | IFS | 8 | 12 | 162° SSE | 0.0 | 0 | GFS |
+| 15h | 6 | 16 | 174° S | 0.0 | 97 | IFS | 8 | 14 | 157° SSE | 0.0 | 0 | GFS |
+| 16h | 6 | 15 | 177° S | 0.0 | 96 | IFS | 8 | 15 | 154° SSE | 0.0 | 0 | GFS |
+| 17h | 5 | 15 | 182° S | 0.0 | 94 | IFS | 7 | 12 | 153° SSE | 0.0 | 0 | GFS |
+| 18h | 5 | 14 | 187° S | 0.0 | 92 | IFS | 5 | 6 | 153° SSE | 0.0 | 1 | GFS |
+| 19h | 4 | 14 | 190° S | 0.0 | 91 | IFS | 3 | 3 | 155° SSE | 0.0 | 2 | GFS |
+| 20h | 4 | 13 | 191° S | 0.0 | 91 | IFS | 3 | 2 | 157° SSE | 0.0 | 1 | GFS |
+| 21h | 4 | 12 | 190° S | 0.0 | 92 | IFS | 3 | 2 | 156° SSE | 0.0 | 0 | GFS |
+| 22h | 5 | 12 | 188° S | 0.0 | 93 | IFS | 4 | 3 | 155° SSE | 0.0 | 6 | GFS |
+| 23h | 5 | 11 | 186° S | 0.0 | 93 | IFS | 4 | 3 | 153° SSE | 0.0 | 24 | GFS |
 
 ## mar. 01/12/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 1 | 3 | 360° N | 0.0 | 88 | IFS | 6 | 10 | 176° S | 0.0 | 100 | GFS |
-| 01h | 1 | 2 | 353° N | 0.0 | 100 | IFS | 6 | 10 | 178° S | 0.0 | 100 | GFS |
-| 02h | 1 | 2 | 353° N | 0.0 | 100 | IFS | 7 | 11 | 175° S | 0.4 | 100 | GFS |
-| 03h | 1 | 2 | 344° NNO | 0.0 | 100 | IFS | 7 | 12 | 171° S | 0.4 | 100 | GFS |
-| 04h | 1 | 2 | 342° NNO | 0.0 | 100 | IFS | 8 | 13 | 168° SSE | 0.4 | 100 | GFS |
-| 05h | 0 | 2 | 349° N | 0.0 | 100 | IFS | 8 | 13 | 168° SSE | 1.9 | 100 | GFS |
-| 06h | 0 | 2 | 349° N | 0.0 | 100 | IFS | 9 | 14 | 167° SSE | 1.9 | 100 | GFS |
-| 07h | 0 | 2 | 360° N | 0.0 | 100 | IFS | 9 | 14 | 166° SSE | 1.9 | 100 | GFS |
-| 08h | 1 | 3 | 8° N | 0.0 | 91 | IFS | 8 | 13 | 164° SSE | 0.4 | 100 | GFS |
-| 09h | 1 | 4 | 17° NNE | 0.0 | 78 | IFS | 7 | 11 | 160° SSE | 0.4 | 100 | GFS |
-| 10h | 1 | 5 | 21° NNE | 0.0 | 63 | IFS | 6 | 9 | 157° SSE | 0.4 | 100 | GFS |
-| 11h | 2 | 6 | 24° NNE | 0.0 | 49 | IFS | 6 | 7 | 156° SSE | 0.5 | 100 | GFS |
-| 12h | 2 | 7 | 27° NNE | 0.0 | 39 | IFS | 5 | 6 | 159° SSE | 0.5 | 100 | GFS |
-| 13h | 2 | 8 | 25° NNE | 0.0 | 35 | IFS | 4 | 5 | 159° SSE | 0.5 | 100 | GFS |
-| 14h | 2 | 8 | 24° NNE | 0.0 | 39 | IFS | 4 | 4 | 156° SSE | 0.1 | 93 | GFS |
-| 15h | 2 | 8 | 22° NNE | 0.0 | 50 | IFS | 4 | 4 | 151° SSE | 0.1 | 85 | GFS |
-| 16h | 1 | 9 | 14° NNE | 0.0 | 64 | IFS | 3 | 3 | 142° SE | 0.1 | 80 | GFS |
-| 17h | 1 | 9 | 7° N | 0.0 | 79 | IFS | 3 | 2 | 138° SE | 0.0 | 85 | GFS |
-| 18h | 0 | 9 | 333° NNO | 0.0 | 92 | IFS | 2 | 2 | 131° SE | 0.0 | 94 | GFS |
-| 19h | 0 | 8 | 288° ONO | 0.0 | 100 | IFS | 2 | 2 | 131° SE | 0.0 | 99 | GFS |
-| 20h | 0 | 8 | 252° OSO | 0.0 | 100 | IFS | 2 | 2 | 144° SE | 0.0 | 94 | GFS |
-| 21h | 0 | 6 | 217° SO | 0.0 | 100 | IFS | 2 | 2 | 163° SSE | 0.0 | 86 | GFS |
-| 22h | 1 | 5 | 198° SSO | 0.0 | 100 | IFS | 3 | 2 | 171° S | 0.0 | 81 | GFS |
-| 23h | 1 | 4 | 194° SSO | 0.0 | 100 | IFS | 3 | 3 | 166° SSE | 0.0 | 85 | GFS |
+| 00h | 5 | 10 | 184° S | 0.0 | 92 | IFS | 3 | 3 | 155° SSE | 0.0 | 48 | GFS |
+| 01h | 6 | 10 | 183° S | 0.0 | 88 | IFS | 3 | 3 | 152° SSE | 0.0 | 69 | GFS |
+| 02h | 6 | 11 | 183° S | 0.0 | 80 | IFS | 3 | 3 | 146° SE | 0.0 | 83 | GFS |
+| 03h | 6 | 12 | 184° S | 0.0 | 69 | IFS | 3 | 3 | 138° SE | 0.0 | 93 | GFS |
+| 04h | 7 | 13 | 184° S | 0.0 | 56 | IFS | 3 | 3 | 132° SE | 0.0 | 100 | GFS |
+| 05h | 7 | 14 | 185° S | 0.0 | 44 | IFS | 2 | 3 | 125° SE | 0.0 | 100 | GFS |
+| 06h | 8 | 15 | 185° S | 0.0 | 34 | IFS | 2 | 3 | 119° ESE | 0.0 | 100 | GFS |
+| 07h | 8 | 16 | 184° S | 0.0 | 30 | IFS | 2 | 3 | 117° ESE | 0.0 | 100 | GFS |
+| 08h | 8 | 16 | 183° S | 0.0 | 33 | IFS | 2 | 5 | 127° SE | 0.1 | 100 | GFS |
+| 09h | 9 | 17 | 180° S | 0.0 | 42 | IFS | 2 | 6 | 144° SE | 0.1 | 100 | GFS |
+| 10h | 9 | 18 | 177° S | 0.0 | 54 | IFS | 2 | 8 | 163° SSE | 0.1 | 100 | GFS |
+| 11h | 9 | 19 | 175° S | 0.0 | 66 | IFS | 3 | 9 | 176° S | 1.5 | 100 | GFS |
+| 12h | 10 | 19 | 172° S | 0.0 | 75 | IFS | 4 | 10 | 180° S | 1.5 | 100 | GFS |
+| 13h | 10 | 20 | 172° S | 0.0 | 78 | IFS | 5 | 11 | 180° S | 1.5 | 100 | GFS |
+| 14h | 9 | 20 | 172° S | 0.0 | 73 | IFS | 5 | 10 | 176° S | 2.4 | 100 | GFS |
+| 15h | 9 | 21 | 174° S | 0.0 | 62 | IFS | 5 | 8 | 165° SSE | 2.4 | 100 | GFS |
+| 16h | 9 | 22 | 176° S | 0.0 | 48 | IFS | 4 | 7 | 153° SSE | 2.4 | 100 | GFS |
+| 17h | 8 | 22 | 178° S | 0.0 | 34 | IFS | 5 | 8 | 148° SSE | 0.7 | 100 | GFS |
+| 18h | 8 | 22 | 181° S | 0.0 | 24 | IFS | 6 | 9 | 146° SE | 0.7 | 100 | GFS |
+| 19h | 7 | 22 | 182° S | 0.0 | 20 | IFS | 6 | 10 | 146° SE | 0.7 | 100 | GFS |
+| 20h | 7 | 21 | 183° S | 0.0 | 25 | IFS | 6 | 9 | 151° SSE | 0.0 | 100 | GFS |
+| 21h | 6 | 20 | 184° S | 0.0 | 35 | IFS | 4 | 6 | 161° SSE | 0.0 | 100 | GFS |
+| 22h | 6 | 18 | 184° S | 0.0 | 49 | IFS | 3 | 5 | 177° S | 0.0 | 100 | GFS |
+| 23h | 5 | 17 | 183° S | 0.0 | 64 | IFS | 3 | 4 | 194° SSO | 0.0 | 85 | GFS |
 
 ## mer. 02/12/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 1 | 3 | 186° S | 0.0 | 97 | IFS | 4 | 4 | 161° SSE | 0.0 | 94 | GFS |
-| 01h | 1 | 3 | 185° S | 0.0 | 94 | IFS | 5 | 5 | 159° SSE | 0.0 | 100 | GFS |
-| 02h | 1 | 2 | 189° S | 0.0 | 91 | IFS | 6 | 8 | 163° SSE | 0.4 | 100 | GFS |
-| 03h | 1 | 2 | 200° SSO | 0.0 | 88 | IFS | 7 | 12 | 169° S | 0.4 | 100 | GFS |
-| 04h | 2 | 3 | 205° SSO | 0.0 | 84 | IFS | 8 | 14 | 171° S | 0.4 | 100 | GFS |
-| 05h | 2 | 3 | 209° SSO | 0.0 | 80 | IFS | 8 | 14 | 172° S | 0.1 | 100 | GFS |
-| 06h | 2 | 4 | 208° SSO | 0.0 | 77 | IFS | 8 | 13 | 173° S | 0.1 | 100 | GFS |
-| 07h | 2 | 5 | 199° SSO | 0.0 | 75 | IFS | 8 | 12 | 173° S | 0.1 | 100 | GFS |
-| 08h | 3 | 7 | 186° S | 0.0 | 74 | IFS | 8 | 13 | 175° S | 0.0 | 100 | GFS |
-| 09h | 4 | 10 | 171° S | 0.0 | 74 | IFS | 8 | 14 | 176° S | 0.0 | 100 | GFS |
-| 10h | 5 | 13 | 163° SSE | 0.0 | 75 | IFS | 8 | 14 | 177° S | 0.0 | 100 | GFS |
-| 11h | 7 | 16 | 158° SSE | 0.0 | 76 | IFS | 6 | 13 | 178° S | 0.0 | 100 | GFS |
-| 12h | 8 | 18 | 155° SSE | 0.0 | 77 | IFS | 5 | 10 | 178° S | 0.0 | 100 | GFS |
-| 13h | 8 | 20 | 154° SSE | 0.0 | 79 | IFS | 4 | 7 | 174° S | 0.0 | 100 | GFS |
-| 14h | 9 | 22 | 156° SSE | 0.0 | 81 | IFS | 2 | 5 | 153° SSE | 0.0 | 100 | GFS |
-| 15h | 9 | 22 | 158° SSE | 0.0 | 84 | IFS | 2 | 3 | 103° ESE | 0.0 | 100 | GFS |
-| 16h | 9 | 23 | 162° SSE | 0.0 | 88 | IFS | 2 | 1 | 68° ENE | 0.0 | 100 | GFS |
-| 17h | 8 | 23 | 166° SSE | 0.0 | 91 | IFS | 2 | 1 | 45° NE | 0.0 | 100 | GFS |
-| 18h | 8 | 23 | 170° S | 0.0 | 94 | IFS | 2 | 2 | 6° N | 0.0 | 100 | GFS |
-| 19h | 8 | 23 | 171° S | 0.0 | 96 | IFS | 2 | 2 | 333° NNO | 0.0 | 100 | GFS |
-| 20h | 8 | 22 | 172° S | 0.0 | 97 | IFS | 2 | 2 | 310° NO | 0.9 | 100 | GFS |
-| 21h | 8 | 21 | 171° S | 0.0 | 97 | IFS | 1 | 2 | 270° O | 0.9 | 100 | GFS |
-| 22h | 8 | 20 | 170° S | 0.0 | 97 | IFS | 2 | 2 | 240° OSO | 0.9 | 100 | GFS |
-| 23h | 7 | 18 | 169° S | 0.0 | 96 | IFS | 2 | 2 | 229° SO | 0.1 | 100 | GFS |
+| 00h | 5 | 16 | 182° S | 0.0 | 78 | IFS | 4 | 4 | 209° SSO | 0.0 | 65 | GFS |
+| 01h | 4 | 15 | 182° S | 0.0 | 87 | IFS | 4 | 4 | 214° SO | 0.0 | 51 | GFS |
+| 02h | 4 | 14 | 183° S | 0.0 | 92 | IFS | 2 | 3 | 203° SSO | 0.0 | 48 | GFS |
+| 03h | 4 | 13 | 184° S | 0.0 | 95 | IFS | 2 | 2 | 153° SSE | 0.0 | 51 | GFS |
+| 04h | 4 | 12 | 185° S | 0.0 | 97 | IFS | 2 | 2 | 114° ESE | 0.0 | 54 | GFS |
+| 05h | 3 | 11 | 185° S | 0.0 | 97 | IFS | 1 | 1 | 99° E | 0.0 | 54 | GFS |
+| 06h | 3 | 11 | 185° S | 0.0 | 97 | IFS | 1 | 1 | 342° NNO | 0.0 | 53 | GFS |
+| 07h | 3 | 10 | 182° S | 0.0 | 98 | IFS | 2 | 1 | 310° NO | 0.0 | 55 | GFS |
+| 08h | 4 | 11 | 175° S | 0.0 | 99 | IFS | 2 | 1 | 315° NO | 0.0 | 61 | GFS |
+| 09h | 4 | 11 | 169° S | 0.0 | 99 | IFS | 2 | 1 | 330° NNO | 0.0 | 69 | GFS |
+| 10h | 5 | 12 | 164° SSE | 0.0 | 99 | IFS | 2 | 1 | 353° N | 0.0 | 73 | GFS |
+| 11h | 6 | 12 | 160° SSE | 0.0 | 98 | IFS | 2 | 2 | 11° N | 0.0 | 69 | GFS |
+| 12h | 6 | 13 | 158° SSE | 0.0 | 98 | IFS | 3 | 2 | 27° NNE | 0.0 | 61 | GFS |
+| 13h | 6 | 14 | 157° SSE | 0.0 | 98 | IFS | 3 | 2 | 30° NNE | 0.0 | 51 | GFS |
+| 14h | 6 | 14 | 160° SSE | 0.0 | 98 | IFS | 4 | 3 | 29° NNE | 0.0 | 36 | GFS |
+| 15h | 6 | 14 | 164° SSE | 0.0 | 99 | IFS | 4 | 4 | 25° NNE | 0.0 | 19 | GFS |
+| 16h | 5 | 15 | 172° S | 0.0 | 100 | IFS | 4 | 5 | 19° NNE | 0.0 | 9 | GFS |
+| 17h | 5 | 15 | 181° S | 0.0 | 100 | IFS | 3 | 4 | 4° N | 0.0 | 11 | GFS |
+| 18h | 4 | 15 | 191° S | 0.0 | 100 | IFS | 2 | 3 | 337° NNO | 0.0 | 21 | GFS |
+| 19h | 4 | 14 | 199° SSO | 0.0 | 100 | IFS | 2 | 2 | 315° NO | 0.0 | 32 | GFS |
+| 20h | 4 | 13 | 204° SSO | 0.0 | 99 | IFS | 2 | 2 | 309° NO | 0.0 | 46 | GFS |
+| 21h | 3 | 12 | 209° SSO | 0.0 | 96 | IFS | 2 | 2 | 309° NO | 0.0 | 62 | GFS |
+| 22h | 2 | 11 | 215° SO | 0.0 | 94 | IFS | 2 | 2 | 312° NO | 0.0 | 73 | GFS |
+| 23h | 2 | 10 | 223° SO | 0.0 | 92 | IFS | 2 | 2 | 315° NO | 0.0 | 73 | GFS |
 
 ## jeu. 03/12/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 7 | 17 | 167° SSE | 0.0 | 96 | IFS | 2 | 3 | 225° SO | 0.1 | 100 | GFS |
-| 01h | 7 | 16 | 167° SSE | 0.0 | 96 | IFS | 2 | 3 | 221° SO | 0.1 | 100 | GFS |
-| 02h | 6 | 16 | 167° SSE | 0.0 | 96 | IFS | 2 | 2 | 211° SSO | 0.1 | 100 | GFS |
-| 03h | 6 | 16 | 166° SSE | 0.0 | 97 | IFS | 3 | 2 | 197° SSO | 0.1 | 100 | GFS |
-| 04h | 5 | 16 | 166° SSE | 0.0 | 97 | IFS | 2 | 4 | 212° SSO | 0.1 | 100 | GFS |
-| 05h | 4 | 16 | 167° SSE | 0.0 | 98 | IFS | 4 | 10 | 267° O | 0.0 | 86 | GFS |
-| 06h | 4 | 16 | 167° SSE | 0.0 | 99 | IFS | 7 | 17 | 292° ONO | 0.0 | 67 | GFS |
-| 07h | 3 | 16 | 166° SSE | 0.0 | 99 | IFS | 10 | 23 | 298° ONO | 0.0 | 49 | GFS |
-| 08h | 3 | 15 | 164° SSE | 0.0 | 99 | IFS | 11 | 24 | 297° ONO | 0.0 | 32 | GFS |
-| 09h | 3 | 14 | 159° SSE | 0.0 | 100 | IFS | 12 | 22 | 294° ONO | 0.0 | 15 | GFS |
-| 10h | 4 | 13 | 156° SSE | 0.0 | 100 | IFS | 13 | 22 | 293° ONO | 0.0 | 7 | GFS |
-| 11h | 4 | 12 | 153° SSE | 0.0 | 100 | IFS | 13 | 22 | 298° ONO | 0.0 | 12 | GFS |
-| 12h | 4 | 11 | 153° SSE | 0.0 | 100 | IFS | 14 | 24 | 304° NO | 0.0 | 26 | GFS |
-| 13h | 4 | 10 | 153° SSE | 0.0 | 100 | IFS | 14 | 25 | 310° NO | 0.0 | 39 | GFS |
-| 14h | 4 | 10 | 156° SSE | 0.0 | 99 | IFS | 14 | 26 | 315° NO | 0.0 | 52 | GFS |
-| 15h | 4 | 10 | 163° SSE | 0.0 | 98 | IFS | 14 | 27 | 320° NO | 0.0 | 64 | GFS |
-| 16h | 3 | 10 | 171° S | 0.0 | 96 | IFS | 13 | 28 | 324° NO | 0.0 | 69 | GFS |
-| 17h | 3 | 10 | 182° S | 0.0 | 95 | IFS | 13 | 27 | 328° NNO | 0.0 | 60 | GFS |
-| 18h | 3 | 10 | 192° SSO | 0.0 | 93 | IFS | 13 | 27 | 330° NNO | 0.0 | 43 | GFS |
-| 19h | 3 | 9 | 198° SSO | 0.0 | 92 | IFS | 12 | 26 | 331° NNO | 0.0 | 31 | GFS |
-| 20h | 3 | 9 | 199° SSO | 0.0 | 91 | IFS | 11 | 25 | 331° NNO | 0.0 | 30 | GFS |
-| 21h | 2 | 8 | 196° SSO | 0.0 | 90 | IFS | 10 | 23 | 331° NNO | 0.0 | 34 | GFS |
-| 22h | 2 | 8 | 190° S | 0.0 | 89 | IFS | 9 | 22 | 331° NNO | 0.0 | 34 | GFS |
-| 23h | 2 | 7 | 183° S | 0.0 | 88 | IFS | 8 | 19 | 330° NNO | 0.0 | 26 | GFS |
+| 00h | 1 | 9 | 234° SO | 0.0 | 90 | IFS | 2 | 2 | 315° NO | 0.0 | 68 | GFS |
+| 01h | 1 | 8 | 248° OSO | 0.0 | 89 | IFS | 2 | 2 | 319° NO | 0.0 | 66 | GFS |
+| 02h | 1 | 6 | 264° O | 0.0 | 90 | IFS | 2 | 2 | 319° NO | 0.0 | 71 | GFS |
+| 03h | 1 | 5 | 270° O | 0.0 | 91 | IFS | 2 | 2 | 322° NO | 0.0 | 78 | GFS |
+| 04h | 1 | 4 | 270° O | 0.0 | 94 | IFS | 2 | 2 | 322° NO | 0.0 | 85 | GFS |
+| 05h | 1 | 3 | 270° O | 0.0 | 96 | IFS | 2 | 2 | 325° NO | 0.0 | 91 | GFS |
+| 06h | 1 | 2 | 279° O | 0.0 | 99 | IFS | 2 | 2 | 325° NO | 0.0 | 96 | GFS |
+| 07h | 1 | 2 | 301° ONO | 0.0 | 100 | IFS | 2 | 2 | 328° NNO | 0.0 | 100 | GFS |
+| 08h | 1 | 2 | 326° NO | 0.0 | 100 | IFS | 3 | 2 | 333° NNO | 0.0 | 100 | GFS |
+| 09h | 1 | 3 | 349° N | 0.0 | 100 | IFS | 3 | 3 | 347° NNO | 0.0 | 100 | GFS |
+| 10h | 1 | 5 | 360° N | 0.0 | 100 | IFS | 3 | 3 | 356° N | 0.0 | 100 | GFS |
+| 11h | 2 | 6 | 6° N | 0.0 | 100 | IFS | 3 | 3 | 8° N | 0.0 | 100 | GFS |
+| 12h | 2 | 7 | 5° N | 0.0 | 100 | IFS | 3 | 3 | 18° NNE | 0.0 | 100 | GFS |
+| 13h | 2 | 8 | 4° N | 0.0 | 100 | IFS | 3 | 2 | 25° NNE | 0.0 | 100 | GFS |
+| 14h | 3 | 9 | 360° N | 0.0 | 100 | IFS | 3 | 3 | 28° NNE | 0.0 | 99 | GFS |
+| 15h | 3 | 9 | 355° N | 0.0 | 100 | IFS | 3 | 3 | 31° NNE | 0.0 | 99 | GFS |
+| 16h | 4 | 9 | 349° N | 0.0 | 100 | IFS | 3 | 3 | 28° NNE | 0.0 | 98 | GFS |
+| 17h | 4 | 9 | 345° NNO | 0.0 | 100 | IFS | 3 | 3 | 20° NNE | 0.0 | 99 | GFS |
+| 18h | 4 | 10 | 341° NNO | 0.0 | 100 | IFS | 2 | 2 | 360° N | 0.0 | 99 | GFS |
+| 19h | 5 | 10 | 339° NNO | 0.0 | 100 | IFS | 2 | 2 | 345° NNO | 0.0 | 97 | GFS |
+| 20h | 5 | 10 | 339° NNO | 0.0 | 100 | IFS | 2 | 2 | 338° NNO | 0.0 | 90 | GFS |
+| 21h | 5 | 10 | 339° NNO | 0.0 | 100 | IFS | 2 | 2 | 328° NNO | 0.0 | 80 | GFS |
+| 22h | 5 | 10 | 339° NNO | 0.0 | 100 | IFS | 2 | 1 | 324° NO | 0.0 | 67 | GFS |
+| 23h | 5 | 11 | 340° NNO | 0.0 | 100 | IFS | 2 | 1 | 324° NO | 0.0 | 48 | GFS |
 
 ## ven. 04/12/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 2 | 6 | 177° S | 0.0 | 88 | IFS | 7 | 17 | 327° NNO | 0.0 | 14 | GFS |
-| 01h | 2 | 6 | 174° S | 0.0 | 88 | IFS | 6 | 15 | 324° NO | 0.0 | 6 | GFS |
-| 02h | 2 | 5 | 176° S | 0.0 | 89 | IFS | 5 | 11 | 322° NO | 0.0 | 3 | GFS |
-| 03h | 1 | 4 | 190° S | 0.0 | 91 | IFS | 5 | 8 | 323° NO | 0.0 | 3 | GFS |
-| 04h | 1 | 4 | 216° SO | 0.0 | 94 | IFS | 5 | 6 | 324° NO | 0.0 | 6 | GFS |
-| 05h | 1 | 3 | 249° OSO | 0.0 | 96 | IFS | 5 | 6 | 328° NNO | 0.0 | 13 | GFS |
-| 06h | 1 | 3 | 276° O | 0.0 | 98 | IFS | 6 | 8 | 333° NNO | 0.0 | 24 | GFS |
-| 07h | 1 | 3 | 299° ONO | 0.0 | 99 | IFS | 6 | 9 | 333° NNO | 0.0 | 30 | GFS |
-| 08h | 1 | 4 | 318° NO | 0.0 | 99 | IFS | 6 | 10 | 328° NNO | 0.0 | 30 | GFS |
-| 09h | 2 | 5 | 336° NNO | 0.0 | 98 | IFS | 6 | 12 | 320° NO | 0.0 | 26 | GFS |
-| 10h | 2 | 6 | 349° N | 0.0 | 96 | IFS | 6 | 13 | 320° NO | 0.0 | 21 | GFS |
-| 11h | 3 | 7 | 360° N | 0.0 | 95 | IFS | 8 | 14 | 331° NNO | 0.0 | 15 | GFS |
-| 12h | 3 | 9 | 5° N | 0.0 | 93 | IFS | 10 | 14 | 343° NNO | 0.0 | 9 | GFS |
-| 13h | 4 | 9 | 6° N | 0.0 | 93 | IFS | 11 | 14 | 350° N | 0.0 | 5 | GFS |
-| 14h | 4 | 10 | 6° N | 0.0 | 93 | IFS | 11 | 14 | 354° N | 0.0 | 3 | GFS |
-| 15h | 4 | 10 | 3° N | 0.0 | 95 | IFS | 10 | 14 | 357° N | 0.0 | 2 | GFS |
-| 16h | 5 | 10 | 360° N | 0.0 | 96 | IFS | 9 | 13 | 357° N | 0.0 | 9 | GFS |
-| 17h | 5 | 10 | 356° N | 0.0 | 98 | IFS | 7 | 10 | 352° N | 0.0 | 28 | GFS |
-| 18h | 5 | 10 | 355° N | 0.0 | 99 | IFS | 6 | 7 | 342° NNO | 0.0 | 54 | GFS |
-| 19h | 5 | 10 | 353° N | 0.0 | 100 | IFS | 5 | 5 | 328° NNO | 0.0 | 75 | GFS |
-| 20h | 6 | 11 | 352° N | 0.0 | 100 | IFS | 4 | 4 | 322° NO | 0.0 | 87 | GFS |
-| 21h | 6 | 12 | 352° N | 0.0 | 100 | IFS | 4 | 4 | 321° NO | 0.0 | 95 | GFS |
-| 22h | 6 | 12 | 351° N | 0.0 | 100 | IFS | 4 | 5 | 319° NO | 0.0 | 100 | GFS |
-| 23h | 6 | 13 | 351° N | 0.0 | 100 | IFS | 4 | 5 | 317° NO | 0.0 | 100 | GFS |
+| 00h | 4 | 11 | 341° NNO | 0.0 | 100 | IFS | 2 | 1 | 330° NNO | 0.0 | 27 | GFS |
+| 01h | 4 | 11 | 340° NNO | 0.0 | 100 | IFS | 2 | 1 | 337° NNO | 0.0 | 16 | GFS |
+| 02h | 4 | 11 | 338° NNO | 0.0 | 100 | IFS | 1 | 1 | 333° NNO | 0.0 | 24 | GFS |
+| 03h | 4 | 11 | 335° NNO | 0.0 | 100 | IFS | 1 | 1 | 329° NNO | 0.0 | 42 | GFS |
+| 04h | 4 | 11 | 330° NNO | 0.0 | 100 | IFS | 1 | 1 | 329° NNO | 0.0 | 55 | GFS |
+| 05h | 4 | 11 | 325° NO | 0.0 | 100 | IFS | 1 | 1 | 342° NNO | 0.0 | 56 | GFS |
+| 06h | 4 | 11 | 323° NO | 0.0 | 100 | IFS | 1 | 1 | 344° NNO | 0.0 | 52 | GFS |
+| 07h | 4 | 11 | 323° NO | 0.0 | 100 | IFS | 2 | 1 | 353° N | 0.0 | 45 | GFS |
+| 08h | 4 | 11 | 325° NO | 0.1 | 100 | IFS | 1 | 1 | 352° N | 0.0 | 33 | GFS |
+| 09h | 4 | 11 | 332° NNO | 0.1 | 100 | IFS | 1 | 1 | 338° NNO | 0.0 | 18 | GFS |
+| 10h | 4 | 11 | 337° NNO | 0.1 | 100 | IFS | 1 | 1 | 346° NNO | 0.0 | 13 | GFS |
+| 11h | 4 | 11 | 344° NNO | 0.1 | 100 | IFS | 1 | 1 | 27° NNE | 0.0 | 27 | GFS |
+| 12h | 4 | 11 | 349° N | 0.1 | 100 | IFS | 1 | 1 | 56° NE | 0.0 | 50 | GFS |
+| 13h | 4 | 11 | 350° N | 0.1 | 100 | IFS | 2 | 2 | 58° ENE | 0.0 | 71 | GFS |
+| 14h | 4 | 11 | 349° N | 0.0 | 97 | IFS | 2 | 2 | 49° NE | 0.0 | 84 | GFS |
+| 15h | 4 | 10 | 347° NNO | 0.0 | 93 | IFS | 2 | 2 | 34° NE | 0.0 | 94 | GFS |
+| 16h | 3 | 10 | 342° NNO | 0.0 | 88 | IFS | 2 | 2 | 22° NNE | 0.0 | 100 | GFS |
+| 17h | 3 | 10 | 334° NNO | 0.0 | 83 | IFS | 2 | 2 | 11° N | 0.0 | 100 | GFS |
+| 18h | 2 | 10 | 328° NNO | 0.0 | 79 | IFS | 2 | 2 | 360° N | 0.0 | 100 | GFS |
+| 19h | 2 | 10 | 322° NO | 0.0 | 77 | IFS | 2 | 1 | 354° N | 0.0 | 100 | GFS |
+| 20h | 2 | 10 | 319° NO | 0.0 | 77 | IFS | 2 | 2 | 351° N | 0.0 | 100 | GFS |
+| 21h | 2 | 10 | 319° NO | 0.0 | 78 | IFS | 3 | 2 | 352° N | 0.0 | 100 | GFS |
+| 22h | 2 | 10 | 319° NO | 0.0 | 80 | IFS | 3 | 2 | 352° N | 0.0 | 100 | GFS |
+| 23h | 2 | 10 | 319° NO | 0.0 | 83 | IFS | 3 | 2 | 352° N | 0.0 | 100 | GFS |
 
 ## sam. 05/12/2026 — heure par heure
 
 | Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 00h | 6 | 14 | 351° N | 0.0 | 100 | IFS | 4 | 5 | 317° NO | 0.0 | 100 | GFS |
-| 01h | 6 | 14 | 351° N | 0.0 | 100 | IFS | 4 | 4 | 319° NO | 0.0 | 100 | GFS |
-| 02h |  |  |  |  |  |  | 4 | 4 | 319° NO | 0.0 | 83 | GFS |
-| 03h |  |  |  |  |  |  | 4 | 4 | 322° NO | 0.0 | 59 | GFS |
-| 04h |  |  |  |  |  |  | 4 | 4 | 322° NO | 0.0 | 39 | GFS |
-| 05h |  |  |  |  |  |  | 4 | 4 | 326° NO | 0.0 | 25 | GFS |
-| 06h |  |  |  |  |  |  | 4 | 4 | 332° NNO | 0.0 | 14 | GFS |
-| 07h |  |  |  |  |  |  | 4 | 4 | 336° NNO | 0.0 | 10 | GFS |
-| 08h |  |  |  |  |  |  | 4 | 4 | 342° NNO | 0.0 | 15 | GFS |
-| 09h |  |  |  |  |  |  | 3 | 4 | 350° N | 0.0 | 26 | GFS |
-| 10h |  |  |  |  |  |  | 3 | 4 | 360° N | 0.0 | 38 | GFS |
-| 11h |  |  |  |  |  |  | 4 | 4 | 3° N | 0.0 | 51 | GFS |
-| 12h |  |  |  |  |  |  | 4 | 5 | 8° N | 0.0 | 65 | GFS |
-| 13h |  |  |  |  |  |  | 4 | 5 | 10° N | 0.0 | 73 | GFS |
-| 14h |  |  |  |  |  |  | 4 | 4 | 18° NNE | 0.0 | 70 | GFS |
-| 15h |  |  |  |  |  |  | 4 | 4 | 35° NE | 0.0 | 62 | GFS |
-| 16h |  |  |  |  |  |  | 3 | 3 | 45° NE | 0.0 | 60 | GFS |
-| 17h |  |  |  |  |  |  | 2 | 2 | 45° NE | 0.0 | 71 | GFS |
-| 18h |  |  |  |  |  |  | 1 | 2 | 14° NNE | 0.0 | 88 | GFS |
-| 19h |  |  |  |  |  |  | 1 | 1 | 304° NO | 0.0 | 100 | GFS |
-| 20h |  |  |  |  |  |  | 0 | 1 | 315° NO | 0.0 | 100 | GFS |
-| 21h |  |  |  |  |  |  | 1 | 1 | 34° NE | 0.0 | 100 | GFS |
-| 22h |  |  |  |  |  |  | 1 | 1 | 59° ENE | 0.0 | 100 | GFS |
-| 23h |  |  |  |  |  |  | 1 | 1 | 90° E | 0.0 | 100 | GFS |
+| 00h | 2 | 10 | 325° NO | 0.0 | 86 | IFS | 3 | 2 | 347° NNO | 0.0 | 100 | GFS |
+| 01h | 2 | 11 | 327° NNO | 0.0 | 88 | IFS | 2 | 2 | 346° NNO | 0.0 | 100 | GFS |
+| 02h | 3 | 11 | 330° NNO | 0.0 | 90 | IFS | 3 | 2 | 352° N | 0.2 | 100 | GFS |
+| 03h | 4 | 12 | 332° NNO | 0.0 | 93 | IFS | 3 | 4 | 360° N | 0.2 | 100 | GFS |
+| 04h | 5 | 13 | 334° NNO | 0.0 | 95 | IFS | 4 | 4 | 360° N | 0.2 | 100 | GFS |
+| 05h | 6 | 14 | 335° NNO | 0.0 | 97 | IFS | 4 | 4 | 354° N | 0.2 | 100 | GFS |
+| 06h | 6 | 15 | 336° NNO | 0.0 | 99 | IFS | 3 | 3 | 343° NNO | 0.2 | 100 | GFS |
+| 07h | 7 | 16 | 337° NNO | 0.0 | 100 | IFS | 3 | 3 | 336° NNO | 0.2 | 100 | GFS |
+| 08h | 8 | 16 | 338° NNO | 0.0 | 100 | IFS | 4 | 4 | 344° NNO | 0.1 | 100 | GFS |
+| 09h | 8 | 17 | 340° NNO | 0.0 | 99 | IFS | 4 | 5 | 357° N | 0.1 | 100 | GFS |
+| 10h | 8 | 18 | 341° NNO | 0.0 | 98 | IFS | 4 | 6 | 3° N | 0.1 | 100 | GFS |
+| 11h | 8 | 18 | 343° NNO | 0.0 | 97 | IFS | 4 | 5 | 357° N | 0.0 | 100 | GFS |
+| 12h | 8 | 19 | 343° NNO | 0.0 | 96 | IFS | 4 | 5 | 348° NNO | 0.0 | 100 | GFS |
+| 13h | 8 | 19 | 344° NNO | 0.0 | 95 | IFS | 4 | 4 | 338° NNO | 0.0 | 100 | GFS |
+| 14h |  |  |  |  |  |  | 4 | 5 | 335° NNO | 0.1 | 100 | GFS |
+| 15h |  |  |  |  |  |  | 4 | 5 | 332° NNO | 0.1 | 100 | GFS |
+| 16h |  |  |  |  |  |  | 4 | 6 | 333° NNO | 0.1 | 100 | GFS |
+| 17h |  |  |  |  |  |  | 4 | 6 | 335° NNO | 0.0 | 100 | GFS |
+| 18h |  |  |  |  |  |  | 4 | 6 | 339° NNO | 0.0 | 100 | GFS |
+| 19h |  |  |  |  |  |  | 5 | 6 | 341° NNO | 0.0 | 100 | GFS |
+| 20h |  |  |  |  |  |  | 5 | 6 | 344° NNO | 0.0 | 100 | GFS |
+| 21h |  |  |  |  |  |  | 5 | 6 | 344° NNO | 0.0 | 99 | GFS |
+| 22h |  |  |  |  |  |  | 5 | 6 | 345° NNO | 0.0 | 99 | GFS |
+| 23h |  |  |  |  |  |  | 5 | 7 | 341° NNO | 0.0 | 100 | GFS |
+
+## dim. 06/12/2026 — heure par heure
+
+| Heure | AROMEIFS moy. | AROMEIFS raf. | AROMEIFS dir. | AROMEIFS pluie | AROMEIFS nuages | AROMEIFS modèle | ICONGFS moy. | ICONGFS raf. | ICONGFS dir. | ICONGFS pluie | ICONGFS nuages | ICONGFS modèle |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 00h |  |  |  |  |  |  | 6 | 8 | 337° NNO | 0.0 | 100 | GFS |
+| 01h |  |  |  |  |  |  | 6 | 8 | 331° NNO | 0.0 | 100 | GFS |
+| 02h |  |  |  |  |  |  | 6 | 8 | 325° NO | 0.0 | 94 | GFS |
+| 03h |  |  |  |  |  |  | 6 | 8 | 318° NO | 0.0 | 84 | GFS |
+| 04h |  |  |  |  |  |  | 6 | 9 | 311° NO | 0.0 | 71 | GFS |
+| 05h |  |  |  |  |  |  | 6 | 10 | 304° NO | 0.0 | 50 | GFS |
+| 06h |  |  |  |  |  |  | 6 | 12 | 298° ONO | 0.0 | 25 | GFS |
+| 07h |  |  |  |  |  |  | 6 | 15 | 302° ONO | 0.0 | 7 | GFS |
+| 08h |  |  |  |  |  |  | 7 | 18 | 323° NO | 0.0 | 3 | GFS |
+| 09h |  |  |  |  |  |  | 10 | 21 | 340° NNO | 0.0 | 6 | GFS |
+| 10h |  |  |  |  |  |  | 12 | 23 | 348° NNO | 0.0 | 9 | GFS |
+| 11h |  |  |  |  |  |  | 14 | 24 | 351° N | 0.0 | 10 | GFS |
+| 12h |  |  |  |  |  |  | 15 | 24 | 351° N | 0.0 | 12 | GFS |
+| 13h |  |  |  |  |  |  | 16 | 24 | 352° N | 0.0 | 13 | GFS |
